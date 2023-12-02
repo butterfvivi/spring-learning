@@ -1,0 +1,10 @@
+server:
+  port: 1001
+spring:
+  application:
+    name: nacos-discovery-demo
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 119.3.188.100:8848
