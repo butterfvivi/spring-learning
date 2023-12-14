@@ -6,4 +6,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:2000
+          issuer-uri: http://127.0.0.1:2000
+
+  main:
+    allow-bean-definition-overriding: true

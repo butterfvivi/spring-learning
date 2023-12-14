@@ -13,11 +13,7 @@ spring:
       routes:
         #一份设定
         - id: route1   #唯一标识
-          uri: lb://nacos-discovery-demo  #访问的路径，lb://负载均衡访问固定写法，通过负载均衡调取所有设定中的一份
+          uri: lb://nacos-discovery-provider  #访问的路径，lb://负载均衡访问固定写法，通过负载均衡调取所有设定中的一份
           predicates: #谓词，判断，是否匹配。用户请求的路径是否与...进行匹配，如果匹配则可以访问，否则就404
             - Path=/provider/**,/index/**
-        - id: route2
-          uri: lb://nacos-discovery-provider
-          predicates:
-            - Path=/test*/**
 

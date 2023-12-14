@@ -13,6 +13,7 @@
         <module>spring-oauth2-resource-server</module>
         <module>spring-oauth2-server</module>
         <module>spring-oauth2-client</module>
+        <module>oauth2-client-simple</module>
     </modules>
 
     <properties>

@@ -9,8 +9,14 @@ import java.time.LocalDateTime;
 @RestController
 public class OAuth2ResourceController {
 
-    @GetMapping("/resource")
-    public String home(HttpServletRequest request, Authentication authentication) {
+//    @GetMapping("/")
+//    public String home() {
+//        LocalDateTime time = LocalDateTime.now();
+//        return "Welcome Resource Server! - " + time;
+//    }
+
+    @GetMapping("/")
+    public String home(Authentication authentication) {
         LocalDateTime time = LocalDateTime.now();
         return "Welcome ResourceServer! - " + time + "<br>" + authentication.getName() + " - " + authentication.getAuthorities();
     }
