@@ -12,16 +12,16 @@
     <modules>
         <module>spring-cloud-consumer</module>
         <module>spring-cloud-biz</module>
-        <module>nacos-gateway</module>
-        <module>nacos-gateway/nacos-gateway-provider</module>
-        <module>nacos-gateway/nacos-gateway-discovery</module>
+        <module>nacos-demo</module>
+        <module>nacos-demo/nacos-gateway-provider</module>
+        <module>nacos-demo/nacos-gateway-discovery</module>
     </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.1.6</version>
-        <relativePath/>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
@@ -33,6 +33,7 @@
         <spring-cloud.version>2022.0.4</spring-cloud.version>
         <lombok.version>1.18.30</lombok.version>
         <fastjson.version>2.0.42</fastjson.version>
+        <httpclient.version>4.5</httpclient.version>
         <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
     </properties>
 
@@ -69,6 +70,11 @@
                 <version>${lombok.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -1,8 +1,14 @@
 server:
-  port: 9001
+  port: 3001
 spring:
   application:
-    name: consumer
+    name: consumer-service
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 119.3.188.100:8848
+        service: consumer-service
 
 management:
   endpoint:

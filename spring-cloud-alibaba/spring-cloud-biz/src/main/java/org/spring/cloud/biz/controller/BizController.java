@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class BizController {
 
     @GetMapping("/")
-    public String demo1(HttpServletRequest request) {
+    public String demo1() {
         return "hello";
     }
 
-    @GetMapping("/user")
+    @GetMapping("/findAll")
     public String demo2() {
         return "user";
     }
