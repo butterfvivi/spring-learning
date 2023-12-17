@@ -1,6 +1,0 @@
-spring:
-  cloud:
-    nacos:
-      server-addr: http://119.3.188.100:8848/
-      discovery:
-        group: dev

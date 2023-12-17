@@ -55,4 +55,9 @@ public class ConsumerController {
     public void nacosServiceShutDown() throws NacosException {
         nacosServiceManager.nacosServiceShutDown();
     }
+
+    @GetMapping("/requestRoutes")
+    public String requestRoutes(String body) {
+        return body;
+    }
 }

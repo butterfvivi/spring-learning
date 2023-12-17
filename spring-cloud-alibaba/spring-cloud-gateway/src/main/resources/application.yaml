@@ -11,20 +11,18 @@ spring:
 #        #port: 8480
     nacos:
       discovery:
-        # ??????
         server-addr: 119.3.188.100:8848
         service: service-gateway
     gateway:
       discovery:
         locator:
           enabled: true
-      #gateway ????????
+      #gateway
       routes:
-        #????
-        - id: consumer-service   #????
-          uri: lb://consumer-service  #??????lb://???????????????????????????
-          predicates: #?????????????????????...??????????????????404
-            - Path=/api/consumer/**
+#        - id: consumer-service
+#          uri: lb://consumer-service
+#          predicates:
+#            - Path=/api/consumer/**
 #        - id: biz-service
 #          uri: http://localhost:3002/biz-service
 #          predicates:
@@ -33,10 +31,10 @@ spring:
           uri: lb://biz-service
           predicates:
             - Path=/api/biz/**
-logging:
-  level:
-    org.springframework.cloud.gateway: trace
-    org.springframework.http.server.reactive: trace
-    org.springframework.web.reactive: trace
-    org.springframework.boot.autoconfigure.web: trace
-    reactor.netty: trace
+#logging:
+#  level:
+#    org.springframework.cloud.gateway: trace
+#    org.springframework.http.server.reactive: trace
+#    org.springframework.web.reactive: trace
+#    org.springframework.boot.autoconfigure.web: trace
+#    reactor.netty: trace
