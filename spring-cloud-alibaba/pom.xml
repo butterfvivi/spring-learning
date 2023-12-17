@@ -15,6 +15,7 @@
         <module>nacos-demo</module>
         <module>nacos-demo/nacos-gateway-provider</module>
         <module>nacos-demo/nacos-gateway-discovery</module>
+        <module>spring-cloud-config</module>
     </modules>
 
     <parent>

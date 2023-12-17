@@ -1,0 +1,11 @@
+server:
+  port: 3000
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: Iv1.4d5d86d9ff53bdda
+            client-secret: b16d88950111509ebec78e4f4944f31afd27362e
+

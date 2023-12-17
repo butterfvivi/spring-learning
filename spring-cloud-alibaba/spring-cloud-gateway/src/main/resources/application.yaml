@@ -1,0 +1,42 @@
+server:
+  port: 3000
+
+spring:
+  application:
+    name: service-gateway
+  cloud:
+#    sentinel:
+#      transport:
+#        dashboard: http://119.3.188.100:8480
+#        #port: 8480
+    nacos:
+      discovery:
+        # ??????
+        server-addr: 119.3.188.100:8848
+        service: service-gateway
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      #gateway ????????
+      routes:
+        #????
+        - id: consumer-service   #????
+          uri: lb://consumer-service  #??????lb://???????????????????????????
+          predicates: #?????????????????????...??????????????????404
+            - Path=/api/consumer/**
+#        - id: biz-service
+#          uri: http://localhost:3002/biz-service
+#          predicates:
+#            - Path=/api/biz/**
+        - id: biz-service
+          uri: lb://biz-service
+          predicates:
+            - Path=/api/biz/**
+logging:
+  level:
+    org.springframework.cloud.gateway: trace
+    org.springframework.http.server.reactive: trace
+    org.springframework.web.reactive: trace
+    org.springframework.boot.autoconfigure.web: trace
+    reactor.netty: trace
