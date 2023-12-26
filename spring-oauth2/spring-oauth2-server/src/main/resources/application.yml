@@ -1,12 +1,21 @@
 server:
   port: 2000
 spring:
+  application:
+    name: oauth2-server
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://119.3.188.100:3306/oauth2_simple?useSSL=false
     username: root
     password: wtf0010.
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 119.3.188.100:8848
+        service: oauth2-server
+
   mybatis-plus:
     configuration:
       log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

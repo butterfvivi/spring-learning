@@ -1,13 +1,13 @@
-//package org.spring.oauth2.client.config;
+//package org.spring.oauth2.client.org.oauth2.security.gateway.config;
 //
-//import static org.springframework.security.config.Customizer.withDefaults;
+//import static org.springframework.security.org.oauth2.security.gateway.config.Customizer.withDefaults;
 //
 //import com.nimbusds.jwt.JWT;
 //import com.nimbusds.jwt.JWTClaimsSet;
 //import com.nimbusds.jwt.JWTParser;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.org.oauth2.security.gateway.config.annotation.web.builders.HttpSecurity;
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
 //import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
@@ -23,9 +23,9 @@
 //import org.springframework.security.web.SecurityFilterChain;
 //
 //import java.text.ParseException;
-//import java.util.Collection;
-//import java.util.HashSet;
-//import java.util.Set;
+//import java.org.oauth2.security.gateway.util.Collection;
+//import java.org.oauth2.security.gateway.util.HashSet;
+//import java.org.oauth2.security.gateway.util.Set;
 //
 //@Configuration
 //public class SecurityConfig {

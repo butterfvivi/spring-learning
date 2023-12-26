@@ -2,11 +2,19 @@ server:
   port: 2001
 
 spring:
+  application:
+    name: oauth2-client
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://127.0.0.1:2000
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 119.3.188.100:8848
+        service: oauth2-client
 
   main:
     allow-bean-definition-overriding: true

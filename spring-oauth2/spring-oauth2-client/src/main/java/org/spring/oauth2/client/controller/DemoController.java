@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DemoController {
 
-    @GetMapping("/")
-    public String welcome() {
-
-        return "<h1>Welcome!</h1>";
-    }
+//    @GetMapping("/")
+//    public String welcome() {
+//
+//        return "<h1>Welcome!</h1>";
+//    }
 
 //    @RequestMapping(path = "/hello")
 //    public String hello() {

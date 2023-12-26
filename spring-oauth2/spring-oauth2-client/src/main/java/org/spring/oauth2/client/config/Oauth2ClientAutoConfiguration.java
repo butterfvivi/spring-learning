@@ -1,10 +1,10 @@
-//package org.spring.oauth2.client.config;
+//package org.spring.oauth2.client.org.oauth2.security.gateway.config;
 //
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.config.http.SessionCreationPolicy;
+//import org.springframework.security.org.oauth2.security.gateway.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.org.oauth2.security.gateway.config.annotation.web.configuration.EnableWebSecurity;
+//import org.springframework.security.org.oauth2.security.gateway.config.http.SessionCreationPolicy;
 //import org.springframework.security.web.SecurityFilterChain;
 //
 //@Configuration

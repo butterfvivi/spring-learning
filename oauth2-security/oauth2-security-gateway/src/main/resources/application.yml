@@ -1,0 +1,25 @@
+server:
+  port: 6000
+
+spring:
+  application:
+    name: oauth2-security-gateway
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 119.3.188.100:8848
+        service: oauth2-security-gateway
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: oauth2-security-client
+          uri: lb://oauth2-security-client
+          predicates:
+            - Path=/api/client/**
+        - id: oauth2-security-server
+          uri: lb://oauth2-security-server
+          predicates:
+            - Path=/api/auth/**

@@ -43,6 +43,7 @@ spring-cloud-alibaba-parent
 
 
 
+
 ![img.png](spring-oauth2/oauth2-client-simple/img.png)
 * [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
 * [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.2.0/maven-plugin/reference/html/)
