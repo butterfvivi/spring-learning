@@ -1,0 +1,20 @@
+server:
+  port: 6002
+
+spring:
+  application:
+    name: oauth2-security-client
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 119.3.188.100:8848
+        service: oauth2-security-client
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://127.0.0.1:6001/oauth2/jwks

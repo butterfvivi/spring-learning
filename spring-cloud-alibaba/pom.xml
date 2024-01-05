@@ -9,15 +9,6 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <modules>
-        <module>spring-cloud-consumer</module>
-        <module>spring-cloud-biz</module>
-        <module>nacos-demo</module>
-        <module>nacos-demo/nacos-gateway-provider</module>
-        <module>nacos-demo/nacos-gateway-discovery</module>
-        <module>spring-cloud-config</module>
-    </modules>
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
