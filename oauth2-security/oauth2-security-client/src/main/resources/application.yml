@@ -1,5 +1,5 @@
 server:
-  port: 6002
+  port: 9000
 
 spring:
   application:
@@ -15,6 +15,34 @@ spring:
       matching-strategy: ant_path_matcher
   security:
     oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: http://127.0.0.1:6001/oauth2/jwks
+#      resourceserver:
+#        jwt:
+#          jwk-set-uri: http://127.0.0.1:6001/oauth2/jwks
+      client:
+        registration:
+          gitee:
+            clientId: fc0338b8fab5ec4faffb0f6d0ea57236229dcb9bd0eb2a5bbf8ce925b8d9612c
+            clientSecret: 692c6c15d65e65c3be7c90d076bdb8df8bd2fcd25f6d217ba9e941ba051e6f8a
+            redirectUri: http://localhost:9000/oauth2/authorization/gitee
+            authorization-grant-type: authorization_code
+            client-name: oauth_client_test01
+            scope:
+              - emails
+              - projects
+              - user_info
+#            clientId: 4f51bea1435fa7c6e5115ffb332290a0ffc3added5d0305c2ee8eb0e5f973106
+#            clientSecret: 0b09009cd468105588c1185cfb2af831e11f78d715e36ca31c8ecee53be40d2c
+#            redirectUri: http://localhost:9000/sso/callback
+#            authorization-grant-type: authorization_code
+#            client-name: oauth_client_test
+        provider:
+          gitee:
+            authorizationUri: https://gitee.com/oauth/authorize
+            tokenUri: https://gitee.com/oauth/token
+            userInfoUri: https://gitee.com/api/v5/user
+            user-name-attribute: name
+
+logging:
+  level:
+    org.springframework.security: debug
+

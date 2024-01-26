@@ -1,4 +1,4 @@
-package org.oauth2.security.system;
+package org.oauth2.security.client;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
