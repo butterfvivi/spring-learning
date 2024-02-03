@@ -25,11 +25,14 @@ spring:
             clientSecret: 692c6c15d65e65c3be7c90d076bdb8df8bd2fcd25f6d217ba9e941ba051e6f8a
             redirectUri: http://localhost:9000/oauth2/authorization/gitee
             authorization-grant-type: authorization_code
-            client-name: oauth_client_test01
-            scope:
-              - emails
-              - projects
-              - user_info
+            client-name: gitee
+            #client-name: oauth_client_test01
+            #scope:
+            #  - user_info
+          github:
+            #client-name: oauth2-github-test
+            client-id: 06ccecd5bc0bfbc1f57a
+            client-secret: 224425a750feaeecebe433187724bb3cc1acc695
 #            clientId: 4f51bea1435fa7c6e5115ffb332290a0ffc3added5d0305c2ee8eb0e5f973106
 #            clientSecret: 0b09009cd468105588c1185cfb2af831e11f78d715e36ca31c8ecee53be40d2c
 #            redirectUri: http://localhost:9000/sso/callback
