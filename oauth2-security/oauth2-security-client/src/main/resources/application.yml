@@ -14,6 +14,12 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
   security:
+    user:
+      name: lh0811
+      password: 123456
+      roles:
+        - ADMIN
+        - WORKER
     oauth2:
 #      resourceserver:
 #        jwt:
@@ -21,14 +27,15 @@ spring:
       client:
         registration:
           gitee:
-            clientId: fc0338b8fab5ec4faffb0f6d0ea57236229dcb9bd0eb2a5bbf8ce925b8d9612c
-            clientSecret: 692c6c15d65e65c3be7c90d076bdb8df8bd2fcd25f6d217ba9e941ba051e6f8a
-            redirectUri: http://localhost:9000/oauth2/authorization/gitee
+            client-id: fc0338b8fab5ec4faffb0f6d0ea57236229dcb9bd0eb2a5bbf8ce925b8d9612c
+            client-secret: 692c6c15d65e65c3be7c90d076bdb8df8bd2fcd25f6d217ba9e941ba051e6f8a
+            #redirect-uri: http://localhost:9000/oauth2/authorization/gitee
+            redirect-uri: http://localhost:9000/login/oauth2/code/gitee
             authorization-grant-type: authorization_code
             client-name: gitee
             #client-name: oauth_client_test01
-            #scope:
-            #  - user_info
+            scope:
+              - user_info
           github:
             #client-name: oauth2-github-test
             client-id: 06ccecd5bc0bfbc1f57a
@@ -40,9 +47,9 @@ spring:
 #            client-name: oauth_client_test
         provider:
           gitee:
-            authorizationUri: https://gitee.com/oauth/authorize
-            tokenUri: https://gitee.com/oauth/token
-            userInfoUri: https://gitee.com/api/v5/user
+            authorization-uri: https://gitee.com/oauth/authorize
+            token-uri: https://gitee.com/oauth/token
+            user-info-uri: https://gitee.com/api/v5/user
             user-name-attribute: name
 
 logging:

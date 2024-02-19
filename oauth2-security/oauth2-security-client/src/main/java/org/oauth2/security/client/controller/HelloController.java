@@ -2,6 +2,7 @@ package org.oauth2.security.client.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,4 +34,10 @@ public class HelloController {
         String code = request.getParameter("code");
         return code;
     }
+
+    @GetMapping("/user_info")
+    public Object userInfo() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
+
 }
