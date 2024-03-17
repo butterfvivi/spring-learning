@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.3</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>org.spring.jimu</groupId>
+    <artifactId>JimuReport-example</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>JimuReport-example</name>
+
+    <properties>
+        <java.version>17</java.version>
+        <jimureport.version>1.7.2-beta</jimureport.version>
+        <mysql-connector-java.version>8.0.27</mysql-connector-java.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!-- JimuReport -->
+        <dependency>
+            <groupId>org.jeecgframework.jimureport</groupId>
+            <artifactId>jimureport-spring-boot-starter</artifactId>
+            <version>${jimureport.version}</version>
+        </dependency>
+
+        <!--mysql-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+    </dependencies>
+
+
+    <repositories>
+        <repository>
+            <id>aliyun</id>
+            <name>aliyun Repository</name>
+            <url>https://maven.aliyun.com/nexus/content/groups/public</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+<!--        <repository>-->
+<!--            <id>jeecg</id>-->
+<!--            <name>jeecg Repository</name>-->
+<!--            <url>https://maven.jeecg.org/nexus/content/repositories/jeecg</url>-->
+<!--            <snapshots>-->
+<!--                <enabled>false</enabled>-->
+<!--            </snapshots>-->
+<!--        </repository>-->
+    </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
