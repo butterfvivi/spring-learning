@@ -1,4 +1,4 @@
-package org.spring.jimu.jimureportexample;
+package org.spring.jimu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

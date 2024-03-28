@@ -1,4 +1,4 @@
-package org.spring.jimu.jimureportexample.service;
+package org.spring.jimu.service;
 
 
 import org.springframework.context.annotation.Configuration;

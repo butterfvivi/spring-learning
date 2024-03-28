@@ -1,4 +1,4 @@
-package org.spring.jimu.jimureportexample.controller;
+package org.spring.jimu.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

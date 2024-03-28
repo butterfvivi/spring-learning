@@ -1,4 +1,4 @@
-package org.spring.jimu.jimureportexample.controller;
+package org.spring.jimu.controller;
 
 
 import jakarta.servlet.http.HttpServletRequest;
