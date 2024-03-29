@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: xxl-job-simple
+
+
