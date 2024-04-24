@@ -22,7 +22,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/consumer")
+@RequestMapping("/api/v1/consumer")
 public class ConsumerController {
 
     private final DiscoveryClient discoveryClient;

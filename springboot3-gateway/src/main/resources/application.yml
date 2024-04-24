@@ -1,0 +1,50 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: springboot3-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 119.3.188.100:8848
+        service: springboot3-gateway
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: biz-service
+          uri: lb://biz-service
+          predicates:
+            - Path=/api/v1/biz/**,/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+        - id: consumer-service
+          uri: lb://consumer-service
+          predicates:
+            - Path=/api/v1/consumer/**,/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+knife4j:
+  gateway:
+    enabled: true
+    strategy: discover
+    discover:
+      version: openapi3
+      enabled: true
+springdoc:
+  api-docs:
+    #是否开启文档功能，默认为true，可不配置
+    enabled: true
+#  webjars:
+#    # 设置为空，不要前缀
+#    prefix:
+  swagger-ui:
+    urls:
+#      - name: gateway
+#        url: /v3/api-docs
+      - name: biz-service
+        url: /v3/api-docs
+      - name: consumer-service
+        url: /v3/api-docs
