@@ -2,12 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.4</version>
+        <version>3.2.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
 
     <groupId>org.vivi.spring3</groupId>
     <artifactId>springboot3-gateway</artifactId>
@@ -30,6 +32,7 @@
         <!-- api doc -->
         <knife4j.version>4.1.0</knife4j.version>
         <swagger.version>2.1.0</swagger.version>
+        <spring.doc.version>2.5.0</spring.doc.version>
     </properties>
 
     <dependencyManagement>
@@ -97,13 +100,14 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webflux-api</artifactId>
-            <version>2.2.0</version>
+            <version>${spring.doc.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
-            <version>2.2.0</version>
+            <version>${spring.doc.version}</version>
+
         </dependency>
 
 
