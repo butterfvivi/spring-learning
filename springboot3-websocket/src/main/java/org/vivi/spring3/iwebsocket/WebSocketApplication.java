@@ -1,8 +1,8 @@
-package org.vivi.spring3.websocket;
+package org.vivi.spring3.iwebsocket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 public class WebSocketApplication {

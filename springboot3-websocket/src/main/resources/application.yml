@@ -1,12 +1,29 @@
 server:
   port: 7000
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+    context-path: /socket
 
 spring:
-  thymeleaf:
-    mode: HTML
-    cache: true
-    prefix: classpath:/templates/
-    encoding: UTF-8
+  application:
+    name: springboot3-websocket
+  freemarker:
+    request-context-attribute: request
+    prefix: /templates/
     suffix: .html
-    check-template-location: true
-    template-resolver-order: 1
+    content-type: text/html
+    enabled: true
+    cache: false
+    charset: UTF-8
+    allow-request-override: false
+    expose-request-attributes: true
+    expose-session-attributes: true
+    expose-spring-macro-helpers: true
+
+# Logger Config
+logging:
+  level:
+    org.vivi.spring3: debug
+
