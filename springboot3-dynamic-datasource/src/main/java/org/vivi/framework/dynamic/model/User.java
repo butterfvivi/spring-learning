@@ -1,10 +1,10 @@
-package org.vivi.framework.database.model;
+package org.vivi.framework.dynamic.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
-@TableName(value = "t_user")
+@TableName(value = "user")
 public class User {
 
     private Long id;
