@@ -1,6 +1,8 @@
-package org.vivi.framework.easyexcelsimple.model;
+package org.vivi.framework.easyexcelsimple.model.entity;
 
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 public class User {
@@ -12,4 +14,9 @@ public class User {
     private String userName;
 
     private String mobile;
+
+    private Integer gender;
+
+    private LocalDateTime createTime;
 }
+
