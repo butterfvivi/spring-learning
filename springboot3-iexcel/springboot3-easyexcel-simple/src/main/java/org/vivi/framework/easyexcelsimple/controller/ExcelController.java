@@ -1,5 +1,6 @@
 package org.vivi.framework.easyexcelsimple.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,8 +64,10 @@ public class ExcelController {
     }
 
     @PostMapping(value = "/export")
-    public void exportExcel(){
-
+    public void exportExcel(HttpServletResponse response){
+        long start = System.currentTimeMillis();
+        EasyExcelUtils.writeExcel(response, ("User-" + start), "Sheet1", userService.getAllUser());
+        log.info("导出数据耗时:{} ms", System.currentTimeMillis() - start);
     }
 
     @PostMapping(value = "/dowload")

@@ -17,4 +17,9 @@ public class UserService extends ServiceImpl<UserMapper,User>   {
         List<User> orderList = BeanTransformUtils.transformList(list, User.class);
         this.saveBatch(orderList);
     }
+
+    public List<UserDto> getAllUser() {
+        List<User> list = this.list();
+        return BeanTransformUtils.transformList(list, UserDto.class);
+    }
 }
