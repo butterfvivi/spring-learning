@@ -1,10 +1,12 @@
 package org.vivi.framework.easyexcelsimple.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
+@TableName("user")
 public class User {
 
     private Long id;

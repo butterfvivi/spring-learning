@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.1</version>
+        <version>3.1.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.vivi.framework</groupId>
@@ -19,6 +19,7 @@
         <easyexcel.version>3.3.4</easyexcel.version>
         <knife4j.version>4.3.0</knife4j.version>
         <hutool.version>5.8.28</hutool.version>
+        <mybatisplus.version>3.5.6</mybatisplus.version>
     </properties>
     <dependencies>
         <dependency>
@@ -59,6 +60,13 @@
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
             <version>${easyexcel.version}</version>
+        </dependency>
+
+        <!-- mybatisplus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatisplus.version}</version>
         </dependency>
 
         <dependency>
