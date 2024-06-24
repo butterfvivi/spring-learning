@@ -1,5 +1,7 @@
 package org.vivi.framework.redis.controller;
 
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,9 +35,10 @@ public class HelloController {
      * 读取redis
      */
     @RequestMapping("/get")
-    public void getRedis() {
+    public String getRedis() {
         User vo = redisCache.getValue("user:1001");
         System.out.println(vo);
+        return JSONUtil.toJsonStr(vo);
     }
 }
 
