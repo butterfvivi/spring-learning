@@ -1,5 +1,27 @@
 spring:
   application:
     name: xxl-job-simple
+# Xxl-Job分布式定时任务调度中心
+xxl:
+  job:
+    admin:
+      # 调度中心服务地址
+      addresses: http://192.168.100.131:8088/xxl-job-admin
+    # 执行器通讯TOKEN [选填]：非空时启用 系统默认 default_token，与admin保持一致
+    accessToken:
+    executor:
+      address: ''
+      # 必须唯一 执行器名称
+      appname: springboot3-xxl-job
+      ip: ''
+      logpath: /opt/logs/xxl-job/
+      logretentiondays: 30
+      # 执行器回调端口,用于接受调度消息
+      port: 9998
 
-
+# Logger Config
+logging:
+  level:
+    org.vivi.spring3.xxl.job: debug
+server:
+  port: 8083
