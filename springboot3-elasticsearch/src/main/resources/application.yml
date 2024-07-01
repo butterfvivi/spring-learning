@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: springboot3-elasticsearch
+  elasticsearch:
+    rest:
+      # Elasticsearch实例,多个用逗号","分隔
+      uris: 192.168.100.131:9201
+      # 用户名
+      username:
+      # 密码
+      password:
+      # 连接超时时间
+      connection-timeout: 1s
+      # 读取超时时间
+      read-timeout: 30s
