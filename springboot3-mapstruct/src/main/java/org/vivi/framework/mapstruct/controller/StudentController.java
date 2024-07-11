@@ -1,7 +1,6 @@
 package org.vivi.framework.mapstruct.controller;
 
 import com.alibaba.fastjson2.JSON;
-import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +15,6 @@ import java.util.Map;
 @RequestMapping
 public class StudentController {
 
-    @Resource
-    private GradeMapper gradeMapper;
-
     @GetMapping("/mapConvert")
     public String mapConvert() {
         Map<String, Grade> map = new HashMap<String, Grade>(8) {{
@@ -26,7 +22,7 @@ public class StudentController {
             put("2", Grade.builder().id(2).gradeName("二年级").build());
         }};
 
-        Map<String, GradeVO> dtoMap = gradeMapper.mapConvert(map);
+        Map<String, GradeVO> dtoMap = GradeMapper.INSTANCE.mapConvert(map);
         String result = JSON.toJSONString(dtoMap);
         return result;
     }
