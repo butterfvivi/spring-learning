@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: springboot3-security-jwt
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/springboot3_demo
+    username: root
+    password: wtf0010.
+
+# Logger Config
+logging:
+  level:
+    org.vivi.framework.securityjwt: debug
