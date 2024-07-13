@@ -18,9 +18,9 @@ import java.util.Map;
 
 @Component
 @Slf4j
-public class JwtUtil {
+public class JwtTokenProvider {
 
-    private static final String SECRET = "demoandtest";
+    private static final String SECRET = "demoandtestyyyymmmdddsssoooaaaeenwnsbdjfkvmdjdcnsksmcjdjvndjcmsnhsbcjdnsmcjsnhfklbmicjsia";
 
     private static final long EXPIRE = 60 * 24 * 7;
 
@@ -78,7 +78,7 @@ public class JwtUtil {
     }
 
     public static void main(String[] args) {
-        JwtUtil jwtUtil = new JwtUtil();
+        JwtTokenProvider jwtUtil = new JwtTokenProvider();
         String token = jwtUtil.generateToken("admin");
         System.out.println("token = " + token);
 

@@ -11,7 +11,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Component;
 import org.vivi.framework.securityjwt.common.response.R;
-import org.vivi.framework.securityjwt.jwt.util.JwtUtil;
+import org.vivi.framework.securityjwt.jwt.util.JwtTokenProvider;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -26,7 +26,7 @@ public class JwtLogoutSuccessHandler implements LogoutSuccessHandler {
         }
 
         response.setContentType("application/json;charset=UTF-8");
-        response.setHeader(JwtUtil.HEADER, "");
+        response.setHeader(JwtTokenProvider.HEADER, "");
         SecurityContextHolder.clearContext();
 
         R result = R.failed("Success Logout");

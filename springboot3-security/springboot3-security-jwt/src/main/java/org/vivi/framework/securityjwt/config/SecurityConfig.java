@@ -58,6 +58,7 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 //禁用csrf

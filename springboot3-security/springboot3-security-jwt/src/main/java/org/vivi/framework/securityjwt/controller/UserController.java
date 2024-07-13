@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.vivi.framework.securityjwt.common.response.R;
-import org.vivi.framework.securityjwt.jwt.util.JwtUtil;
+import org.vivi.framework.securityjwt.jwt.util.JwtTokenProvider;
 import org.vivi.framework.securityjwt.model.entity.User;
 import org.vivi.framework.securityjwt.model.req.UserLoginRequest;
 import org.vivi.framework.securityjwt.service.UserService;
 
 @RestController
-@RequestMapping(path = "/user", produces = "application/json;charset=utf-8")
+@RequestMapping( "/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     @Resource
-    private JwtUtil jwtUtil;
+    private JwtTokenProvider jwtUtil;
 
     @RequestMapping("/login")
     public R login(@RequestBody @Validated UserLoginRequest userLoginRequest, HttpServletResponse response) {
@@ -39,13 +39,13 @@ public class UserController {
             return R.failed("用户名不存在");
         }
 
-        if (user.getPassword().equals(password)){
+        if (!user.getPassword().equals(password)){
             return R.failed("密码错误");
         }
 
         String token = jwtUtil.generateToken(username);
-        response.setHeader("Access-control-Expost-Headers", JwtUtil.HEADER);
-        response.setHeader(JwtUtil.HEADER,token);
+        response.setHeader("Access-control-Expost-Headers", JwtTokenProvider.HEADER);
+        response.setHeader(JwtTokenProvider.HEADER,token);
 
         return R.ok();
     }

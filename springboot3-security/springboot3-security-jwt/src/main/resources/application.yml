@@ -1,6 +1,18 @@
 spring:
   application:
     name: springboot3-security-jwt
+  freemarker:
+    request-context-attribute: request
+    prefix: /templates/
+    suffix: .html
+    content-type: text/html
+    enabled: true
+    cache: false
+    charset: UTF-8
+    allow-request-override: false
+    expose-request-attributes: true
+    expose-session-attributes: true
+    expose-spring-macro-helpers: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/springboot3_demo
@@ -11,3 +23,6 @@ spring:
 logging:
   level:
     org.vivi.framework.securityjwt: debug
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

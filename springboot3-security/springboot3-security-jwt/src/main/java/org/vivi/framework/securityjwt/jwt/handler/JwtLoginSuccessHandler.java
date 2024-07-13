@@ -10,7 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.vivi.framework.securityjwt.common.response.R;
-import org.vivi.framework.securityjwt.jwt.util.JwtUtil;
+import org.vivi.framework.securityjwt.jwt.util.JwtTokenProvider;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 public class JwtLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     @Resource
-    private JwtUtil jwtUtil;
+    private JwtTokenProvider jwtUtil;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -28,7 +28,7 @@ public class JwtLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         // 生成token，并放置到请求头中
         String token = jwtUtil.generateToken(authentication.getName());
-        response.setHeader(JwtUtil.HEADER, token);
+        response.setHeader(JwtTokenProvider.HEADER, token);
 
         R result = R.failed("Success Logout");
 

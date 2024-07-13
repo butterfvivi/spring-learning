@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@TableName
+@TableName("t_user")
 public class User implements Serializable {
 
     private Integer id;

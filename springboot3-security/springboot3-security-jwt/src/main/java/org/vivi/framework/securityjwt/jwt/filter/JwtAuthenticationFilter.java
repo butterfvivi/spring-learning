@@ -16,7 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.vivi.framework.securityjwt.common.constant.CommonConstants;
 import org.vivi.framework.securityjwt.common.exception.BaseException;
 import org.vivi.framework.securityjwt.jwt.user.AccountUserDetailsService;
-import org.vivi.framework.securityjwt.jwt.util.JwtUtil;
+import org.vivi.framework.securityjwt.jwt.util.JwtTokenProvider;
 
 import java.io.IOException;
 
@@ -25,7 +25,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Resource
-    private JwtUtil jwtUtil;
+    private JwtTokenProvider jwtUtil;
 
     @Autowired
     private AccountUserDetailsService accountUserDetailsService;
@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String token = request.getHeader(JwtUtil.HEADER);
+        String token = request.getHeader(JwtTokenProvider.HEADER);
 
         if (StrUtil.isBlankOrUndefined(token)) {
             filterChain.doFilter(request, response);
