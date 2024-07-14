@@ -18,6 +18,13 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/springboot3_demo
     username: root
     password: wtf0010.
+  data:
+    redis:
+      host: 192.168.100.131
+      port: 6379
+      database: 0
+      password: 123456
+      timeout: 3000ms
 
 # Logger Config
 logging:
@@ -26,3 +33,5 @@ logging:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+server:
+  port: 8888

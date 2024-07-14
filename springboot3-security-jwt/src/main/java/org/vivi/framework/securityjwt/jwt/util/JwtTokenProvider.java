@@ -1,6 +1,7 @@
 package org.vivi.framework.securityjwt.jwt.util;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import io.jsonwebtoken.Claims;
@@ -52,6 +53,15 @@ public class JwtTokenProvider {
                 .getPayload();
     }
 
+    public Integer getUsernameFromToken(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return Integer.valueOf(jwt.getSubject());
+        } catch (JWTDecodeException e) {
+            return null;
+        }
+    }
+
     /**
      * 检查token是否过期
      *
@@ -73,6 +83,29 @@ public class JwtTokenProvider {
             return jwt.getClaim(filed).asString();
         } catch (JWTDecodeException e){
             log.error("JwtUtil getClaimFiled error: ", e);
+            return null;
+        }
+    }
+
+    /*
+     * 刷新token
+     * */
+
+    public String refreshToken(String token,Long refreshTime) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            String username = jwt.getSubject();
+            Algorithm algorithm = Algorithm.HMAC256(SECRET);
+
+            Date now = new Date();
+            Date expiryDate = new Date(now.getTime() + refreshTime);
+
+            return JWT.create()
+                    .withSubject(username)
+                    .withIssuedAt(now)
+                    .withExpiresAt(expiryDate)
+                    .sign(algorithm);
+        } catch (JWTDecodeException e) {
             return null;
         }
     }

@@ -90,5 +90,5 @@ public interface CommonConstants {
 	 */
 	String REQUEST_START_TIME = "REQUEST-START-TIME";
 
-	static final String[] WHITELIST = {"/user/login", "/favicon.ico"};
+	String[] WHITELIST = {"/user/login", "/favicon.ico","/getCaptcha"};
 }

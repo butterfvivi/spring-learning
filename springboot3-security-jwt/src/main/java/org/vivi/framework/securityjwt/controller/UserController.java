@@ -1,26 +1,27 @@
 package org.vivi.framework.securityjwt.controller;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.alibaba.fastjson2.JSON;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.vivi.framework.securityjwt.common.response.R;
 import org.vivi.framework.securityjwt.jwt.util.JwtTokenProvider;
+import org.vivi.framework.securityjwt.model.entity.AccountUser;
 import org.vivi.framework.securityjwt.model.entity.User;
 import org.vivi.framework.securityjwt.model.req.UserLoginRequest;
 import org.vivi.framework.securityjwt.service.UserService;
 
 @RestController
 @RequestMapping( "/user")
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -28,6 +29,9 @@ public class UserController {
 
     @Resource
     private JwtTokenProvider jwtUtil;
+
+    @Autowired
+    private RedisTemplate<String,String> redisTemplate;
 
     @RequestMapping("/login")
     public R login(@RequestBody @Validated UserLoginRequest userLoginRequest, HttpServletResponse response) {
@@ -47,7 +51,7 @@ public class UserController {
         response.setHeader("Access-control-Expost-Headers", JwtTokenProvider.HEADER);
         response.setHeader(JwtTokenProvider.HEADER,token);
 
-        return R.ok();
+        return R.ok(token);
     }
 
     @GetMapping("/logout")
@@ -58,4 +62,15 @@ public class UserController {
         }
         return R.ok();
     }
+
+    @GetMapping("/info")
+    public R info(@RequestHeader("token")String token){
+
+        Integer id = jwtUtil.getUsernameFromToken(token);
+        String redisUser = redisTemplate.opsForValue().get(String.valueOf(id));
+        AccountUser accountUser = JSON.parseObject(redisUser, AccountUser.class);
+        return R.ok(accountUser);
+
+    }
+
 }
