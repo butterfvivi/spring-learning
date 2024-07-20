@@ -15,7 +15,8 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 
     public User getUserInfo(String username){
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<User>()
-                .eq(User::getUsername, username);
+                .eq(User::getUserName, username);
+
         return this.getBaseMapper().selectOne(queryWrapper);
     }
 }

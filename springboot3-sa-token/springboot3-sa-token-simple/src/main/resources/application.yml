@@ -6,10 +6,12 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/springboot3_demo
     username: root
     password: wtf0010.
+  data:
+    redis:
+      host: 127.0.0.1
+      password: 123456
 sa-token:
   token-name: X-token
   active-timeout: 3600
-  # token??????s ??30?, -1??????
   timeout: -1
-  # jwt??
   jwt-secret-key: qazwsxedc

@@ -33,7 +33,9 @@ public class SatokenConfiguration implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new SaInterceptor(handle -> {
                     // 登录拦截，放行白名单
-                    SaRouter.match("/**").notMatch(WHITE_LIST).check(r -> StpUtil.checkLogin());
+                    SaRouter.match("/**")
+                            .notMatch(WHITE_LIST)
+                            .check(r -> StpUtil.checkLogin());
 
                 }))
                 .addPathPatterns("/**");
