@@ -121,25 +121,6 @@ const Loginrules=reactive({
 
 })
 
-// const rememberMeLogin=async()=>{
-// if(rememberMe.rememberMe){
-
-// let data:any=await api.post('/user/rememberMe',loginFrom.value)
-// if(data.code===200){
-//   ElMessage.success('登录成功')
-//   router.replace({name:'layout'})
-// }else{
-//   ElMessage.error('登录失败')
-// }
-
-// }
-// }
-
-// onMounted(async()=>{
-
-//   rememberMeLogin()
-// })
-
 const registerForm=ref({
   username:'',
   password:''

@@ -5,7 +5,7 @@ server:
   port: 2001
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/easyfile
+    url: jdbc:mysql://127.0.0.1:3306/springboot3_demo
     username: root
     password: wtf0010.
     # druid 连接池管理
