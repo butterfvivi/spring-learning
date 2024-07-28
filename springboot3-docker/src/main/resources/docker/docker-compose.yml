@@ -326,4 +326,16 @@ services:
         --spring.datasource.password=wtf00100.
         --xxl.job.accessToken=Lpoms_xxljob_default_token'  #代码里面需要指定的token
 
+  postgres:
+    image: postgres:14.2
+    container_name: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - /docker/postgres/data:/var/lib/postgresql/data
+    network_mode: "host"
 
