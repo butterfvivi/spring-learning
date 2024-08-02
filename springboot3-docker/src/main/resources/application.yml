@@ -1,1 +1,3 @@
-spring.application.name=springboot3-docker
+spring:
+  application:
+    name: springboot3-docker

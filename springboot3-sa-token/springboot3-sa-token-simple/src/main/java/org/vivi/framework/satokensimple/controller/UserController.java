@@ -37,6 +37,7 @@ public class UserController {
             StpUtil.login(user.getId());
             String tokenValue = StpUtil.getTokenValue();
             redisTemplate.opsForValue().set(user.getId(), JSON.toJSONString(user),1, TimeUnit.DAYS);
+            //StpUtil.getTokenInfo();
             return SaResult.ok().setData(tokenValue);
         }
 

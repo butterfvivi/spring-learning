@@ -1,18 +1,49 @@
 # Getting Started
 
-### Reference Documentation
+## docker安装
 
-For further reference, please consider the following sections:
+### 1、安装yum
+yum install -y yum-utils \
+device-mapper-persistent-data \
+lvm2 --skip-broken
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.3.2/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.3.2/maven-plugin/reference/html/#build-image)
+### 2、更新本地镜像源，设置docker镜像源
+yum-config-manager \
+--add-repo \
+https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 
-### Maven Parent overrides
+sed -i 's/download.docker.com/mirrors.aliyun.com\/docker-ce/g' /etc/yum.repos.d/docker-ce.repo
 
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the
-parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
+yum makecache fast
+
+### 3、安装docker命令
+yum install -y docker-ce
+
+
+### 4、查看docker版本
+docker --version
+
+### 5、启动docker
+systemctl start docker
+systemctl stop firewalld
+systemctl disable firewalld
+
+### 6、配置镜像
+cd /etc/docker
+sudo vi daemon.json
+
+
+## docker-compose
+### 1、从官网下载docker-compose
+https://github.com/docker/compose/releases/download/v2.20.3/docker-compose-linux-x86_64
+
+### 2、赋可执行权
+chmod +x /usr/bin/docker-compose
+
+### 3、验证安装
+docker-compose -v
+
+### 4、执行命令：
+cd /docker
+docker-compose up -d elasticsearch
 
