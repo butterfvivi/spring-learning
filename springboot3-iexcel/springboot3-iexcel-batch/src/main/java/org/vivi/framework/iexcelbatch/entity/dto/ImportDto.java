@@ -1,4 +1,4 @@
-package org.vivi.framework.iexcelbatch.entity.model;
+package org.vivi.framework.iexcelbatch.entity.dto;
 
 import lombok.Data;
 

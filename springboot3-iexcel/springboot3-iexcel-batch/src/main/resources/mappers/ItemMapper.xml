@@ -6,7 +6,6 @@
     <insert id="insertBatch" parameterType="java.util.List">
         insert into item (code, name,create_time)
         values
-
         <foreach collection ="list" item="item" index= "index" separator =",">
             (#{item.code}, #{item.name},now())
         </foreach >

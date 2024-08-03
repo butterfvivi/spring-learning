@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.vivi.framework.iexcelbatch.common.enums.Constant;
-import org.vivi.framework.iexcelbatch.entity.dto.Item;
+import org.vivi.framework.iexcelbatch.entity.model.Item;
 import org.vivi.framework.iexcelbatch.mapper.ItemMapper;
 
 import java.util.List;
@@ -68,4 +68,6 @@ public class BatchDataService {
             return true;
         }
     }
+
+
 }

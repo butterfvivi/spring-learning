@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.iexcelbatch.common.exception.BizException;
 import org.vivi.framework.iexcelbatch.common.utils.EasyExcelUtil;
-import org.vivi.framework.iexcelbatch.entity.dto.User;
-import org.vivi.framework.iexcelbatch.entity.model.UserRequest;
+import org.vivi.framework.iexcelbatch.entity.model.User;
+import org.vivi.framework.iexcelbatch.entity.query.UserRequest;
 import org.vivi.framework.iexcelbatch.listener.CustomReadListener;
 import org.vivi.framework.iexcelbatch.mapper.UserMapper;
 

@@ -14,7 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.iexcelbatch.common.enums.FileNameEnum;
 import org.vivi.framework.iexcelbatch.common.converter.AdaptiveWidthStyleStrategy;
-import org.vivi.framework.iexcelbatch.entity.model.UserRequest;
+import org.vivi.framework.iexcelbatch.entity.query.UserRequest;
 import org.vivi.framework.iexcelbatch.listener.CustomReadListener;
 
 import java.io.*;

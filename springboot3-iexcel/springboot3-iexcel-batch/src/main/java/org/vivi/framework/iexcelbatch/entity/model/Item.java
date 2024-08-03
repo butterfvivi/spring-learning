@@ -1,4 +1,4 @@
-package org.vivi.framework.iexcelbatch.entity.dto;
+package org.vivi.framework.iexcelbatch.entity.model;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.fasterxml.jackson.annotation.JsonFormat;
