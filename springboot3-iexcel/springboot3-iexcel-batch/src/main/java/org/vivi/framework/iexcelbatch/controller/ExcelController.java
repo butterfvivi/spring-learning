@@ -13,7 +13,6 @@ import org.vivi.framework.iexcelbatch.common.response.R;
 import org.vivi.framework.iexcelbatch.entity.query.UserQuery;
 import org.vivi.framework.iexcelbatch.service.BatchDataService;
 import org.vivi.framework.iexcelbatch.service.ExcelHandleService;
-import org.vivi.framework.iexcelbatch.service.UserExcelService;
 import org.vivi.framework.iexcelbatch.service.UserMultiSheetService;
 
 @Slf4j
@@ -26,9 +25,6 @@ public class ExcelController {
 
     @Autowired
     private ExcelHandleService excelHandleService;
-
-    @Autowired
-    private UserExcelService userExcelService;
 
     @Autowired
     private UserMultiSheetService userMultiSheetService;
@@ -62,7 +58,7 @@ public class ExcelController {
     @ApiOperation(value = "分批导出-单sheet页")
     @PostMapping("/v1/export")
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestBody UserQuery query) {
-        userExcelService.exportExcel(request, response, query);
+        excelHandleService.exportExcel(request, response, query);
     }
 
     @ApiOperation(value = "分批导出-多sheet页")
