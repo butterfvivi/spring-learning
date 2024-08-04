@@ -3,7 +3,7 @@
 <mapper namespace="org.vivi.framework.iexcelbatch.mapper.ItemMapper" >
 
     <!--批量插入-->
-    <insert id="insertBatch" parameterType="java.util.List">
+    <insert id="insertBatch" parameterType="org.vivi.framework.iexcelbatch.entity.model.Item">
         insert into item (code, name,create_time)
         values
         <foreach collection ="list" item="item" index= "index" separator =",">

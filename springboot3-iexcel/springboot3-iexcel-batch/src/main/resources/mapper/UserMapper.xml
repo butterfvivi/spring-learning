@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.vivi.framework.iexcelbatch.mapper.UserMapper" >
+
+    <!--批量插入-->
+    <insert id="insertBatch" parameterType="org.vivi.framework.iexcelbatch.entity.model.User">
+        insert into item_user ( name,sex,age,birthday,salary,create_time)
+        values
+        <foreach collection ="list" item="item" index= "index" separator =",">
+            (#{item.name},#{item.sex},#{item.age},now(),#{item.salary},now())
+        </foreach >
+    </insert>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

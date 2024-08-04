@@ -1,13 +1,15 @@
 package org.vivi.framework.iexcelbatch.common.enums;
 
+import cn.hutool.core.util.ArrayUtil;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
 public enum FileNameEnum {
 
-    USER_INFO_IMPORT(1, "用户信息", "user", "user.xlsx");
+    USER_INFO_IMPORT(1, "用户信息", "", "user.xlsx");
 
     private final Integer code;
     /**

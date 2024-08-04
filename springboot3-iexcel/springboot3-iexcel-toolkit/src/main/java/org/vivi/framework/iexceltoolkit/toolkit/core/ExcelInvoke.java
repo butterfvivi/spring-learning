@@ -1,9 +1,12 @@
 package org.vivi.framework.iexceltoolkit.toolkit.core;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.iexceltoolkit.common.utils.IocUtil;
-import org.vivi.framework.iexceltoolkit.entity.model.ImportDto;
+import org.vivi.framework.iexceltoolkit.web.request.ImportReq;
 import org.vivi.framework.iexceltoolkit.toolkit.achieve.ExcelInvokeCore;
+import org.vivi.framework.iexceltoolkit.web.request.IDynamicExportReq;
+import org.vivi.framework.iexceltoolkit.web.request.ITemplateExportReq;
 
 public class ExcelInvoke {
 
@@ -18,7 +21,25 @@ public class ExcelInvoke {
      * @author mashuai
      */
 
-    public static Object importExcel(MultipartFile file, ImportDto dto) throws Exception {
+    public static Object importExcel(MultipartFile file, ImportReq dto) throws Exception {
         return excelInvokeCore.importExcel(file, dto);
+    }
+
+    /**
+     * 动态导出
+     * @param response
+     * @param req
+     */
+    public static void dynamicExport(HttpServletResponse response, IDynamicExportReq req) throws Exception {
+        excelInvokeCore.dynamicExport(response, req);
+    }
+
+    /**
+     * 模板导出
+     * @param response
+     * @param req
+     */
+    public static void templateExport(HttpServletResponse response, ITemplateExportReq req) throws Exception {
+        excelInvokeCore.templateExport(response, req);
     }
 }

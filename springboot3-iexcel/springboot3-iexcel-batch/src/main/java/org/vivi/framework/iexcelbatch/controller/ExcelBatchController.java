@@ -18,7 +18,7 @@ import org.vivi.framework.iexcelbatch.service.UserMultiSheetService;
 @Slf4j
 @RestController
 @RequestMapping("/excel")
-public class ExcelController {
+public class ExcelBatchController {
 
     @Autowired
     private BatchDataService batchDataService;
@@ -32,7 +32,7 @@ public class ExcelController {
     @Autowired
     private Environment env;
 
-    @RequestMapping(value = "/import")
+    @PostMapping(value = "/import")
     public R<Boolean>  importExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile file) {
         return R.success(excelHandleService.importExcel(request, response, file));
     }
@@ -42,15 +42,15 @@ public class ExcelController {
      *
      * @return
      */
-    @RequestMapping(value = "/batch")
+    @PostMapping(value = "/batch")
     @ResponseBody
     public R batchInsertData(@RequestParam Integer times) {
         try {
             //times为批量插入数据的次数，每次数据量为 Constant.batchDataSize
-            batchDataService.batchInitItem(times);
+            batchDataService.batchUsers(times);
         } catch (Exception e) {
             log.error("预批量生成百万级别数据-发生异常：{}", e.getMessage());
-            return  R.success(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+            return  R.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
         }
         return R.success();
     }

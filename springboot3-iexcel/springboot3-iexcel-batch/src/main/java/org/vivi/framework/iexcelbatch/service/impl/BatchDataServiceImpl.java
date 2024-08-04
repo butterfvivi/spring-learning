@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.vivi.framework.iexcelbatch.common.enums.Constant;
 import org.vivi.framework.iexcelbatch.entity.model.Item;
+import org.vivi.framework.iexcelbatch.entity.model.User;
 import org.vivi.framework.iexcelbatch.mapper.ItemMapper;
+import org.vivi.framework.iexcelbatch.mapper.UserMapper;
 import org.vivi.framework.iexcelbatch.service.BatchDataService;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -27,6 +30,11 @@ public class BatchDataServiceImpl implements BatchDataService {
 
     @Autowired
     private ItemMapper itemMapper;
+
+    @Autowired
+    private UserMapper userMapper;
+
+
     /**
      * 批量预生成并插入数据-多线程
      *
@@ -34,17 +42,26 @@ public class BatchDataServiceImpl implements BatchDataService {
      * @throws Exception
      */
     public void batchInitItem(Integer times) throws Exception {
-        List<BatchCallable> list = Lists.newLinkedList();
+        List<ItemBatchCallable> list = Lists.newLinkedList();
         for (int i = 1; i <= times; i++) {
-            list.add(new BatchCallable(Constant.batchDataSize));
+            list.add(new ItemBatchCallable(Constant.batchDataSize));
         }
         EXECUTOR.invokeAll(list);
     }
 
-    class BatchCallable implements Callable<Boolean> {
+    @Override
+    public void batchUsers(Integer times) throws Exception {
+        List<UserBatchCallable> list = Lists.newLinkedList();
+        for (int i = 240035; i <= times; i++) {
+            list.add(new UserBatchCallable(Constant.batchDataSize));
+        }
+        EXECUTOR.invokeAll(list);
+    }
+
+    class ItemBatchCallable implements Callable<Boolean> {
         private Long total;
 
-        public BatchCallable(Long total) {
+        public ItemBatchCallable(Long total) {
             this.total = total;
         }
 
@@ -70,5 +87,33 @@ public class BatchDataServiceImpl implements BatchDataService {
         }
     }
 
+    class UserBatchCallable implements Callable<Boolean> {
+        private Long total;
+
+        public UserBatchCallable(Long total) {
+            this.total = total;
+        }
+
+        /**
+         * 真正的实现批量插入数据的代码逻辑
+         *
+         * @return
+         * @throws Exception
+         */
+        @Override
+        public Boolean call() throws Exception {
+            try {
+                List<User> user = Lists.newLinkedList();
+                Long i = 0L;
+                for (; i < total; i++) {
+                    user.add(new User("vivi"+i, 0,18, new BigDecimal(8000)));
+                }
+                userMapper.insertBatchSomeColumn(user);
+            } catch (Exception e) {
+                log.error("异常：", e);
+            }
+            return true;
+        }
+    }
 
 }

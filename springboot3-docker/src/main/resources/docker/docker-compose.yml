@@ -353,21 +353,13 @@ services:
       # 管理后台用户名
       MINIO_ROOT_USER: root
       # 管理后台密码，最小8个字符
-      MINIO_ROOT_PASSWORD: root123
-      # https需要指定域名
-      #MINIO_SERVER_URL: "https://xxx.com:9000"
-      #MINIO_BROWSER_REDIRECT_URL: "https://xxx.com:9001"
-      # 开启压缩 on 开启 off 关闭
-      MINIO_COMPRESS: "off"
-      # 扩展名 .pdf,.doc 为空 所有类型均压缩
-      MINIO_COMPRESS_EXTENSIONS: ""
-      # mime 类型 application/pdf 为空 所有类型均压缩
-      MINIO_COMPRESS_MIME_TYPES: ""
+      MINIO_ROOT_PASSWORD: root123456
     volumes:
       # 映射当前目录下的data目录至容器内/data目录
       - /docker/minio/data:/data
       # 映射配置目录
       - /docker/minio/config:/root/.minio/
     command: server --address ':9000' --console-address ':9001' /data  # 指定容器中的目录 /data
+    restart: always
     privileged: true
     network_mode: "host"

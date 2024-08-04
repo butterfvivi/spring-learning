@@ -1,23 +1,31 @@
 package org.vivi.framework.iexceltoolkit.toolkit.achieve;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.iexceltoolkit.common.utils.AssertUtil;
 import org.vivi.framework.iexceltoolkit.common.utils.EmptyUtils;
 import org.vivi.framework.iexceltoolkit.common.utils.IocUtil;
-import org.vivi.framework.iexceltoolkit.entity.model.ImportDto;
+import org.vivi.framework.iexceltoolkit.toolkit.dto.IExportConfig;
+import org.vivi.framework.iexceltoolkit.web.request.IDynamicExportReq;
+import org.vivi.framework.iexceltoolkit.web.request.ITemplateExportReq;
+import org.vivi.framework.iexceltoolkit.web.request.ImportReq;
 import org.vivi.framework.iexceltoolkit.toolkit.annotation.IExcelRewrite;
 import org.vivi.framework.iexceltoolkit.toolkit.annotation.IToolKit;
 import org.vivi.framework.iexceltoolkit.toolkit.cache.MCache;
 import org.vivi.framework.iexceltoolkit.toolkit.utils.ExcelUtils;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service(value = "excelInvokeCore")
 public class ExcelInvokeCore {
 
+    private static final String NO_FILE_PATH = "请传入templatePath，指定导出模板路径";
     private static final String IMPORT_NO_TARGET_PARAM = "excel导入，入参必须含有targetParam值";
 
     private static final String TYPE_IMPORT = "import";
@@ -38,6 +46,86 @@ public class ExcelInvokeCore {
     private static Map<String, Method> methodCache = MCache.excelMethodCache;
     //key="@MsExcelRewrite的targetParam值"，value=导入所对应的实体类信息
     private static Map<String, Class<?>> importCache = MCache.excelImportCache;
+
+
+    @IToolKit
+    public void dynamicExport(HttpServletResponse response, IDynamicExportReq req) throws Exception {
+        //检验必填
+        List dataList = req.getDataList();
+        if (dataList == null) dataList = new ArrayList();
+        //MsAssertUtils.objIsNull(dataList, NO_DATA);
+        List<String> headList = req.getHeadList();
+        if (headList == null) headList = new ArrayList<>();
+        //MsAssertUtils.objIsNull(headList, NO_HEAD);
+        //进行动态数据重构处理判断
+        List newDataList = (headList.size() != 0 && headList.size() != 0) ? ExcelUtils.restructureDynamicData(headList, dataList) : new ArrayList();
+        //获取配置项,检查是否重写
+        IExportConfig config = req.getConfig();
+        if (config != null) {
+            String targetParam = config.getTargetParam();
+            //判断是否进行重写数据
+            if (EmptyUtils.isNotEmpty(targetParam)) {
+                invokeCache(targetParam, TYPE_DYNAMIC);
+                invokeDynamic(targetParam, newDataList, headList, req.getParams());
+            }
+            //invokeWaterMark(config);
+        }
+        //重构表头,去除@符号
+        if (headList.size() != 0) {
+            headList = headList.stream().map(t -> {
+                if (t.contains("@")) {
+                    return t.split("@")[0];
+                }
+                return t;
+            }).collect(Collectors.toList());
+        }
+        ExcelUtils.writerDynamicToWeb(response, headList, newDataList, config);
+    }
+
+    /**
+     * 模板导出
+     */
+    @IToolKit
+    public void templateExport(HttpServletResponse response, ITemplateExportReq req) throws Exception {
+        //检验必填
+        String templatePath = req.getTemplatePath();
+        AssertUtil.objIsNull(templatePath, NO_FILE_PATH);
+        List dataList = EmptyUtils.ifNullSetDefVal(req.getDataList(), new ArrayList());
+        //MsAssertUtils.objIsNull(dataList, NO_DATA);
+        Map<String, Object> otherValMap = EmptyUtils.ifNullSetDefVal(req.getOtherVal(), new HashMap<>());
+        IExportConfig config = req.getConfig();
+        if (config != null) {
+            //判断是否进行重写数据
+            String targetParam = config.getTargetParam();
+            if (EmptyUtils.isNotEmpty(targetParam)) {
+                invokeCache(config.getTargetParam(), TYPE_TEMPLATE);
+                invokeTemplate(config.getTargetParam(), dataList, otherValMap);
+            }
+            //invokeWaterMark(config);
+        }
+        //执行excel导出
+        ExcelUtils.writerTemplateToWeb(response, dataList, templatePath, otherValMap, config);
+    }
+
+    /**
+     * 调用模板导出
+     **/
+    private static void invokeTemplate(String targetParam, List dataList, Map<String, Object> otherValMap) throws Exception {
+        checkMethod(targetParam).invoke(IocUtil.getClassObj(checkClass(cPName(targetParam))), dataList, otherValMap);
+    }
+
+    /**
+     * 调用模板导出
+     * 新增有参导出
+     **/
+    private static void invokeDynamic(String targetParam, List dataList, List<String> headList, Map<String, Object> params) throws Exception {
+        if (params == null) {
+            checkMethod(targetParam).invoke(IocUtil.getClassObj(checkClass(cPName(targetParam))), dataList, headList);
+        } else {
+            checkMethod(targetParam).invoke(IocUtil.getClassObj(checkClass(cPName(targetParam))), dataList, headList, params);
+        }
+    }
+
     /**
      * 导入数据解析，要求必须有一个实体类，目的是为了便于后期人员维护，和解析数据方便
      *
@@ -47,7 +135,7 @@ public class ExcelInvokeCore {
      * @author mashuai
      */
     @IToolKit
-    public Object importExcel(MultipartFile file, ImportDto dto) throws Exception {
+    public Object importExcel(MultipartFile file, ImportReq dto) throws Exception {
         String targetParam = dto.getTargetParam();
         AssertUtil.objIsNull(targetParam, IMPORT_NO_TARGET_PARAM);
         Integer headRow = dto.getHeadRow() == null ? 0 : dto.getHeadRow();
@@ -78,7 +166,7 @@ public class ExcelInvokeCore {
     /**
      * 导入
      **/
-    private static Object invokeImport(String targetParam, List<?> dataList, ImportDto dto) throws Exception {
+    private static Object invokeImport(String targetParam, List<?> dataList, ImportReq dto) throws Exception {
         Method method = checkMethod(targetParam);
         //如果有两个参数，则第二个参数为导入配置
         int params = method.getParameters().length;
@@ -202,4 +290,5 @@ public class ExcelInvokeCore {
 
         }
     }
+
 }

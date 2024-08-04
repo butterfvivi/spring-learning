@@ -15,7 +15,6 @@ import org.vivi.framework.iexcelbatch.common.enums.Constant;
 import org.vivi.framework.iexcelbatch.common.utils.EasyExcelUtil;
 import org.vivi.framework.iexcelbatch.entity.model.User;
 import org.vivi.framework.iexcelbatch.entity.query.UserQuery;
-import org.vivi.framework.iexcelbatch.service.ExcelHandleService;
 import org.vivi.framework.iexcelbatch.service.UserMultiSheetService;
 
 import java.util.List;
@@ -26,7 +25,7 @@ import java.util.Objects;
 public class UserMultiSheetServiceImpl implements UserMultiSheetService {
 
     @Resource
-    private ExcelHandleService userService;
+    private UserService userService;
 
     /**
      * 触发分批导出阈值

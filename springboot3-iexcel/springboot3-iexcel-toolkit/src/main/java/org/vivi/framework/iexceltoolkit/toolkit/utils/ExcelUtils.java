@@ -1,16 +1,26 @@
 package org.vivi.framework.iexceltoolkit.toolkit.utils;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 import com.alibaba.excel.read.listener.PageReadListener;
+import com.alibaba.excel.write.builder.ExcelWriterBuilder;
+import com.alibaba.excel.write.handler.WriteHandler;
+import com.alibaba.excel.write.metadata.WriteSheet;
+import com.alibaba.excel.write.metadata.fill.FillConfig;
 import com.alibaba.fastjson2.JSON;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.iexceltoolkit.common.enums.Constant;
 import org.vivi.framework.iexceltoolkit.common.utils.ConvertDataUtils;
+import org.vivi.framework.iexceltoolkit.toolkit.core.FileUtilsCore;
+import org.vivi.framework.iexceltoolkit.toolkit.dto.IExportConfig;
+import org.vivi.framework.iexceltoolkit.toolkit.invoke.HandleCell;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -20,6 +30,46 @@ public class ExcelUtils {
 
     private static final String RESOURCE_TEMPLATE = Constant.ExcelPath;
 
+
+
+    /**
+     * 动态列导出
+     *
+     * @param response
+     * @param heads    列头，注意顺序需要与data数据顺序一致
+     * @param data     数据,动态列导出
+     * @param config   配置项 可为null
+     * @return
+     * @author mashuai
+     */
+
+    public static <T> void writerDynamicToWeb(HttpServletResponse response, List<String> heads, List<T> data, IExportConfig config) throws IOException {
+        writerDynamicToWebUtil(response, heads, data, config);
+    }
+
+    public static <T> void writerDynamicToWeb(HttpServletResponse response, List<String> heads, List<T> data) throws IOException {
+        writerDynamicToWebUtil(response, heads, data, null);
+    }
+
+    /**
+     * 复杂的excel导出，在基础上，可以增加合计、统计等等信息
+     *
+     * @param response
+     * @param data         导出的数据
+     * @param templatePath 导出数据的模板
+     * @param otherValMap  {填充合计等特殊行数据}
+     * @param config       配置项
+     * @return
+     * @author mashuai
+     */
+
+    public static <T> void writerTemplateToWeb(HttpServletResponse response, List<T> data, String templatePath, Map<String, Object> otherValMap, IExportConfig config) throws IOException {
+        writerTemplateToWebUtil(response, data, templatePath, otherValMap, config);
+    }
+
+    public static <T> void writerTemplateToWeb(HttpServletResponse response, List<T> data, String templatePath, Map<String, Object> otherValMap) throws IOException {
+        writerTemplateToWebUtil(response, data, templatePath, otherValMap, null);
+    }
 
     /**
      * 根据实体类解析excel，最终返回List<Bean>
@@ -66,6 +116,80 @@ public class ExcelUtils {
             return newDataList;
         }
         return dataList;
+    }
+
+    /**
+     * 处理逻辑
+     **/
+    private static <T> void writerDynamicToWebUtil(HttpServletResponse response, List<String> heads, List<T> data, IExportConfig config) throws IOException {
+        setResponse(response);
+        ExcelWriterBuilder write = null;
+        try {
+            List<List<String>> headsList = new ArrayList<>();
+            heads.forEach(t -> headsList.add(Arrays.asList(t)));
+            write = EasyExcel.write(response.getOutputStream());
+            //水印
+            //setWaterMark(config, write);
+            addWriteHandle(config, write);
+            write.head(headsList).sheet("sheet1").doWrite(handleDynamicData(data));
+        } catch (IOException e) {
+            resetResponse(response, e.getMessage());
+        } finally {
+            if (write != null) write.autoCloseStream(true);
+        }
+    }
+
+    /**
+     * 处理逻辑
+     **/
+    private static <T> void writerTemplateToWebUtil(HttpServletResponse response, List<T> data, String templatePath, Map<String, Object> otherValMap, IExportConfig config) throws IOException {
+        if (otherValMap == null) otherValMap = new HashMap<>();
+        setResponse(response);
+        ExcelWriter excelWriter = null;
+        try {
+            ExcelWriterBuilder excelWriterBuilder = EasyExcel.write(response.getOutputStream());
+            //水印
+            //setWaterMark(config, excelWriterBuilder);
+            //模板导出，在单元格合并时候，会出现问题
+            addWriteHandle(config, excelWriterBuilder);
+            excelWriter = excelWriterBuilder.withTemplate(getTemplateFile(templatePath)).build();
+            WriteSheet writeSheet = EasyExcel.writerSheet().build();
+            FillConfig fillConfig = FillConfig.builder().forceNewRow(Boolean.TRUE).build();
+            excelWriter.fill(data, fillConfig, writeSheet);
+            excelWriter.fill(otherValMap, writeSheet);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resetResponse(response, e.getMessage());
+        } finally {
+            if (excelWriter != null) excelWriter.close();
+        }
+    }
+
+    /***
+     * 添加excel的表格处理器
+     * **/
+    private static void addWriteHandle(IExportConfig config, ExcelWriterBuilder write) {
+        if (config != null) {
+            List<WriteHandler> writeHandlers = config.getWriteHandlers();
+            Set<Integer> mergeColIndex = config.getMergeColIndex();
+            //1.优先使用自定义的处理器
+            if (writeHandlers != null && writeHandlers.size() != 0) {
+                for (WriteHandler writeHandler : writeHandlers) {
+                    write.registerWriteHandler(writeHandler);
+                }
+            }
+            //2.使用给定的处理器
+            else if (mergeColIndex != null && mergeColIndex.size() != 0) {
+                write.registerWriteHandler(new HandleCell(mergeColIndex,
+                        config.getExcludeRowIndex(),
+                        config.getExcludeTillRow(),
+                        config.getHeaderWord(),
+                        config.getMergerRowIndexLimit(),
+                        config.getMergerColIndexLimit(),
+                        config.getIsNeedLeftConditionMerge()
+                ));
+            }
+        }
     }
 
     /**
@@ -129,4 +253,19 @@ public class ExcelUtils {
         response.getWriter().println(map.toString());
     }
 
+    /**
+     * 读取resources目录下文件流
+     **/
+    private static InputStream getTemplateFile(String templatePath) throws IOException {
+        return FileUtilsCore.getResourcesFile(RESOURCE_TEMPLATE+templatePath);
+    }
+
+//    /**
+//     * 添加水印
+//     **/
+//    private static void setWaterMark(IExportConfig config, ExcelWriterBuilder writer) {
+//        if (null != config && StringUtils.isNotEmpty(config.getWatermark())) {
+//            writer.inMemory(true).registerWriteHandler(new MsWatermarkUtils(config.getWatermark()));
+//        }
+//    }
 }

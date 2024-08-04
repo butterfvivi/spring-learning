@@ -6,6 +6,7 @@ import com.alibaba.excel.converters.localdate.LocalDateStringConverter;
 import com.alibaba.excel.converters.localdatetime.LocalDateTimeStringConverter;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.vivi.framework.iexcelbatch.common.converter.EnumColumConvert;
 import org.vivi.framework.iexcelbatch.common.converter.EnumFormat;
 import org.vivi.framework.iexcelbatch.common.enums.SexEnum;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
+@NoArgsConstructor
 @TableName("item_user")
 public class User {
 
@@ -57,4 +59,11 @@ public class User {
      */
     @ExcelProperty(value = "创建时间", converter = LocalDateTimeStringConverter.class, index = 5)
     private LocalDateTime createTime;
+
+    public User(String name, Integer sex, Integer age,BigDecimal salary) {
+        this.name = name;
+        this.sex = sex;
+        this.age = age;
+        this.salary = salary;
+    }
 }
