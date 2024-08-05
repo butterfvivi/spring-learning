@@ -1,1 +1,3 @@
+org\vivi\framework\iexcelbatch\entity\query\UserQuery.class
+org\vivi\framework\iexcelbatch\service\UserExcelService.class
 org\vivi\framework\iexcelbatch\IexcelBatchApplication.class

@@ -31,6 +31,21 @@ public class ExcelImportController {
         return result;
     }
 
+    /**
+     *
+     * @param response
+     * @param dto  {
+     *      *                 "**dataList": [导出的数据]
+     *      *                 "**headList": [表头，注意下表必须与dataList一致，如果不一致可采用列名与字段的映射，比如第一列名称叫  部门，那么可以直接绑定部门对应的deptName字段。写法：部门@deptName ],
+     *      *                 "config":{
+     *      *                 "watermark":"水印",
+     *      *                 "mergeColIndex":[0,1]--指的是合并的列，比如合并第一列和第二列,
+     *      *                 "targetParam":"className@dynamic"---如果导出前，想处理下数据，请求重写的类上加上@MsAsync("className"),方法上加上@MsAsync("dynamic")。
+     *              *                                       方法参数接受m(List<Map<String,Object>> data,List<String> headers)
+     *      *                 }
+     *      *
+     * @throws Exception
+     */
     @PostMapping("/dynamic/export")
     public void dynamicExport(HttpServletResponse response, @RequestBody IDynamicExportReq dto) throws Exception {
         ExcelInvoke.dynamicExport(response, dto);
@@ -48,8 +63,10 @@ public class ExcelImportController {
      *      *                 "watermark":"水印",
      *      *                 "mergeColIndex":[0,1]--指的是合并的列，比如合并第一列和第二列,
      *      *                 “excludeRowIndex”:[0,1]--指的是模板导出的表头所占的行数，不参与和并列逻辑
-     *      *                 "targetParam":"className@template"---如果导出前，想处理下数据，请求重写的类上加上@MsExcelRewrite("className"),方法上加上@MsExcelRewrite("template")。方法参数接受m(List<Map<String,Object>> data, Map<String,Object> otherVal)
+     *      *                 "targetParam":"className@template"---如果导出前，想处理下数据，请求重写的类上加上@MsExcelRewrite("className"),
+     *                      *                                       方法上加上@MsExcelRewrite("template")。方法参数接受m(List<Map<String,Object>> data, Map<String,Object> otherVal)
      *      *                 }
+     *      * }
      * @throws Exception
      */
     @PostMapping("/template/export")

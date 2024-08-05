@@ -54,15 +54,34 @@ spring:
       validation-query: SELECT 1
       # ?????????????
       validation-query-timeout: 1
+      stat-view-servlet:
+        # ?????
+        allow: 127.0.0.1
+        # ??????
+        enabled: true
+        # ????
+        login-password: 123456
+        # ?????
+        login-username: root
+        # ????????
+        reset-enable: true
+      web-stat-filter:
+        # ????????
+        enabled: true
+        # ????
+        exclusions: .js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*
+        # ??session??
+        session-stat-enable: true
+        # session???????
+        session-stat-max-count: 100
+        # ????
+        url-pattern: /*
 
 mybatis-plus:
   global-config:
     db-config:
-      # ???????
       id-type: auto
-  # mapper xml????
   mapper-locations: classpath:mapper/*.xml
-# Logger Config
 logging:
   level:
     org.vivi.framework: debug
