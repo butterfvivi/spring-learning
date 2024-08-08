@@ -60,6 +60,7 @@ public class ExcelHandleServiceImpl implements ExcelHandleService {
     private static final Integer PART_EXPORT_NUM = 5000;
 
 
+    @Override
     @SneakyThrows
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, UserQuery query) {
         query.setCurrent(1);
@@ -161,6 +162,7 @@ public class ExcelHandleServiceImpl implements ExcelHandleService {
         return CollectionUtils.isEmpty(excelDataConvertExceptionList);
     }
 
+    @Override
     @SneakyThrows
     @Transactional(rollbackFor = Exception.class)
     public Boolean importExcel(HttpServletRequest request, HttpServletResponse response, MultipartFile file) {

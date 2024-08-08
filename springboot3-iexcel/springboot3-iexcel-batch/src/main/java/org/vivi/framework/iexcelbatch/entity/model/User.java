@@ -54,6 +54,9 @@ public class User {
     @ExcelProperty(value = "薪水", converter = BigDecimalStringConverter.class, index = 4)
     private BigDecimal salary;
 
+
+    private Integer data;
+
     /**
      * 创建时间
      */

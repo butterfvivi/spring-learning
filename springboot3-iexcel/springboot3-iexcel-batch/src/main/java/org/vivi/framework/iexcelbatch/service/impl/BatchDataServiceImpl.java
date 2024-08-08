@@ -41,6 +41,7 @@ public class BatchDataServiceImpl implements BatchDataService {
      * @param times
      * @throws Exception
      */
+    @Override
     public void batchInitItem(Integer times) throws Exception {
         List<ItemBatchCallable> list = Lists.newLinkedList();
         for (int i = 1; i <= times; i++) {

@@ -3,6 +3,8 @@ package org.vivi.framework.iexcelbatch.service.impl;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.TimeInterval;
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelReader;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -12,16 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.iexcelbatch.entity.dto.DataExcelImportDto;
 import org.vivi.framework.iexcelbatch.entity.model.User;
+import org.vivi.framework.iexcelbatch.listener.AnalysisListener;
 import org.vivi.framework.iexcelbatch.listener.CustomReadListener;
 import org.vivi.framework.iexcelbatch.listener.PageReadListener;
 import org.vivi.framework.iexcelbatch.mapper.UserMapper;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
+import java.io.InputStream;
+import java.util.*;
+import java.util.concurrent.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -62,6 +63,48 @@ public class ExcelBatchServiceImpl {
 //        //saveDsFile(id,file);
 //        return respVO;
 //    }
+
+//    public void batchUpload(MultipartFile[] files, Long fileId, String scheduleKey) {
+//        ExecutorService executor = Executors.newFixedThreadPool(10);
+//
+//
+//        List<String> errorNames = Lists.newCopyOnWriteArrayList();
+//        //String userName = SecurityAuthorHolder.getSecurityUser().getUsername();
+//
+//        CompletableFuture<Void> allFutures = CompletableFuture.allOf(
+//                Arrays.stream(files).map(v ->
+//                        CompletableFuture.runAsync(
+//                                () -> {
+//                                    try {
+//                                        String suffix = Objects.requireNonNull(v.getOriginalFilename()).substring(v.getOriginalFilename().lastIndexOf(".") + 1);
+//                                        ServerException.Assert(!imgTypeList.contains(suffix), "文件格式不正确,支持" + String.join(",", imgTypeList));
+//                                        ServerException.Assert(v.getSize() > config.getMaxSize() * 1024, "文件最大不能超过" + config.getMaxSize() + "K");
+//                                        //上传
+//                                        ImgResourceEntity saveData = upload(v, config);
+//                                        saveData.setFileId(fileId);
+//                                        saveData.setCreator(userName);
+//                                        userMapper.insert(saveData);
+//                                    } catch (Exception e) {
+//                                    }
+//                                }, executor)
+//                ).toArray(CompletableFuture[]::new)
+//        );
+//        // 等待所有 CompletableFuture 完成
+//        allFutures.join();
+//
+//        // 关闭线程池
+//        executor.shutdown();
+//    }
+
+    @Async
+    public CompletableFuture<Integer> importUsers(MultipartFile file) throws IOException {
+        InputStream inputStream = file.getInputStream();
+        ExcelReader excelReader = EasyExcel.read(inputStream, User.class, new AnalysisListener()).build();
+        excelReader.readAll();
+        excelReader.finish();
+        return CompletableFuture.completedFuture(1);
+    }
+
 
     /**
      * 异步多线程导入数据

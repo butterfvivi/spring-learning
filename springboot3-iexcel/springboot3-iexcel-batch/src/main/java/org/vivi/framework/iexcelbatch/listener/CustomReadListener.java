@@ -42,6 +42,7 @@ public class CustomReadListener<T> extends AnalysisEventListener<T> {
     private List<ExcelDataConvertException> excelDataConvertExceptionList = new ArrayList<>();
 
 
+
     public CustomReadListener(Consumer<List<T>> consumer) {
         this(1000, consumer);
     }

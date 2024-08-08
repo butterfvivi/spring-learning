@@ -1,44 +1,32 @@
 package org.vivi.framework.iexcelbatch.listener;
 
 import com.alibaba.excel.context.AnalysisContext;
-import com.alibaba.excel.read.listener.ReadListener;
+import com.alibaba.excel.event.AnalysisEventListener;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 @Slf4j
-public class PageReadListener <T> implements ReadListener<T> {
-    /**
-     * 单个处理数据量，经测试1000条数据效果较好
-     */
-    public static int BATCH_COUNT = 1000;
+public class AnalysisListener<T> extends AnalysisEventListener<T> {
 
     /**
-     * 数据的临时存储
+     * 分批数量
      */
-    private List<T> cachedDataList = new ArrayList<>(BATCH_COUNT);
+    private int batchSize;
 
     /**
-     * consumer
+     * 分批缓存的集合
      */
-    private final Consumer<List<T>> consumer;
-
-
-    public PageReadListener(Consumer<List<T>> consumer) {
-        this.consumer = consumer;
-    }
-
+    private List<T> cachedDataList;
 
     @Override
     public void invoke(T data, AnalysisContext context) {
         cachedDataList.add(data);
-        if (cachedDataList.size() >= BATCH_COUNT) {
+        if (cachedDataList.size() >= batchSize) {
             log.info("读取数据量:{}", cachedDataList.size());
-            consumer.accept(cachedDataList);
-            cachedDataList = new ArrayList(BATCH_COUNT);
+            cachedDataList = new ArrayList(batchSize);
         }
     }
 
@@ -52,7 +40,6 @@ public class PageReadListener <T> implements ReadListener<T> {
         if (CollectionUtils.isNotEmpty(cachedDataList)) {
             //处理剩余的数据
             log.info("读取数据量:{}", cachedDataList.size());
-            consumer.accept(cachedDataList);
         }
     }
 }
