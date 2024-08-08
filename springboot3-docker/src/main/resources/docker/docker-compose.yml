@@ -2,7 +2,7 @@ version : '3.8'
 services:
   nacos:
     container_name: nacos
-    image: nacos/nacos-server
+    image: nacos/nacos-server:v2.4.0
     build:
       context: ./nacos
     environment:
@@ -14,6 +14,7 @@ services:
       - "8848:8848"
       - "9848:9848"
       - "9849:9849"
+    restart: always
     depends_on:
       - mysql
 

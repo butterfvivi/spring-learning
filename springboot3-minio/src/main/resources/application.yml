@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: springboot3-minio
+minio:
+  endpoint: http://192.168.100.136:9000
+  access-key: root
+  secret-key: root123456
+  bucket-name: public-test
+  public-bucket-name: public-test
