@@ -14,6 +14,7 @@ import org.vivi.framework.iexcelbatch.common.enums.SexEnum;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -61,7 +62,7 @@ public class User {
      * 创建时间
      */
     @ExcelProperty(value = "创建时间", converter = LocalDateTimeStringConverter.class, index = 5)
-    private LocalDateTime createTime;
+    private Date createTime;
 
     public User(String name, Integer sex, Integer age,BigDecimal salary) {
         this.name = name;

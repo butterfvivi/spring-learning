@@ -6,18 +6,23 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelReader;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.vivi.framework.iexcelbatch.common.response.R;
 import org.vivi.framework.iexcelbatch.entity.dto.DataExcelImportDto;
 import org.vivi.framework.iexcelbatch.entity.model.User;
+import org.vivi.framework.iexcelbatch.entity.query.UserRequest;
 import org.vivi.framework.iexcelbatch.listener.AnalysisListener;
 import org.vivi.framework.iexcelbatch.listener.CustomReadListener;
 import org.vivi.framework.iexcelbatch.listener.PageReadListener;
 import org.vivi.framework.iexcelbatch.mapper.UserMapper;
+import org.vivi.framework.iexcelbatch.processor.BatchDataProcessor;
+import org.vivi.framework.iexcelbatch.service.ExcelBatchService;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,76 +33,68 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class ExcelBatchServiceImpl {
+public class ExcelBatchServiceImpl implements ExcelBatchService {
 
     @Autowired
     private UserMapper userMapper;
 
-//    @Transactional(rollbackFor = Exception.class) // 添加事务，异常则回滚所有导入
-//    public DataExcelImportDto createFunctionDatasourceAndSwMbqcdss(FunctionDatasourceCreateReqVO createReqVO, MultipartFile file) throws IOException, ExecutionException, InterruptedException {
-//        //新增数据源，或者id
-//        User functionDatasource = User.INSTANCE.convert(createReqVO);
-//        userMapper.insert(functionDatasource);
-//        Long id = functionDatasource.getId();
-//        //获取当前登录用户
-//        Long loginUserId = SecurityFrameworkUtils.getLoginUserId();
-//        //开始计时
-//        TimeInterval timer = DateUtil.timer();
-//        //DataExcelImportRespVO respVO = readExcelAndSave(DataSwMbqcdssImportExcelVO.class, file, data -> DataSwMbqcdssConvert.INSTANCE.convert(data).setDsId(id), dataSwMbqcdssInsertMapper::saveBatch);
-//        DataExcelImportDto respVO = readExcelAndSaveAsync(User.class,
-//                file,
-//                data -> {
-//                    DataSwMbqcdssDO newDo = DataSwMbqcdssConvert.INSTANCE.convert(data).setDsId(id);
-//                    //数据预处理，因为目前的批处理方法不会再自动填充数据，所以这里手动填充
-//                    newDo.setCreator(String.valueOf(loginUserId));
-//                    newDo.setUpdater(String.valueOf(loginUserId));
-//                    newDo.setDeleted(false);
-//                    return newDo;
-//                },
-//                userMapper::insertBatchSomeColumn);
-//        //结束计时
-//        long interval = timer.interval();
-//        log.info("导入数据共花费：{}s", interval / 1000);
-//        respVO.setTime(interval);
-//        // 存储文件
-//        //saveDsFile(id,file);
-//        return respVO;
-//    }
+    @Autowired
+    private BatchDataProcessor batchDataProcessor;
 
-//    public void batchUpload(MultipartFile[] files, Long fileId, String scheduleKey) {
-//        ExecutorService executor = Executors.newFixedThreadPool(10);
-//
-//
-//        List<String> errorNames = Lists.newCopyOnWriteArrayList();
-//        //String userName = SecurityAuthorHolder.getSecurityUser().getUsername();
-//
-//        CompletableFuture<Void> allFutures = CompletableFuture.allOf(
-//                Arrays.stream(files).map(v ->
-//                        CompletableFuture.runAsync(
-//                                () -> {
-//                                    try {
-//                                        String suffix = Objects.requireNonNull(v.getOriginalFilename()).substring(v.getOriginalFilename().lastIndexOf(".") + 1);
-//                                        ServerException.Assert(!imgTypeList.contains(suffix), "文件格式不正确,支持" + String.join(",", imgTypeList));
-//                                        ServerException.Assert(v.getSize() > config.getMaxSize() * 1024, "文件最大不能超过" + config.getMaxSize() + "K");
-//                                        //上传
-//                                        ImgResourceEntity saveData = upload(v, config);
-//                                        saveData.setFileId(fileId);
-//                                        saveData.setCreator(userName);
-//                                        userMapper.insert(saveData);
-//                                    } catch (Exception e) {
-//                                    }
-//                                }, executor)
-//                ).toArray(CompletableFuture[]::new)
-//        );
-//        // 等待所有 CompletableFuture 完成
-//        allFutures.join();
-//
-//        // 关闭线程池
-//        executor.shutdown();
-//    }
+    @Override
+    public void asyncImport2(Class<T> head,  MultipartFile file,  Function<T,R> function, Function<List<R>,Integer> dbFunction) throws IOException {
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+
+
+        List<String> errorNames = Lists.newCopyOnWriteArrayList();
+        //String userName = SecurityAuthorHolder.getSecurityUser().getUsername();
+        Collection<CompletableFuture<int[]>> allFutures = new ArrayList<>();
+        EasyExcel.read(file.getInputStream(),head,new PageReadListener<T>(dataList -> {
+            CompletableFuture.allOf(
+                    CompletableFuture.runAsync(
+                            () -> {
+                                List<R> list = dataList.parallelStream().map(function).collect(Collectors.toList());
+                                allFutures.add(batchDataProcessor.saveAsyncBatch2(list,dbFunction));
+                            }, executor)
+            ).join();
+        })).sheet().doRead();
+
+        // 等待所有 CompletableFuture 完成
+        //allFutures.join();
+        // 关闭线程池
+        executor.shutdown();
+    }
+
+
+    public void batchUpload2(Class<T> head, MultipartFile[] files, Function<T,R> function, Function<List<R>,Integer> dbFunction) throws IOException {
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+
+
+        CompletableFuture<Void> allFutures = CompletableFuture.allOf(
+                Arrays.stream(files).map(v ->
+                        CompletableFuture.runAsync(
+                                () -> {
+                                    try {
+                                        EasyExcel.read(v.getInputStream(), head, new PageReadListener<T>(dataList -> {
+                                            //转换DO，并设置数据源id
+                                            List<R> list = dataList.parallelStream().map(function).collect(Collectors.toList());
+                                            //异步批量插入
+                                            batchDataProcessor.saveAsyncBatch(list,dbFunction);
+                                        })).sheet().doRead();
+                                    } catch (IOException e) {
+                                    }
+                                }, executor)
+                ).toArray(CompletableFuture[]::new)
+        );
+
+        // 等待所有 CompletableFuture 完成
+        allFutures.join();
+        // 关闭线程池
+        executor.shutdown();
+    }
 
     @Async
-    public CompletableFuture<Integer> importUsers(MultipartFile file) throws IOException {
+    public CompletableFuture<Integer> batchUpload3(MultipartFile file) throws IOException {
         InputStream inputStream = file.getInputStream();
         ExcelReader excelReader = EasyExcel.read(inputStream, User.class, new AnalysisListener()).build();
         excelReader.readAll();
@@ -126,11 +123,11 @@ public class ExcelBatchServiceImpl {
         //存储异步线程的执行结果
         Collection<Future<int[]>> futures = new ArrayList<>();
 
-        EasyExcel.read(file.getInputStream(), head, new PageReadListener(dataList -> {
+        EasyExcel.read(file.getInputStream(), head, new PageReadListener<T>(dataList -> {
             //转换DO，并设置数据源id
-            //List<R> list = dataList.parallelStream().map(function).collect(Collectors.toList());
+            List<R> list = dataList.parallelStream().map(function).collect(Collectors.toList());
             //异步批量插入
-            //futures.add(saveAsyncBatch(list,dbFunction));
+            futures.add(batchDataProcessor.saveAsyncBatch(list,dbFunction));
         })).sheet().doRead();
         //等待异步线程执行完毕
         for (Future<int[]> future : futures) {
@@ -143,32 +140,32 @@ public class ExcelBatchServiceImpl {
         return respVO;
     }
 
-    /**
-     * 批量插入
-     * @param list  要分批处理的数据
-     * @param dbFunction  数据库操作的方法
-     * @param <T> 数据库实体类
-     * @return 返回处理结果
-     */
-    @Async
-    public <T> Future<int[]> saveAsyncBatch(List<T> list, Function<List<T>,Integer> dbFunction) {
-        int size = list.size();
-        int[] result = new int[2];
-        log.info("saveAsyncBatch当前数据分片大小 size:{}",size);
-        try {
-            if (dbFunction.apply(list) > 0) {
-                result[0] = size;
-                log.info("{} 分片存储数据成功,数据量：{}",Thread.currentThread().getName(), size);
-            } else {
-                result[1] = size;
-                log.info("{} 分片存储数据失败：{}",Thread.currentThread().getName(), size);
-            }
-        }catch (Exception e){
-            result[1] = size;
-            log.error("{} 分片存储数据出现异常，{}",Thread.currentThread().getName(),e.getMessage());
-        }
-
-        return new AsyncResult<int[]>(result);
+    @Transactional(rollbackFor = Exception.class) // 添加事务，异常则回滚所有导入
+    public DataExcelImportDto asyncImport(UserRequest userRequest, MultipartFile file) throws IOException, ExecutionException, InterruptedException {
+        //新增数据源，或者id
+        //User functionDatasource = User.INSTANCE.convert(createReqVO);
+        //userMapper.insert(functionDatasource);
+        //Long id = functionDatasource.getId();
+        //获取当前登录用户
+        //Long loginUserId = SecurityFrameworkUtils.getLoginUserId();
+        //开始计时
+        TimeInterval timer = DateUtil.timer();
+        //DataExcelImportRespVO respVO = readExcelAndSave(DataSwMbqcdssImportExcelVO.class, file, data -> DataSwMbqcdssConvert.INSTANCE.convert(data).setDsId(id), dataSwMbqcdssInsertMapper::saveBatch);
+        DataExcelImportDto respVO = readExcelAndSaveAsync(User.class,
+                file,
+                data -> {
+                    User user = new User();
+                    //数据预处理，因为目前的批处理方法不会再自动填充数据，所以这里手动填充
+                    user.setCreateTime(new Date());
+                    return user;
+                },
+                userMapper::insertBatchSomeColumn);
+        //结束计时
+        long interval = timer.interval();
+        log.info("导入数据共花费：{}s", interval / 1000);
+        respVO.setTime(interval);
+        // 存储文件
+        //saveDsFile(id,file);
+        return respVO;
     }
-
 }
