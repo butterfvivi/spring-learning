@@ -4,8 +4,8 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.google.common.collect.Lists;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.CharEncoding;
 import org.springframework.http.HttpHeaders;
@@ -24,7 +24,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Api(tags = "模板导出")
 @RestController
 @RequestMapping("/select")
 public class ExcelSelectController {
@@ -32,7 +31,7 @@ public class ExcelSelectController {
     private static final List<String> sexList = Arrays.asList("男", "女", "未知");
     private static final List<String> cityList = Arrays.asList("深圳", "广州", "上海", "北京", "杭州");
 
-    @ApiOperation(value = "sheet设置单列的下拉值测试接口")
+    @Operation(summary = "sheet设置单列的下拉值测试接口")
     @GetMapping("/v1/export")
     public void tempalte(HttpServletResponse response) throws Exception {
 
@@ -52,7 +51,7 @@ public class ExcelSelectController {
         write.finish();
     }
 
-    @ApiOperation(value = "sheet设置多列的下拉值测试接口")
+    @Operation(summary = "sheet设置多列的下拉值测试接口")
     @GetMapping("/v2/export")
     public void tempalteBatch(HttpServletResponse response) throws Exception {
 

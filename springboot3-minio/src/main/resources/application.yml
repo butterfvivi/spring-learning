@@ -7,3 +7,13 @@ minio:
   secret-key: root123456
   bucket-name: public-test
   public-bucket-name: public-test
+
+springdoc:
+  group-configs:
+    - group: "demo"
+      paths-to-match:
+        - /demo/**
+    - group: "public"
+      paths-to-match:
+        - /public/**
+  packages-to-scan: org.vivi.framework

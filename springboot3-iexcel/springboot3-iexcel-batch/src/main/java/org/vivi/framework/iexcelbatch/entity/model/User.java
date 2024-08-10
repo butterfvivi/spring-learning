@@ -55,14 +55,11 @@ public class User {
     @ExcelProperty(value = "薪水", converter = BigDecimalStringConverter.class, index = 4)
     private BigDecimal salary;
 
-
-    private Integer data;
-
     /**
      * 创建时间
      */
     @ExcelProperty(value = "创建时间", converter = LocalDateTimeStringConverter.class, index = 5)
-    private Date createTime;
+    private LocalDateTime createTime;
 
     public User(String name, Integer sex, Integer age,BigDecimal salary) {
         this.name = name;

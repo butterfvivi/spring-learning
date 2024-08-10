@@ -1,9 +1,7 @@
 package org.vivi.framework.iexcelbatch.controller;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +19,8 @@ public class ExcelDynamicController {
     private UserMapper userMapper;
 
     //@PostMapping(value = "/import", produces = BaseConstant.REQUEST_HEADERS_CONTENT_TYPE)
-    @ApiOperation(value = "测试-导入(全表覆盖)", notes = "测试-导入(全表覆盖)")
-    public R<Boolean> testImport(@RequestParam(value = "file") @ApiParam("上传文件") MultipartFile file) {
+    @Operation(summary = "测试-导入(全表覆盖)", description = "测试-导入(全表覆盖)")
+    public R<Boolean> testImport(@RequestParam(value = "file")  MultipartFile file) {
         return R.success(
                 EasyExcelUtil2.importExcel(
                         file,
@@ -32,14 +30,14 @@ public class ExcelDynamicController {
     }
 
     //@PostMapping(value = "/import", produces = BaseConstant.REQUEST_HEADERS_CONTENT_TYPE)
-    @ApiOperation(value = "测试-导入(按日期覆盖)", notes = "测试-导入(按日期覆盖)")
-    public R<Boolean> testImport(@RequestParam(value = "file") @ApiParam("上传文件") MultipartFile file, @ApiParam("日期 20110101") @RequestParam(value = "date") Integer date) {
+    @Operation(summary = "测试-导入(按日期覆盖)", description = "测试-导入(按日期覆盖)")
+    public R<Boolean> testImport(@RequestParam(value = "file")  MultipartFile file,  @RequestParam(value = "date") Integer date) {
         return R.success(
                 EasyExcelUtil2.importExcel(
                         file,
                         date,
-                        User::getData,
-                        User::setData,
+                        User::getAge,
+                        User::setAge,
                         userMapper,
                         User.class
                 )
@@ -47,7 +45,7 @@ public class ExcelDynamicController {
     }
 
     //@PostMapping(value = "/export", produces = BaseConstant.REQUEST_HEADERS_CONTENT_TYPE)
-    @ApiOperation(value = "测试-导出", notes = "测试-导出")
+    @Operation(summary = "测试-导出", description = "测试-导出")
     public void testExport() {
         EasyExcelUtil2.exportExcel(
                 User.class,

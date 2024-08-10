@@ -1,6 +1,6 @@
 package org.vivi.framework.iexcelbatch.controller;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -29,13 +29,13 @@ public class ExcelHandleController {
         return R.success(excelHandleService.importExcel(request, response, file));
     }
 
-    @ApiOperation(value = "分批导出-单sheet页")
+    @Operation(summary = "分批导出-单sheet页")
     @PostMapping("/v1/export")
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestBody UserQuery query) {
         excelHandleService.exportExcel(request, response, query);
     }
 
-    @ApiOperation(value = "分批导出-多sheet页")
+    @Operation(summary = "分批导出-多sheet页")
     @PostMapping("/v2/export")
     public void exportMultiExcel(HttpServletRequest request, HttpServletResponse response, @RequestBody UserQuery query) {
         userMultiSheetService.exportExcel(request, response, query);
