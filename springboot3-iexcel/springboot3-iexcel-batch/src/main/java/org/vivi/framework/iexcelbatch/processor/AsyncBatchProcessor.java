@@ -63,9 +63,10 @@ public class AsyncBatchProcessor {
         return respVO;
     }
 
-    public <T,R> void readExcelAndSaveAsync2(Class<T> head,  MultipartFile file,  Function<T,R> function, Function<List<R>,Integer> dbFunction) throws IOException {
+    public <T,R> DataExcelImportDto readExcelAndSaveAsync2(Class<T> head,  MultipartFile file,  Function<T,R> function, Function<List<R>,Integer> dbFunction) throws IOException {
         ExecutorService executor = Executors.newFixedThreadPool(10);
-
+        Integer successCount = 0;
+        Integer failCount = 0;
 
         List<String> errorNames = Lists.newCopyOnWriteArrayList();
         //String userName = SecurityAuthorHolder.getSecurityUser().getUsername();
@@ -77,18 +78,24 @@ public class AsyncBatchProcessor {
                                 List<R> list = dataList.parallelStream().map(function).collect(Collectors.toList());
                                 allFutures.add(batchDataProcessor.saveAsyncBatch2(list,dbFunction));
                             }, executor)
-            ).join();
+            );
         })).sheet().doRead();
 
+        for (CompletableFuture<int[]> future : allFutures) {
+            int[] counts = future.join();
+            successCount += counts[0];
+            failCount += counts[1];
+        }
+        DataExcelImportDto respVO = DataExcelImportDto.builder().successCount(successCount).failCount(failCount).build();
         // 等待所有 CompletableFuture 完成
         //allFutures.join();
         // 关闭线程池
         executor.shutdown();
+        return respVO;
     }
 
     public <T,R> void readExcelAndSaveAsync3(Class<T> head, MultipartFile[] files, Function<T, R> function, Function<List<R>,Integer> dbFunction)  {
         ExecutorService executor = Executors.newFixedThreadPool(10);
-
 
         CompletableFuture<Void> allFutures = CompletableFuture.allOf(
                 Arrays.stream(files).map(v ->

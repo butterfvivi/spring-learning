@@ -82,7 +82,7 @@ public class ExcelBatchServiceImpl implements ExcelBatchService {
     public DataExcelImportDto asyncImport3(UserRequest userRequest, MultipartFile file) throws IOException {
         TimeInterval timer = DateUtil.timer();
         DataExcelImportDto respVO = null;
-        asyncBatchProcessor.readExcelAndSaveAsync2(User.class
+        respVO = asyncBatchProcessor.readExcelAndSaveAsync2(User.class
                 , file
                 ,  data -> {
                     User user = new User();
