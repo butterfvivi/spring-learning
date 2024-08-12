@@ -10,7 +10,7 @@ import org.vivi.framework.iasyncexcel.model.ExcelTask;
 import java.util.concurrent.ExecutorService;
 
 @Slf4j
-@Component
+//@Component
 public class ExcelService {
 
     private ExecutorService executor;

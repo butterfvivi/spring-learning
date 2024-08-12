@@ -17,7 +17,7 @@ public class R<T> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static final int FAIL = 500;
-	public static final int SUCCESS = 500;
+	public static final int SUCCESS = 200;
 
 	@Getter
 	@Setter

@@ -12,18 +12,18 @@ import org.vivi.framework.iasyncexcel.service.ExcelService;
 import org.vivi.framework.iasyncexcel.service.ExcelUserService;
 
 @RestController
-@RequestMapping
+@RequestMapping("/async")
 public class UserController {
 
     @Resource
     ExcelService excelService;
 
-    @PostMapping("/imports")
+    @PostMapping("/import")
     public Long imports(@RequestBody MultipartFile file) throws Exception{
         ImportDataParam dataImportParam = new ImportDataParam()
                 .setStream(file.getInputStream())
                 .setModel(User.class)
-                .setBatchSize(3)
+                //.setBatchSize(3)
                 .setFilename("用户导入");
         Long taskId = excelService.doImport(ExcelUserService.class, dataImportParam);
         return taskId;

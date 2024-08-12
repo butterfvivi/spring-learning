@@ -63,11 +63,7 @@ public class AsyncBatchProcessor {
 
     public <T,R> DataExcelImportDto readExcelAndSaveAsync2(Class<T> head,  MultipartFile file,  Function<T,R> function, Function<List<R>,Integer> dbFunction) throws IOException {
         ExecutorService executor = Executors.newFixedThreadPool(10);
-        Integer successCount = 0;
-        Integer failCount = 0;
 
-        List<String> errorNames = Lists.newCopyOnWriteArrayList();
-        //String userName = SecurityAuthorHolder.getSecurityUser().getUsername();
         Collection<CompletableFuture<int[]>> allFutures = new ArrayList<>();
         EasyExcel.read(file.getInputStream(),head,new PageReadListener<T>(dataList -> {
             CompletableFuture.allOf(
@@ -76,17 +72,19 @@ public class AsyncBatchProcessor {
                                 List<R> list = dataList.parallelStream().map(function).collect(Collectors.toList());
                                 allFutures.add(batchDataProcessor.saveAsyncBatch2(list,dbFunction));
                             }, executor)
-            );
+            ).join(); //等待所有 CompletableFuture 完成
         })).sheet().doRead();
 
-        for (CompletableFuture<int[]> future : allFutures) {
-            int[] counts = future.join();
-            successCount += counts[0];
-            failCount += counts[1];
-        }
+//        for (CompletableFuture<int[]> future : allFutures) {
+//            int[] counts = future.join();
+//            successCount += counts[0];
+//            failCount += counts[1];
+//        }
+        //allFutures.stream().map(CompletableFuture::join);
+        int[] array = allFutures.stream().mapToInt(future -> future.join()[1]).toArray();
+        Integer successCount = array[0];
+        Integer failCount = array[1];
         DataExcelImportDto respVO = DataExcelImportDto.builder().successCount(successCount).failCount(failCount).build();
-        // 等待所有 CompletableFuture 完成
-        //allFutures.join();
         // 关闭线程池
         executor.shutdown();
         return respVO;

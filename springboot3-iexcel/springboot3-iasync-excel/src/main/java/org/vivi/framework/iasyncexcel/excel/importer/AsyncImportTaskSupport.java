@@ -2,12 +2,11 @@ package org.vivi.framework.iasyncexcel.excel.importer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.vivi.framework.iasyncexcel.common.enums.ExcelStatusEnums;
 import org.vivi.framework.iasyncexcel.common.enums.ExcelTypeEnums;
-import org.vivi.framework.iasyncexcel.mapper.ExcelTaskMapper;
 import org.vivi.framework.iasyncexcel.model.ExcelTask;
+import org.vivi.framework.iasyncexcel.service.ExcelTaskService;
 
 import java.time.LocalDateTime;
 
@@ -16,8 +15,11 @@ public class AsyncImportTaskSupport implements ImportTaskSupport{
 
     private final static Logger log = LoggerFactory.getLogger(AsyncImportTaskSupport.class);
 
-    @Autowired
-    private ExcelTaskMapper excelTaskMapper;
+    private ExcelTaskService taskService;
+
+    public AsyncImportTaskSupport(ExcelTaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @Override
     public ExcelTask createTask(ImportDataParam param) {
@@ -30,7 +32,7 @@ public class AsyncImportTaskSupport implements ImportTaskSupport{
         excelTask.setStartTime(LocalDateTime.now());
         excelTask.setCreateUserCode(param.getCreateUserCode());
         excelTask.setBusinessCode(param.getBusinessCode());
-        excelTaskMapper.insert(excelTask);
+        taskService.save(excelTask);
         return excelTask;
     }
 
@@ -46,7 +48,7 @@ public class AsyncImportTaskSupport implements ImportTaskSupport{
         excelTask.setFailedCount(context.getFailCount());
         excelTask.setSuccessCount(context.getSuccessCount());
         excelTask.setTotalCount(context.getTotalCount());
-        excelTaskMapper.updateById(excelTask);
+        taskService.updateById(excelTask);
     }
 
     @Override
@@ -60,7 +62,7 @@ public class AsyncImportTaskSupport implements ImportTaskSupport{
         excelTask.setTotalCount(context.getTotalCount());
         excelTask.setFailedFileUrl(context.getErrorFile());
         excelTask.setFailedMessage(context.getFailMessage());
-        excelTaskMapper.updateById(excelTask);
+        taskService.updateById(excelTask);
         if (log.isDebugEnabled()) {
             log.debug("task import error");
         }
@@ -73,7 +75,7 @@ public class AsyncImportTaskSupport implements ImportTaskSupport{
         excelTask.setFailedCount(context.getFailCount());
         excelTask.setSuccessCount(context.getSuccessCount());
         excelTask.setTotalCount(context.getTotalCount());
-        excelTaskMapper.updateById(excelTask);
+        taskService.updateById(excelTask);
     }
 
     public void close(ImportContext ctx) {

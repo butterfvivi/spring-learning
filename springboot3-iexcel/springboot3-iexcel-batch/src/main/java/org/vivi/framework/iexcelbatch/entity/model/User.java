@@ -4,6 +4,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.converters.bigdecimal.BigDecimalStringConverter;
 import com.alibaba.excel.converters.localdate.LocalDateStringConverter;
 import com.alibaba.excel.converters.localdatetime.LocalDateTimeStringConverter;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class User {
      * 姓名
      */
     @ExcelProperty(value = "姓名", index = 0)
+    @TableField("name")
     private String name;
 
     /**
@@ -37,28 +39,33 @@ public class User {
      */
     @ExcelProperty(value = "性别", converter = EnumColumConvert.class, index = 1)
     @EnumFormat(value = SexEnum.class,columnCode ="code",columnName = "desc")
+    @TableField("sex")
     private Integer sex;
 
     /**
      * 年龄
      */
     @ExcelProperty(value = "年龄", index = 2)
+    @TableField("age")
     private Integer age;
 
     /**
      * 生日
      */
     @ExcelProperty(value = "生日", converter = LocalDateStringConverter.class, index = 3)
+    @TableField("birthday")
     private LocalDate birthday;
 
 
     @ExcelProperty(value = "薪水", converter = BigDecimalStringConverter.class, index = 4)
+    @TableField("salary")
     private BigDecimal salary;
 
     /**
      * 创建时间
      */
     @ExcelProperty(value = "创建时间", converter = LocalDateTimeStringConverter.class, index = 5)
+    @TableField("create_time")
     private LocalDateTime createTime;
 
     public User(String name, Integer sex, Integer age,BigDecimal salary) {
