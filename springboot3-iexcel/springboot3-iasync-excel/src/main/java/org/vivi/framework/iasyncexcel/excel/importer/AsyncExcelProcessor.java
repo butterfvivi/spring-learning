@@ -31,7 +31,7 @@ public class AsyncExcelProcessor {
                 asyncReadListener).build();
 
         executor.execute(() -> {
-            support.veforeImport(importDataParam);
+            support.beforeImport(importDataParam);
             reader.read(context.getReadSheet());
             support.onImport(context);
         });

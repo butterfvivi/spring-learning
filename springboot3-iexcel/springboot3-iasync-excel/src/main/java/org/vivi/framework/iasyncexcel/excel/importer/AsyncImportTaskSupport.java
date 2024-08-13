@@ -37,7 +37,7 @@ public class AsyncImportTaskSupport implements ImportTaskSupport{
     }
 
     @Override
-    public void veforeImport(ImportDataParam param) {
+    public void beforeImport(ImportDataParam param) {
 
     }
 

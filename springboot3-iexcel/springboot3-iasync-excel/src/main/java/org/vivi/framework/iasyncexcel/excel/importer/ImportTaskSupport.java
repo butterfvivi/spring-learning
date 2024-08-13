@@ -15,7 +15,7 @@ public interface ImportTaskSupport {
      * d导入前处理
      * @param param
      */
-    void veforeImport(ImportDataParam param);
+    void beforeImport(ImportDataParam param);
 
     /**
      * 执行导入
