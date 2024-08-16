@@ -13,11 +13,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 加载所有产品类的全局process类，用于扫描加了注解@HandlerType的所有实现产品,
+ * 给存储key 和 value产品对象Map赋值，初始化HandlerContext 将其注册到spring容器中
+ */
 @Component
 public class HandleProcessor implements BeanFactoryPostProcessor {
 
     private static final String HANDLE_PACKAGE = "org.vivi.framework.abstracts.strategy";
 
+    /**
+     * 扫描HandleType，初始化HandleContext，将其注册到spring容器中
+     * @param beanFactory
+     * @throws BeansException
+     */
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
         Map<String,Class> handleMap = new HashMap<>();
