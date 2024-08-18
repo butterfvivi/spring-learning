@@ -1,5 +1,7 @@
-package org.vivi.framework.iasyncexcel.core.importer;
+package org.vivi.framework.iasyncexcel.core.support;
 
+import org.vivi.framework.iasyncexcel.core.importer.ImportContext;
+import org.vivi.framework.iasyncexcel.core.importer.ImportDataParam;
 import org.vivi.framework.iasyncexcel.core.model.ExcelTask;
 
 public interface ImportTaskSupport {

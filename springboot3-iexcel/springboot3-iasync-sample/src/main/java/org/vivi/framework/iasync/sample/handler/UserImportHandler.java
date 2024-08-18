@@ -11,8 +11,7 @@ import org.vivi.framework.iasyncexcel.core.annotation.ExcelHandle;
 import org.vivi.framework.iasyncexcel.core.importer.ImportContext;
 import org.vivi.framework.iasyncexcel.core.importer.ImportDataParam;
 import org.vivi.framework.iasyncexcel.core.importer.ImportDto;
-import org.vivi.framework.iasyncexcel.core.importer.ImportHandler;
-import org.vivi.framework.iasync.sample.mapper.UserMapper;
+import org.vivi.framework.iasyncexcel.core.handler.ImportHandler;
 import org.vivi.framework.iasyncexcel.core.model.DataParam;
 import org.vivi.framework.iasyncexcel.core.model.ExcelContext;
 
@@ -22,7 +21,7 @@ import java.util.List;
 
 @Slf4j
 @ExcelHandle
-public class ExcelUserHandler implements ImportHandler<User> {
+public class UserImportHandler implements ImportHandler<User> {
 
     @Autowired
     private ExcelUserService excelUserService;

@@ -3,10 +3,11 @@ package org.vivi.framework.iasync.sample.controller;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.vivi.framework.iasyncexcel.core.exporter.DataExportParam;
 import org.vivi.framework.iasyncexcel.core.importer.ImportDataParam;
 import org.vivi.framework.iasyncexcel.starter.ExcelService;
 import org.vivi.framework.iasync.sample.model.User;
-import org.vivi.framework.iasync.sample.handler.ExcelUserHandler;
+import org.vivi.framework.iasync.sample.handler.UserImportHandler;
 
 
 @RestController
@@ -23,8 +24,15 @@ public class UserController {
                 .setModel(User.class)
                 //.setBatchSize(3)
                 .setFilename("用户导入");
-        Long taskId = excelService.doImport(ExcelUserHandler.class, dataImportParam);
-        return taskId;
+        return excelService.doImport(UserImportHandler.class, dataImportParam);
+    }
+
+    @PostMapping("export")
+    public Long exports(){
+        DataExportParam exportParam = new DataExportParam()
+                .setExportFileName("用户导出")
+                .setLimit(5);
+        return excelService.doExport(exportParam,);
     }
 
 }

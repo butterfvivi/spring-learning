@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.vivi.framework.iasyncexcel.core.importer.AsyncImportTaskSupport;
-import org.vivi.framework.iasyncexcel.core.importer.ImportTaskSupport;
+import org.vivi.framework.iasyncexcel.core.support.AsyncImportTaskSupport;
+import org.vivi.framework.iasyncexcel.core.support.ImportTaskSupport;
 import org.vivi.framework.iasyncexcel.core.service.TaskService;
 
 /**

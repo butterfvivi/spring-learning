@@ -1,4 +1,4 @@
-package org.vivi.framework.iasyncexcel.core.importer;
+package org.vivi.framework.iasyncexcel.core.handler;
 
 import org.vivi.framework.iasyncexcel.core.model.DataParam;
 import org.vivi.framework.iasyncexcel.core.model.ExcelContext;
@@ -7,7 +7,6 @@ public interface Handler {
 
     /**
      * 整个生命周期中只会执行一次该方法，可以用于初始化处理类的一些全局属性
-     * 20221021 添加允许修改param
      * @param ctx
      */
     default void init(ExcelContext ctx, DataParam param) {
