@@ -3,6 +3,7 @@ package org.vivi.framework.iasync.sample.controller;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.vivi.framework.iasync.sample.handler.UserExportHandler;
 import org.vivi.framework.iasyncexcel.core.exporter.DataExportParam;
 import org.vivi.framework.iasyncexcel.core.importer.ImportDataParam;
 import org.vivi.framework.iasyncexcel.starter.ExcelService;
@@ -32,7 +33,7 @@ public class UserController {
         DataExportParam exportParam = new DataExportParam()
                 .setExportFileName("用户导出")
                 .setLimit(5);
-        return excelService.doExport(exportParam,);
+        return excelService.doExport(exportParam, UserExportHandler.class);
     }
 
 }
