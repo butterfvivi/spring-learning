@@ -14,7 +14,7 @@ import org.vivi.framework.iasyncexcel.core.service.TaskService;
  */
 @Configuration
 @ComponentScan({"org.vivi.framework.iasyncexcel.starter.context"})
-@Import({ExcelHandleBasePackagesRegistrar.class,ExcelContextRegistrar.class})
+@Import({ExcelContextRegistrar.class})
 public class ExcelContextConfiguration {
 
     @Bean

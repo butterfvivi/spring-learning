@@ -61,12 +61,12 @@ public class AsyncReadListener<T> implements ReadListener<T> {
             rowMap.setHeadMap(headMap);
         }
 
-        if (data instanceof ISheetRow) {
-            ISheetRow rowData = (ISheetRow) data;
-            rowData.setRow(rowIndex);
-        } else {
-            throw new RuntimeException("导入对应实体必须继承ISheetRow");
-        }
+//        if (data instanceof ISheetRow) {
+//            ISheetRow rowData = (ISheetRow) data;
+//            rowData.setRow(rowIndex);
+//        } else {
+//            throw new RuntimeException("导入对应实体必须继承ISheetRow");
+//        }
         if (ctx.getTask().getEstimateCount() == 0L) {
             Integer headRowNumber = context.readSheetHolder().getHeadRowNumber();
             Integer totalCount = context.getTotalCount() - headRowNumber;

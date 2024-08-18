@@ -3,7 +3,6 @@ package org.vivi.framework.iasyncexcel.starter;
 import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.core.Ordered;
 import org.springframework.core.type.AnnotationMetadata;
-import org.vivi.framework.iasyncexcel.starter.context.service.ExcelService;
 
 import java.util.ArrayList;
 import java.util.List;

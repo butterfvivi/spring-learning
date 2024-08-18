@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import({ExcelHandleBasePackagesRegistrar.class,ExcelImportSelector.class})
+@Import({ExcelImportSelector.class,ExcelHandleBasePackagesRegistrar.class})
 public @interface EnableAsyncExcel {
     String[] basePackages() default {};
 }

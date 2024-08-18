@@ -37,8 +37,8 @@ public class User {
     /**
      * 性别: 0未知 1男 2 女
      */
-    @ExcelProperty(value = "性别", converter = EnumColumConvert.class, index = 1)
-    @EnumFormat(value = SexEnum.class,columnCode ="code",columnName = "desc")
+    //@ExcelProperty(value = "性别", converter = EnumColumConvert.class, index = 1)
+    //@EnumFormat(value = SexEnum.class,columnCode ="code",columnName = "desc")
     @TableField("sex")
     private Integer sex;
 

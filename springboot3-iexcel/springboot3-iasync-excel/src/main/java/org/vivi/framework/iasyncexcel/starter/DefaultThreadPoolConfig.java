@@ -10,28 +10,17 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
-public class ExcelAutoConfiguration {
-
-    @Bean
-    public SpringExcelContext springExcelContext(){
-        SpringExcelContext context = new SpringExcelContext();
-        return context;
-    }
-
-    @Bean
-    public ExcelService excelService(SpringExcelContext springExcelContext, ExcelThreadPool excelThreadPool){
-        return new ExcelService(excelThreadPool,springExcelContext);
-    }
+public class DefaultThreadPoolConfig {
 
     @Bean
     @ConditionalOnMissingBean
     public ExcelThreadPool excelThreadPool(){
         int processors = Runtime.getRuntime().availableProcessors();
-        int coreSize = 2;
-        int maxSize = 4;
-        if (processors > 1){
-            coreSize = 2*processors-1;
-            maxSize = 4*processors-1;
+        int coreSize=2;
+        int maxSize=4;
+        if (processors>1){
+            coreSize=2*processors-1;
+            maxSize=4*processors-1;
         }
         ThreadPoolExecutor executor = new ThreadPoolExecutor(
                 coreSize,
@@ -40,6 +29,9 @@ public class ExcelAutoConfiguration {
                 TimeUnit.SECONDS,
                 new ArrayBlockingQueue<>(20)
         );
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            executor.shutdownNow();
+        }));
         return new ExcelThreadPool(executor);
     }
 }

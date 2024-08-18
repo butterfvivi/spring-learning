@@ -2,6 +2,7 @@ package org.vivi.framework.iasyncexcel.core.importer;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelReader;
+import com.alibaba.excel.read.metadata.ReadSheet;
 import org.vivi.framework.iasyncexcel.core.listener.AsyncReadListener;
 
 import java.util.List;
@@ -29,7 +30,8 @@ public class AsyncExcelProcessor {
                 importDataParam.getStream(),
                 importDataParam.getModel(),
                 asyncReadListener).build();
-
+        ReadSheet readSheet = EasyExcel.readSheet(0).build();
+        context.setReadSheet(readSheet);
         executor.execute(() -> {
             support.beforeImport(importDataParam);
             reader.read(context.getReadSheet());

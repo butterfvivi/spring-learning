@@ -1,4 +1,4 @@
-package org.vivi.framework.iasyncexcel.web.model;
+package org.vivi.framework.iasync.sample.model;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.converters.bigdecimal.BigDecimalStringConverter;
@@ -7,6 +7,7 @@ import com.alibaba.excel.converters.localdatetime.LocalDateTimeStringConverter;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

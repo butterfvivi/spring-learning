@@ -2,7 +2,7 @@ package org.vivi.framework.iasyncexcel.core.importer;
 
 import java.util.List;
 
-public interface ImportHandler<T> {
+public interface ImportHandler<T> extends Handler{
 
     /**导入数据
      * @param list
