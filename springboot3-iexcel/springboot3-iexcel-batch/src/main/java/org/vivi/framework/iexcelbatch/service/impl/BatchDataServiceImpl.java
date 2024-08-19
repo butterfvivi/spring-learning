@@ -13,6 +13,9 @@ import org.vivi.framework.iexcelbatch.mapper.UserMapper;
 import org.vivi.framework.iexcelbatch.service.BatchDataService;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -53,7 +56,7 @@ public class BatchDataServiceImpl implements BatchDataService {
     @Override
     public void batchUsers(Integer times) throws Exception {
         List<UserBatchCallable> list = Lists.newLinkedList();
-        for (int i = 240035; i <= times; i++) {
+        for (int i = 1; i <= times; i++) {
             list.add(new UserBatchCallable(Constant.batchDataSize));
         }
         EXECUTOR.invokeAll(list);
@@ -107,7 +110,14 @@ public class BatchDataServiceImpl implements BatchDataService {
                 List<User> user = Lists.newLinkedList();
                 Long i = 0L;
                 for (; i < total; i++) {
-                    user.add(new User("vivi"+i, 0,18, new BigDecimal(8000)));
+                    user.add(new User(i, "张三" + i,1,30, LocalDate.now(),new BigDecimal(100),LocalDateTime.now(),
+                            "filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,
+                            "filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,
+                            "filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,
+                            "filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,
+                            "filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,
+                            "filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,"filed"+i,
+                            "filed"+i,"filed"+i));
                 }
                 userMapper.insertBatchSomeColumn(user);
             } catch (Exception e) {

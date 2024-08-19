@@ -6,6 +6,7 @@ import org.vivi.framework.iexcelbatch.entity.query.UserRequest;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public interface ExcelBatchService {
 
@@ -16,4 +17,6 @@ public interface ExcelBatchService {
     DataExcelImportDto asyncImport3(UserRequest userRequest, MultipartFile file) throws IOException;
 
     void asyncbatchImport(UserRequest userRequest, MultipartFile[] files);
+
+    DataExcelImportDto asyncDynamicImport(MultipartFile file) throws Exception;
 }

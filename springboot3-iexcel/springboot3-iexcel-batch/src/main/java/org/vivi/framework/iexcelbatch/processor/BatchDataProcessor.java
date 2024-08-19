@@ -3,6 +3,7 @@ package org.vivi.framework.iexcelbatch.processor;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,8 @@ import java.util.stream.Collectors;
 @Service
 public class BatchDataProcessor {
 
+    @Autowired
+    private CustomSqlMapper customSqlMapper;
 
     /**
      * 批量插入
@@ -86,8 +89,8 @@ public class BatchDataProcessor {
         int[] result = new int[2];
         log.info("saveAsyncBatch当前数据分片大小 size:{}",size);
         try {
-            CustomSqlMapper customSqlService = IocUtil.getBean(CustomSqlMapper.class);
-            if(customSqlService.executeCustomSql(dynamicSql(entityClass, list)) > 0){
+            //CustomSqlMapper customSqlService = IocUtil.getBean(CustomSqlMapper.class);
+            if(customSqlMapper.executeCustomSql(dynamicSql(entityClass, list)) > 0){
                 result[0] = size;
                 log.info("{} 分片存储数据成功,数据量：{}",Thread.currentThread().getName(), size);
             } else {

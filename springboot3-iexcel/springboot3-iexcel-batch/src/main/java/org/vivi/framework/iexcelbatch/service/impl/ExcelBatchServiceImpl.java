@@ -121,4 +121,23 @@ public class ExcelBatchServiceImpl implements ExcelBatchService {
         long interval = timer.interval();
         log.info("导入数据共花费：{}s", interval / 1000);
     }
+
+    @Override
+    public DataExcelImportDto asyncDynamicImport( MultipartFile file) throws Exception {
+        TimeInterval timer = DateUtil.timer();
+        DataExcelImportDto respVO = null;
+        respVO = asyncBatchProcessor.readExcelAndSaveAsyncDynamic1(User.class
+                , file
+                ,  data -> {
+                    data.setCreateTime(LocalDateTime.now());
+                    return data;
+                }
+        );
+        //结束计时
+        long interval = timer.interval();
+        log.info("导入数据共花费：{}s", interval / 1000);
+        respVO.setTime(interval);
+        return respVO;
+    }
+
 }

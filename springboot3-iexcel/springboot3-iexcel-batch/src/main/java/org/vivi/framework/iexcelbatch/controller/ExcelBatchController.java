@@ -26,7 +26,7 @@ public class ExcelBatchController {
      *
      * @return
      */
-    @PostMapping(value = "/batch")
+    @PostMapping(value = "")
     @ResponseBody
     public R batchInsertData(@RequestParam Integer times) {
         try {
@@ -78,6 +78,17 @@ public class ExcelBatchController {
     public R asyncbatchImport(@RequestParam(value = "file") MultipartFile[] files, UserRequest userRequest){
         try {
             excelBatchService.asyncbatchImport(userRequest,files);
+        }catch (Exception e){
+            return  R.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        }
+        return R.success();
+    }
+
+    @PostMapping("/asyncDynamicImport")
+    @Operation(summary = "asyncDynamicImport")
+    public R asyncDynamicImport(@RequestParam(value = "file") MultipartFile file, UserRequest userRequest){
+        try {
+            excelBatchService.asyncDynamicImport(file);
         }catch (Exception e){
             return  R.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
         }
