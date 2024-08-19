@@ -116,5 +116,27 @@ public class AsyncBatchProcessor {
         executor.shutdown();
     }
 
+    public  <T,R> DataExcelImportDto readExcelAndSaveAsyncDynamic(Class<T> head, MultipartFile file, Function<T,R> function, Function<List<R>,Integer> dbFunction) throws IOException, ExecutionException, InterruptedException {
+        Integer successCount = 0;
+        Integer failCount = 0;
+        //存储异步线程的执行结果
+        Collection<Future<int[]>> futures = new ArrayList<>();
+
+        EasyExcel.read(file.getInputStream(), head, new PageReadListener<T>(dataList -> {
+            //转换DO，并设置数据源id
+            List<R> list = dataList.parallelStream().map(function).collect(Collectors.toList());
+            //异步批量插入
+            futures.add(batchDataProcessor.saveAsyncBatchDynamic(list,head));
+        })).sheet().doRead();
+        //等待异步线程执行完毕
+        for (Future<int[]> future : futures) {
+            int[] counts = future.get();
+            successCount += counts[0];
+            failCount += counts[1];
+        }
+        log.info("存储成功总数据量：{},存储失败总数据量:{}", successCount,failCount);
+        DataExcelImportDto respVO = DataExcelImportDto.builder().successCount(successCount).failCount(failCount).build();
+        return respVO;
+    }
 
 }

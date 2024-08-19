@@ -4,6 +4,8 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.TimeInterval;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelReader;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.iexcelbatch.entity.dto.DataExcelImportDto;
+import org.vivi.framework.iexcelbatch.entity.dto.DynamicSqlDTO;
 import org.vivi.framework.iexcelbatch.entity.model.User;
 import org.vivi.framework.iexcelbatch.entity.query.UserRequest;
 import org.vivi.framework.iexcelbatch.listener.AnalysisListener;
@@ -20,9 +23,13 @@ import org.vivi.framework.iexcelbatch.service.ExcelBatchService;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
