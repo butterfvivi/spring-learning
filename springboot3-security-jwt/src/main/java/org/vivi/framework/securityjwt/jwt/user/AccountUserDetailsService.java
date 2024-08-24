@@ -26,7 +26,7 @@ public class AccountUserDetailsService implements UserDetailsService {
         if (userInfo == null) {
             throw new UsernameNotFoundException("用户名或密码错误");
         }
-        return new AccountUser(userInfo.getId(), userInfo.getUsername(), userInfo.getPassword(), getUserAuthority(userInfo.getUsername()));
+        return new AccountUser(userInfo.getId(), userInfo.getUserName(), userInfo.getPassword(), getUserAuthority(userInfo.getUserName()));
     }
 
     public List<GrantedAuthority> getUserAuthority(String username) {

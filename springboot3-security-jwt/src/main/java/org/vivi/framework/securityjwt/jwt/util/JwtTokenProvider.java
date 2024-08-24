@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -46,12 +47,28 @@ public class JwtTokenProvider {
 
     public Claims getClaimsByToken(String token) {
         SecretKey signingKey = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
-        return Jwts.parser()
-                .verifyWith(signingKey)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+        Claims claims;
+        try {
+            claims = Jwts.parser()
+                    .verifyWith(signingKey)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+        }catch (ExpiredJwtException e){
+            claims = e.getClaims();
+        }
+        return claims;
     }
+
+//    public Claims getClaimsByToken(String token) {
+//        SecretKey signingKey = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+//
+//        return Jwts.parser()
+//                .verifyWith(signingKey)
+//                .build()
+//                .parseSignedClaims(token)
+//                .getPayload();
+//    }
 
     public Integer getUsernameFromToken(String token) {
         try {
