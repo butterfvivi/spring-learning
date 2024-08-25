@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.vivi.framework.quartz.constants.QuartzEnum;
 import org.vivi.framework.quartz.entity.IJob;
 import org.vivi.framework.quartz.entity.IJobLog;
-import org.vivi.framework.quartz.event.JobLogEvent;
+import org.vivi.framework.quartz.event.IJobLogEvent;
 import org.vivi.framework.quartz.core.TaskInvokFactory;
 import org.vivi.framework.quartz.job.ITaskInvok;
 import org.vivi.framework.quartz.service.JobService;
@@ -82,7 +82,7 @@ public class TaskInvokUtil {
             endTime = System.currentTimeMillis();
             jobLog.setExecuteTime(String.valueOf(endTime - startTime));
 
-            publisher.publishEvent(new JobLogEvent(jobLog));
+            publisher.publishEvent(new IJobLogEvent(jobLog));
             jobService.updateById(uploadJob);
         }
     }

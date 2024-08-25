@@ -6,7 +6,7 @@ import org.vivi.framework.quartz.entity.IJobLog;
 
 @Getter
 @AllArgsConstructor
-public class JobLogEvent {
+public class IJobLogEvent {
 
     private final IJobLog jobLog;
 }
