@@ -1,4 +1,4 @@
-package org.vivi.spring3.iwebsocket.domain;
+package org.vivi.framework.websocket.simple.domain;
 
 import lombok.Data;
 

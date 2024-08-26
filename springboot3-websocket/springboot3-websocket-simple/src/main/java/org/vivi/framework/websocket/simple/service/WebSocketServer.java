@@ -1,4 +1,4 @@
-package org.vivi.spring3.iwebsocket.service;
+package org.vivi.framework.websocket.simple.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

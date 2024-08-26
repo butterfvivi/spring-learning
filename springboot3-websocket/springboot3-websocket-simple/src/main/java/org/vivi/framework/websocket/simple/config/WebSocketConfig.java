@@ -1,4 +1,4 @@
-package org.vivi.spring3.iwebsocket.config;
+package org.vivi.framework.websocket.simple.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

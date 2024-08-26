@@ -1,4 +1,4 @@
-package org.vivi.spring3.iwebsocket.controller;
+package org.vivi.framework.websocket.simple.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.vivi.spring3.iwebsocket.service.WebSocketServer;
+import org.vivi.framework.websocket.simple.service.WebSocketServer;
 
 @RestController
 public class WebSocketController {
