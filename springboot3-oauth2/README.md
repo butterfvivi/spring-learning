@@ -39,3 +39,8 @@ Spring Authorization Server 授权码模式测试流程
 ![img.png](images/resource-server.png)
 #### 访问 http://localhost:9002/messages2 带上accessToken，返回message2
 #### 访问 http://localhost:9002/messages3 带上accessToken，返回403，权限不足
+
+
+## step6 集成资源服务 : run springboot3-oauth2-password-server
+#### 访问 http://localhost:9000/oauth2/token 地址， Params 参数为grant_type=authorization_password、username=user、password=123456，scope=profile，Basic Auth 参数为 Username=password-client-id，Password=secret
+

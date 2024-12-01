@@ -35,7 +35,7 @@ public class PasswordGrantAuthenticationConverter implements AuthenticationConve
             throw new OAuth2AuthenticationException("请求无效，用户名不能为空！");
         }
         String password = parameters.getFirst(OAuth2ParameterNames.PASSWORD);
-        if (StringUtils.hasText(password) || parameters.get(OAuth2ParameterNames.PASSWORD).size() != 1){
+        if (!StringUtils.hasText(password) || parameters.get(OAuth2ParameterNames.PASSWORD).size() != 1){
             throw new OAuth2AuthenticationException("请求无效，密码不能为空！");
         }
 
