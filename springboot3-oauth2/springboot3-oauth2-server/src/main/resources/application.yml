@@ -1,20 +1,30 @@
 server:
-  port: 2000
+  port: 9000
+  servlet:
+    session:
+      cookie:
+        # 需要更换存放sessionId的cookie名字，否则认证服务和客户端的sessionId会相互覆盖
+        name: JSESSIONID-1
+
 spring:
   application:
-    name: oauth2-server
+    name: oauth-server
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://119.3.188.100:3306/oauth2_simple?useSSL=false
+    url: jdbc:mysql://localhost:3306/oauth-server?serverTimezone=UTC&userUnicode=true&characterEncoding=utf-8
     username: root
     password: wtf0010.
-  cloud:
-    nacos:
-      discovery:
-        # 服务注册地址
-        server-addr: 119.3.188.100:8848
-        service: oauth2-server
+#  cloud:
+#    nacos:
+#      discovery:
+#        # 服务注册地址
+#        server-addr: 119.3.188.100:8848
+#        service: oauth2-server
+
+logging:
+  level:
+    org.springframework.security: trace
+
 
   mybatis-plus:
     configuration:

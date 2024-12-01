@@ -1,17 +1,19 @@
 package org.spring.oauth2.server.service;
 
-import org.spring.oauth2.server.domain.UserDetail;
-import org.spring.oauth2.server.domain.model.Authority;
-import org.spring.oauth2.server.domain.model.User;
+import org.spring.oauth2.server.domain.model.UserInfo;
 import org.spring.oauth2.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -21,11 +23,11 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.getUserByName(username);
-        List<Authority> authorities = userRepository.getAuthoritiesByUserId(user.getId());
-        return Optional.ofNullable(user)
-                .map(u -> new UserDetail(u, authorities))
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        UserInfo userInfo = userRepository.getUserByName(username);
+        List<SimpleGrantedAuthority> authorities = Arrays.asList("USER").stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return Optional.ofNullable(userInfo)
+                .map(u -> new User(username, userInfo.getPassword(),authorities))
+                .orElseThrow(() -> new UsernameNotFoundException("UserInfo not found"));
     }
 
 }

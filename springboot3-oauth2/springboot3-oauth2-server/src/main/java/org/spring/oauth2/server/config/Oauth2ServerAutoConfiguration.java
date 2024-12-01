@@ -14,7 +14,7 @@
 //import org.springframework.security.org.oauth2.security.gateway.config.annotation.web.builders.HttpSecurity;
 //import org.springframework.security.org.oauth2.security.gateway.config.annotation.web.configuration.EnableWebSecurity;
 //import org.springframework.security.org.oauth2.security.gateway.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
-//import org.springframework.security.core.userdetails.User;
+//import org.springframework.security.core.userdetails.UserInfo;
 //import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.userdetails.UserDetailsService;
 //import org.springframework.security.oauth2.core.AuthorizationGrantType;
@@ -57,7 +57,7 @@
 //                        .authenticationEntryPoint(
 //                                new LoginUrlAuthenticationEntryPoint("/login"))
 //                )
-//                // Accept access tokens for User Info and/or Client Registration
+//                // Accept access tokens for UserInfo Info and/or Client Registration
 //                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 //
 //        return http.build();
@@ -83,7 +83,7 @@
 //
 //    @Bean
 //    public UserDetailsService userDetailsService() {
-//        UserDetails userDetails = User.withDefaultPasswordEncoder()
+//        UserDetails userDetails = UserInfo.withDefaultPasswordEncoder()
 //                .username("test")
 //                .password("test")
 //                .roles("USER")
