@@ -1,45 +1,79 @@
 server:
-  port: 2002
+  port: 9001
   servlet:
     session:
       cookie:
         # 需要更换存放sessionId的cookie名字，否则认证服务和客户端的sessionId会相互覆盖
         name: JSESSIONID-2
-
+    context-path: /spring-oauth-client
 spring:
+  application:
+    name: spring-oauth-client
   security:
     oauth2:
       client:
-        registration:
-          myoauth2:
-            provider: spring-simple
-            client-id: simple-client-id
-            client-secret: simple-client-secret
-            authorization-grant-type: authorization_code
-            redirect-uri: http://127.0.0.1:2002/login/oauth2/code/myoauth2
-            #            client-authentication-method: POST
-            scope: openid
-#            provider: spring
-#            client-id: client
-#            client-secret: secret
-#            scope:
-#              - openid
-#              - user_info
-#              - read
-#              - profile
-#            authorization-grant-type: authorization_code
-#            redirect-uri: http://127.0.0.1:2002/client
-#            redirect-uri: http://127.0.0.1:2002/login/oauth2/code/myoauth2
         provider:
-#          demo-client-id:
-#            authorization-uri: http://127.0.0.1:2000/oauth2/authorize
-#            token-uri: http://127.0.0.1:2000/oauth2/token
-#            user-info-uri: http://127.0.0.1:2002/user/info
-#            user-name-attribute: name
-#            jwk-set-uri: http://127.0.0.1:2000/oauth2/jwks
-          spring-simple:
-#            authorization-uri: http://127.0.0.1:2000/oauth2/authorize
-            issuer-uri: http://127.0.0.1:2000
+          #认证服务器信息
+          oauth-server:
+            #授权地址
+            issuer-uri: http://localhost:9000
+            authorizationUri: ${spring.security.oauth2.client.provider.oauth-server.issuer-uri}/oauth2/authorize
+            #令牌获取地址
+            tokenUri: ${spring.security.oauth2.client.provider.oauth-server.issuer-uri}/oauth2/token
+        registration:
+          messaging-client-oidc:
+            #认证提供者，标识由哪个认证服务器进行认证，和上面的oauth-server进行关联
+            provider: oauth-server
+            #客户端名称
+            client-name: web平台
+            #客户端id，从认证平台申请的客户端id
+            client-id: web-client-id
+            #客户端秘钥
+            client-secret: secret
+            #客户端认证方式
+            client-authentication-method: client_secret_basic
+            #使用授权码模式获取令牌（token）
+            authorization-grant-type: authorization_code
+            #回调地址，接收认证服务器回传code的接口地址，之前我们是使用http://www.baidu.com代替
+            redirect-uri: http://localhost:9001/login/oauth2/code/messaging-client-oidc
+            scope:
+              - profile
+              - openid
+
+#spring:
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          myoauth2:
+#            provider: spring-simple
+#            client-id: simple-client-id
+#            client-secret: simple-client-secret
+#            authorization-grant-type: authorization_code
+#            redirect-uri: http://127.0.0.1:2002/login/oauth2/code/myoauth2
+#            #            client-authentication-method: POST
+#            scope: openid
+##            provider: spring
+##            client-id: client
+##            client-secret: secret
+##            scope:
+##              - openid
+##              - user_info
+##              - read
+##              - profile
+##            authorization-grant-type: authorization_code
+##            redirect-uri: http://127.0.0.1:2002/client
+##            redirect-uri: http://127.0.0.1:2002/login/oauth2/code/myoauth2
+#        provider:
+##          demo-client-id:
+##            authorization-uri: http://127.0.0.1:2000/oauth2/authorize
+##            token-uri: http://127.0.0.1:2000/oauth2/token
+##            user-info-uri: http://127.0.0.1:2002/user/info
+##            user-name-attribute: name
+##            jwk-set-uri: http://127.0.0.1:2000/oauth2/jwks
+#          spring-simple:
+##            authorization-uri: http://127.0.0.1:2000/oauth2/authorize
+#            issuer-uri: http://127.0.0.1:2000
 
   main:
     allow-bean-definition-overriding: true
