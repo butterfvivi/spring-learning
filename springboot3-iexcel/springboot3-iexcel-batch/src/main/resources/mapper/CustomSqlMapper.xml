@@ -16,6 +16,19 @@
         </foreach>
     </insert>
 
+    <insert id="insertDynamic" parameterType="map">
+        INSERT INTO ${tableName}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <foreach item="entry" index="key" collection="fields">
+                ${key},
+            </foreach>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <foreach item="entry" index="key" collection="data">
+                #{entry.value},
+            </foreach>
+        </trim>
+    </insert>
 
     <insert id="truncateTable">
         truncate table ${tableName}

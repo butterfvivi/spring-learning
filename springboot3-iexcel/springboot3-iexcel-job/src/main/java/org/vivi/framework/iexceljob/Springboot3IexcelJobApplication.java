@@ -1,14 +1,13 @@
-package org.vivi.spring3.iwebsocket;
+package org.vivi.framework.iexceljob;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-public class WebSocketApplication {
+public class Springboot3IexcelJobApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(WebSocketApplication.class, args);
+        SpringApplication.run(Springboot3IexcelJobApplication.class, args);
     }
 
 }
