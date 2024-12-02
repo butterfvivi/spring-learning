@@ -43,4 +43,7 @@ Spring Authorization Server 授权码模式测试流程
 
 ## step6 集成资源服务 : run springboot3-oauth2-password-server
 #### 访问 http://localhost:9000/oauth2/token 地址， Params 参数为grant_type=authorization_password、username=user、password=123456，scope=profile，Basic Auth 参数为 Username=password-client-id，Password=secret
+![img.png](images/oauth2-password-access_token.png)
 
+#### 添加refreshToken copy 框架源码中的 OAuth2AuthorizationCodeAuthenticationProvider 生成 refresh_token 的代码
+![img.png](images/oauth2-password-refresh_token.png)
