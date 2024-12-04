@@ -47,3 +47,4 @@ docker-compose -v
 cd /docker
 docker-compose up -d elasticsearch
 
+重启 docker-compose restart

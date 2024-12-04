@@ -29,6 +29,8 @@ import org.springframework.security.oauth2.server.authorization.token.*;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
+import org.vivi.framework.password.oauth2.mobile.MobileGrantAuthenticationConverter;
+import org.vivi.framework.password.oauth2.mobile.MobileGrantAuthenticationProvider;
 import org.vivi.framework.password.oauth2.password.PasswordGrantAuthenticationConverter;
 import org.vivi.framework.password.oauth2.password.PasswordGrantAuthenticationProvider;
 
@@ -61,8 +63,14 @@ public class AuthorizationServerConfig {
                                 .accessTokenRequestConverter(
                                         new PasswordGrantAuthenticationConverter())
                                 .authenticationProvider(
-                                        new PasswordGrantAuthenticationProvider(
-                                                authorizationService, tokenGenerator)))
+                                        new PasswordGrantAuthenticationProvider(authorizationService, tokenGenerator)))
+                //设置自定义手机验证码模式
+                .tokenEndpoint(tokenEndpoint ->
+                        tokenEndpoint
+                                .accessTokenRequestConverter(
+                                        new MobileGrantAuthenticationConverter())
+                                .authenticationProvider(
+                                        new MobileGrantAuthenticationProvider(authorizationService, tokenGenerator)))
                 //开启OpenID Connect 1.0（其中oidc为OpenID Connect的缩写）。
                 .oidc(Customizer.withDefaults());
 

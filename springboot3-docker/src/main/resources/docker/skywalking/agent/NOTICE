@@ -290,7 +290,7 @@ provides utilities for the java.lang API, which can be obtained at:
     * https://commons.apache.org/proper/commons-lang/
 
 
-This product contains the Maven wrapper scripts from 'Maven Wrapper', that provides an easy way to ensure a user has everything necessary to run the Maven build.
+This product contains the Maven wrapper scripts from 'Maven Wrapper', that provides an easy way to ensure a userInfo has everything necessary to run the Maven build.
 
   * LICENSE:
     * license/LICENSE.mvn-wrapper.txt (Apache License 2.0)
