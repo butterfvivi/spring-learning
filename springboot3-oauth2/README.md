@@ -41,9 +41,21 @@ Spring Authorization Server 授权码模式测试流程
 #### 访问 http://localhost:9002/messages3 带上accessToken，返回403，权限不足
 
 
-## step6 集成资源服务 : run springboot3-oauth2-password-server
-#### 访问 http://localhost:9000/oauth2/token 地址， Params 参数为grant_type=authorization_password、username=user、password=123456，scope=profile，Basic Auth 参数为 Username=password-client-id，Password=secret
+## step6 集成自定义密码模式和手机验证码模式 : run springboot3-oauth2-password-server
+#### 6.1 自定义密码模式：访问 http://localhost:9000/oauth2/token 地址， Params 参数为grant_type=authorization_password、username=user、password=123456，scope=profile，Basic Auth 参数为 Username=password-client-id，Password=secret
 ![img.png](images/oauth2-password-access_token.png)
 
-#### 添加refreshToken copy 框架源码中的 OAuth2AuthorizationCodeAuthenticationProvider 生成 refresh_token 的代码
+#### 6.1 自定义密码模式： 添加refreshToken copy 框架源码中的 OAuth2AuthorizationCodeAuthenticationProvider 生成 refresh_token 的代码
 ![img.png](images/oauth2-password-refresh_token.png)
+
+#### 6.2 自定义手机验证码模式： 访问 http://localhost:9000/oauth2/token 地址， Params 参数为grant_type=authorization_mobile、username=13000000001、sms_code=8888，scope=profile，Basic Auth 参数为 Username=mobile-client-id，Password=secret
+![img.png](images/oauth2-mobile.png)
+
+## step7 自定义token-> id_token : run springboot3-oauth2-token
+#### 访问 http://localhost:9000/oauth2/token 地址， Params 参数为grant_type=authorization_password、username=user、password=123456，scope=profile openid，Basic Auth 参数为 Username=password-client-id，Password=secret
+![img_1.png](images/oauth2_id_token.png)
+
+
+## step7 自定义OCID : run springboot3-oauth2-oidc
+#### 访问 http://localhost:9000/oauth2/token 地址， Params 参数为grant_type=authorization_password、username=13000000001、password=123456，scope=profile openid email address phone，Basic Auth 参数为 Username=custom-oidc-id，Password=secret
+![img.png](images/oauth2-oidc.png)
