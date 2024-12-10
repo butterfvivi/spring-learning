@@ -22,6 +22,11 @@ public class Oauth2Constant {
      */
     public static final String SMS_CODE_VALUE = "8888";
 
+    /**
+     * 登录地址
+     */
+    public static final String LOGIN_URL = "/login";
+
     private Oauth2Constant(){
 
     }

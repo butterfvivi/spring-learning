@@ -28,6 +28,7 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
+import org.vivi.framework.sso.server.handler.MyAuthenticationException;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -96,7 +97,7 @@ public class PasswordGrantAuthenticationProvider implements AuthenticationProvid
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if(!passwordEncoder.matches(password,userDetails.getPassword())){
-            throw new OAuth2AuthenticationException("密码不正确！");
+            throw new MyAuthenticationException("密码不正确！");
         }
 
         //已验证过用户,构建一个已认证的对象UsernamePasswordAuthenticationToken

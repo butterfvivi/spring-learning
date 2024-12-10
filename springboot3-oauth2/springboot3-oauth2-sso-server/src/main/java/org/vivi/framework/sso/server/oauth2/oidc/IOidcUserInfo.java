@@ -20,6 +20,10 @@ public class IOidcUserInfo extends OidcUserInfo {
         this.claims = Collections.unmodifiableMap(new LinkedHashMap(claims));
     }
 
+    public Map<String, Object> getClaims() {
+        return this.claims;
+    }
+
     public static Builder myBuilder() {
         return new Builder();
     }

@@ -17,8 +17,8 @@ public class IOidcUserInfoAuthenticationConverter implements AuthenticationConve
     @Override
     public Authentication convert(HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+        //查询用户信息
         IOidcUserInfo iOidcUserInfo = oidcUserInfoService.loadUser(authentication.getName());
-        return new OidcUserInfoAuthenticationToken(authentication, iOidcUserInfo);
+        return new IOidcUserInfoAuthenticationToken(authentication, iOidcUserInfo);
     }
 }

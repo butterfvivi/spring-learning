@@ -33,8 +33,14 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.token.*;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
+import org.vivi.framework.sso.server.constant.Oauth2Constant;
+import org.vivi.framework.sso.server.filter.MyExceptionTranslationFilter;
+import org.vivi.framework.sso.server.handler.MyAccessDeniedHandler;
+import org.vivi.framework.sso.server.handler.MyAuthenticationEntryPoint;
+import org.vivi.framework.sso.server.handler.MyAuthenticationFailureHandler;
 import org.vivi.framework.sso.server.oauth2.mobile.MobileGrantAuthenticationConverter;
 import org.vivi.framework.sso.server.oauth2.mobile.MobileGrantAuthenticationProvider;
 import org.vivi.framework.sso.server.oauth2.oidc.IOidcUserInfoAuthenticationConverter;
@@ -62,13 +68,11 @@ public class AuthorizationServerConfig {
     @Resource
     private UserDetailsService userDetailsService;
     @Resource
-    private IOidcUserInfoService oidcUserInfoService;
+    private IOidcUserInfoService iOidcUserInfoService;
 
     @Bean
     @Order(1)
-    public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http, RegisteredClientRepository registeredClientRepository,
-                                                                      AuthorizationServerSettings authorizationServerSettings,
-                                                                      OAuth2AuthorizationService authorizationService,
+    public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http, OAuth2AuthorizationService authorizationService,
                                                                       OAuth2TokenGenerator<?> tokenGenerator) throws Exception {
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 
@@ -90,21 +94,30 @@ public class AuthorizationServerConfig {
                                         new MobileGrantAuthenticationConverter())
                                 .authenticationProvider(
                                         new MobileGrantAuthenticationProvider(authorizationService, tokenGenerator)))
+                .tokenEndpoint(tokenEndpoint ->{
+                    tokenEndpoint.errorResponseHandler(new MyAuthenticationFailureHandler());
+                })
+                .clientAuthentication(clientAuthentication -> {
+                    clientAuthentication.errorResponseHandler(new MyAuthenticationFailureHandler());
+                })
                 //开启OpenID Connect 1.0（其中oidc为OpenID Connect的缩写）。
                 .oidc(oidcCustomizer -> {
                     oidcCustomizer.userInfoEndpoint(userInfoEndpointCustomizer -> {
-                        userInfoEndpointCustomizer.userInfoRequestConverter(new IOidcUserInfoAuthenticationConverter(oidcUserInfoService));
-                        userInfoEndpointCustomizer.authenticationProvider(new IOidcUserInfoAuthenticationProvider(authorizationService));
+                        userInfoEndpointCustomizer.userInfoRequestConverter(new IOidcUserInfoAuthenticationConverter(iOidcUserInfoService));
+                        userInfoEndpointCustomizer.authenticationProvider(new IOidcUserInfoAuthenticationProvider(authorizationService,iOidcUserInfoService));
                     });
                 });
 
         //设置登录地址，需要进行认证的请求被重定向到该地址
         http
+                .addFilterBefore(new MyExceptionTranslationFilter(), ExceptionTranslationFilter.class)
                 .exceptionHandling((exceptions) -> exceptions
                         .defaultAuthenticationEntryPointFor(
-                                new LoginUrlAuthenticationEntryPoint("/login"),
+                                new LoginUrlAuthenticationEntryPoint(Oauth2Constant.LOGIN_URL),
                                 new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
                         )
+                        .authenticationEntryPoint(new MyAuthenticationEntryPoint())
+                        .accessDeniedHandler(new MyAccessDeniedHandler())
                 )
                 .oauth2ResourceServer(oauth2ResourceServer ->
                         oauth2ResourceServer.jwt(Customizer.withDefaults()));
@@ -202,6 +215,7 @@ public class AuthorizationServerConfig {
     @Bean
     OAuth2TokenGenerator<?> tokenGenerator(JWKSource<SecurityContext> jwkSource) {
         JwtGenerator jwtGenerator = new JwtGenerator(new NimbusJwtEncoder(jwkSource));
+        jwtGenerator.setJwtCustomizer(jwtCustomizer(iOidcUserInfoService));
         OAuth2AccessTokenGenerator accessTokenGenerator = new OAuth2AccessTokenGenerator();
         OAuth2RefreshTokenGenerator refreshTokenGenerator = new OAuth2RefreshTokenGenerator();
         return new DelegatingOAuth2TokenGenerator(
@@ -229,7 +243,7 @@ public class AuthorizationServerConfig {
 
     //包含客户端权限范围的，并没有包含用户的权限范围
     @Bean
-    public OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer() {
+    public OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer(IOidcUserInfoService iOidcUserInfoService) {
 
         return context -> {
             JwsHeader.Builder headers = context.getJwsHeader();

@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcUserInfoAuthenticationContext;
 import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcUserInfoAuthenticationToken;
 import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
+import org.springframework.util.Assert;
 
 import java.util.*;
 import java.util.function.Function;
@@ -22,10 +23,14 @@ public class IOidcUserInfoAuthenticationProvider implements AuthenticationProvid
     private final Log logger = LogFactory.getLog(this.getClass());
 
     private final OAuth2AuthorizationService authorizationService;
-    private Function<OidcUserInfoAuthenticationContext,IOidcUserInfo> userInfoMapper = new DefaultOidcUserInfoMapper();
+    private final IOidcUserInfoService iOidcUserInfoService;
+    private Function<OidcUserInfoAuthenticationContext,IOidcUserInfo> userInfoMapper = null;
 
-    public IOidcUserInfoAuthenticationProvider(OAuth2AuthorizationService authorizationService) {
+    public IOidcUserInfoAuthenticationProvider(OAuth2AuthorizationService authorizationService, IOidcUserInfoService iOidcUserInfoService) {
+        Assert.notNull(authorizationService, "authorizationService cannot be null");
         this.authorizationService = authorizationService;
+        this.iOidcUserInfoService = iOidcUserInfoService;
+        userInfoMapper = new IOidcUserInfoAuthenticationProvider.DefaultOidcUserInfoMapper(iOidcUserInfoService);
     }
 
     @Override
@@ -34,7 +39,7 @@ public class IOidcUserInfoAuthenticationProvider implements AuthenticationProvid
         AbstractOAuth2TokenAuthenticationToken<?> accessTokenAuthentication = null;
 
         if (AbstractOAuth2TokenAuthenticationToken.class.isAssignableFrom(userInfoAuthenticationToken.getPrincipal().getClass())){
-            accessTokenAuthentication = (AbstractOAuth2TokenAuthenticationToken<?>) userInfoAuthenticationToken.getPrincipal();
+            accessTokenAuthentication = (AbstractOAuth2TokenAuthenticationToken) userInfoAuthenticationToken.getPrincipal();
         }
 
         if (accessTokenAuthentication != null && accessTokenAuthentication.isAuthenticated()){
@@ -60,12 +65,27 @@ public class IOidcUserInfoAuthenticationProvider implements AuthenticationProvid
                     if (this.logger.isTraceEnabled()) {
                         this.logger.trace("Authenticated user info request");
                     }
+
                     //构造新的OidcUserInfoAuthenticationToken
-                    return new OidcUserInfoAuthenticationToken(accessTokenAuthentication, new IOidcUserInfo(claims));
+                    IOidcUserInfoAuthenticationToken iOidcUserInfoAuthenticationToken = new IOidcUserInfoAuthenticationToken(accessTokenAuthentication, new IOidcUserInfo(claims));
+                    if (this.logger.isTraceEnabled()) {
+                        this.logger.trace("Validated user info request");
+                    }
+                    //使用OidcUserInfoAuthenticationToken重新構造OidcUserInfoAuthenticationContext
+                    OidcUserInfoAuthenticationContext authenticationContext = OidcUserInfoAuthenticationContext.with(iOidcUserInfoAuthenticationToken)
+                            .accessToken(authorizationAccessToken.getToken())
+                            .authorization(auth2Authorization).build();
+
+                    IOidcUserInfo userInfo = this.userInfoMapper.apply(authenticationContext);
+                    if (this.logger.isTraceEnabled()) {
+                        this.logger.trace("Authenticated user info request");
+                    }
+                    return new IOidcUserInfoAuthenticationToken(accessTokenAuthentication, userInfo);
                 }
             }
+        } else {
+            throw new OAuth2AuthenticationException("invalid_token");
         }
-        return null;
     }
 
     @Override
@@ -77,15 +97,28 @@ public class IOidcUserInfoAuthenticationProvider implements AuthenticationProvid
         private static final List<String> EMAIL_CLAIMS = Arrays.asList("email", "email_verified");
         private static final List<String> PHONE_CLAIMS = Arrays.asList("phone_number", "phone_number_verified");
         private static final List<String> PROFILE_CLAIMS = Arrays.asList("name", "username", "description", "status", "profile");
-        private DefaultOidcUserInfoMapper() {
+        private final IOidcUserInfoService iOidcUserInfoService;
+        private DefaultOidcUserInfoMapper(IOidcUserInfoService iOidcUserInfoService) {
+            this.iOidcUserInfoService = iOidcUserInfoService;
         }
 
         @Override
         public IOidcUserInfo apply(OidcUserInfoAuthenticationContext oidcUserInfoAuthenticationContext) {
             OAuth2Authorization authorization = oidcUserInfoAuthenticationContext.getAuthorization();
-            OidcIdToken idToken = authorization.getToken(OidcIdToken.class).getToken();
+            OAuth2Authorization.Token<OidcIdToken> oAuth2Token = authorization.getToken(OidcIdToken.class);
+
+            Map<String,Object> claims = null;
+            if (Objects.nonNull(oAuth2Token)){
+                OidcIdToken idToken = oAuth2Token.getToken();
+                claims = idToken.getClaims();
+            }else {
+                java.security.Principal principal = authorization.getAttribute("java.security.Principal");
+                //查询用户信息
+                IOidcUserInfo iOidcUserInfo = this.iOidcUserInfoService.loadUser(principal.getName());
+                claims = iOidcUserInfo.getClaims();
+            }
             OAuth2AccessToken accessToken = oidcUserInfoAuthenticationContext.getAccessToken();
-            Map<String, Object> scopeRequestedClaims = getClaimsRequestedByScope(idToken.getClaims(), accessToken.getScopes());
+            Map<String, Object> scopeRequestedClaims = getClaimsRequestedByScope(claims, accessToken.getScopes());
             return new IOidcUserInfo(scopeRequestedClaims);
         }
 
