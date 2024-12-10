@@ -1,0 +1,40 @@
+server:
+  ip: springboot3-oauth-product
+  port: 9004
+
+logging:
+  level:
+    org.springframework.security: trace
+spring:
+  application:
+    name: springboot3-oauth-product
+  security:
+    oauth2:
+      client:
+        provider:
+          #???????
+          oauth-server:
+            #????
+            issuer-uri: http://localhost:9000
+            authorizationUri: ${spring.security.oauth2.client.provider.oauth-server.issuer-uri}/oauth2/authorize
+            #??????
+            tokenUri: ${spring.security.oauth2.client.provider.oauth-server.issuer-uri}/oauth2/token
+        registration:
+          messaging-client-oidc:
+            #?????????????????????????oauth-server????
+            provider: oauth-server
+            #?????
+            client-name: web??-SSO???-????
+            #???id????????????id
+            client-id: web-client-id-product
+            #?????
+            client-secret: secret
+            #???????
+            client-authentication-method: client_secret_basic
+            #????????????token?
+            authorization-grant-type: authorization_code
+            #??????????????code?????????????http://www.baidu.com??
+            redirect-uri: http://spring-oauth-client-product:9004/login/oauth2/code/messaging-client-oidc
+            scope:
+              - profile
+              - openid
