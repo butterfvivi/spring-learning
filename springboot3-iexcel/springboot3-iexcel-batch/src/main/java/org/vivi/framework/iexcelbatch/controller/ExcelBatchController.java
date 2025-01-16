@@ -11,6 +11,9 @@ import org.vivi.framework.iexcelbatch.entity.query.UserRequest;
 import org.vivi.framework.iexcelbatch.service.BatchDataService;
 import org.vivi.framework.iexcelbatch.service.ExcelBatchService;
 
+/**
+ * 异步导入导出 excel数据
+ */
 @Slf4j
 @RestController
 @RequestMapping("/batch")

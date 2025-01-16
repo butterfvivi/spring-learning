@@ -31,7 +31,6 @@ public class AsyncBatchProcessor {
     private static final ThreadPoolExecutor.CallerRunsPolicy POLICY = new ThreadPoolExecutor.CallerRunsPolicy();
 
     private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(4, 8, 60, TimeUnit.SECONDS, BLOCKING_QUEUE, POLICY);
-
     /**
      * 异步多线程导入数据
      * 采用自定义注入mybatis-plus的SQL注入器，实现真正的BatchInsert，但是需要注意的是项目配置文件需要在jdbc的url后面加上rewriteBatchedStatements=true
@@ -70,8 +69,8 @@ public class AsyncBatchProcessor {
     }
 
     public <T,R> DataExcelImportDto readExcelAndSaveAsync2(Class<T> head,  MultipartFile file,  Function<T,R> function, Function<List<R>,Integer> dbFunction) throws IOException {
-        ExecutorService executor = Executors.newFixedThreadPool(10);
-
+        //ExecutorService executor = Executors.newFixedThreadPool(10);
+        ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
         Collection<CompletableFuture<int[]>> allFutures = new ArrayList<>();
         EasyExcel.read(file.getInputStream(),head,new PageReadListener<T>(dataList -> {
             CompletableFuture.allOf(
@@ -150,6 +149,7 @@ public class AsyncBatchProcessor {
     public <T,R> DataExcelImportDto readExcelAndSaveAsyncDynamic1(Class<T> head,  MultipartFile file,  Function<T,R> function) throws IOException {
         //ExecutorService executor = Executors.newFixedThreadPool(10);
 
+        //ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
         Collection<CompletableFuture<int[]>> allFutures = new ArrayList<>();
         EasyExcel.read(file.getInputStream(),head,new PageReadListener<T>(dataList -> {
             CompletableFuture.allOf(
