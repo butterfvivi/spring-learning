@@ -1,6 +1,10 @@
 server:
-  ip: springboot3-oauth-order
   port: 9003
+  servlet:
+    session:
+      cookie:
+        # 需要更换存放sessionId的cookie名字，否则认证服务和客户端的sessionId会相互覆盖
+        name: JSESSIONID-3
 logging:
   level:
     org.springframework.security: trace
@@ -34,7 +38,7 @@ spring:
             #使用授权码模式获取令牌（token）
             authorization-grant-type: authorization_code
             #回调地址，接收认证服务器回传code的接口地址，之前我们是使用http://www.baidu.com代替
-            redirect-uri: http://spring-oauth-client-order:9003/login/oauth2/code/messaging-client-oidc
+            redirect-uri: http://localhost:9003/login/oauth2/code/messaging-client-oidc
             scope:
               - profile
               - openid

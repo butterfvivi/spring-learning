@@ -56,6 +56,17 @@ Spring Authorization Server 授权码模式测试流程
 ![img_1.png](images/oauth2_id_token.png)
 
 
-## step7 自定义OCID : run springboot3-oauth2-oidc
+## step8 自定义OCID : run springboot3-oauth2-oidc
 #### 访问 http://localhost:9000/oauth2/token 地址， Params 参数为grant_type=authorization_password、username=13000000001、password=123456，scope=profile openid email address phone，Basic Auth 参数为 Username=custom-oidc-id，Password=secret
 ![img.png](images/oauth2-oidc.png)
+
+## step9 : run springboot3-oauth2-oidc
+#### 访问 http://localhost:9000/oauth2/token 地址， Params 参数为grant_type=authorization_password、username=13000000001、password=123456，scope=profile openid email address phone，Basic Auth 参数为 Username=custom-oidc-id，Password=secret
+![img.png](images/oauth2-oidc.png)
+
+
+## step10 : SSO单点登录
+#### run -> springboot3-oauth2-sso-server
+#### 访问 http://localhost:9003/order1
+#### run -> springboot3-oauth2-sso-product
+#### 访问 http://localhost:9004/product1

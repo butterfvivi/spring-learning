@@ -5,7 +5,7 @@ server:
       cookie:
         # 需要更换存放sessionId的cookie名字，否则认证服务和客户端的sessionId会相互覆盖
         name: JSESSIONID-2
-    context-path: /spring-oauth-client
+   # context-path: /spring-oauth-client
 spring:
   application:
     name: spring-oauth-client

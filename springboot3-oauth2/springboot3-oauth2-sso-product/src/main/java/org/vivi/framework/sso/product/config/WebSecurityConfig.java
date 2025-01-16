@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 
     @Bean
-    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http, SecurityFilterChain oauth2SecurityFilterChain) throws Exception {
+    public SecurityFilterChain authorizationClientSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 // 请求路径管理
                 .authorizeHttpRequests(authorize -> authorize
