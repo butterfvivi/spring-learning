@@ -1,4 +1,4 @@
-package org.vivi.framework.database.model;
+package org.vivi.framework.gradle.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
