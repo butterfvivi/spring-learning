@@ -6,12 +6,19 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.5</version>
+        <version>3.4.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>org.vivi.spring3.websocket</groupId>
     <artifactId>springboot3-websocket</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>springboot3-websocket-simple</module>
+        <module>springboot3-websocket-starter</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -19,6 +26,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <fastjson.version>2.0.50</fastjson.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
+        <java.version>22</java.version>
+        <fastjson.version>2.0.50</fastjson.version>
+        <commons-lang3.version>3.14.0</commons-lang3.version>
+        <hutool.all.version>4.6.10</hutool.all.version>
     </properties>
 
     <dependencies>

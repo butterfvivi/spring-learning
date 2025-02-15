@@ -2,15 +2,43 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
     <groupId>org.vivi.framework</groupId>
     <artifactId>springboot3-iexcel</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>springboot3-iexcel</name>
-    <description>springboot3-iexcel</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>springboot3-iexcel-toolkit</module>
+        <module>springboot3-easyexcel-simple</module>
+        <module>springboot3-excel-configure</module>
+        <module>springboot3-iasync-excel</module>
+        <module>springboot3-iasync-sample</module>
+        <module>springboot3-iexcel-batch</module>
+    </modules>
+
     <properties>
-        <java.version>17</java.version>
+        <java.version>22</java.version>
+        <guava.version>19.0</guava.version>
+        <mybatisplus.version>3.5.6</mybatisplus.version>
+        <mybatis.version>3.0.4</mybatis.version>
+        <druid.version>1.2.22</druid.version>
+        <easyexcel.version>3.3.4</easyexcel.version>
+        <hutool.version>4.6.10</hutool.version>
+        <fastjson.version>2.0.52</fastjson.version>
+        <mysql.version>8.0.33</mysql.version>
+        <springdoc.version>2.2.0</springdoc.version>
+        <knife4j.version>4.5.0</knife4j.version>
+        <fastjson2.version>2.0.55</fastjson2.version>
     </properties>
+
 
     <build>
         <plugins>

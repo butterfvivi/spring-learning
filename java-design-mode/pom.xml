@@ -7,11 +7,16 @@
     <artifactId>java-design-mode</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>springboot3-factory</name>
+    <packaging>pom</packaging>
 
     <properties>
         <java.version>17</java.version>
     </properties>
 
+    <modules>
+        <module>java-factory-strategy</module>
+        <module>java-strategy-abstract</module>
+    </modules>
 
     <build>
         <plugins>

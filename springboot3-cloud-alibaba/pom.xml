@@ -16,6 +16,14 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <modules>
+        <module>nacos-demo</module>
+        <module>springboot3-cloud-biz</module>
+        <module>springboot3-cloud-config</module>
+        <module>springboot3-cloud-consumer</module>
+        <module>springboot3-cloud-gateway</module>
+    </modules>
+
     <properties>
         <java.version>22</java.version>
         <maven.compiler.source>22</maven.compiler.source>

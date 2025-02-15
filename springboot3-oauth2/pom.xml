@@ -15,6 +15,12 @@
         <module>springboot3-oauth2-client</module>
         <module>oauth2-client-simple</module>
         <module>springboot3-oauth2-gateway</module>
+        <module>springboot3-oauth2-oidc-server</module>
+        <module>springboot3-oauth2-password-server</module>
+        <module>springboot3-oauth2-sso-order</module>
+        <module>springboot3-oauth2-sso-server</module>
+        <module>springboot3-oauth2-sso-product</module>
+        <module>springboot3-oauth2-token</module>
     </modules>
 
     <properties>

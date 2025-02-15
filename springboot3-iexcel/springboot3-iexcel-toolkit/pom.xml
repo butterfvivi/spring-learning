@@ -3,29 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.6</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>org.vivi.framework</groupId>
+        <artifactId>springboot3-iexcel</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>org.vivi.framework</groupId>
     <artifactId>springboot3-iexcel-toolkit</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>springboot3-iexcel-toolkit</name>
-
-    <properties>
-        <java.version>17</java.version>
-        <java.version>17</java.version>
-        <guava.version>19.0</guava.version>
-        <mybatisplus.version>3.5.6</mybatisplus.version>
-        <druid.version>1.2.22</druid.version>
-        <easyexcel.version>3.3.4</easyexcel.version>
-        <hutool.all.version>4.6.10</hutool.all.version>
-        <fastjson.version>2.0.52</fastjson.version>
-        <mysql.version>8.0.33</mysql.version>
-        <springdoc.version>2.2.0</springdoc.version>
-        <knife4j.version>4.5.0</knife4j.version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -49,8 +34,8 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
             <version>${mysql.version}</version>
         </dependency>
 
@@ -88,7 +73,7 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>${hutool.all.version}</version>
+            <version>${hutool.version}</version>
         </dependency>
 
         <dependency>
