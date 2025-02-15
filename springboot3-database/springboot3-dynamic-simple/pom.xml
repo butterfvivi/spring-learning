@@ -13,8 +13,9 @@
     <name>springboot3-dynamic-simple</name>
 
     <properties>
-        <java.version>22</java.version>
+        <java.version>21</java.version>
         <mybatisplus.version>3.5.6</mybatisplus.version>
+        <mybatis.version>3.0.4</mybatis.version>
         <druid.version>1.2.22</druid.version>
         <dynamic-datasource.version>3.6.0</dynamic-datasource.version>
     </properties>
@@ -36,6 +37,18 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatisplus.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mybatis-spring</artifactId>
+                    <groupId>org.mybatis</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>${mybatis.version}</version>
         </dependency>
 
         <dependency>

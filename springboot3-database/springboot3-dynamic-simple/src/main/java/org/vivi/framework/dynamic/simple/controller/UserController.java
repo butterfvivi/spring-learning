@@ -4,8 +4,8 @@ import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.vivi.framework.dynamic.mapper.UserMapper;
-import org.vivi.framework.dynamic.model.User;
+import org.vivi.framework.dynamic.simple.mapper.UserMapper;
+import org.vivi.framework.dynamic.simple.model.User;
 
 @RestController
 @RequestMapping

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan(basePackages = "org.vivi.framework.dynamic.mapper")
+@MapperScan(basePackages = "org.vivi.framework.dynamic.simple.mapper")
 public class MybatisPlusConfig {
 
     @Bean
