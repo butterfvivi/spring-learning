@@ -8,10 +8,15 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>springboot3-sa-token</name>
     <description>springboot3-sa-token</description>
+    <packaging>pom</packaging>
 
     <properties>
-        <java.version>17</java.version>
+        <java.version>22</java.version>
     </properties>
+
+    <modules>
+        <module>springboot3-sa-token-simple</module>
+    </modules>
 
     <build>
         <plugins>
