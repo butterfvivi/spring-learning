@@ -1,4 +1,4 @@
-package org.vivi.framework.excel.configure.interfaces;
+package org.vivi.framework.excel.configure.base.interfaces;
 
 import java.util.List;
 

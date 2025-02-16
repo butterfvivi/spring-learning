@@ -5,7 +5,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.vivi.framework.excel.configure.common.utils.SpringContextUtil;
-import org.vivi.framework.excel.configure.interfaces.IDAOAdapter;
+import org.vivi.framework.excel.configure.base.interfaces.IDAOAdapter;
 import org.vivi.framework.excel.configure.mybatis.handler.ResultSetCallbackHandler;
 import org.vivi.framework.excel.configure.mybatis.mapper.ISqlMapper;
 

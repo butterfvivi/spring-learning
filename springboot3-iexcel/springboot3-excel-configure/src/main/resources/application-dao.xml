@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+    <!-- 配置组件包扫描的位置 -->
+    <context:component-scan base-package="org.vivi.framework.excel" />
+
+
+    <!-- 读取db.properties配置文件到Spring容器中 -->
+    <context:property-placeholder
+            location="classpath:db.properties" />
+    <!-- 配置 阿里巴巴的 druid 数据源（连接池） -->
+    <bean id="dataSource"
+          class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <!-- SpringEL 语法 ${key} -->
+        <property name="driverClassName"
+                  value="${jdbc.driver}" />
+        <property name="url" value="${jdbc.url}" />
+
+        <!-- ${username}如果key是username，name 默认spring框架调用的当前操作系统的账号 解决方案：可以统一给key加一个前缀 -->
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+    </bean>
+    <!-- 创建SqlSessionFactory MyBatis会话工厂对象 -->
+    <bean id="sqlSessionFactory"
+          class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 注入数据源 -->
+        <property name="dataSource" ref="dataSource" />
+        <!-- 读取映射文件 ,MyBatis的纯注解不用配置 -->
+        <property name="mapperLocations">
+            <array>
+                <!-- 配置单个映射文件 -->
+                <!-- <value>classpath:cn/zj/ssm/mapper/UserMapper.xml</value> -->
+                <!-- 配置多个映射文件使用 * 通配符 -->
+                <value>classpath*:mapper/*Mapper.xml</value>
+            </array>
+
+        </property>
+        <!-- 配置mybatis-confg.xml主配置文件（注配置文件可以保留一些个性化配置，缓存，日志，插件） -->
+        <property name="configLocation"
+                  value="classpath:mybatis-config.xml" />
+        <!-- 配置别名，使用包扫描 -->
+        <property name="typeAliasesPackage" value="org.vivi.framework.excel.configure"></property>
+
+    </bean>
+    <!-- SqlSession 不用单独创建，每次做crud操作都需要Mapper接口的代理对象 而代理对象的创建又必须有 SqlSession对象创建
+        Spring在通过MyBatis创建 Mapper接口代理对象的时候，底层自动把SqlSession会话对象创建出来 -->
+
+    <!-- 创建UserMapper接口的代理对象,创建单个代理对象 参考桥梁包：org.mybatis.spring.mapper.MapperFactoryBean<T>
+        此类就是创建 Mapper 代理对象的类 -->
+    <!--<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        注入UserMapper接口 <property name="mapperInterface" value="cn.sxt.mapper.UserMapper"/>
+        注入sqlSessionFactory工厂对象 <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        </bean> -->
+    <!-- 使用包扫描创建代理对象，包下面所有Mapper接口统一创建代理对象 使用桥梁包下面 ： org.mybatis.spring.mapper.MapperScannerConfigurer
+        可以包扫描创建所有映射接口的代理对象 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 配置SqlSessionFactoryBean的名称 -->
+        <property name="basePackage" value="org.vivi.framework.excel.configure.mybatis"/>
+        <!-- 可选，如果不写，Spring启动时候。容器中。自动会按照类型去把SqlSessionFactory对象注入进来 -->
+        <!-- <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/> -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+</beans>

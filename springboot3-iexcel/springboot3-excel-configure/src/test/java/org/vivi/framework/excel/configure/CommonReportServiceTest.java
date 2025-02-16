@@ -1,12 +1,15 @@
 package org.vivi.framework.excel.configure;
 
-import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson.JSON;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.vivi.framework.excel.configure.entity.ExportBeanConfig;
+import org.vivi.framework.excel.configure.core.entity.ExportBeanConfig;
+import org.vivi.framework.excel.configure.core.service.CommonExportService;
+import org.vivi.framework.excel.configure.core.service.common.WriteExcelService;
 import org.vivi.framework.excel.configure.mybatis.mapper.ISqlMapper;
 
 import java.io.File;
@@ -16,11 +19,20 @@ import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ExportServiceTest {
+@ContextConfiguration("classpath:application-dao.xml")
+public class CommonReportServiceTest {
 
     @Autowired
     private ISqlMapper sqlMapper;
 
+
+    @Autowired
+    private CommonExportService commonExportService;
+
+    @Autowired
+    private WriteExcelService writeExcelService;
+
+    @Test
     public void testGetCount() {
 
         List<String> sqlList = new ArrayList<>(1000000);
@@ -41,6 +53,7 @@ public class ExportServiceTest {
             e.printStackTrace();
         }
     }
+
 
     @Test
     public void testGetMap() {
@@ -65,5 +78,15 @@ public class ExportServiceTest {
         exportBeanConfigDto.setSize(30000);
         exportBeanConfigDto.setUseObjectModel(false);
         exportBeanConfigDto.setUseParallelQuery(true);
+        //exportBeanConfigDto.setT(new ArrayList<>());
+        //exportBeanConfigDto.setT(new AccountEntity());
+        try {
+            List list = commonExportService.getExportData(exportBeanConfigDto);
+            System.out.println(list.size() + "================");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
