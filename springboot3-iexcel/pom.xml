@@ -22,6 +22,7 @@
         <module>springboot3-iasync-excel</module>
         <module>springboot3-iasync-sample</module>
         <module>springboot3-iexcel-batch</module>
+        <module>springboot3-excel-dynamic</module>
     </modules>
 
     <properties>
@@ -37,7 +38,21 @@
         <springdoc.version>2.2.0</springdoc.version>
         <knife4j.version>4.5.0</knife4j.version>
         <fastjson2.version>2.0.55</fastjson2.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+    </dependencies>
 
 
     <build>

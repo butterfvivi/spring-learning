@@ -28,6 +28,37 @@
         <caffeine.version>3.1.8</caffeine.version>
     </properties>
 
+    <modules>
+        <module>java-design-mode</module>
+        <module>JimuReport-example</module>
+        <module>quartz-simple</module>
+        <module>springboot3-activiti</module>
+        <module>springboot3-cloud-alibaba</module>
+        <module>springboot3-database</module>
+        <module>springboot3-docker</module>
+        <module>springboot3-elasticsearch</module>
+        <module>springboot3-exception-handler</module>
+        <module>springboot3-fuction</module>
+        <module>springboot3-gateway</module>
+        <module>springboot3-iexcel</module>
+        <module>springboot3-knife4j</module>
+        <module>springboot3-mapstruct</module>
+        <module>springboot3-minio</module>
+        <module>springboot3-mybatisplus-druid</module>
+        <module>springboot3-oauth2</module>
+        <module>springboot3-oauth2-security</module>
+        <module>springboot3-postgresql</module>
+        <module>springboot3-quartz-distribute</module>
+        <module>springboot3-redis</module>
+        <module>springboot3-sa-token</module>
+        <module>springboot3-security-jwt</module>
+        <module>springboot3-sso</module>
+        <module>springboot3-webflux</module>
+        <module>springboot3-websocket</module>
+        <module>ureport-example</module>
+        <module>xxl-job-simple</module>
+    </modules>
+
     <dependencyManagement>
         <dependencies>
             <!-- spring boot 依赖 -->
