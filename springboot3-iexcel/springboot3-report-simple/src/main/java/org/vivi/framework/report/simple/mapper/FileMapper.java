@@ -4,14 +4,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.vivi.framework.report.simple.entity.file.IFile;
 
-import java.io.File;
-
-/**
- * (IFile)Mapper
- *
- * @author peiyanni
- * @since 2021-02-18 14:48:24
- */
 @Mapper
 public interface FileMapper extends BaseMapper<IFile> {
 

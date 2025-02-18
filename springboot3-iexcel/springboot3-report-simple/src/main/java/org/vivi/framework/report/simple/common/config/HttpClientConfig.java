@@ -41,9 +41,6 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
-/**
- * Created by raodeming on 2021/3/24.
- */
 @Configuration
 @Slf4j
 public class HttpClientConfig {
