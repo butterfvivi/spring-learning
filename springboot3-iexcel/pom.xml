@@ -23,6 +23,7 @@
         <module>springboot3-iasync-sample</module>
         <module>springboot3-iexcel-batch</module>
         <module>springboot3-excel-dynamic</module>
+        <module>springboot3-report-simple</module>
     </modules>
 
     <properties>
@@ -39,6 +40,14 @@
         <knife4j.version>4.5.0</knife4j.version>
         <fastjson2.version>2.0.55</fastjson2.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
+        <itextpdf.version>5.5.13.2</itextpdf.version>
+        <itext-asian.version>5.2.0</itext-asian.version>
+        <poi.version>4.1.2</poi.version>
+        <core-renderer.version>R8</core-renderer.version>
+        <xmlworker.version>5.5.13</xmlworker.version>
+        <flyway.version>5.2.1</flyway.version>
+        <httpclient.version>4.5.13</httpclient.version>
+        <httpclient5.version>5.4.2</httpclient5.version>
     </properties>
 
     <dependencies>

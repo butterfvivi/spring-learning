@@ -1,0 +1,68 @@
+server:
+  port: 3006
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+springfox:
+  documentation:
+    auto-startup: false
+spring:
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/report?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: appuser@anji
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  #????????
+  druid:
+    initial-size: 50
+    min-idle: 50
+    max-active: 100
+    # ???????????
+    max-wait: 5000
+    # ?????????????
+    time-between-eviction-runs-millis: 60000
+    # ???????????????
+    min-evictable-idle-time-millis: 300000
+    validation-query: select 1
+    # ??????????????timeBetweenEvictionRunsMillis????????minEvictableIdleTimeMillis??????
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+    # ????PSCache?PSCache????????????????oracle?????mysql?????
+    pool-prepared-statements: false
+    max-pool-prepared-statement-per-connection-size: 50
+    filters: stat,wall
+    connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+    use-global-data-source-stat: true
+    #StatViewServlet??
+    stat-view-servlet.enabled: false
+    #??????????
+    stat-view-servlet.login-username: admin
+    stat-view-servlet.login-password: admin
+    stat-view-servlet.allow: ""
+    connectionErrorRetryAttempts: 3 # ????????????
+    breakAfterAcquireFailure: true # ?????????????
+    timeBetweenConnectErrorMillis: 300000 # ???????????
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #??sql??
+    call-setters-on-nulls: true
+  mapperLocations:
+    - classpath*:/mapper/**/*.xml
+    - classpath*:/modeler-mybatis-mappings/**/*.xml
+
+logging:
+  config: classpath:logback.xml
