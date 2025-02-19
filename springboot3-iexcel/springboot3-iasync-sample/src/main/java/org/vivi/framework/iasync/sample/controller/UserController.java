@@ -1,5 +1,6 @@
 package org.vivi.framework.iasync.sample.controller;
 
+import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +34,15 @@ public class UserController {
         DataExportParam exportParam = new DataExportParam()
                 .setExportFileName("用户导出")
                 .setLimit(5);
+        return excelService.doExport(exportParam, UserExportHandler.class);
+    }
+
+    @PostMapping("export1")
+    public Long exports1(){
+        DataExportParam exportParam = new DataExportParam()
+                .setExportFileName("用户导出")
+                .setDynamicHead(true)
+                .setHeadList(Lists.newArrayList("姓名", "性别", "年龄", "生日", "薪水", "创建时间"));
         return excelService.doExport(exportParam, UserExportHandler.class);
     }
 

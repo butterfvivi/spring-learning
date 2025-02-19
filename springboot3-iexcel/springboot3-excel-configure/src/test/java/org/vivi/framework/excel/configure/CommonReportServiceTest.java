@@ -64,6 +64,57 @@ public class CommonReportServiceTest {
     @Test
     public void testExport() {
 
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        /*long startTime = System.currentTimeMillis();
+
+        ExportBeanConfig exportBeanConfigDto = new ExportBeanConfig();
+        String countSql = "select count(*) from account where id  > 50000";
+
+        // String querySql = "SELECT id,account_number AS accountNumber,PASSWORD,client_id AS clientId FROM account";
+        String querySql = "SELECT id,account_number AS accountNumber,PASSWORD,client_id AS clientId FROM account " +
+                " where id >= (SELECT id FROM account   LIMIT $LIMIT_CYCLE_COUNT, 1 ) and id > 50000 LIMIT $LIMIT_COUNT";
+        exportBeanConfigDto.setCountSql(countSql);
+        exportBeanConfigDto.setQuerySql(querySql);
+        exportBeanConfigDto.setLimitCount(30000);
+        exportBeanConfigDto.setSize(30000);
+        exportBeanConfigDto.setUseObjectModel(false);
+        exportBeanConfigDto.setUseParallelQuery(true);
+        exportBeanConfigDto.setT(new AccountEntity());
+        try {
+            List list = commonExportService.getExportData(exportBeanConfigDto);
+            System.out.println(list.size() + "================");
+            long endTime = System.currentTimeMillis();
+            Thread.sleep(10000);
+            list.clear();
+            System.out.println("endTime - startTime = "+(endTime - startTime));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+
+
+        long startTime = System.currentTimeMillis();
+        List<Integer> list = new ArrayList<>(100000);
+        for (int i  = 0;i < 100000;i ++){
+            list.add(i);
+        }
+        long endTime = System.currentTimeMillis();
+
+        System.out.println("endTime - startTime = "+(endTime - startTime));
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testExport1() {
+
         long startTime = System.currentTimeMillis();
 
         ExportBeanConfig exportBeanConfigDto = new ExportBeanConfig();
