@@ -64,10 +64,10 @@ public class ExcelHandleService extends ServiceImpl<UserMapper, User> {
     @IExcelRewrite(targetParam = "dynamic")
     public void dynamic(List<Map<String, Object>> data, List<String> headers) throws Exception {
         log.info("dynamic data list1:{}", JSONUtil.parse(data));
-        List<User> users = userMapper.selectList(new QueryWrapper<>());
-        List<Map<String, Object>> maps = BeanUtil.objectList2ListMap(users);
+        //List<User> users = userMapper.selectList(new QueryWrapper<>());
+        //List<Map<String, Object>> maps = BeanUtil.objectList2ListMap(users);
 
-        data.addAll(maps);
+        //data.addAll(maps);
         //return userMapper.selectList(new QueryWrapper<>());
     }
 }
