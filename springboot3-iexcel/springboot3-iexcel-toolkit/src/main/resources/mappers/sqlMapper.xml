@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.vivi.framework.iexceltoolkit.mapper.ISqlMapper">
+
+    <select id="selectList" parameterType="java.lang.String" resultType="java.util.Map" useCache="false">
+        ${value}
+    </select>
+
+    <select id="getCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        ${value}
+    </select>
+
+</mapper>

@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:application-dao.xml")
+//@ContextConfiguration("classpath:application-dao.xml")
 public class CommonReportServiceTest {
 
     @Autowired
@@ -43,15 +43,16 @@ public class CommonReportServiceTest {
             String sql = "values (" + i + ",'" + i + "iui3u23inskadnfkasdf" + i + "','" + i + "','" + i + "'," + i + ");";
             builder.append(sql);
             sqlList.add(builder.toString());
+            System.out.println(builder);
         }
 
-        File file = new File("E:\\tmp\\batchSql.sql");
-
-        try {
-            FileUtils.writeLines(file, sqlList);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        File file = new File("E:\\tmp\\batchSql.sql");
+//
+//        try {
+//            FileUtils.writeLines(file, sqlList);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
 
@@ -129,7 +130,7 @@ public class CommonReportServiceTest {
         exportBeanConfigDto.setSize(30000);
         exportBeanConfigDto.setUseObjectModel(false);
         exportBeanConfigDto.setUseParallelQuery(true);
-        //exportBeanConfigDto.setT(new ArrayList<>());
+        exportBeanConfigDto.setT(new ArrayList<>());
         //exportBeanConfigDto.setT(new AccountEntity());
         try {
             List list = commonExportService.getExportData(exportBeanConfigDto);

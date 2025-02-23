@@ -66,6 +66,7 @@ public class ReportDataListMapStrategy implements IReportDataStrategy {
         if (exportBean.getSize() > dataList.size() && exportBean.isUseParallelQuery()) {
             long startTime = System.currentTimeMillis();
             Map<Integer, ExportFieldBean> exportFieldBeanMap = writeExcelService.getMetaFieldMap(exportBean.getT().getClass());
+
             List<CompletableFuture<List<Map<Integer, String>>>> resultFuture = new ArrayList<>();
             int yu = dataList.size() % exportBean.getLimitCount();
             int page = dataList.size() / exportBean.getLimitCount();

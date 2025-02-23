@@ -3,4 +3,4 @@ spring:
     name: springboot3-excel-dynamic
 
 server:
-  port: 9001
+  port: 3008

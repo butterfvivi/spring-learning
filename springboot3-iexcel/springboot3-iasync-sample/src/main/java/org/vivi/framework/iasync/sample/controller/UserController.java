@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.vivi.framework.iasync.sample.handler.MapExportHandler;
 import org.vivi.framework.iasync.sample.handler.UserExportHandler;
 import org.vivi.framework.iasyncexcel.core.exporter.DataExportParam;
 import org.vivi.framework.iasyncexcel.core.importer.ImportDataParam;
@@ -43,7 +44,7 @@ public class UserController {
                 .setExportFileName("用户导出")
                 .setDynamicHead(true)
                 .setHeadList(Lists.newArrayList("姓名", "性别", "年龄", "生日", "薪水", "创建时间"));
-        return excelService.doExport(exportParam, UserExportHandler.class);
+        return excelService.doExport(exportParam, MapExportHandler.class);
     }
 
 }

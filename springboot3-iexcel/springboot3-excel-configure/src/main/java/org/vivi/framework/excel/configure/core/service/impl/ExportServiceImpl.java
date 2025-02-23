@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.vivi.framework.excel.configure.common.Constant;
 import org.vivi.framework.excel.configure.core.entity.ExportBeanConfig;
 import org.vivi.framework.excel.configure.base.interfaces.IDAOAdapter;
@@ -12,6 +13,7 @@ import org.vivi.framework.excel.configure.core.service.IQueryService;
 
 import java.util.List;
 
+@Service
 public class ExportServiceImpl implements IExport {
 
     @Autowired

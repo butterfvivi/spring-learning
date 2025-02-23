@@ -87,6 +87,50 @@ public class WriteExcelService {
         return true;
     }
 
+    /**
+     * 将数据写入excel中，使用eazyexcel组件
+     *
+     * @param dataMapList
+     * @param filePath
+     * @return
+     * @throws java.io.IOException
+     */
+    public boolean writeListMap2ExcelAndHead(List<Map<Integer, String>> dataMapList, String filePath, List<List<String>> heads,String sheetName) throws IOException {
+
+        long startTime = System.currentTimeMillis();
+        List<List<String>> resultList = new ArrayList<>();
+
+        //5.保存文件到filePath中
+        File file = new File(filePath);
+        file.createNewFile();
+        FileOutputStream stream = FileUtils.openOutputStream(file);
+        try {
+
+            dataMapList.stream().forEach(map -> {
+                List<String> rowList = new ArrayList<>();
+                for (int i = 0; i < map.size(); i++) {
+                    rowList.add(map.get(i));
+                }
+                resultList.add(rowList);
+            });
+            logger.info("sheetName = {}" , sheetName);
+            logger.info("dataMapList.size ={} ,head.size() = {},convertResultList = {} , row.size() = {}",dataMapList.size(),heads.size(),resultList.size());
+
+            EasyExcel.write(stream)
+                    // 这里放入动态头
+                    .head(heads).sheet(sheetName)
+                    // 当然这里数据也可以用 List<List<String>> 去传入
+                    .doWrite(resultList);
+        } catch (Exception e) {
+            logger.error("生成报表文件失败", e);
+            return false;
+        } finally {
+            stream.close();
+        }
+        long endTime = System.currentTimeMillis();
+        logger.info("generate excel use time:(endTime - startTime) = {}" , (endTime - startTime));
+        return true;
+    }
 
     /**
      * 将数据写入excel中，使用eazyexcel组件
