@@ -1,1 +1,17 @@
-spring.application.name=springboot3-mybatis-batch
+spring:
+  application:
+    name: springboot3-mybatis-batch
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.100.131:3306/springboot3_demo
+    username: root
+    password: wtf0010.
+
+server:
+  port: 4000
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+  mapper-locations: classpath:mapper/*.xml

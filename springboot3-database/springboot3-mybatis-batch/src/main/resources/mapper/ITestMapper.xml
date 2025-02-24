@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.vivi.framework.mybatis.batch.web.mapper.ITestMapper">
+
+    <insert id="xmlBatchInsert" parameterType="org.vivi.framework.mybatis.batch.web.entity.TestPO">
+        insert into test (id, name)
+        values (#{po.id}, #{po.name})
+    </insert>
+
+    <delete id="deleteAll">
+        <choose>
+            <when test="_databaseId == 'h2'">
+                delete from test
+            </when>
+            <otherwise>
+                truncate table test
+            </otherwise>
+        </choose>
+    </delete>
+
+    <insert id="foreachInsert" parameterType="org.vivi.framework.mybatis.batch.web.entity.TestPO">
+        <choose>
+            <when test="_databaseId == 'oracle'">
+                insert into test (id, name)
+                <foreach collection="list" item="po" open="(" close=")" separator="union all">
+                    select #{po}, #{po} from dual
+                </foreach>
+            </when>
+            <otherwise>
+                insert into test(id, name) values
+                <foreach collection='testPOS' item='po' open="(" close=")" separator=','>
+                    #{po.id}, #{po.name}
+                </foreach>
+            </otherwise>
+        </choose>
+    </insert>
+
+</mapper>
