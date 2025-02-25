@@ -34,7 +34,7 @@ public class ExcelUtils {
 
     /**
      * 动态列导出
-     *
+     * 动态列导出。 heads@列头，注意顺序需要与data数据顺序一致；data@数据,动态列导出；config@配置项 可为null
      * @param response
      * @param heads    列头，注意顺序需要与data数据顺序一致
      * @param data     数据,动态列导出
@@ -53,7 +53,7 @@ public class ExcelUtils {
 
     /**
      * 复杂的excel导出，在基础上，可以增加合计、统计等等信息
-     *
+     * 复杂的excel导出，在基础上，可以增加合计、统计等等信息。 data@导出的数据; templatePath@导出数据的模板; otherValMap@填充合计等特殊行数据; config@配置项
      * @param response
      * @param data         导出的数据
      * @param templatePath 导出数据的模板
@@ -74,7 +74,7 @@ public class ExcelUtils {
     /**
      * 根据实体类解析excel，最终返回List<Bean>
      * 推荐写法，便于后期他人维护
-     *
+     * 根据实体类解析excel，最终返回List<Bean>。 clazz@类对象 需要映射的字段加上 @ExcelProperty('excel的字段名'); file@上传文件MultipartFile流; headRowNumber@几行标题（没有标题就写0，第一行如果是标题就写1.第一和二行是标题就写2.....）
      * @param clazz         类对象 需要映射的字段加上 @ExcelProperty("excel的字段名")
      * @param file          上传文件MultipartFile流
      * @param headRowNumber 几行标题（没有标题就写0，第一行如果是标题就写1.第一和二行是标题就写2.....）
@@ -93,7 +93,7 @@ public class ExcelUtils {
 
     /**
      * 如果列名称以 姓名@name构建而成，那么重构数据顺序...要么全部其别名映射，要么一个都不起
-     *
+     * 如果列名称以 姓名@name构建而成，那么重构数据顺序...要么全部其别名映射，要么一个都不起。headList@['姓名@name' , '年龄@age','爱好@hobby']; dataList@[{'hobby:'爱好'','name':'zs','age':'12'}]"
      * @param headList ["姓名@name" , "年龄@age","爱好@hobby"]
      * @param dataList [{"hobby:"爱好","name":"zs","age":"12"}]
      * @return
@@ -161,7 +161,7 @@ public class ExcelUtils {
             e.printStackTrace();
             resetResponse(response, e.getMessage());
         } finally {
-            if (excelWriter != null) excelWriter.close();
+            if (excelWriter != null) excelWriter.finish();
         }
     }
 

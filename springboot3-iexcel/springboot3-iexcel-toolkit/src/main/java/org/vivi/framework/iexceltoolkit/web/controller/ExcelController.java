@@ -12,10 +12,21 @@ import org.vivi.framework.iexceltoolkit.web.request.ITemplateExportReq;
 
 @Slf4j
 @RestController
-@RequestMapping("/excel")
-public class ExcelImportController {
+@RequestMapping("/default")
+public class ExcelController {
 
 
+    /**
+     * file   -> 文件
+     * targetParam ->   excel@import
+     * headRow   ->    5
+     * remark
+     * @param file
+     * @param targetParam
+     * @param headRow
+     * @param remark
+     * @return
+     */
     @PostMapping("/import")
     public Object readExcel(@RequestParam("file") MultipartFile file,
                             @RequestParam("targetParam") String targetParam,

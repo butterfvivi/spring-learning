@@ -18,7 +18,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/export")
+@RequestMapping("/excel")
 public class ExcelExportController {
 
     @Autowired

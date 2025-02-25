@@ -24,6 +24,7 @@
         <pinyin4j.version>2.5.1</pinyin4j.version>
         <fastjson2.version>2.0.55</fastjson2.version>
         <hutool.version>5.8.35</hutool.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
     </properties>
@@ -31,6 +32,8 @@
     <modules>
         <module>springboot3-generator-ddl</module>
         <module>springboot3-dynamic-simple</module>
+        <module>springboot3-mybatis-batch</module>
+        <module>springboot3-sqlbatis-configure</module>
     </modules>
 
     <dependencies>
