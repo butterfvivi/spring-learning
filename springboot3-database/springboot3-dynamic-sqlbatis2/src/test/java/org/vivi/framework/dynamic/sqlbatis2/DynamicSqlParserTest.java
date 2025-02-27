@@ -3,8 +3,8 @@ package org.vivi.framework.dynamic.sqlbatis2;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.vivi.framework.dynamic.sqlbatis2.builder.BoundSql;
 import org.vivi.framework.dynamic.sqlbatis2.builder.SqlSource;
 import org.vivi.framework.dynamic.sqlbatis2.ognl.OgnlCache;
@@ -32,10 +32,10 @@ import java.util.*;
 @Slf4j
 public class DynamicSqlParserTest {
 
-    private String[] sqlArray;
+    private static String[] sqlArray;
 
-    @Before
-    public void init() throws Exception {
+    @BeforeAll
+    public static void init() throws Exception {
         File xml = new File("src/test/resources/sql.txt");
         String sqlText = FileUtils.readFileToString(xml, "utf-8");
         sqlArray = StringUtils.splitByWholeSeparator(sqlText, "# -------------------------------------------------------------------------------------");
