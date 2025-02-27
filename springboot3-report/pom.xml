@@ -5,26 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.2</version>
+        <version>3.4.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>org.vivi.framework</groupId>
-    <artifactId>springboot3-iexcel</artifactId>
+    <artifactId>springboot3-report</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>springboot3-iexcel</name>
     <packaging>pom</packaging>
-
-    <modules>
-        <module>springboot3-iexcel-toolkit</module>
-        <module>springboot3-easyexcel-simple</module>
-        <module>springboot3-excel-configure</module>
-        <module>springboot3-iasync-excel</module>
-        <module>springboot3-iasync-sample</module>
-        <module>springboot3-iexcel-batch</module>
-        <module>springboot3-excel-dynamic</module>
-        <module>springboot3-report-simple1</module>
-    </modules>
 
     <properties>
         <java.version>21</java.version>
@@ -47,22 +35,24 @@
         <xmlworker.version>5.5.13</xmlworker.version>
         <flyway.version>5.2.1</flyway.version>
         <httpclient.version>4.5.13</httpclient.version>
-        <httpclient5.version>5.4.2</httpclient5.version>
     </properties>
+
+    <modules>
+        <module>springboot3-report-simple</module>
+    </modules>
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
-
 
     <build>
         <plugins>

@@ -1,8 +1,5 @@
 package org.vivi.framework.report.simple.service;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.report.simple.entity.file.IFile;
 

@@ -1,7 +1,6 @@
 
 package org.vivi.framework.report.simple.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import org.vivi.framework.report.simple.entity.dataset.DataSet;
 import org.vivi.framework.report.simple.entity.dataset.dto.DataSetDto;
 import org.vivi.framework.report.simple.entity.dataset.dto.OriginalDataDto;

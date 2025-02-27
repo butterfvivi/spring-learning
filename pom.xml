@@ -50,6 +50,7 @@
         <module>springboot3-postgresql</module>
         <module>springboot3-quartz-distribute</module>
         <module>springboot3-redis</module>
+        <module>springboot3-report</module>
         <module>springboot3-sa-token</module>
         <module>springboot3-security-jwt</module>
         <module>springboot3-sso</module>

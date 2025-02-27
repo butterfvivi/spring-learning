@@ -32,6 +32,7 @@ import org.vivi.framework.report.simple.common.enums.ExportTypeEnum;
 import org.vivi.framework.report.simple.common.exception.CommonException;
 import org.vivi.framework.report.simple.entity.dataset.dto.DataSetDto;
 import org.vivi.framework.report.simple.entity.dataset.dto.OriginalDataDto;
+import org.vivi.framework.report.simple.entity.reportexcel.ReportExcel;
 import org.vivi.framework.report.simple.mapper.ReportExcelMapper;
 import org.vivi.framework.report.simple.service.DataSetService;
 import org.vivi.framework.report.simple.service.FileService;
@@ -40,7 +41,7 @@ import org.vivi.framework.report.simple.utils.CellType;
 import org.vivi.framework.report.simple.utils.XlsUtil;
 import org.vivi.framework.report.simple.web.dto.ReportExcelDto;
 import org.vivi.framework.report.simple.web.dto.ReportExcelStyleDto;
-import org.vivi.framework.report.simple.entity.reportexcel.ReportExcel;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -269,7 +270,7 @@ public class ReportExcelServiceImpl implements ReportExcelService {
             return new File(pdfFilePath);
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (com.itextpdf.text.DocumentException e) {
+        } catch (DocumentException e) {
             e.printStackTrace();
         }
 
@@ -355,7 +356,7 @@ public class ReportExcelServiceImpl implements ReportExcelService {
         // 垂直对齐
         if (!Objects.isNull(vt)) {
             if (Objects.equals(ht, 0)) {
-                tableCell.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_MIDDLE);
+                tableCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             } else if (Objects.equals(ht, 1)) {
                 tableCell.setVerticalAlignment(Element.ALIGN_TOP);
             } else if (Objects.equals(ht, 2)) {

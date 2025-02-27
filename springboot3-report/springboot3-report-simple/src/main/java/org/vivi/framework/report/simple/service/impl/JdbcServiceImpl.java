@@ -1,7 +1,6 @@
 package org.vivi.framework.report.simple.service.impl;
 
 import com.alibaba.druid.pool.DruidDataSource;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

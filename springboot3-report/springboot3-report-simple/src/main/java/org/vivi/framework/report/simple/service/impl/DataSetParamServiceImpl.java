@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.vivi.framework.report.simple.common.exception.BusinessExceptionBuilder;
-import org.vivi.framework.report.simple.entity.datasetparam.DataSetParam;
 import org.vivi.framework.report.simple.entity.datasetparam.dto.DataSetParamDto;
 import org.vivi.framework.report.simple.mapper.DataSetParamMapper;
 import org.vivi.framework.report.simple.service.DataSetParamService;
