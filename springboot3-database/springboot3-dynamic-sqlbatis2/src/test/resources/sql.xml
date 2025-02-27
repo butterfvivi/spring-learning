@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+    <select id="12">
+        select * from sql_script
+        <where>
+            <if test="#str.isNotBlank(f1)">
+                and f1=#{f1}
+            </if>
+            <if test="#str.isNotBlank(f2)">
+                and f2=#{f2}
+            </if>
+            <if test="#obj.isIn(f3, 'aaa', 'bbb', 'ccc', 1, false)">
+                and f3=#{f3}
+            </if>
+            <if test="#obj.notEmpty(f1)">
+                and f1=#{f1}
+            </if>
+            <if test="#obj.notEmpty(f4)">
+                and f4=#{f4}
+            </if>
+            <if test="#obj.notEmpty(f5)">
+                and f5=#{f5}
+            </if>
+            <if test="#obj.notEmpty(f6)">
+                and f6=#{f6}
+            </if>
+        </where>
+    </select>
+
+    <insert id="">
+    </insert>
+
+    <update id="">
+    </update>
+
+    <delete id="">
+    </delete>
+
+    <sql id="">
+
+    </sql>
+</mapper>

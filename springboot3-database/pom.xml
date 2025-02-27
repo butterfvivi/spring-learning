@@ -27,13 +27,20 @@
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <commons-io.version>2.18.0</commons-io.version>
+        <junit.version>5.12.0</junit.version>
+        <ognl.version>3.2.12</ognl.version>
+        <javassist.version>3.26.0-GA</javassist.version>
     </properties>
 
     <modules>
         <module>springboot3-generator-ddl</module>
         <module>springboot3-dynamic-simple</module>
         <module>springboot3-mybatis-batch</module>
-        <module>springboot3-sqlbatis-configure</module>
+        <module>springboot3-dynamic-sqlbatis</module>
+        <module>springboot3-dynamic-sqlbatis1</module>
+        <module>springboot3-dynamic-sqlbatis2</module>
+        <module>springboot3-dynamic-sqlbatis3</module>
     </modules>
 
     <dependencies>
