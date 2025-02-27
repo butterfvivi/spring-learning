@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.vivi.framework.report.simple.common.AssertUtils;
 import org.vivi.framework.report.simple.common.constant.BusinessConstant;
 import org.vivi.framework.report.simple.common.constant.JdbcConstants;
 import org.vivi.framework.report.simple.common.enums.Enabled;
@@ -398,8 +399,8 @@ public class DataSourceServiceImpl implements DataSourceService {
 
     public void analysisRelationalDbConfig(DataSourceDto dto) {
         JSONObject json = JSONObject.parseObject(dto.getSourceConfig());
-        Assert.isFalse(json.containsKey("jdbcUrl"), "500","jdbcUrl not empty");
-        Assert.isFalse(json.containsKey("driverName"), "500","driverName not empty");
+        AssertUtils.isFalse(json.containsKey("jdbcUrl"), "500","jdbcUrl not empty");
+        AssertUtils.isFalse(json.containsKey("driverName"), "500","driverName not empty");
         String jdbcUrl = json.getString("jdbcUrl");
         String username = json.getString("username");
         String password = json.getString("password");

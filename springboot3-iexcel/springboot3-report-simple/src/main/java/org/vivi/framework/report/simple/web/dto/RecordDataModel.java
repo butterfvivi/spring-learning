@@ -11,7 +11,7 @@ import java.util.List;
  *
  */
 @Data
-public class GridRecordDataModel {
+public class RecordDataModel {
     /**
      * 记录序列
      */

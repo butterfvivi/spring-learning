@@ -15,7 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.vivi.framework.report.simple.common.enums.ExcelCenterStyleEnum;
-import org.vivi.framework.report.simple.web.dto.GridRecordDataModel;
+import org.vivi.framework.report.simple.web.dto.RecordDataModel;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -67,14 +67,14 @@ public class XlsUtil {
      * @author zhouhang
      * @date 2021/4/20
      */
-    public static List<GridRecordDataModel> readExcel(Workbook workbook) {
-        List<GridRecordDataModel> list = new ArrayList<>();
+    public static List<RecordDataModel> readExcel(Workbook workbook) {
+        List<RecordDataModel> list = new ArrayList<>();
         Iterator<Sheet> sheetIterator = workbook.sheetIterator();
         int sheetIndex = 0;
         while (sheetIterator.hasNext()) {
             Sheet sheet = sheetIterator.next();
             //生成默认MODEL
-            GridRecordDataModel model;
+            RecordDataModel model;
             if (Objects.equals(0, sheetIndex)) {
                 model = strToModel("", (sheetIndex + 1) + "", 1, sheetIndex);
             } else {
@@ -90,12 +90,12 @@ public class XlsUtil {
         return list;
     }
 
-    public static GridRecordDataModel strToModel(String list_id, String index, int status, int order) {
+    public static RecordDataModel strToModel(String list_id, String index, int status, int order) {
         String strSheet = "{\"row\":84,\"name\":\"reSheetName\",\"chart\":[],\"color\":\"\",\"index\":\"reIndex\",\"order\":reOrder,\"column\":60,\"config\":{},\"status\":reStatus,\"celldata\":[],\"ch_width\":4748,\"rowsplit\":[],\"rh_height\":1790,\"scrollTop\":0,\"scrollLeft\":0,\"visibledatarow\":[],\"visibledatacolumn\":[],\"jfgird_select_save\":[],\"jfgrid_selection_range\":{}}";
         strSheet = strSheet.replace("reSheetName", "Sheet" + index).replace("reIndex", index).replace("reOrder", order + "").replace("reStatus", status + "");
 
         JSONObject bson = JSONObject.parseObject(strSheet);
-        GridRecordDataModel model = new GridRecordDataModel();
+        RecordDataModel model = new RecordDataModel();
         model.setBlock_id("fblock");
         model.setRow_col("5_5");
         model.setIndex(index);
@@ -115,7 +115,7 @@ public class XlsUtil {
      * @author zhouhang
      * @date 2021/4/20
      */
-    private static void readSheet(Sheet sheet, GridRecordDataModel model, Workbook workbook) {
+    private static void readSheet(Sheet sheet, RecordDataModel model, Workbook workbook) {
         //excel数据集合
         List<JSONObject> dataList = new ArrayList<>();
         model.setDataList(dataList);
@@ -256,7 +256,7 @@ public class XlsUtil {
      * @author zhouhang
      * @date 2021/4/21
      */
-    private static void dealWithExcelStyle(GridRecordDataModel model, JSONObject dataModel, Cell cell, Sheet sheet, Workbook workbook) {
+    private static void dealWithExcelStyle(RecordDataModel model, JSONObject dataModel, Cell cell, Sheet sheet, Workbook workbook) {
         //设置单元格合并信息
         dealWithExcelMerge(model, sheet);
         //设置字体样式
@@ -273,7 +273,7 @@ public class XlsUtil {
      * @author zhouhang
      * @date 2021/4/22
      */
-    private static void dealWithBorderStyle(GridRecordDataModel model, Cell cell, Workbook workbook) {
+    private static void dealWithBorderStyle(RecordDataModel model, Cell cell, Workbook workbook) {
         CellStyle cellStyle = cell.getCellStyle();
         //判断是否存在边框
         if (cellStyle.getBorderTop().getCode() > 0 || cellStyle.getBorderBottom().getCode() > 0 ||
@@ -431,7 +431,7 @@ public class XlsUtil {
      * @author zhouhang
      * @date 2021/4/21
      */
-    private static void dealWithExcelMerge(GridRecordDataModel model, Sheet sheet) {
+    private static void dealWithExcelMerge(RecordDataModel model, Sheet sheet) {
         if (CollectionUtils.isNotEmpty(sheet.getMergedRegions())) {
             //{"color":"","list_id":"","column":60,"index":"1","jfgird_select_save":[],"rh_height":1790,"visibledatacolumn":[],"scrollTop":0,"block_id":"fblock","rowsplit":[],"visibledatarow":[],"jfgrid_selection_range":{},"name":"Sheet1","celldata":[],"ch_width":4748,"row":84,"scrollLeft":0,"id":364598,"chart":[],"config":{},"order":0,"status":1}
             JSONObject jsonObject = model.getJson_data();

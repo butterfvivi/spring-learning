@@ -10,7 +10,7 @@ import java.util.Date;
 /**
 * @description 数据源 entity
 **/
-@TableName(keepGlobalPrefix=true, value="gaea_report_data_source")
+@TableName(keepGlobalPrefix=true, value="report_data_source")
 @Data
 public class DataSource  {
 

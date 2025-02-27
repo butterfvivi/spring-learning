@@ -1,4 +1,4 @@
-package org.vivi.framework.exceptionhandler.common.response;
+package org.vivi.framework.report.simple.common.response;
 
 import lombok.*;
 import lombok.experimental.Accessors;

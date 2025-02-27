@@ -6,7 +6,7 @@ import lombok.Data;
 
 import java.util.Date;
 
-@TableName(value = "gaea_report_excel")
+@TableName(value = "report_excel")
 @Data
 public class ReportExcel {
 

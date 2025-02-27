@@ -6,6 +6,8 @@ import org.vivi.framework.report.simple.entity.dataset.DataSet;
 import org.vivi.framework.report.simple.entity.dataset.dto.DataSetDto;
 import org.vivi.framework.report.simple.entity.dataset.dto.OriginalDataDto;
 
+import java.util.List;
+
 /**
 * @desc DataSet 数据集服务接口
 **/
@@ -57,6 +59,12 @@ public interface DataSetService {
      * @return
      */
     OriginalDataDto testTransform(DataSetDto dto);
+
+    /**
+     * 获取所有数据集
+     * @return
+     */
+    List<DataSet> queryAllDataSet();
 
     void copy(DataSetDto dto);
 }

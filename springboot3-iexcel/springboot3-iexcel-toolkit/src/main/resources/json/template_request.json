@@ -1,0 +1,46 @@
+{
+  "templatePath": "/template/template.xlsx",
+  "dataList": [{
+    "id": null,
+    "name": "张三14",
+    "sex": 2,
+    "age": 22,
+    "birthday": "2023-09-05",
+    "createTime": "2023-09-13T20:52:36",
+    "salary": 0.0300
+  },
+    {
+      "id": null,
+      "name": "张三15",
+      "sex": 2,
+      "age": 23,
+      "birthday": "2023-09-05",
+      "createTime": "2023-09-13T20:52:36",
+      "salary": 0.0300
+    },
+    {
+      "id": null,
+      "name": "张三16",
+      "sex": 0,
+      "age": 24,
+      "birthday": "2023-09-05",
+      "createTime": "2023-09-13T20:52:36",
+      "salary": 0.0300
+    },
+    {
+      "id": null,
+      "name": "张三17",
+      "sex": 0,
+      "age": 25,
+      "birthday": "2023-09-05",
+      "createTime": "2023-09-13T20:52:36",
+      "salary": 0.0300
+    }],
+  "otherVal": {"createTime":"2022-02-04","sum":"100"},
+  "config": {
+    "watermark": "水印",
+    "mergeColIndex": [0],
+    "excludeRowIndex": [0],
+    "targetParam": "excel@template"
+  }
+}

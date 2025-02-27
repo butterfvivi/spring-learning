@@ -102,4 +102,53 @@ function doHandleMonth(month){
 }', null, 1, 0, 'admin', '2023-05-12 09:43:42', 'admin', '2023-05-12 09:43:42', 1);
 
 
-INSERT INTO `report`.`report_data_source`(`source_code`, `source_name`, `source_desc`, `source_type`, `source_config`, `enable_flag`, `delete_flag`, `create_by`, `create_time`, `update_by`, `update_time`, `version`) VALUES ('mysql_ajreport', 'mysql数据源', '', 'mysql', '{\"driverName\":\"com.mysql.cj.jdbc.Driver\",\"jdbcUrl\":\"jdbc:mysql://127.0.0.1:3306/report_init?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8\",\"username\":\"ajreport\",\"password\":\"ajreport\"}', 1, 0, 'admin', '2021-06-30 09:48:46', 'admin', '2021-06-30 09:48:46', 1);
+INSERT INTO `report`.`report_data_source`(`source_code`, `source_name`, `source_desc`, `source_type`, `source_config`, `enable_flag`, `delete_flag`, `create_by`, `create_time`, `update_by`, `update_time`, `version`) VALUES ('mysql_report', 'mysql数据源', '', 'mysql', '{\"driverName\":\"com.mysql.cj.jdbc.Driver\",\"jdbcUrl\":\"jdbc:mysql://127.0.0.1:3306/report?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8\",\"username\":\"root\",\"password\":\"wtf0010.\"}', 1, 0, 'admin', '2021-06-30 09:48:46', 'admin', '2021-06-30 09:48:46', 1);
+
+
+
+
+-- ----------------------------
+-- Records of aj_report_city
+-- ----------------------------
+INSERT INTO `report`.`report_city` VALUES (1, 'beijing', '北京', 25, '2023-05-05 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (2, 'tianjin', '天津', 15, '2023-05-05 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (3, 'shanghai', '上海', 20, '2023-05-05 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (4, 'hangzhou', '杭州', 9, '2023-05-05 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (5, 'guangzhou', '广州', 13, '2023-05-05 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (6, 'chongqing', '重庆', 16, '2023-05-05 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (7, 'chengdu', '成都', 19, '2023-05-05 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (8, 'beijing', '北京', 35, '2023-05-06 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (9, 'tianjin', '天津', 27, '2023-05-06 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (10, 'shanghai', '上海', 36, '2023-05-06 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (11, 'hangzhou', '杭州', 29, '2023-05-06 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (12, 'guangzhou', '广州', 23, '2023-05-06 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (13, 'chongqing', '重庆', 21, '2023-05-06 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (14, 'chengdu', '成都', 24, '2023-05-06 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (15, 'beijing', '北京', 45, '2023-05-07 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (16, 'tianjin', '天津', 21, '2023-05-07 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (17, 'shanghai', '上海', 23, '2023-05-07 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (18, 'hangzhou', '杭州', 21, '2023-05-07 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (19, 'guangzhou', '广州', 19, '2023-05-07 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (20, 'chongqing', '重庆', 17, '2023-05-07 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (21, 'chengdu', '成都', 14, '2023-05-07 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (22, 'beijing', '北京', 12, '2023-05-08 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (23, 'tianjin', '天津', 24, '2023-05-08 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (24, 'shanghai', '上海', 13, '2023-05-08 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (25, 'hangzhou', '杭州', 31, '2023-05-08 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (26, 'guangzhou', '广州', 29, '2023-05-08 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (27, 'chongqing', '重庆', 37, '2023-05-08 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (28, 'chengdu', '成都', 24, '2023-05-08 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (29, 'beijing', '北京', 44, '2023-05-09 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (30, 'tianjin', '天津', 32, '2023-05-09 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (31, 'shanghai', '上海', 33, '2023-05-09 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (32, 'hangzhou', '杭州', 29, '2023-05-09 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (33, 'guangzhou', '广州', 19, '2023-05-09 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (34, 'chongqing', '重庆', 17, '2023-05-09 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (35, 'chengdu', '成都', 34, '2023-05-09 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (36, 'beijing', '北京', 27, '2023-05-10 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (37, 'tianjin', '天津', 31, '2023-05-10 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (38, 'shanghai', '上海', 13, '2023-05-10 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (39, 'hangzhou', '杭州', 21, '2023-05-10 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (40, 'guangzhou', '广州', 31, '2023-05-10 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (41, 'chongqing', '重庆', 27, '2023-05-10 02:00:00');
+INSERT INTO `report`.`report_city` VALUES (42, 'chengdu', '成都', 10, '2023-05-10 02:00:00');

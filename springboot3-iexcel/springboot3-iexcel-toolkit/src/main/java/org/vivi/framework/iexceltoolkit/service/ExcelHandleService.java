@@ -37,10 +37,10 @@ public class ExcelHandleService extends ServiceImpl<UserMapper, User> {
      **/
     @IExcelRewrite(targetParam = "template")
     public void templateExport(List<Map<String, Object>> data, Map<String, Object> otherVal) throws Exception {
-        List<User> users = userMapper.selectList(new QueryWrapper<>());
-        List<Map<String, Object>> maps = BeanUtil.objectList2ListMap(users);
+        //List<User> users = userMapper.selectList(new QueryWrapper<>());
+        //List<Map<String, Object>> maps = BeanUtil.objectList2ListMap(users);
 
-        data.addAll(maps);
+        //data.addAll(maps);
     }
 
     /**

@@ -12,9 +12,6 @@ public class IExportConfig {
     //重写标识。比如传入的targetParam="c1@m1",那么首先在类上加上@MsAsync(targetParam="c1"),方法上加上@MsAsync(targetParam="m1")
     private String targetParam;
 
-    //水印
-    private String watermark;
-
     //合并的列，比如合并1，2两列，传入[0,1]
     private Set<Integer> mergeColIndex;
 

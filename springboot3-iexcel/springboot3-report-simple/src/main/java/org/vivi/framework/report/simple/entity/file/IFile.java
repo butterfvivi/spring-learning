@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
-@TableName(keepGlobalPrefix=true, value = "gaea_file")
+@TableName(keepGlobalPrefix=true, value = "file")
 public class IFile {
 
     /** 文件标识 */

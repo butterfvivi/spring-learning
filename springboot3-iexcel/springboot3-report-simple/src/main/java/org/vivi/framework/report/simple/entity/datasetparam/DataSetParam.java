@@ -10,7 +10,7 @@ import java.util.Date;
 /**
 * @description 数据集动态参数 entity
 **/
-@TableName(keepGlobalPrefix=true, value="gaea_report_data_set_param")
+@TableName(keepGlobalPrefix=true, value="report_data_set_param")
 @Data
 public class DataSetParam   {
 

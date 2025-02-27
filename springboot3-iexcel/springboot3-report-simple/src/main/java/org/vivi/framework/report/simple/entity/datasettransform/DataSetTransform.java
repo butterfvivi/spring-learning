@@ -10,7 +10,7 @@ import java.util.Date;
 /**
 * @description 数据集数据转换 entity
 **/
-@TableName(keepGlobalPrefix=true, value="gaea_report_data_set_transform")
+@TableName(keepGlobalPrefix=true, value="report_data_set_transform")
 @Data
 public class DataSetTransform {
 

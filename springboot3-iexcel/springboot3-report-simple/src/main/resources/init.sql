@@ -112,3 +112,59 @@ CREATE TABLE `report_excel`  (
                                       PRIMARY KEY (`id`) USING BTREE,
                                       UNIQUE INDEX `UNIQUE_REPORT_CODE`(`report_code`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 215 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+
+-- ----------------------------
+-- Table structure for aj_report_city
+-- ----------------------------
+CREATE TABLE `report_city` (
+                                                   `id` int(11) NOT NULL AUTO_INCREMENT,
+                                                   `city_code` varchar(255) DEFAULT NULL COMMENT '城市code',
+                                                   `city_name` varchar(255) DEFAULT NULL COMMENT '城市名',
+                                                   `nums` int(11) DEFAULT NULL COMMENT '数量',
+                                                   `create_time` datetime DEFAULT NULL COMMENT '日期',
+                                                   PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+
+-- ----------------------------
+-- Table structure for file
+-- ----------------------------
+DROP TABLE IF EXISTS `file`;
+CREATE TABLE `file`  (
+                              `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                              `file_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生成的唯一uuid',
+                              `file_type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件类型，字典FILE_TYPE',
+                              `file_path` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件在linux中的完整目录，比如/app/dist/export/excel/${fileid}.xlsx',
+                              `url_path` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '通过接口的下载完整http路径',
+                              `file_instruction` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件内容说明，比如 对账单(202001~202012)',
+                              `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                              `create_time` timestamp NULL DEFAULT NULL,
+                              `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                              `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+                              `version` int(11) NULL DEFAULT NULL,
+                              PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 830 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+
+DROP TABLE IF EXISTS `report`;
+CREATE TABLE `report`  (
+                                `id` bigint(11) NOT NULL AUTO_INCREMENT,
+                                `report_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '名称',
+                                `report_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '报表编码',
+                                `report_group` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分组',
+                                `report_type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '报表类型',
+                                `report_image` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '报表缩略图',
+                                `report_desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '报表描述',
+                                `report_author` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '报表作者',
+                                `download_count` bigint(11) NULL DEFAULT NULL COMMENT '报表下载次数',
+                                `enable_flag` int(1) NULL DEFAULT 1 COMMENT '0--已禁用 1--已启用  DIC_NAME=ENABLE_FLAG',
+                                `delete_flag` int(1) NULL DEFAULT 0 COMMENT '0--未删除 1--已删除 DIC_NAME=DELETE_FLAG',
+                                `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
+                                `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+                                `update_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新人',
+                                `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+                                `version` int(8) NULL DEFAULT NULL COMMENT '版本号',
+                                PRIMARY KEY (`id`) USING BTREE,
+                                UNIQUE INDEX `UNIQUE_REPORT_CODE`(`report_code`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 194 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
