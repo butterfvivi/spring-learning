@@ -46,12 +46,7 @@ public class ExcelChartUtil {
 	/**  
 	 * @MethodName: createLineChart
 	 * @Description: 折线图
-	 * @author caiyang
-	 * @param sheet
-	 * @param chartCell
-	 * @param chartOptions void
-	 * @date 2024-02-17 09:09:21 
-	 */ 
+	 */
 	public static void createLineChart(XSSFSheet sheet,JSONObject chartCell,JSONObject chartOptions,boolean smooth,boolean showLabel,int isCoedit) {
 		//创建一个画布
 		XSSFDrawing drawing = sheet.createDrawingPatriarch();
@@ -140,12 +135,7 @@ public class ExcelChartUtil {
 	/**  
 	 * @MethodName: createAreaChart
 	 * @Description: 面积图
-	 * @author caiyang
-	 * @param sheet
-	 * @param chartCell
-	 * @param chartOptions void
-	 * @date 2024-02-18 06:39:43 
-	 */ 
+	 */
 	public static void createAreaChart(XSSFSheet sheet,JSONObject chartCell,JSONObject chartOptions,int isCoedit) {
 		//创建一个画布
 		XSSFDrawing drawing = sheet.createDrawingPatriarch();
@@ -391,7 +381,6 @@ public class ExcelChartUtil {
     /**  
      * @MethodName: createDoughnut
      * @Description: 环形图
-     * @author caiyang
      */
     public static void createDoughnut(XSSFSheet sheet,JSONObject chartCell,JSONObject chartOptions,int isCoedit){
     	//创建一个画布
@@ -466,12 +455,7 @@ public class ExcelChartUtil {
     /**  
      * @MethodName: createRadar
      * @Description: 雷达图
-     * @author caiyang
-     * @param sheet
-     * @param chartCell
-     * @param chartOptions void
-     * @date 2024-02-20 06:57:24 
-     */ 
+     */
     public static void createRadar(XSSFSheet sheet,JSONObject chartCell,JSONObject chartOptions,int isCoedit){
     	//创建一个画布
     	XSSFDrawing drawing = sheet.createDrawingPatriarch();
@@ -564,11 +548,7 @@ public class ExcelChartUtil {
     /**  
      * @MethodName: getTitle
      * @Description: 获取标题
-     * @author caiyang
-     * @param chartOptions
-     * @return String
-     * @date 2024-02-17 06:14:24 
-     */ 
+     */
     public static String getTitle(JSONObject chartOptions) {
     	String result = "";
 		JSONObject defaultOption = chartOptions.getJSONObject("defaultOption");
@@ -611,11 +591,7 @@ public class ExcelChartUtil {
     /**  
      * @MethodName: getLegend
      * @Description: 获取图例信息
-     * @author caiyang
-     * @param chartOptions
-     * @return JSONObject
-     * @date 2024-02-17 06:32:58 
-     */ 
+     */
     public static JSONObject getLegend(JSONObject chartOptions,List<JSONArray> chartDatas)
     {
     	JSONObject result = new JSONObject();

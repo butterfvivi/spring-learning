@@ -93,7 +93,6 @@ public class ReportTplServiceImpl extends ServiceImpl<ReportTplMapper, ReportTpl
    @Autowired
    private IReportDatasourceService iReportDatasourceService;
 
-
    @Autowired
    private ILuckysheetReportCellService iLuckysheetReportCellService;
 
@@ -2825,7 +2824,7 @@ public class ReportTplServiceImpl extends ServiceImpl<ReportTplMapper, ReportTpl
                    allCellsQueryWrapper.eq("sheet_id", sheets.get(t).getId());
                    allCellsQueryWrapper.eq("del_flag", DelFlagEnum.UNDEL.getCode());
                    allCellsQueryWrapper.orderByAsc("coordsx","coordsy");
-                   List<LuckysheetReportCell> allCells = this.iLuckysheetReportCellService.list(allCellsQueryWrapper);
+                   List<LuckysheetReportCell> allCells = iLuckysheetReportCellService.list(allCellsQueryWrapper);
                    config.put("colhidden", configColhidden);
                    resLuckySheetDataDto = this.buildLuckysheetDatas(allCells, dataSetsBindDatas,config,datasetNameIdMap,columnNames,subtotalCellDatas,subtotalCellMap,cellConditionFormat,subTotalDigits,sheets.get(t).getSheetIndex(),reportTpl.getId(),reportTpl.getTplType());
                }else {
@@ -10477,7 +10476,7 @@ public class ReportTplServiceImpl extends ServiceImpl<ReportTplMapper, ReportTpl
        ResPreviewData resPreviewData = null;
 //		if(reportTpl.getTplType().intValue() == 1)
 //		{
-           resPreviewData = this.generateLuckySheetReportData(mesGenerateReportDto,mesGenerateReportDto.isPatination(),userInfoDto,reportTpl);
+       resPreviewData = this.generateLuckySheetReportData(mesGenerateReportDto,mesGenerateReportDto.isPatination(),userInfoDto,reportTpl);
 //		}else {
 //			resPreviewData = this.iReportTplFormsService.previewLuckysheetReportFormsData(mesGenerateReportDto,userInfoDto,reportTpl,mesGenerateReportDto.isPatination());
 //		}

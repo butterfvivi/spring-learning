@@ -1028,10 +1028,12 @@ public class ReportExcelUtil {
 				String chartId = jsonObject.getString("chart_id");
 				JSONObject chartOptions = jsonObject.getJSONObject("chartOptions");
 				JSONObject defaultOption = chartOptions.getJSONObject("defaultOption");
-				JSONObject jsonObject1 = chartOptions.getJSONObject("defaultOption");
-				jsonObject1.getJSONObject("spec");
+				JSONObject specObj = chartOptions.getJSONObject("defaultOption").getJSONObject("spec");
+				if (Objects.isNull(specObj) ){
+					continue;
+				}
 				JSONArray values = chartOptions.getJSONObject("defaultOption").getJSONObject("spec").getJSONObject("data").getJSONArray("values");
-				if(ListUtil.isEmpty(values)) {
+				if( ListUtil.isEmpty(values)) {
 					continue;
 				}
 				String chartAllType = chartOptions.getString("chartAllType");
