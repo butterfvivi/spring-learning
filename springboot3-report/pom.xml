@@ -21,7 +21,7 @@
         <mybatis.version>3.0.4</mybatis.version>
         <druid.version>1.2.22</druid.version>
         <easyexcel.version>3.3.4</easyexcel.version>
-        <hutool.version>4.6.10</hutool.version>
+        <hutool.version>5.8.28</hutool.version>
         <fastjson.version>2.0.52</fastjson.version>
         <mysql.version>8.0.33</mysql.version>
         <springdoc.version>2.2.0</springdoc.version>
@@ -35,10 +35,20 @@
         <xmlworker.version>5.5.13</xmlworker.version>
         <flyway.version>5.2.1</flyway.version>
         <httpclient.version>4.5.13</httpclient.version>
+        <httpclient5.version>5.4.2</httpclient5.version>
+        <pagehelper.version>2.1.0</pagehelper.version>
+        <influxdb-java.version>2.24</influxdb-java.version>
+        <commons-collections4.version>4.5.0-M3</commons-collections4.version>
+        <velocity.version>1.7</velocity.version>
+        <aviator.version>5.4.3</aviator.version>
+        <opencsv.version>5.9</opencsv.version>
+        <org.apache.poi.version>5.2.3</org.apache.poi.version>
+        <poi-tl.version>1.12.2</poi-tl.version>
     </properties>
 
     <modules>
         <module>springboot3-report-simple</module>
+        <module>springboot3-report-configure</module>
     </modules>
 
     <dependencies>
