@@ -1,0 +1,22 @@
+[
+  {
+    "displayName": "Project Name",
+    "fieldName": "projName"
+  },
+  {
+    "displayName": "Basal Area",
+    "fieldName": "basalArea"
+  },
+  {
+    "displayName": "Available Area",
+    "fieldName": "availableArea"
+  },
+  {
+    "displayName": "Building Area",
+    "fieldName": "buildingArea"
+  },
+  {
+    "displayName": "Buildings Number",
+    "fieldName": "buildingsNumber"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "contractAmount": 28500,
+    "contractCode": "C0000-0001",
+    "contractProperties": "Expected contract",
+    "settlementAmount": 20000,
+    "signDate": "2020-08-14 17:32:00",
+    "sumPayAmount": 0
+  },
+  {
+    "contractAmount": 1028500,
+    "contractCode": "C0000-0002",
+    "contractProperties": "Expected non-contract",
+    "settlementAmount": 28500,
+    "signDate": "2019-08-14 07:32:00",
+    "sumPayAmount": 0
+  },
+  {
+    "contractAmount": 2000000,
+    "contractCode": "C0000-0003",
+    "contractProperties": "Expected contract",
+    "settlementAmount": 2000000,
+    "signDate": "2018-10-01 00:00:00",
+    "sumPayAmount": 0
+  },
+  {
+    "contractAmount": 10031500,
+    "contractCode": "C0000-0004",
+    "contractProperties": "Expected non-contract",
+    "settlementAmount": 1000000,
+    "signDate": "2020-01-14 19:32:00",
+    "sumPayAmount": 0
+  },
+  {
+    "contractAmount": 28500,
+    "contractCode": "C0000-0005",
+    "contractProperties": "Expected contract",
+    "settlementAmount": 0,
+    "signDate": "2020-07-15 18:10:00",
+    "sumPayAmount": 0
+  }
+]

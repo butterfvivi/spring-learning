@@ -1,0 +1,46 @@
+[
+  {
+    "displayName": "Project Name",
+    "fieldName": "projName"
+  },
+  {
+    "displayName": "Project Info.",
+    "fieldName": "projInfo"
+  },
+  {
+    "displayName": "Basal Area",
+    "fieldName": "basalArea"
+  },
+  {
+    "displayName": "Available Area",
+    "fieldName": "availableArea"
+  },
+  {
+    "displayName": "Building Area",
+    "fieldName": "buildingArea"
+  },
+  {
+    "displayName": "Buildings Number",
+    "fieldName": "buildingsNumber"
+  },
+  {
+    "displayName": "Sales Start Date",
+    "fieldName": "saleStartDate"
+  },
+  {
+    "displayName": "Land Acquisition Time",
+    "fieldName": "landAcquisitionTime"
+  },
+  {
+    "displayName": "Available Price",
+    "fieldName": "availablePrice"
+  },
+  {
+    "displayName": "Available Amount",
+    "fieldName": "availableAmount"
+  },
+  {
+    "displayName": "Inside Area",
+    "fieldName": "insideArea"
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "availableArea": 64192.05,
+    "basalArea": 43029.03,
+    "buildingArea": 71655.89,
+    "buildingsNumber": 30,
+    "productName": "Product Name 01"
+  },
+  {
+    "availableArea": 64192.05,
+    "basalArea": 43029.03,
+    "buildingArea": 71645.89,
+    "buildingsNumber": 22,
+    "productName": "Product Name 02"
+  },
+  {
+    "availableArea": 0,
+    "basalArea": 0,
+    "buildingArea": 111,
+    "buildingsNumber": 20,
+    "productName": "Product Name 03"
+  },
+  {
+    "availableArea": 40006,
+    "basalArea": 21023,
+    "buildingArea": 74235,
+    "buildingsNumber": 18,
+    "productName": "Product Name 04"
+  },
+  {
+    "availableArea": 500,
+    "basalArea": 500,
+    "buildingArea": 950,
+    "buildingsNumber": 15,
+    "productName": "Product Name 05"
+  }
+]
