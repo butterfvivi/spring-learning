@@ -47,7 +47,7 @@
     </properties>
 
     <modules>
-        <module>springboot3-report-simple</module>
+        <module>springboot3-report-dynamic</module>
         <module>springboot3-report-configure</module>
     </modules>
 
