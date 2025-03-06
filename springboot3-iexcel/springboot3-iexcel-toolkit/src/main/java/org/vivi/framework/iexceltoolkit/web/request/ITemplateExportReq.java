@@ -21,4 +21,7 @@ public class ITemplateExportReq {
 
     //配置项目
     private IExportConfig config;
+
+    //扩展：mutiple table data 填充。
+    private Map<String,List> mutipleTableDatas;
 }

@@ -1,6 +1,8 @@
 package org.vivi.framework.iexceltoolkit.toolkit.achieve;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.iexceltoolkit.common.utils.AssertUtil;
@@ -104,7 +106,12 @@ public class ExcelInvokeCore {
             //invokeWaterMark(config);
         }
         //执行excel导出
-        ExcelUtils.writerTemplateToWeb(response, dataList, templatePath, otherValMap, config);
+        Map<String, List> mutipleTableDatas = req.getMutipleTableDatas();
+        if(MapUtils.isNotEmpty(mutipleTableDatas)){
+            ExcelUtils.writerTemplateToWeb(response, mutipleTableDatas, templatePath, otherValMap, config);
+        }else {
+            ExcelUtils.writerTemplateToWeb(response, dataList, templatePath, otherValMap, config);
+        }
     }
 
     /**

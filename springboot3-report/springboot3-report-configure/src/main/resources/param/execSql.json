@@ -1,0 +1,7 @@
+{
+  "id": "1855968062458261506",
+  "merchantNo": "SR00000000",
+  "datasourceId": "1855943109243531266",
+  "sqlType": 1,
+  "tplSql": "select * from sys_order_detail\nwhere 1=1\n<if test=\"order_code!=null and order_code!=''\">\n  and order_code = #{order_code} \n</if>\n<if test=\"goods_name!=null and goods_name!=''\">\n  and goods_name = #{goods_name} \n</if>\n  "
+}

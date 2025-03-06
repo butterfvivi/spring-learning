@@ -5,17 +5,12 @@ import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.fill.FillConfig;
 import com.alibaba.excel.write.metadata.fill.FillWrapper;
-import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.vivi.framework.iexceltoolkit.toolkit.core.ExcelInvoke;
-import org.vivi.framework.iexceltoolkit.toolkit.dto.IExportConfig;
 import org.vivi.framework.iexceltoolkit.web.DataGenerator;
 import org.vivi.framework.iexceltoolkit.web.request.ITemplateExportReq;
 
@@ -43,30 +38,19 @@ public class DemoController {
 
         ExcelInvoke.templateExport(response, dto);
 
-
-//        List<Map<String, Object>> projectMaps = new DataGenerator().readJsonFile("json/genProjects.json");
-//        dto.setDataList(projectMaps);
-//        ExcelInvoke.templateExport(response, dto);
     }
 
     @PostMapping("/template/export1")
     public void templateExport1(HttpServletResponse response, @RequestBody ITemplateExportReq dto) throws Exception {
         List<Map<String, Object>> productMaps = new DataGenerator().readJsonFile("json/genProducts.json");
-        dto.setDataList(productMaps);
-//        Map<String, Object> otherVal = new HashMap<>();
-//        otherVal.put("product", productMaps);
-//        dto.setOtherVal(otherVal);
-//        List<Map<String, Object>> projectMaps = new DataGenerator().readJsonFile("json/genProjects.json");
-//        dto.setDataList(projectMaps);
-
-        ExcelInvoke.templateExport(response, dto);
-
-
-        FillConfig fillConfig = FillConfig.builder().forceNewRow(Boolean.TRUE).build();
-        IExportConfig exportConfig = new IExportConfig();
-
         List<Map<String, Object>> projectMaps = new DataGenerator().readJsonFile("json/genProjects.json");
-        dto.setDataList(projectMaps);
+
+        Map<String, List> mutipleDatas = new HashMap<>();
+        mutipleDatas.put("product", productMaps);
+        mutipleDatas.put("project", projectMaps);
+
+        dto.setMutipleTableDatas(mutipleDatas);
+
         ExcelInvoke.templateExport(response, dto);
     }
 

@@ -8,6 +8,7 @@ import com.alibaba.excel.write.builder.ExcelWriterBuilder;
 import com.alibaba.excel.write.handler.WriteHandler;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.fill.FillConfig;
+import com.alibaba.excel.write.metadata.fill.FillWrapper;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import jakarta.servlet.http.HttpServletResponse;
@@ -65,6 +66,10 @@ public class ExcelUtils {
 
     public static <T> void writerTemplateToWeb(HttpServletResponse response, List<T> data, String templatePath, Map<String, Object> otherValMap, IExportConfig config) throws IOException {
         writerTemplateToWebUtil(response, data, templatePath, otherValMap, config);
+    }
+
+    public static <T> void writerTemplateToWeb(HttpServletResponse response, Map<String, List> mutipleTableDatas, String templatePath, Map<String, Object> otherValMap, IExportConfig config) throws IOException {
+        writerTemplateToWebUtil(response, mutipleTableDatas, templatePath, otherValMap, config);
     }
 
     public static <T> void writerTemplateToWeb(HttpServletResponse response, List<T> data, String templatePath, Map<String, Object> otherValMap) throws IOException {
@@ -156,6 +161,33 @@ public class ExcelUtils {
             WriteSheet writeSheet = EasyExcel.writerSheet().build();
             FillConfig fillConfig = FillConfig.builder().forceNewRow(Boolean.TRUE).build();
             excelWriter.fill(data, fillConfig, writeSheet);
+            excelWriter.fill(otherValMap, writeSheet);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resetResponse(response, e.getMessage());
+        } finally {
+            if (excelWriter != null) excelWriter.finish();
+        }
+    }
+
+    private static <T> void writerTemplateToWebUtil(HttpServletResponse response, Map<String, List> mutipleTableDatas, String templatePath, Map<String, Object> otherValMap, IExportConfig config) throws IOException {
+        if (otherValMap == null) otherValMap = new HashMap<>();
+        setResponse(response);
+        ExcelWriter excelWriter = null;
+        try {
+            ExcelWriterBuilder excelWriterBuilder = EasyExcel.write(response.getOutputStream());
+            //水印
+            //setWaterMark(config, excelWriterBuilder);
+            //模板导出，在单元格合并时候，会出现问题
+            addWriteHandle(config, excelWriterBuilder);
+            excelWriter = excelWriterBuilder.withTemplate(getTemplateFile(templatePath)).build();
+            WriteSheet writeSheet = EasyExcel.writerSheet().build();
+            FillConfig fillConfig = FillConfig.builder().forceNewRow(Boolean.TRUE).build();
+
+            for (Map.Entry<String, List> entry : mutipleTableDatas.entrySet()) {
+                excelWriter.fill(new FillWrapper(entry.getKey(), entry.getValue()), fillConfig, writeSheet);
+            }
+
             excelWriter.fill(otherValMap, writeSheet);
         } catch (Exception e) {
             e.printStackTrace();

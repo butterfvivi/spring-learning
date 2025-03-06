@@ -4,6 +4,7 @@ import com.alibaba.excel.write.handler.WriteHandler;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Data
@@ -35,4 +36,6 @@ public class IExportConfig {
 
     // 合并时是否依赖左侧要要依赖的行
     private Boolean isNeedLeftConditionMerge;
+
+
 }
