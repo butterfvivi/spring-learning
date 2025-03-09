@@ -8,8 +8,6 @@ import java.math.RoundingMode;
 /**
 * <p>Title: LuckySheetCountCalculate</p>
 * <p>Description: 计数</p>
-* @author caiyang
-* @date 2020年5月19日
 */
 public class LuckySheetFormsCountCalculate extends Calculate<LuckySheetFormsBindData>{
 

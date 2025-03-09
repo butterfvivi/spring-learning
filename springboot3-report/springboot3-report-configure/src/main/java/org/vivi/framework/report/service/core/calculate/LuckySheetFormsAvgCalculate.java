@@ -9,8 +9,6 @@ import java.math.BigDecimal;
 /**
 * <p>Title: AvgCalculate</p>
 * <p>Description: 平均值计算</p>
-* @author caiyang
-* @date 2020年5月20日
 */
 public class LuckySheetFormsAvgCalculate extends Calculate<LuckySheetFormsBindData>{
 

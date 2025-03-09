@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.vivi.framework.report.service.common.annotation.MethodLog;
+import org.vivi.framework.report.service.common.constants.Constants;
 import org.vivi.framework.report.service.common.entity.Response;
 import org.vivi.framework.report.service.common.constants.StatusCode;
 import org.vivi.framework.report.service.common.entity.BaseEntity;
@@ -55,7 +57,9 @@ public class ReportTplController   {
      * @param model
      * @return
      */
+
    @RequestMapping(value = "/getTableList",method = RequestMethod.POST)
+   @MethodLog(module="ReportTpl",remark="获取页面表格数据",operateType= Constants.OPERATE_TYPE_SEARCH)
    public Response getTableList(@RequestBody ReportTpl model)
    {
        PageEntity result = iReportTplService.tablePagingQuery(model);
@@ -63,6 +67,7 @@ public class ReportTplController   {
    }
 
    @RequestMapping(value = "/getChildren",method = RequestMethod.POST)
+   @MethodLog(module="ReportTpl",remark="获取页面表格数据",operateType=Constants.OPERATE_TYPE_SEARCH)
    public Response getChildren(@RequestBody ReportTpl model)
    {
        List<ReportTplTreeDto> result = iReportTplService.getChildren(model);
@@ -73,6 +78,7 @@ public class ReportTplController   {
    * @Description: 获取详细信息
    */
    @RequestMapping(value = "/getDetail",method = RequestMethod.GET)
+   @MethodLog(module="ReportTpl",remark="获取详细信息",operateType=Constants.OPERATE_TYPE_SEARCH)
     public Response getDetail(@RequestParam Long id) throws Exception
    {
        BaseEntity result = iReportTplService.getDetail(id);
@@ -84,6 +90,7 @@ public class ReportTplController   {
     * @Description: 分享获取详情
     */
    @RequestMapping(value = "/getShareDetail",method = RequestMethod.GET)
+   @MethodLog(module="ReportTpl",remark="分享获取详细信息",operateType=Constants.OPERATE_TYPE_SEARCH)
    public Response getShareDetail(@RequestParam Long id) throws Exception
    {
        BaseEntity result = iReportTplService.getDetail(id);
@@ -95,6 +102,7 @@ public class ReportTplController   {
    * @Description: 新增
    */
    @RequestMapping(value = "/insert",method = RequestMethod.POST)
+   @MethodLog(module="ReportTpl",remark="新增",operateType=Constants.OPERATE_TYPE_ADD)
    public Response insert(@RequestBody ReportTplDto model) throws Exception
    {
        BaseEntity result = iReportTplService.insert(model);
@@ -106,6 +114,7 @@ public class ReportTplController   {
    * @Description: 更新
    */
    @RequestMapping(value = "/update",method = RequestMethod.POST)
+   @MethodLog(module="ReportTpl",remark="更新",operateType=Constants.OPERATE_TYPE_UPDATE)
    public Response update(@RequestBody ReportTplDto model) throws Exception
    {
        BaseEntity result = iReportTplService.update(model);
@@ -117,6 +126,7 @@ public class ReportTplController   {
    * @param id
    */
    @RequestMapping(value = "/delete",method = RequestMethod.GET)
+   @MethodLog(module="ReportTpl",remark="单条删除",operateType=Constants.OPERATE_TYPE_DELETE)
    public Response delete(@RequestParam Long id)
    {
        BaseEntity result = iReportTplService.delete(id);
@@ -127,6 +137,7 @@ public class ReportTplController   {
    * @Description: 批量删除
    */
    @RequestMapping(value = "/deletebatch",method = RequestMethod.POST)
+   @MethodLog(module="ReportTpl",remark="批量删除",operateType=Constants.OPERATE_TYPE_BATCHDELETE)
    public Response deletebatch(@RequestBody List<Long> ids)
    {
        BaseEntity result = iReportTplService.deleteBatch(ids);
@@ -138,6 +149,7 @@ public class ReportTplController   {
    * @Description: 获取所有的报表
    */
    @RequestMapping(value = "/getReports",method = RequestMethod.POST)
+   @MethodLog(module="ReportTpl",remark="获取所有的报表",operateType=Constants.OPERATE_TYPE_SEARCH)
    public Response getReports()
    {
        List<ReportTpl> result = iReportTplService.getReports();
@@ -149,6 +161,7 @@ public class ReportTplController   {
    *<p>Description: 保存luckysheet模板</p>
    */
    @RequestMapping(value = "/saveLuckySheetTpl",method = RequestMethod.POST)
+   @MethodLog(module="ReportTpl",remark="保存模板",operateType=Constants.OPERATE_TYPE_UPDATE)
    public Response saveLuckySheetTpl(@RequestBody MesLuckysheetsTplDto mesLuckysheetsTplDto,UserInfoDto userInfoDto) throws Exception
    {
        BaseEntity result = this.iReportTplService.saveLuckySheetTpl(mesLuckysheetsTplDto,userInfoDto);
@@ -160,6 +173,7 @@ public class ReportTplController   {
     * @Description: 获取模板设置
     */
    @RequestMapping(value = "/getLuckySheetTplSettings",method = RequestMethod.POST)
+   @MethodLog(module="ReportTpl",remark="获取模板设置",operateType=Constants.OPERATE_TYPE_SEARCH)
    public Response getLuckySheetTplSettings(@RequestBody ReportTpl reportTpl,UserInfoDto userInfoDto) throws Exception {
        ResSheetsSettingsDto result = this.iReportTplService.getLuckySheetTplSettings(reportTpl,userInfoDto);
        return Response.success(result);
@@ -197,6 +211,7 @@ public class ReportTplController   {
     * @Description: luckysheet预览报表(分享链接用)
     */
    @RequestMapping(value = "/previewShareLuckysheetReportData",method = RequestMethod.POST)
+   @MethodLog(module="ReportTpl",remark="分享预览luckysheet报表",operateType=Constants.OPERATE_TYPE_SEARCH)
    public String previewShareLuckysheetReportData(@RequestBody MesGenerateReportDto mesGenerateReportDto) throws Exception
    {
        String shareCode = this.httpServletRequest.getHeader("shareCode");
@@ -255,6 +270,7 @@ public class ReportTplController   {
     * @Description: 保存填报模板
     */
    @RequestMapping(value = "/saveReportFormsTpl",method = RequestMethod.POST)
+   @MethodLog(module="ReportTpl",remark="保存填报模板",operateType=Constants.OPERATE_TYPE_UPDATE)
    public Response saveReportFormsTpl(@RequestBody MesLuckysheetsTplDto mesLuckysheetsTplDto,  UserInfoDto userInfoDto) throws Exception
    {
        BaseEntity result = this.iReportTplService.saveReportFormsTpl(mesLuckysheetsTplDto,userInfoDto);
@@ -266,6 +282,7 @@ public class ReportTplController   {
     * @Description: 获取填报报表模板
     */
    @RequestMapping(value = "/getReportFormsTpl",method = RequestMethod.POST)
+   @MethodLog(module="ReportTpl",remark="获取填报报表模板",operateType=Constants.OPERATE_TYPE_UPDATE)
    public Response getReportFormsTpl(@RequestBody ReportTpl reportTpl, UserInfoDto userInfoDto) throws Exception
    {
        ResSheetsSettingsDto result = this.iReportTplService.getReportFormsTpl(reportTpl,userInfoDto);
@@ -277,6 +294,7 @@ public class ReportTplController   {
     * @Description: luckysheet预览报表
     */
    @RequestMapping(value = "/previewLuckysheetFormsReportData",method = RequestMethod.POST)
+   @MethodLog(module="ReportTpl",remark="预览luckysheet报表",operateType=Constants.OPERATE_TYPE_SEARCH)
    public Response previewLuckysheetFormsReportData(@RequestBody MesGenerateReportDto mesGenerateReportDto, UserInfoDto userInfoDto) throws Exception
    {
 //		ResPreviewData result = this.iReportTplFormsService.previewLuckysheetReportFormsData(mesGenerateReportDto,userInfoDto);
@@ -309,6 +327,7 @@ public class ReportTplController   {
     * @Description: 复制报表
     */
    @RequestMapping(value = "/copyReport",method = RequestMethod.POST)
+   @MethodLog(module="ReportTpl",remark="复制报表",operateType=Constants.OPERATE_TYPE_ADD)
    public Response copyReport(@RequestBody ReportTplDto model) {
        BaseEntity result = this.iReportTplService.copyReport(model);
        return Response.success(result.getStatusMsg());
@@ -319,6 +338,7 @@ public class ReportTplController   {
     * @Description: 转成在线报表文档
     */
    @RequestMapping(value = "/transf2OnlineReport",method = RequestMethod.POST)
+   @MethodLog(module="ReportTpl",remark="转成在线报表文档",operateType=Constants.OPERATE_TYPE_SEARCH)
    public Response transf2OnlineReport(@RequestBody MesGenerateReportDto mesGenerateReportDto, UserInfoDto userInfoDto) throws Exception {
        BaseEntity result = this.iReportTplService.transf2OnlineReport(mesGenerateReportDto, userInfoDto);
        return Response.success(result);
@@ -365,6 +385,7 @@ public class ReportTplController   {
    * @Description: 获取所有的模板
    */
    @RequestMapping(value = "/getAllTpls",method = RequestMethod.POST)
+   @MethodLog(module="ReportTpl",remark="获取所有的模板",operateType=Constants.OPERATE_TYPE_SEARCH)
    public Response getAllTpls(@RequestBody ReportTpl model)
    {
        List<ReportTpl> tpls = iReportTplService.getAllTpls(model);
@@ -376,6 +397,7 @@ public class ReportTplController   {
     * @Description: 获取模板授权范围
     */
    @RequestMapping(value = "/getTplAuth",method = RequestMethod.POST)
+   @MethodLog(module="ReportTpl",remark="获取模板权限",operateType=Constants.OPERATE_TYPE_SEARCH)
    public Response getTplAuth(@RequestBody ReportTpl model, UserInfoDto userInfoDto)
    {
        JSONObject result = this.iReportTplService.getTplAuth(model, userInfoDto);

@@ -17,9 +17,7 @@ import java.util.Map.Entry;
 /**  
  * @ClassName: GroupAggregate
  * @Description: 分组聚合处理
- * @author caiyang
- * @date 2021-05-27 04:55:07 
-*/  
+*/
 public class LuckySheetFormsGroupSummaryAggregate extends Aggregate<LuckysheetReportFormsCell,LuckySheetFormsBindData,Map<String, LuckySheetFormsBindData>>{
 
 	@Override

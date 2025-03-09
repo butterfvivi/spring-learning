@@ -10,8 +10,6 @@ import java.math.RoundingMode;
 /**
 * <p>Title: MaxCalculate</p>
 * <p>Description: 求最大值</p>
-* @author caiyang
-* @date 2020年5月20日
 */
 public class LuckySheetFormsMaxCalculate extends Calculate<LuckySheetFormsBindData>{
 

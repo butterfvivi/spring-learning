@@ -6,6 +6,8 @@ package org.vivi.framework.report.service.web.controller;
 import com.alibaba.fastjson.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.vivi.framework.report.service.common.annotation.MethodLog;
+import org.vivi.framework.report.service.common.constants.Constants;
 import org.vivi.framework.report.service.common.entity.BaseEntity;
 import org.vivi.framework.report.service.common.entity.Response;
 import org.vivi.framework.report.service.handler.IReportDatasourceService;
@@ -33,6 +35,7 @@ public class ReportDatasourceController {
    * @throws
    */
    @RequestMapping(value = "/getTableList",method = RequestMethod.POST)
+   @MethodLog(module="ReportDatasource",remark="获取页面表格数据",operateType= Constants.OPERATE_TYPE_SEARCH)
    public Response getTableList(@RequestBody ReportDatasource model)
    {
        BaseEntity result = new BaseEntity();

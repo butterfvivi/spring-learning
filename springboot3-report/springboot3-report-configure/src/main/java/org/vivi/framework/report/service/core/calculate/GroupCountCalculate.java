@@ -8,9 +8,7 @@ import java.math.RoundingMode;
 /**  
  * @ClassName: GroupAddCalculate
  * @Description: 分组加法计算
- * @author caiyang
- * @date 2022-02-19 10:19:36 
-*/  
+*/
 public class GroupCountCalculate extends Calculate<GroupSummaryData>{
 
 	@Override
