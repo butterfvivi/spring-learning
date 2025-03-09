@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/report/test")
@@ -25,8 +26,13 @@ public class TestController {
      * @Title: exportExcel
      * @Description: 导出excel数据
      */
-    @RequestMapping(value = "/luckySheetExportExcel",method = RequestMethod.POST)
-    public void luckySheetExportExcel() throws Exception {
+    @RequestMapping(value = "/handleExportExcel",method = RequestMethod.POST)
+    public void handleExportExcel() throws Exception {
         this.testReportService.handleExportExcel(httpServletResponse);
+    }
+
+    @RequestMapping(value = "/uploadExcel",method = RequestMethod.POST)
+    public void uploadExcel(MultipartFile file) throws Exception {
+        this.testReportService.uploadExcel(file);
     }
 }
