@@ -30,7 +30,6 @@
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <itextpdf.version>5.5.13.2</itextpdf.version>
         <itext-asian.version>5.2.0</itext-asian.version>
-        <poi.version>4.1.2</poi.version>
         <core-renderer.version>R8</core-renderer.version>
         <xmlworker.version>5.5.13</xmlworker.version>
         <flyway.version>5.2.1</flyway.version>
@@ -42,13 +41,15 @@
         <velocity.version>1.7</velocity.version>
         <aviator.version>5.4.3</aviator.version>
         <opencsv.version>5.9</opencsv.version>
-        <org.apache.poi.version>5.2.3</org.apache.poi.version>
+        <poi.version>5.2.3</poi.version>
+        <poi-schemas.version>4.1.2</poi-schemas.version>
         <poi-tl.version>1.12.2</poi-tl.version>
     </properties>
 
     <modules>
         <module>springboot3-report-dynamic</module>
         <module>springboot3-report-configure</module>
+        <module>springboot3-report-simple</module>
     </modules>
 
     <dependencies>

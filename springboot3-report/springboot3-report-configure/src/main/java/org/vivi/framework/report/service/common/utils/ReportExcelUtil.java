@@ -956,12 +956,7 @@ public class ReportExcelUtil {
     /**  
      * @MethodName: getUnProtectCells
      * @Description: 获取不受保护的单元格
-     * @author caiyang
-     * @param authority
-     * @return 
-     * @return Map<String,String>
-     * @date 2023-05-06 03:01:08 
-     */  
+     */
     private static Map<String, String> getUnProtectCells(JSONObject authority){
     	Map<String, String> result = null;
     	JSONArray allowRangeList = authority.getJSONArray("allowRangeList");
@@ -1000,11 +995,7 @@ public class ReportExcelUtil {
     /**  
      * @MethodName: getFilterRange
      * @Description: 获取筛选条件范围
-     * @author caiyang
-     * @param filter
-     * @return String
-     * @date 2023-09-04 11:02:40 
-     */ 
+     */
     private static String getFilterRange(JSONObject filter)
     {
     	JSONArray row = filter.getJSONArray("row");
