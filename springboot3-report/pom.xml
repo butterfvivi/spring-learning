@@ -44,12 +44,16 @@
         <poi.version>5.2.3</poi.version>
         <poi-schemas.version>4.1.2</poi-schemas.version>
         <poi-tl.version>1.12.2</poi-tl.version>
+        <jackson-databind.version>2.18.3</jackson-databind.version>
+        <knife4j.version>4.4.0</knife4j.version>
+        <swagger-ui.version>2.9.2</swagger-ui.version>
+        <gson.version>2.12.1</gson.version>
     </properties>
 
     <modules>
         <module>springboot3-report-dynamic</module>
         <module>springboot3-report-configure</module>
-        <module>springboot3-report-simple</module>
+        <module>springboot3-report-lucky</module>
     </modules>
 
     <dependencies>
