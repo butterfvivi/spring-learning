@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * 当然多文档协同也需要websocket配合进行分组广播
  */
 @Slf4j
-@CrossOrigin
+@CrossOrigin(origins = {"http://localhost:5003", "null"})
 @RestController
 public class LuckySheetController {
     //默认文档
