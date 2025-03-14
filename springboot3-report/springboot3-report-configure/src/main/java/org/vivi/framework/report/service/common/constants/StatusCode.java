@@ -23,4 +23,14 @@ public class StatusCode {
 	 * 参数校验异常
 	 */
 	public static String CHECK_FAILURE = "50002";
+
+	/**
+	 * TOKEN失效
+	 */
+	public static String TOKEN_FAILURE = "50004";
+
+	/**
+	 * @Feilds:TOKEN_ERROR token错误
+	 */
+	public static String TOKEN_ERROR = "50005";
 }

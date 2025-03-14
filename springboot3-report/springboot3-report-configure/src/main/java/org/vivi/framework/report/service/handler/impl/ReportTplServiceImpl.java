@@ -1909,15 +1909,15 @@ public class ReportTplServiceImpl extends ServiceImpl<ReportTplMapper, ReportTpl
        sheetQueryWrapper.eq("del_flag", DelFlagEnum.UNDEL.getCode());
        sheets = this.iReportTplSheetService.list(sheetQueryWrapper);
        boolean isCreator = false;
-       if(this.authenticEnabale) {
-           if(StringUtil.isNotEmpty(userInfoDto.getUserName()) && userInfoDto.getUserName().equals(this.thirdPartyType)) {
-               isCreator = true;
-           }else {
-               isCreator = reportTpl.getCreator().longValue() == userInfoDto.getUserId().longValue();
-           }
-       }else {
-           isCreator = true;
-       }
+//       if(this.authenticEnabale) {
+//           if(StringUtil.isNotEmpty(userInfoDto.getUserName()) && userInfoDto.getUserName().equals(this.thirdPartyType)) {
+//               isCreator = true;
+//           }else {
+//               isCreator = reportTpl.getCreator().longValue() == userInfoDto.getUserId().longValue();
+//           }
+//       }else {
+//           isCreator = true;
+//       }
        if(!ListUtil.isEmpty(sheets)) {
            this.processSheetCells(sheets, reportTpl, list,isCreator,userInfoDto.getUserId(),settings);
        }else {

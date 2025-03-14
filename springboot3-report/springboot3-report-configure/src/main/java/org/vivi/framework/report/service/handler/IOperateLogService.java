@@ -1,4 +1,7 @@
 package org.vivi.framework.report.service.handler;
 
-public interface IOperateLogService {
+import com.baomidou.mybatisplus.extension.service.IService;
+import org.vivi.framework.report.service.model.operatelog.OperateLog;
+
+public interface IOperateLogService extends IService<OperateLog> {
 }

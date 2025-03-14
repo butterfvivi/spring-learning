@@ -1,0 +1,1717 @@
+{
+  "isParamMerge": null,
+  "settings": [
+    {
+      "hyperlinks": {
+
+      },
+      "cellDatas": [
+        {
+          "r": 0,
+          "c": 0,
+          "v": {
+            "ct": {
+              "t": "s",
+              "fa": "@"
+            }
+          }
+        },
+        {
+          "r": 0,
+          "c": 1,
+          "v": {
+            "ct": {
+              "t": "n",
+              "fa": "##0.00"
+            },
+            "v": "ds002.${sort}",
+            "m": "ds002.${sort}"
+          }
+        },
+        {
+          "r": 0,
+          "c": 2,
+          "v": {
+            "ct": {
+              "t": "n",
+              "fa": "##0.00"
+            },
+            "v": "ds002.${is_hidden}",
+            "m": "ds002.${is_hidden}"
+          }
+        },
+        {
+          "r": 0,
+          "c": 3,
+          "v": {
+            "ct": {
+              "t": "n",
+              "fa": "##0.00"
+            },
+            "v": "ds002.${del_flag}",
+            "m": "ds002.${del_flag}"
+          }
+        },
+        {
+          "r": 0,
+          "c": 10,
+          "v": {
+            "ct": {
+              "t": "n",
+              "fa": "##0.00"
+            },
+            "v": "ds002.${sort}",
+            "m": "ds002.${sort}"
+          }
+        },
+        {
+          "r": 23,
+          "c": 1,
+          "v": {
+            "ct": {
+              "t": "n",
+              "fa": "##0.00"
+            },
+            "v": "v001.${sum}",
+            "m": "v001.${sum}"
+          }
+        },
+        {
+          "r": 22,
+          "c": 10,
+          "v": {
+            "ct": {
+              "t": "s",
+              "fa": "@"
+            },
+            "v": "v001.${month}",
+            "m": "v001.${month}"
+          }
+        },
+        {
+          "r": 22,
+          "c": 11,
+          "v": {
+            "ct": {
+              "t": "n",
+              "fa": "##0.00"
+            },
+            "v": "v001.${sum}",
+            "m": "v001.${sum}"
+          }
+        },
+        {
+          "r": 23,
+          "c": 2,
+          "v": {
+            "ct": {
+              "t": "s",
+              "fa": "@"
+            }
+          }
+        },
+        {
+          "r": 45,
+          "c": 1,
+          "v": {
+            "ct": {
+              "t": "s",
+              "fa": "@"
+            }
+          }
+        },
+        {
+          "r": 46,
+          "c": 1,
+          "v": {
+            "ct": {
+              "t": "s",
+              "fa": "@"
+            }
+          }
+        },
+        {
+          "r": 46,
+          "c": 2,
+          "v": {
+            "ct": {
+              "t": "n",
+              "fa": "##0.00"
+            }
+          }
+        },
+        {
+          "r": 49,
+          "c": 0,
+          "v": {
+            "ct": {
+              "t": "s",
+              "fa": "@"
+            }
+          }
+        }
+      ],
+      "extraCustomCellConfigs": {
+        "0_0": {
+          "subTotalCells": [
+
+          ],
+          "unitTransfer": false,
+          "cellExtend": 1,
+          "dictType": null,
+          "isDrill": false,
+          "cellHiddenConditions": [
+
+          ],
+          "aggregateType": "list",
+          "groupProperty": "",
+          "isGroupMerge": false,
+          "datasourceId": null,
+          "groupSummaryDependencyr": null,
+          "digit": 2,
+          "hiddenType": "and",
+          "isDict": false,
+          "seriesName": "",
+          "subTotalAttrs": [
+
+          ],
+          "isSubtotal": false,
+          "dataFrom": 1,
+          "multiple": "100",
+          "subTotalCalc": [
+
+          ],
+          "groupSummaryDependencyc": null,
+          "cellFunction": 1,
+          "cellFillType": 1,
+          "formsAttrs": {
+
+          },
+          "transferType": 1,
+          "filterType": "and",
+          "cellconditions": [
+
+          ]
+        },
+        "0_1": {
+          "subTotalCells": [
+
+          ],
+          "unitTransfer": false,
+          "cellExtend": 3,
+          "dictType": null,
+          "isDrill": false,
+          "cellHiddenConditions": [
+
+          ],
+          "aggregateType": "list",
+          "groupProperty": "",
+          "isGroupMerge": false,
+          "datasourceId": null,
+          "groupSummaryDependencyr": null,
+          "digit": 2,
+          "hiddenType": "and",
+          "isDict": false,
+          "seriesName": "",
+          "subTotalAttrs": [
+
+          ],
+          "isSubtotal": false,
+          "dataFrom": 1,
+          "multiple": "100",
+          "subTotalCalc": [
+
+          ],
+          "groupSummaryDependencyc": null,
+          "cellFunction": 1,
+          "cellFillType": 1,
+          "formsAttrs": {
+
+          },
+          "transferType": 1,
+          "filterType": "and",
+          "cellconditions": [
+
+          ]
+        },
+        "0_2": {
+          "subTotalCells": [
+
+          ],
+          "unitTransfer": false,
+          "cellExtend": 3,
+          "dictType": null,
+          "isDrill": false,
+          "cellHiddenConditions": [
+
+          ],
+          "aggregateType": "list",
+          "groupProperty": "",
+          "isGroupMerge": false,
+          "datasourceId": null,
+          "groupSummaryDependencyr": null,
+          "digit": 2,
+          "hiddenType": "and",
+          "isDict": false,
+          "seriesName": "",
+          "subTotalAttrs": [
+
+          ],
+          "isSubtotal": false,
+          "dataFrom": 1,
+          "multiple": "100",
+          "subTotalCalc": [
+
+          ],
+          "groupSummaryDependencyc": null,
+          "cellFunction": 1,
+          "cellFillType": 1,
+          "formsAttrs": {
+
+          },
+          "transferType": 1,
+          "filterType": "and",
+          "cellconditions": [
+
+          ]
+        },
+        "23_2": {
+          "subTotalCells": [
+
+          ],
+          "unitTransfer": false,
+          "cellExtend": 1,
+          "dictType": null,
+          "isDrill": false,
+          "cellHiddenConditions": [
+
+          ],
+          "aggregateType": "list",
+          "groupProperty": null,
+          "isGroupMerge": false,
+          "datasourceId": null,
+          "groupSummaryDependencyr": null,
+          "digit": 2,
+          "hiddenType": "and",
+          "isDict": false,
+          "seriesName": null,
+          "subTotalAttrs": [
+
+          ],
+          "isSubtotal": false,
+          "dataFrom": 1,
+          "multiple": "100",
+          "subTotalCalc": [
+
+          ],
+          "groupSummaryDependencyc": null,
+          "cellFunction": 1,
+          "cellFillType": 1,
+          "formsAttrs": {
+
+          },
+          "transferType": 1,
+          "filterType": "and",
+          "cellconditions": [
+
+          ]
+        },
+        "0_3": {
+          "subTotalCells": [
+
+          ],
+          "unitTransfer": false,
+          "cellExtend": 3,
+          "dictType": null,
+          "isDrill": false,
+          "cellHiddenConditions": [
+
+          ],
+          "aggregateType": "list",
+          "groupProperty": "",
+          "isGroupMerge": false,
+          "datasourceId": null,
+          "groupSummaryDependencyr": null,
+          "digit": 2,
+          "hiddenType": "and",
+          "isDict": false,
+          "seriesName": "",
+          "subTotalAttrs": [
+
+          ],
+          "isSubtotal": false,
+          "dataFrom": 1,
+          "multiple": "100",
+          "subTotalCalc": [
+
+          ],
+          "groupSummaryDependencyc": null,
+          "cellFunction": 1,
+          "cellFillType": 1,
+          "formsAttrs": {
+
+          },
+          "transferType": 1,
+          "filterType": "and",
+          "cellconditions": [
+
+          ]
+        },
+        "23_1": {
+          "subTotalCells": [
+
+          ],
+          "unitTransfer": false,
+          "cellExtend": 2,
+          "dictType": null,
+          "isDrill": false,
+          "cellHiddenConditions": [
+
+          ],
+          "aggregateType": "list",
+          "groupProperty": "",
+          "isGroupMerge": false,
+          "datasourceId": null,
+          "groupSummaryDependencyr": null,
+          "digit": 2,
+          "hiddenType": "and",
+          "isDict": false,
+          "seriesName": "",
+          "subTotalAttrs": [
+
+          ],
+          "isSubtotal": false,
+          "dataFrom": 1,
+          "multiple": "100",
+          "subTotalCalc": [
+
+          ],
+          "groupSummaryDependencyc": null,
+          "cellFunction": 1,
+          "cellFillType": 1,
+          "formsAttrs": {
+
+          },
+          "transferType": 1,
+          "filterType": "and",
+          "cellconditions": [
+
+          ]
+        },
+        "22_10": {
+          "subTotalCells": [
+
+          ],
+          "unitTransfer": false,
+          "cellExtend": 3,
+          "dictType": null,
+          "isDrill": false,
+          "cellHiddenConditions": [
+
+          ],
+          "aggregateType": "list",
+          "groupProperty": "",
+          "isGroupMerge": false,
+          "datasourceId": null,
+          "groupSummaryDependencyr": null,
+          "digit": 2,
+          "hiddenType": "and",
+          "isDict": false,
+          "seriesName": "",
+          "subTotalAttrs": [
+
+          ],
+          "isSubtotal": false,
+          "dataFrom": 1,
+          "multiple": "100",
+          "subTotalCalc": [
+
+          ],
+          "groupSummaryDependencyc": null,
+          "cellFunction": 1,
+          "cellFillType": 1,
+          "formsAttrs": {
+
+          },
+          "transferType": 1,
+          "filterType": "and",
+          "cellconditions": [
+
+          ]
+        },
+        "22_11": {
+          "subTotalCells": [
+
+          ],
+          "unitTransfer": false,
+          "cellExtend": 3,
+          "dictType": null,
+          "isDrill": false,
+          "cellHiddenConditions": [
+
+          ],
+          "aggregateType": "list",
+          "groupProperty": "",
+          "isGroupMerge": false,
+          "datasourceId": null,
+          "groupSummaryDependencyr": null,
+          "digit": 2,
+          "hiddenType": "and",
+          "isDict": false,
+          "seriesName": "",
+          "subTotalAttrs": [
+
+          ],
+          "isSubtotal": false,
+          "dataFrom": 1,
+          "multiple": "100",
+          "subTotalCalc": [
+
+          ],
+          "groupSummaryDependencyc": null,
+          "cellFunction": 1,
+          "cellFillType": 1,
+          "formsAttrs": {
+
+          },
+          "transferType": 1,
+          "filterType": "and",
+          "cellconditions": [
+
+          ]
+        },
+        "45_1": {
+          "subTotalCells": [
+
+          ],
+          "unitTransfer": false,
+          "cellExtend": 1,
+          "dictType": null,
+          "isDrill": false,
+          "cellHiddenConditions": [
+
+          ],
+          "aggregateType": "list",
+          "groupProperty": null,
+          "isGroupMerge": false,
+          "datasourceId": null,
+          "groupSummaryDependencyr": null,
+          "digit": 2,
+          "hiddenType": "and",
+          "isDict": false,
+          "seriesName": null,
+          "subTotalAttrs": [
+
+          ],
+          "isSubtotal": false,
+          "dataFrom": 1,
+          "multiple": "100",
+          "subTotalCalc": [
+
+          ],
+          "groupSummaryDependencyc": null,
+          "cellFunction": 1,
+          "cellFillType": 1,
+          "formsAttrs": {
+
+          },
+          "transferType": 1,
+          "filterType": "and",
+          "cellconditions": [
+
+          ]
+        },
+        "46_1": {
+          "subTotalCells": [
+
+          ],
+          "unitTransfer": false,
+          "cellExtend": 1,
+          "dictType": null,
+          "isDrill": false,
+          "cellHiddenConditions": [
+
+          ],
+          "aggregateType": "list",
+          "groupProperty": null,
+          "isGroupMerge": false,
+          "datasourceId": null,
+          "groupSummaryDependencyr": null,
+          "digit": 2,
+          "hiddenType": "and",
+          "isDict": false,
+          "seriesName": null,
+          "subTotalAttrs": [
+
+          ],
+          "isSubtotal": false,
+          "dataFrom": 1,
+          "multiple": "100",
+          "subTotalCalc": [
+
+          ],
+          "groupSummaryDependencyc": null,
+          "cellFunction": 1,
+          "cellFillType": 1,
+          "formsAttrs": {
+
+          },
+          "transferType": 1,
+          "filterType": "and",
+          "cellconditions": [
+
+          ]
+        },
+        "46_2": {
+          "subTotalCells": [
+
+          ],
+          "unitTransfer": false,
+          "cellExtend": 1,
+          "dictType": null,
+          "isDrill": false,
+          "cellHiddenConditions": [
+
+          ],
+          "aggregateType": "list",
+          "groupProperty": null,
+          "isGroupMerge": false,
+          "datasourceId": null,
+          "groupSummaryDependencyr": null,
+          "digit": 2,
+          "hiddenType": "and",
+          "isDict": false,
+          "seriesName": null,
+          "subTotalAttrs": [
+
+          ],
+          "isSubtotal": false,
+          "dataFrom": 1,
+          "multiple": "100",
+          "subTotalCalc": [
+
+          ],
+          "groupSummaryDependencyc": null,
+          "cellFunction": 1,
+          "cellFillType": 1,
+          "formsAttrs": {
+
+          },
+          "transferType": 1,
+          "filterType": "and",
+          "cellconditions": [
+
+          ]
+        },
+        "49_0": {
+          "subTotalCells": [
+
+          ],
+          "unitTransfer": false,
+          "cellExtend": 1,
+          "dictType": null,
+          "isDrill": false,
+          "cellHiddenConditions": [
+
+          ],
+          "aggregateType": "list",
+          "groupProperty": null,
+          "isGroupMerge": false,
+          "datasourceId": null,
+          "groupSummaryDependencyr": null,
+          "digit": 2,
+          "hiddenType": "and",
+          "isDict": false,
+          "seriesName": null,
+          "subTotalAttrs": [
+
+          ],
+          "isSubtotal": false,
+          "dataFrom": 1,
+          "multiple": "100",
+          "subTotalCalc": [
+
+          ],
+          "groupSummaryDependencyc": null,
+          "cellFunction": 1,
+          "cellFillType": 1,
+          "formsAttrs": {
+
+          },
+          "transferType": 1,
+          "filterType": "and",
+          "cellconditions": [
+
+          ]
+        },
+        "0_10": {
+          "subTotalCells": [
+
+          ],
+          "unitTransfer": false,
+          "cellExtend": 2,
+          "dictType": null,
+          "isDrill": false,
+          "cellHiddenConditions": [
+
+          ],
+          "aggregateType": "list",
+          "groupProperty": "",
+          "isGroupMerge": false,
+          "datasourceId": null,
+          "groupSummaryDependencyr": null,
+          "digit": 2,
+          "hiddenType": "and",
+          "isDict": false,
+          "seriesName": "",
+          "subTotalAttrs": [
+
+          ],
+          "isSubtotal": false,
+          "dataFrom": 1,
+          "multiple": "100",
+          "subTotalCalc": [
+
+          ],
+          "groupSummaryDependencyc": null,
+          "cellFunction": 1,
+          "cellFillType": 1,
+          "formsAttrs": {
+
+          },
+          "transferType": 1,
+          "filterType": "and",
+          "cellconditions": [
+
+          ]
+        }
+      },
+      "config": {
+        "merge": {
+
+        },
+        "curentsheetView": null
+      },
+      "blockData": [
+
+      ],
+      "frozen": {
+
+      },
+      "images": null,
+      "sheetIndex": "Sheet9694e17bd48940cb8a715f6abc3e8dad",
+      "calcChain": [
+
+      ],
+      "sheetName": "sheet1",
+      "sheetOrder": 0,
+      "datasourceConfig": [
+
+      ],
+      "cellFormats": {
+        "0_0": {
+          "t": "s",
+          "fa": "@"
+        },
+        "0_1": {
+          "t": "n",
+          "fa": "##0.00"
+        },
+        "0_2": {
+          "t": "n",
+          "fa": "##0.00"
+        },
+        "23_2": {
+          "t": "s",
+          "fa": "@"
+        },
+        "0_3": {
+          "t": "n",
+          "fa": "##0.00"
+        },
+        "23_1": {
+          "t": "n",
+          "fa": "##0.00"
+        },
+        "22_10": {
+          "t": "s",
+          "fa": "@"
+        },
+        "22_11": {
+          "t": "n",
+          "fa": "##0.00"
+        },
+        "45_1": {
+          "t": "s",
+          "fa": "@"
+        },
+        "46_1": {
+          "t": "s",
+          "fa": "@"
+        },
+        "46_2": {
+          "t": "n",
+          "fa": "##0.00"
+        },
+        "49_0": {
+          "t": "s",
+          "fa": "@"
+        },
+        "0_10": {
+          "t": "n",
+          "fa": "##0.00"
+        }
+      },
+      "sheetId": null,
+      "luckysheetAlternateformatSave": [
+
+      ],
+      "chart": [
+        {
+          "chartOptions": {
+            "rangeTxt": "B1:D1",
+            "chart_id": "chart_kelo1tnrL664_1741421313704",
+            "defaultOption": {
+              "theme": "",
+              "amination": "",
+              "spec": {
+                "barWidth": "100%",
+                "color": [
+                  "#4992FF",
+                  "#7CFFB2",
+                  "#FF6E76"
+                ],
+                "data": {
+                  "values": [
+                    {
+                      "seriesField": "系列1",
+                      "type": 1,
+                      "value": "ds002.${sort}"
+                    },
+                    {
+                      "seriesField": "系列2",
+                      "type": 1,
+                      "value": "ds002.${is_hidden}"
+                    },
+                    {
+                      "seriesField": "系列3",
+                      "type": 1,
+                      "value": "ds002.${del_flag}"
+                    }
+                  ]
+                },
+                "yField": "value",
+                "axes": [
+                  {
+                    "unit": {
+                      "visible": false,
+                      "style": {
+
+                      }
+                    },
+                    "orient": "bottom",
+                    "sampling": true,
+                    "label": {
+                      "visible": true,
+                      "autoLimit": false,
+                      "style": {
+                        "fill": "#6E6F73"
+                      },
+                      "autoRotate": false,
+                      "autoRotateAngle": [
+                        0,
+                        90
+                      ]
+                    }
+                  },
+                  {
+                    "unit": {
+                      "visible": false,
+                      "style": {
+
+                      }
+                    },
+                    "orient": "left",
+                    "label": {
+                      "visible": true,
+                      "autoLimit": false,
+                      "style": {
+                        "fill": "#6E6F73"
+                      }
+                    }
+                  }
+                ],
+                "seriesField": "seriesField",
+                "label": {
+                  "visible": true,
+                  "style": {
+                    "fontSize": 14,
+                    "fill": null
+                  },
+                  "position": "outside"
+                },
+                "type": "bar",
+                "title": {
+                  "visible": false,
+                  "text": "",
+                  "textStyle": {
+
+                  },
+                  "align": "center"
+                },
+                "bar": {
+                  "style": {
+                    "cornerRadius": 0
+                  }
+                },
+                "xField": [
+                  "type",
+                  "seriesField"
+                ],
+                "legends": {
+                  "item": {
+                    "label": {
+                      "style": {
+
+                      }
+                    }
+                  },
+                  "visible": true,
+                  "orient": "top",
+                  "position": "middle"
+                },
+                "background": ""
+              }
+            },
+            "seriesField": [
+              "series1",
+              "series2",
+              "series3"
+            ],
+            "valueField": [
+              "is_hidden",
+              "sort",
+              "del_flag"
+            ],
+            "rangeColCheck": {
+              "exits": false,
+              "range": [
+                0,
+                0
+              ]
+            },
+            "categoryField": "menu_name",
+            "chartPro": "echarts",
+            "chartData": [
+              [
+                {
+                  "ct": {
+                    "t": "n",
+                    "fa": "##0.00"
+                  },
+                  "v": "ds002.${sort}",
+                  "m": "ds002.${sort}"
+                },
+                {
+                  "ct": {
+                    "t": "n",
+                    "fa": "##0.00"
+                  },
+                  "v": "ds002.${is_hidden}",
+                  "m": "ds002.${is_hidden}"
+                },
+                {
+                  "ct": {
+                    "t": "n",
+                    "fa": "##0.00"
+                  },
+                  "v": "ds002.${del_flag}",
+                  "m": "ds002.${del_flag}"
+                }
+              ]
+            ],
+            "top": 71,
+            "rangeArray": [
+              {
+                "top_move": 0,
+                "top": 0,
+                "left": 74,
+                "column_focus": 1,
+                "width": 73,
+                "left_move": 74,
+                "column": [
+                  1,
+                  3
+                ],
+                "width_move": 221,
+                "row": [
+                  0,
+                  0
+                ],
+                "height_move": 19,
+                "row_focus": 0,
+                "height": 19
+              }
+            ],
+            "rangeRowCheck": {
+              "exits": false,
+              "range": [
+                0,
+                0
+              ]
+            },
+            "rangeSplitArray": {
+              "rowtitle": null,
+              "range": {
+                "top_move": 0,
+                "top": 0,
+                "left": 74,
+                "column_focus": 1,
+                "width": 73,
+                "left_move": 74,
+                "column": [
+                  1,
+                  3
+                ],
+                "width_move": 221,
+                "row": [
+                  0,
+                  0
+                ],
+                "height_move": 19,
+                "row_focus": 0,
+                "height": 19
+              },
+              "title": null,
+              "type": "contentonly",
+              "content": {
+                "column": [
+                  0,
+                  2
+                ],
+                "row": [
+                  0,
+                  0
+                ]
+              },
+              "coltitle": null
+            },
+            "chartStyle": "default",
+            "left": 34,
+            "chartAllType": "echarts|column|default",
+            "chartType": "column",
+            "width": 400,
+            "dataset": "ds002",
+            "rangeConfigCheck": false,
+            "chartDataCache": [
+              {
+                "seriesField": "系列1",
+                "type": 1,
+                "value": "ds002.${sort}"
+              },
+              {
+                "seriesField": "系列2",
+                "type": 1,
+                "value": "ds002.${is_hidden}"
+              },
+              {
+                "seriesField": "系列3",
+                "type": 1,
+                "value": "ds002.${del_flag}"
+              }
+            ],
+            "height": 250
+          },
+          "sheetIndex": "Sheet9694e17bd48940cb8a715f6abc3e8dad",
+          "chart_id": "chart_kelo1tnrL664_1741421313704",
+          "top": 71,
+          "left": 34,
+          "needRangeShow": false,
+          "offsetHeight": 292,
+          "width": 400,
+          "offsetWidth": 422,
+          "height": 250,
+          "isShow": true
+        },
+        {
+          "chartOptions": {
+            "rangeTxt": "K1",
+            "chart_id": "chart_TET3e0aei0gl_1741500607486",
+            "defaultOption": {
+              "theme": "",
+              "amination": "",
+              "spec": {
+                "outerRadius": "0.8",
+                "color": [
+
+                ],
+                "data": {
+                  "values": [
+                    {
+                      "seriesField": "系列1",
+                      "type": 1,
+                      "value": "ds002.${sort}"
+                    }
+                  ]
+                },
+                "label": {
+                  "formatter": "",
+                  "visible": true,
+                  "style": {
+                    "fontSize": 14,
+                    "fill": null
+                  },
+                  "position": "outside"
+                },
+                "type": "pie",
+                "padAngle": 0,
+                "valueField": "value",
+                "title": {
+                  "visible": false,
+                  "text": "",
+                  "textStyle": {
+
+                  },
+                  "align": "center"
+                },
+                "pie": {
+                  "style": {
+                    "cornerRadius": 0
+                  },
+                  "state": {
+                    "hover": {
+                      "centerOffset": 10
+                    },
+                    "selected": {
+                      "centerOffset": 10
+                    }
+                  }
+                },
+                "categoryField": "type",
+                "legends": {
+                  "item": {
+                    "label": {
+                      "style": {
+
+                      }
+                    }
+                  },
+                  "visible": true,
+                  "orient": "top",
+                  "position": "middle"
+                },
+                "background": "",
+                "innerRadius": 0
+              }
+            },
+            "seriesField": [
+
+            ],
+            "valueField": [
+              "sort"
+            ],
+            "rangeColCheck": {
+              "exits": false,
+              "range": [
+                0,
+                0
+              ]
+            },
+            "categoryField": "menu_name",
+            "chartPro": "echarts",
+            "chartData": [
+              [
+                {
+                  "ct": {
+                    "t": "s",
+                    "fa": "@"
+                  },
+                  "v": "ds002.${sort}",
+                  "m": "ds002.${sort}"
+                }
+              ]
+            ],
+            "top": 60.5,
+            "rangeArray": [
+              {
+                "top_move": 0,
+                "top": 0,
+                "left": 740,
+                "column_focus": 10,
+                "width": 73,
+                "left_move": 740,
+                "column": [
+                  10,
+                  10
+                ],
+                "width_move": 73,
+                "row": [
+                  0,
+                  0
+                ],
+                "height_move": 19,
+                "row_focus": 0,
+                "height": 19
+              }
+            ],
+            "rangeRowCheck": {
+              "exits": false,
+              "range": [
+                0,
+                0
+              ]
+            },
+            "rangeSplitArray": {
+              "rowtitle": null,
+              "range": {
+                "top_move": 0,
+                "top": 0,
+                "left": 740,
+                "column_focus": 10,
+                "width": 73,
+                "left_move": 740,
+                "column": [
+                  10,
+                  10
+                ],
+                "width_move": 73,
+                "row": [
+                  0,
+                  0
+                ],
+                "height_move": 19,
+                "row_focus": 0,
+                "height": 19
+              },
+              "title": null,
+              "type": "contentonly",
+              "content": {
+                "column": [
+                  0,
+                  0
+                ],
+                "row": [
+                  0,
+                  0
+                ]
+              },
+              "coltitle": null
+            },
+            "chartStyle": "default",
+            "left": 702.5,
+            "chartAllType": "echarts|pie|default",
+            "chartType": "pie",
+            "width": 400,
+            "dataset": "ds002",
+            "rangeConfigCheck": true,
+            "chartDataCache": [
+              {
+                "seriesField": "系列1",
+                "type": 1,
+                "value": "ds002.${sort}"
+              }
+            ],
+            "height": 250
+          },
+          "sheetIndex": "Sheet9694e17bd48940cb8a715f6abc3e8dad",
+          "chart_id": "chart_TET3e0aei0gl_1741500607486",
+          "top": 60,
+          "left": 702,
+          "needRangeShow": false,
+          "offsetHeight": 292,
+          "width": 400,
+          "offsetWidth": 422,
+          "height": 250,
+          "isShow": true
+        },
+        {
+          "chartOptions": {
+            "rangeTxt": "B24",
+            "chart_id": "chart_K04h440oxp60_1741502162153",
+            "defaultOption": {
+              "theme": "",
+              "amination": "",
+              "spec": {
+                "color": [
+
+                ],
+                "data": {
+                  "values": [
+                    {
+                      "seriesField": "系列1",
+                      "type": 1,
+                      "value": "v001.${sum}"
+                    }
+                  ]
+                },
+                "line": {
+                  "style": {
+                    "curveType": "monotone",
+                    "lineWidth": 2
+                  }
+                },
+                "yField": "value",
+                "axes": [
+                  {
+                    "unit": {
+                      "visible": false,
+                      "style": {
+
+                      }
+                    },
+                    "orient": "bottom",
+                    "sampling": true,
+                    "label": {
+                      "visible": true,
+                      "autoLimit": false,
+                      "style": {
+                        "fill": "#6E6F73"
+                      },
+                      "autoRotate": false,
+                      "autoRotateAngle": [
+                        0,
+                        90
+                      ]
+                    }
+                  },
+                  {
+                    "unit": {
+                      "visible": false,
+                      "style": {
+
+                      }
+                    },
+                    "orient": "left",
+                    "label": {
+                      "visible": true,
+                      "autoLimit": false,
+                      "style": {
+                        "fill": "#6E6F73"
+                      }
+                    }
+                  }
+                ],
+                "seriesField": "seriesField",
+                "label": {
+                  "visible": true,
+                  "style": {
+                    "fontSize": 14,
+                    "fill": null
+                  },
+                  "position": "outside"
+                },
+                "type": "line",
+                "title": {
+                  "visible": false,
+                  "text": "",
+                  "textStyle": {
+
+                  },
+                  "align": "center"
+                },
+                "xField": [
+                  "type",
+                  "seriesField"
+                ],
+                "legends": {
+                  "item": {
+                    "label": {
+                      "style": {
+
+                      }
+                    }
+                  },
+                  "visible": true,
+                  "orient": "top",
+                  "position": "middle"
+                },
+                "background": "",
+                "lineLabel": {
+                  "visible": false,
+                  "style": {
+
+                  }
+                }
+              }
+            },
+            "seriesField": [
+              "month"
+            ],
+            "valueField": [
+              "sum",
+              "month"
+            ],
+            "rangeColCheck": {
+              "exits": false,
+              "range": [
+                0,
+                0
+              ]
+            },
+            "categoryField": "month",
+            "chartPro": "echarts",
+            "chartData": [
+              [
+                {
+                  "ct": {
+                    "t": "n",
+                    "fa": "##0.00"
+                  },
+                  "v": "v001.${sum}",
+                  "m": "v001.${sum}"
+                }
+              ]
+            ],
+            "top": 521,
+            "rangeArray": [
+              {
+                "top_move": 460,
+                "top": 460,
+                "left": 74,
+                "column_focus": 1,
+                "width": 73,
+                "left_move": 74,
+                "column": [
+                  1,
+                  1
+                ],
+                "width_move": 73,
+                "row": [
+                  23,
+                  23
+                ],
+                "height_move": 19,
+                "row_focus": 23,
+                "height": 19
+              }
+            ],
+            "rangeRowCheck": {
+              "exits": false,
+              "range": [
+                0,
+                0
+              ]
+            },
+            "rangeSplitArray": {
+              "rowtitle": null,
+              "range": {
+                "top_move": 460,
+                "top": 460,
+                "left": 74,
+                "column_focus": 1,
+                "width": 73,
+                "left_move": 74,
+                "column": [
+                  1,
+                  1
+                ],
+                "width_move": 73,
+                "row": [
+                  23,
+                  23
+                ],
+                "height_move": 19,
+                "row_focus": 23,
+                "height": 19
+              },
+              "title": null,
+              "type": "contentonly",
+              "content": {
+                "column": [
+                  0,
+                  0
+                ],
+                "row": [
+                  0,
+                  0
+                ]
+              },
+              "coltitle": null
+            },
+            "chartStyle": "smooth",
+            "left": 25,
+            "chartAllType": "echarts|line|smooth",
+            "chartType": "line",
+            "width": 400,
+            "dataset": "v001",
+            "rangeConfigCheck": true,
+            "chartDataCache": [
+              {
+                "seriesField": "系列1",
+                "type": 1,
+                "value": "v001.${sum}"
+              }
+            ],
+            "height": 250
+          },
+          "sheetIndex": "Sheet9694e17bd48940cb8a715f6abc3e8dad",
+          "chart_id": "chart_K04h440oxp60_1741502162153",
+          "top": 521,
+          "left": 25,
+          "needRangeShow": false,
+          "offsetHeight": 292,
+          "width": 400,
+          "offsetWidth": 422,
+          "height": 250,
+          "isShow": true
+        },
+        {
+          "chartOptions": {
+            "rangeTxt": "K23:L23",
+            "chart_id": "chart_h7wahi5m0i1n_1741523053947",
+            "defaultOption": {
+              "theme": "",
+              "amination": "",
+              "spec": {
+                "barWidth": "100%",
+                "stack": true,
+                "color": [
+
+                ],
+                "data": {
+                  "values": [
+                    {
+                      "seriesField": "系列1",
+                      "type": 1,
+                      "value": "v001.${month}"
+                    },
+                    {
+                      "seriesField": "系列2",
+                      "type": 1,
+                      "value": "v001.${sum}"
+                    }
+                  ]
+                },
+                "yField": [
+                  "type",
+                  "seriesField"
+                ],
+                "axes": [
+                  {
+                    "unit": {
+                      "visible": false,
+                      "style": {
+
+                      }
+                    },
+                    "orient": "bottom",
+                    "label": {
+                      "visible": true,
+                      "style": {
+                        "fill": "#6E6F73"
+                      }
+                    }
+                  },
+                  {
+                    "unit": {
+                      "visible": false,
+                      "style": {
+
+                      }
+                    },
+                    "orient": "left",
+                    "label": {
+                      "visible": true,
+                      "style": {
+                        "fill": "#6E6F73"
+                      }
+                    }
+                  }
+                ],
+                "seriesField": "seriesField",
+                "label": {
+                  "visible": true,
+                  "style": {
+                    "fontSize": 14,
+                    "fill": null
+                  },
+                  "position": "outside"
+                },
+                "type": "bar",
+                "title": {
+                  "visible": false,
+                  "text": "",
+                  "textStyle": {
+
+                  },
+                  "align": "center"
+                },
+                "bar": {
+                  "style": {
+                    "cornerRadius": 0
+                  }
+                },
+                "xField": "value",
+                "legends": {
+                  "item": {
+                    "label": {
+                      "style": {
+
+                      }
+                    }
+                  },
+                  "visible": true,
+                  "orient": "top",
+                  "position": "middle"
+                },
+                "background": "",
+                "direction": "horizontal"
+              }
+            },
+            "seriesField": [
+              "month"
+            ],
+            "valueField": [
+              "month",
+              "sum"
+            ],
+            "rangeColCheck": {
+              "exits": false,
+              "range": [
+                0,
+                0
+              ]
+            },
+            "categoryField": "month",
+            "chartPro": "echarts",
+            "chartData": [
+              [
+                {
+                  "ct": {
+                    "t": "s",
+                    "fa": "@"
+                  },
+                  "v": "v001.${month}",
+                  "m": "v001.${month}"
+                },
+                {
+                  "ct": {
+                    "t": "n",
+                    "fa": "##0.00"
+                  },
+                  "v": "v001.${sum}",
+                  "m": "v001.${sum}"
+                }
+              ]
+            ],
+            "top": 517,
+            "rangeArray": [
+              {
+                "top_move": 440,
+                "top": 440,
+                "left": 740,
+                "column_focus": 10,
+                "width": 73,
+                "left_move": 740,
+                "column": [
+                  10,
+                  11
+                ],
+                "width_move": 147,
+                "row": [
+                  22,
+                  22
+                ],
+                "height_move": 19,
+                "row_focus": 22,
+                "height": 19
+              }
+            ],
+            "rangeRowCheck": {
+              "exits": false,
+              "range": [
+                0,
+                0
+              ]
+            },
+            "rangeSplitArray": {
+              "rowtitle": null,
+              "range": {
+                "top_move": 440,
+                "top": 440,
+                "left": 740,
+                "column_focus": 10,
+                "width": 73,
+                "left_move": 740,
+                "column": [
+                  10,
+                  11
+                ],
+                "width_move": 147,
+                "row": [
+                  22,
+                  22
+                ],
+                "height_move": 19,
+                "row_focus": 22,
+                "height": 19
+              },
+              "title": null,
+              "type": "contentonly",
+              "content": {
+                "column": [
+                  0,
+                  1
+                ],
+                "row": [
+                  0,
+                  0
+                ]
+              },
+              "coltitle": null
+            },
+            "chartStyle": "default",
+            "left": 657,
+            "chartAllType": "echarts|bar|default",
+            "chartType": "bar",
+            "width": 400,
+            "dataset": "v001",
+            "rangeConfigCheck": false,
+            "chartDataCache": [
+              {
+                "seriesField": "系列1",
+                "type": 1,
+                "value": "v001.${month}"
+              },
+              {
+                "seriesField": "系列2",
+                "type": 1,
+                "value": "v001.${sum}"
+              }
+            ],
+            "height": 250
+          },
+          "sheetIndex": "Sheet9694e17bd48940cb8a715f6abc3e8dad",
+          "chart_id": "chart_h7wahi5m0i1n_1741523053947",
+          "top": 517,
+          "left": 657,
+          "needRangeShow": true,
+          "offsetHeight": 292,
+          "width": 400,
+          "offsetWidth": 422,
+          "height": 250
+        }
+      ],
+      "chartXaxisData": null,
+      "dataVerification": {
+
+      },
+      "reportSheetPdfPrintSetting": null,
+      "pageDivider": [
+
+      ],
+      "luckysheetConditionformatSave": [
+
+      ]
+    }
+  ],
+  "sheetIndexIdMap": null,
+  "tplName": null,
+  "sheetRangeAuth": {
+
+  },
+  "creatorName": null,
+  "isThirdParty": 2,
+  "tplType": 1,
+  "creator": false
+}
