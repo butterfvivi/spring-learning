@@ -1,6 +1,0 @@
-server:
-  port: 8080
-
-  # 配置文件激活
-  profiles:
-    active: dev

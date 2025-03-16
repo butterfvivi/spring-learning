@@ -54,6 +54,7 @@
         <module>springboot3-sa-token</module>
         <module>springboot3-security-jwt</module>
         <module>springboot3-sso</module>
+        <module>springboot3-ureport</module>
         <module>springboot3-webflux</module>
         <module>springboot3-websocket</module>
         <module>ureport-example</module>
@@ -101,7 +102,7 @@
 
             <!--ureport-->
             <dependency>
-                <groupId>com.bstek.ureport</groupId>
+                <groupId>org.vivi.framework.ureport.simple.ureport</groupId>
                 <artifactId>ureport2-console</artifactId>
                 <version>${ureport.version}</version>
             </dependency>
