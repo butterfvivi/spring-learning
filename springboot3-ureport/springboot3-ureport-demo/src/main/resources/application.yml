@@ -1,0 +1,75 @@
+## http://localhost:8000/designer
+server:
+#  servlet:
+#    context-path: /ureport_demo
+  port: 9001
+
+spring:
+  thymeleaf:
+    cache: false
+  web:
+    resources:
+      static-locations: classpath:/static
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 120MB
+
+  mvc:
+    static-path-pattern: /static/**
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password:
+      connect-timeout: 300000
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/springreport?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: wtf0010.
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# mybatis config
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  type-aliases-package: org.vivi.**.model
+
+ureport:
+  disableHttpSessionReportCache: false
+  enableFileProvider: true
+  fileStoreDir: ureportfiles
+  debug: true
+  enableRedis: false
+  cacheExpire: 60
+  ossEnable: false
+  oss:
+    # ???????
+    endpoint:
+    # ???key
+    access-key:
+    # ?????
+    secret-key:
+    # ???
+    bucket-name:
+    # ?????????
+    region:
+    # ??????
+    max-connections: 100
+    prefix: source/report/
+#  username: admin
+#  password: 123456
+#  token:
+#    expires: 86400 #permissions expires - second
+#    secret-key: 6fa87140-3a53-11ed-ad8e-89304f903851
+#  api:
+#    header:
+#      token:
+#        key: X-Token
