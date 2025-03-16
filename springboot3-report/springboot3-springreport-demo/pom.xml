@@ -8,9 +8,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>springboot3-report-configure</artifactId>
+    <artifactId>springboot3-springreport-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>springboot3-report-configure</name>
+    <name>springboot3-springreport-demo</name>
 
     <properties>
         <java.version>21</java.version>
