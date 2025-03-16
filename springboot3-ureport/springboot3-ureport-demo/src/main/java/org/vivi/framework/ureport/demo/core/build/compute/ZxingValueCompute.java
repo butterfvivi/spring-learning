@@ -35,7 +35,7 @@ import org.vivi.framework.ureport.demo.core.model.Cell;
 import org.vivi.framework.ureport.demo.core.model.Image;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.util.Base64Utils;
+import java.util.Base64;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -138,7 +138,7 @@ public class ZxingValueCompute implements ValueCompute {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             ImageIO.write(image, "png", outputStream);
             byte[] bytes = outputStream.toByteArray();
-            String base64Data = Base64Utils.encodeToString(bytes);
+            String base64Data = Base64.getEncoder().encodeToString(bytes);
             IOUtils.closeQuietly(outputStream);
             return new Image(base64Data, w, h);
         } catch (Exception ex) {

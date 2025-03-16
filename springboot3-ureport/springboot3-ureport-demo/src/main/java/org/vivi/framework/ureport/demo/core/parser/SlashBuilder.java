@@ -22,7 +22,7 @@ import org.vivi.framework.ureport.demo.core.definition.value.Slash;
 import org.vivi.framework.ureport.demo.core.definition.value.SlashValue;
 import org.vivi.framework.ureport.demo.core.exception.ReportComputeException;
 import org.vivi.framework.ureport.demo.core.utils.UnitUtils;
-import org.springframework.util.Base64Utils;
+import java.util.Base64;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
@@ -181,7 +181,7 @@ public class SlashBuilder {
         try {
             ImageIO.write(image, "png", memoryImage);
             imageBytes = byteOutput.toByteArray();
-            String base64Data = Base64Utils.encodeToString(imageBytes);
+            String base64Data = Base64.getEncoder().encodeToString(imageBytes);
             content.setBase64Data(base64Data);
         } catch (Exception ex) {
             throw new ReportComputeException(ex);
