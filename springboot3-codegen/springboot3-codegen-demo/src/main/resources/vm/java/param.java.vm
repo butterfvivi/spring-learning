@@ -20,7 +20,7 @@ import java.util.Objects;
 
 /**
  * @apiNote $!{map.tableComment}($!{map.className})查询参数
- * @author 陌路
+ * @author Vivi
  * @date $!{map.currTime}
  * @tool Created by IntelliJ IDEA
  */

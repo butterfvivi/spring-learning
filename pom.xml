@@ -17,15 +17,57 @@
         <spring-boot.version>3.1.10</spring-boot.version>
         <spring-cloud.version>2023.0.0</spring-cloud.version>
         <lombok.version>1.18.30</lombok.version>
-        <fastjson.version>2.0.42</fastjson.version>
-        <httpclient.version>4.5</httpclient.version>
         <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
-        <fastjson2.version>2.0.48</fastjson2.version>
         <ureport.version>2.2.9</ureport.version>
         <mica.version>1.2.3</mica.version>
 
+        <guava.version>19.0</guava.version>
+        <mybatisplus.version>3.5.6</mybatisplus.version>
+        <mybatis.version>3.0.4</mybatis.version>
+        <druid.version>1.2.22</druid.version>
         <easyexcel.version>3.3.4</easyexcel.version>
-        <caffeine.version>3.1.8</caffeine.version>
+        <hutool.version>5.8.28</hutool.version>
+        <fastjson.version>2.0.52</fastjson.version>
+        <mysql.version>8.0.33</mysql.version>
+        <springdoc.version>2.2.0</springdoc.version>
+        <knife4j.version>4.5.0</knife4j.version>
+        <fastjson2.version>2.0.55</fastjson2.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
+        <itextpdf.version>5.5.13.2</itextpdf.version>
+        <itext-asian.version>5.2.0</itext-asian.version>
+        <core-renderer.version>R8</core-renderer.version>
+        <xmlworker.version>5.5.13</xmlworker.version>
+        <flyway.version>5.2.1</flyway.version>
+        <httpclient.version>4.5.13</httpclient.version>
+        <httpclient5.version>5.4.2</httpclient5.version>
+        <pagehelper.version>2.1.0</pagehelper.version>
+        <influxdb-java.version>2.24</influxdb-java.version>
+        <commons-collections4.version>4.5.0-M3</commons-collections4.version>
+        <velocity.version>1.7</velocity.version>
+        <aviator.version>5.4.3</aviator.version>
+        <opencsv.version>5.9</opencsv.version>
+        <poi.version>5.2.3</poi.version>
+        <poi-schemas.version>4.1.2</poi-schemas.version>
+        <poi-tl.version>1.12.2</poi-tl.version>
+        <jackson-databind.version>2.18.3</jackson-databind.version>
+        <knife4j.version>4.4.0</knife4j.version>
+        <swagger-ui.version>2.9.2</swagger-ui.version>
+        <gson.version>2.12.1</gson.version>
+        <jwt.version>4.5.0</jwt.version>
+        <ojdbc10.version>19.26.0.0</ojdbc10.version>
+        <antlr4.version>4.13.2</antlr4.version>
+        <dom4j.version>2.1.4</dom4j.version>
+        <commons-io.version>2.18.0</commons-io.version>
+        <commons-fileupload.version>2.0.0-M2</commons-fileupload.version>
+        <google.zxing.version>3.5.3</google.zxing.version>
+        <itextpdf.version>5.5.13</itextpdf.version>
+        <jackson-databind.version>2.18.3</jackson-databind.version>
+        <amazon-s3.version>2.30.38</amazon-s3.version>
+        <commons-beanutils.version>1.10.1</commons-beanutils.version>
+        <caffeine.version>3.2.0</caffeine.version>
+
+        <mybatisplus.version>3.5.6</mybatisplus.version>
+        <mybatis.version>3.0.4</mybatis.version>
     </properties>
 
     <modules>

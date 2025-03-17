@@ -1,13 +1,13 @@
-package cn.molu.generator.service;
+package org.vivi.framework.codegen.demo.service;
 
-import cn.molu.generator.mapper.CodeGeneratorMapper;
-import cn.molu.generator.pojo.ColumnDetail;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.vivi.framework.codegen.demo.mapper.CodeGeneratorMapper;
+import org.vivi.framework.codegen.demo.pojo.ColumnDetail;
 
 import java.io.StringWriter;
 import java.util.List;
@@ -17,15 +17,13 @@ import java.util.Properties;
 /**
  * @author 陌路
  * @apiNote 代码生成器业务层
- * @date 2024/1/17 13:22
- * @tool Created by IntelliJ IDEA
  */
 @Slf4j
 @RequiredArgsConstructor
 @Service("codeGeneratorService")
 public class CodeGeneratorService {
 
-    @Value("${cn.molu.generate.database}")
+    @Value("${org.vivi.generate.database}")
     private String database; // 这里是数据库的名字，我的数据库是 temp1
     private final CodeGeneratorMapper codeGeneratorMapper;
 

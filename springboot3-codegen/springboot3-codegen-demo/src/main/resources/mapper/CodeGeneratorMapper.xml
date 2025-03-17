@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.molu.generator.mapper.CodeGeneratorMapper">
+<mapper namespace="org.vivi.framework.codegen.demo.mapper.CodeGeneratorMapper">
 
-    <resultMap type="cn.molu.generator.pojo.ColumnDetail" id="ColumnDetailMap">
+    <resultMap type="org.vivi.framework.codegen.demo.pojo.ColumnDetail" id="ColumnDetailMap">
         <result property="tableName" column="table_name" jdbcType="VARCHAR"/>
         <result property="tableComment" column="table_comment" jdbcType="VARCHAR"/>
         <result property="engine" column="engine" jdbcType="VARCHAR"/>

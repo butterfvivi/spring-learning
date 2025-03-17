@@ -1,21 +1,18 @@
-package cn.molu.generator.controller;
+package org.vivi.framework.codegen.demo.controller;
 
 import cn.hutool.core.util.StrUtil;
-import cn.molu.generator.pojo.ColumnDetail;
-import cn.molu.generator.service.CodeGeneratorService;
-import cn.molu.generator.vo.ResultVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.vivi.framework.codegen.demo.pojo.ColumnDetail;
+import org.vivi.framework.codegen.demo.service.CodeGeneratorService;
+import org.vivi.framework.codegen.demo.vo.ResultVo;
 
 import java.util.List;
 
 /**
- * @author 陌路
  * @apiNote 代码生成器控制层
  * @description 代码生成器控制层
- * @date 2024/1/17 12:43
- * @tool Created by IntelliJ IDEA
  */
 @Slf4j
 @RestController

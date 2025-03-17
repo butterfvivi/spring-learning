@@ -14,7 +14,7 @@ import java.lang.*;
 import java.util.Date;
 
 /**
- * @author 陌路
+ * @author Vivi
  * @apiNote $!{map.tableComment}($!{map.className})实体类
  * @date $!{map.currTime}
  * @tool Created by IntelliJ IDEA

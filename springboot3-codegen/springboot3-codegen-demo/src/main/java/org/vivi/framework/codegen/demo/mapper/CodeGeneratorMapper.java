@@ -1,16 +1,14 @@
-package cn.molu.generator.mapper;
+package org.vivi.framework.codegen.demo.mapper;
 
-import cn.molu.generator.pojo.ColumnDetail;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.vivi.framework.codegen.demo.pojo.ColumnDetail;
 
 import java.util.List;
 
 /**
- * @author 陌路
  * @apiNote 代码生成器Mapper接口层
- * @date 2024/1/17 12:52
- * @tool Created by IntelliJ IDEA
  */
 @Mapper
 public interface CodeGeneratorMapper {

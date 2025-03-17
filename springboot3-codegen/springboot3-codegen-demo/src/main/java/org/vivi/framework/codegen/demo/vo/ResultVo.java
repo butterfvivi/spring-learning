@@ -1,4 +1,4 @@
-package cn.molu.generator.vo;
+package org.vivi.framework.codegen.demo.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.NoArgsConstructor;

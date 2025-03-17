@@ -1,5 +1,5 @@
 server:
-  port: 8989
+  port: 8080
   servlet:
     encoding:
       charset: UTF-8
@@ -9,10 +9,10 @@ server:
     uri-encoding: UTF-8
 
 # 配置生成代码的数据库
-cn:
-  molu:
+org:
+  vivi:
     generate:
-      database: temp1
+      database: springboot3_demo
 
 spring:
   jackson:
@@ -23,13 +23,13 @@ spring:
     serialization:
       write-dates-as-timestamps: false
   application:
-    name: molu-generator
+    name: codegen-demo
   # 数据源配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/temp1?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true&allowMultiQueries=true
-    username: xxx
-    password: xxx
+    url: jdbc:mysql://127.0.0.1:3306/springboot3_demo?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true&allowMultiQueries=true
+    username: root
+    password: wtf0010.
 
   # web配置
   web:
@@ -68,7 +68,7 @@ spring:
 
 # mybatis-plus配置
 mybatis-plus:
-  typeAliasesPackage: cn.molu.generator.pojo
+  typeAliasesPackage: org.vivi.framework.codegen.demo.pojo
   mapperLocations: classpath:mapper/*Mapper.xml
   # 配置文件开启SQL日志打印
   configuration:

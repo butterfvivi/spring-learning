@@ -1,4 +1,4 @@
-package cn.molu.generator.pojo;
+package org.vivi.framework.codegen.demo.pojo;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
@@ -16,10 +16,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * @author 陌路
  * @apiNote 数据库表细信息
- * @date 2024/1/17 12:49
- * @tool Created by IntelliJ IDEA
  */
 @Data
 @ToString
