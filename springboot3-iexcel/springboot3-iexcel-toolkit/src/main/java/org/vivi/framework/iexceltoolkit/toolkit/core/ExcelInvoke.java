@@ -18,7 +18,6 @@ public class ExcelInvoke {
      * @param file
      * @param dto  {"targetParam":"","headRow":头部占几行}
      * @return 返回数据取决于用户自己定义
-     * @author mashuai
      */
 
     public static Object importExcel(MultipartFile file, ImportReq dto) throws Exception {

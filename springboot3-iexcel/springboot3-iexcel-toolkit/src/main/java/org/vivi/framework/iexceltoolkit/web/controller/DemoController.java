@@ -40,6 +40,12 @@ public class DemoController {
 
     }
 
+    /**
+     * 导出多个表格，多个表头
+     * @param response
+     * @param dto
+     * @throws Exception
+     */
     @PostMapping("/template/export1")
     public void templateExport1(HttpServletResponse response, @RequestBody ITemplateExportReq dto) throws Exception {
         List<Map<String, Object>> productMaps = new DataGenerator().readJsonFile("json/genProducts.json");
