@@ -57,8 +57,8 @@
         <module>springboot3-ureport</module>
         <module>springboot3-webflux</module>
         <module>springboot3-websocket</module>
-        <module>ureport-example</module>
         <module>xxl-job-simple</module>
+        <module>springboot3-codegen</module>
     </modules>
 
     <dependencyManagement>
