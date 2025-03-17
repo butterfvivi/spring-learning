@@ -1,0 +1,78 @@
+server:
+  port: 8989
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: false
+      enabled: false
+  tomcat:
+    uri-encoding: UTF-8
+
+# 配置生成代码的数据库
+cn:
+  molu:
+    generate:
+      database: temp1
+
+spring:
+  jackson:
+    ## 默认序列化时间格式
+    date-format: yyyy-MM-dd HH:mm:ss
+    ## 默认序列化时区
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+  application:
+    name: molu-generator
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/temp1?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true&allowMultiQueries=true
+    username: xxx
+    password: xxx
+
+  # web配置
+  web:
+    # 静态资源配置
+    resources:
+      static-locations: classpath:/resources/,classpath:/static/,classpath:/templates/
+
+  # mvc配置
+  mvc:
+    static-path-pattern: /**
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: HH:mm:ss
+      # 日期格式
+      date: yyyy-MM-dd
+    view:
+      prefix: /
+      suffix: .html
+
+  # 热部署
+  devtools:
+    restart:
+      # 是否开启热部署
+      enabled: true
+      # 需要热部署的路径
+      additional-paths: src/main/java
+
+  # 页面不启用缓存
+  freemarker:
+    cache: false
+    charset: UTF-8
+  banner:
+    charset: UTF-8
+  messages:
+    encoding: UTF-8
+
+# mybatis-plus配置
+mybatis-plus:
+  typeAliasesPackage: cn.molu.generator.pojo
+  mapperLocations: classpath:mapper/*Mapper.xml
+  # 配置文件开启SQL日志打印
+  configuration:
+    logImpl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 字段映射：驼峰命名
+    mapUnderscoreToCamelCase: true
+

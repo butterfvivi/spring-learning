@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>代码生成器</title>
+    <style>
+        body {
+            width: 100%;
+            height: 100%;;
+            margin: 0;
+            padding: 0;
+            background: #e5f7ff;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #e5f7ff;
+        }
+
+        .head {
+            display: flex;
+            width: 95%;
+            height: 80px;
+            margin: 0 auto;
+            overflow: auto;
+            color: #838383;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .code {
+            width: 95%;
+            height: 100%;
+            margin: 0 auto;
+            overflow: auto;
+            background: #282c34;
+        }
+
+        #generate {
+            width: 80px;
+            height: 30px;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            background: #409eff;
+        }
+
+        select, input {
+            width: 180px;
+            border: none;
+            height: 30px;
+            outline-color: #8cc3ff;
+            color: #515151;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="head"></div>
+    <div class="code"></div>
+</div>
+</body>
+<script>
+    const param = {
+        delPrefix: "sys_",
+        tableName: "",
+        type: "",
+        packageName: "cn.molu.generator"
+    };
+    const codeType = [
+        {
+            label: "entity.java",
+            name: "entity",
+            path: "java/entity.java",
+        },
+        {
+            label: "mapper.java",
+            name: "mapper",
+            path: "java/mapper.java",
+        },
+        {
+            label: "mapperXml.xml",
+            name: "mapperXml",
+            path: "xml/mapper.xml",
+        },
+        {
+            label: "param.java",
+            name: "param",
+            path: "java/param.java",
+        },
+        {
+            label: "page.vue",
+            name: "page",
+            path: "vue3/page.vue",
+        },
+        {
+            label: "menu.sql",
+            name: "sql",
+            path: "sql/menu.sql",
+        },
+        {
+            label: "api.ts",
+            name: "api",
+            path: "vue3/api.ts",
+        },
+        {
+            label: "type.ts",
+            name: "api",
+            path: "vue3/type.ts",
+        },
+    ];
+
+    window.onload = function () {
+        try {
+            const height = document.documentElement.clientHeight;
+            document.querySelector("div.code").style.height = (height - 130) + "px";
+            $.getJSON("/api/v1/gen/code/getAllTables", function (res) {
+                if (res.code === 200) {
+                    let tableList = res.data;
+                    initEvent(tableList);
+                    return false;
+                }
+                alert(res.message || "获取数据失败");
+            });
+        } catch (e) {
+            location.reload();
+        }
+    }
+
+    function initEvent(tableList) {
+        let codeTypeOption = "", tableNameOption = "";
+        for (let item of codeType) {
+            codeTypeOption += `<option value="${item.path}">${item.label}</option>`;
+        }
+        for (let item of tableList) {
+            tableNameOption += `<option value="${item.tableName}">${item.tableName}</option>`;
+        }
+        $("div.head").empty().append(`
+            <div>
+                <label>表名
+                    <select id="tableName">
+                        <option value="-1">请选择表名</option>
+                        ${tableNameOption}
+                    </select>
+                </label>
+            </div>
+            <div>
+                <label>代码类型
+                    <select id="codeType">
+                        <option value="-1">请选择类型</option>
+                        ${codeTypeOption}
+                    </select>
+                </label>
+            </div>
+            <div>
+                <label>删除前缀
+                    <input type="text" id="prefix" value="sys_" placeholder="删除表名前缀">
+                </label>
+            </div>
+            <div>
+                <label>文件包名
+                    <input type="text" id="package" value="cn.molu.generator" placeholder="生成文件包名">
+                </label>
+            </div>
+            <div>
+                <label>
+                    <button id="generate">生成</button>
+                </label>
+            </div>
+        `);
+        $("select#tableName").change(function () {
+            param.tableName = String($(this).val()).trim();
+        });
+
+        $("select#codeType").change(function () {
+            const type = String($(this).val()).trim();
+            param.type = type;
+            param.language = type.substring(type.lastIndexOf(".") + 1).trim() || '';
+        });
+
+        $("button#generate").stop().click(function () {
+            param.delPrefix = String($("input#prefix").val() || '').trim();
+            param.packageName = String($("input#package").val() || '').trim();
+            if (!param.tableName || param.tableName?.length <= 3) {
+                alert("请选择表名");
+                return false;
+            }
+            if (!param.language || !param.type || param.type?.length <= 3) {
+                alert("请选择类型");
+                return false;
+            }
+            const token = window.btoa('&tid=' + Date.now() + '&rid=' + Math.random());
+            const url = `/api/v1/gen/code/generate/${param.tableName}?type=${param.type}&delPrefix=${param.delPrefix}&packageName=${param.packageName}&token=${token}`;
+            param.language = ["vue", "xml"].includes(param.language) ? "html" : param.language;
+            generateCode(url);
+        });
+
+        function generateCode(url) {
+            $.getJSON(url, function (res) {
+                if (res.code === 200 && res.data) {
+                    const clazz = param.language + " hljs language-" + param.language;
+                    res.data = res.data.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    $("div.code").empty().append(`<pre><code id="contentCode" class="${clazz}">${res.data}</code></pre>`);
+                    const el = document.querySelector('#contentCode');
+                    hljs.highlightElement(el);
+                    console.clear();
+                    return false;
+                }
+                alert(res.message || "请求失败");
+            });
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,88 @@
+package $!{map.packageName}.mapper;
+
+import $!{map.packageName}.entity.$!{map.className};
+import org.apache.ibatis.annotations.Param;
+import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import java.lang.*;
+
+/**
+ * @apiNote $!{map.tableComment}($!{map.className})表数据库访问层
+ * @author 陌路
+ * @date $!{map.currTime}
+ * @tool Created by IntelliJ IDEA
+ */
+@Mapper
+public interface $!{map.className}Mapper extends BaseMapper<$!{map.className}> {
+
+    /**
+     * 通过ID查询单条数据
+     *
+     * @author 陌路
+     * @date $!{map.currTime}
+     * @param $!map.pk 主键
+     * @return 实例对象
+     */
+        $!{map.className} queryById($!map.pkType $!map.pk);
+
+    /**
+     * 查询指定行数据
+     *
+     * @author 陌路
+     * @date $!{map.currTime}
+     * @param queryParams 查询条件
+     * @return 对象列表
+     */
+    List<$!{map.className}> queryAllByLimit($!{map.className}Params queryParams);
+
+    /**
+     * 统计总行数
+     *
+     * @author 陌路
+     * @date $!{map.currTime}
+     * @param $!{map.subClassName} 查询条件
+     * @return 总行数
+     */
+    long count($!{map.className} $!{map.subClassName}));
+
+    /**
+     * 新增数据
+     *
+     * @author 陌路
+     * @date $!{map.currTime}
+     * @param $!{map.subClassName} 实例对象
+     * @return 影响行数
+     */
+    int insert($!{map.className} $!{map.subClassName}));
+
+    /**
+     * 批量新增数据（MyBatis原生foreach方法）
+     *
+     * @author 陌路
+     * @date $!{map.currTime}
+     * @param entities List<$!{map.className}> 实例对象列表
+     * @return 影响行数
+     */
+    int insertBatch(@Param("entities") List<$!{map.className}> entities);
+
+    /**
+     * 修改数据
+     *
+     * @author 陌路
+     * @date $!{map.currTime}
+     * @param $!{map.subClassName} 实例对象
+     * @return 影响行数
+     */
+    int update($!{map.className} $!{map.subClassName}));
+
+    /**
+     * 通过主键作废（逻辑删除）
+     *
+     * @author 陌路
+     * @date $!{map.currTime}
+     * @param ids 主键
+     * @return 影响行数
+     */
+    int deleteByIds(String[] ids);
+}

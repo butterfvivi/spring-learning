@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="$!{map.packageName}.mapper.$!{map.className}Mapper">
+    <!-- 查询结果映射 -->
+    <resultMap type="$!{map.packageName}.entity.$!{map.className}" id="$!{map.className}Map">
+    #foreach($column in $map.columns)
+        <!-- $!{column.columnComment} -->
+        <result property="$!{column.javaField}" column="$!{column.columnName}" jdbcType="$!{column.jdbcTypeXml}"/>
+    #end
+    </resultMap>
+
+    <!-- 查询全部字段 -->
+    <sql id="select$!{map.className}AllFields">
+    #foreach($column in $map.columns)
+        `$!{column.columnName}` #if($foreach.hasNext() || !$foreach.last), #end  <!-- $!{column.columnComment} -->
+    #end
+    </sql>
+
+    <!-- 查询部分字段 -->
+    <sql id="selectPartial$!{map.className}Fields">
+        `$!{map.pkColumn}`
+    </sql>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="$!{map.className}Map">
+        select
+        <include refid="select$!{map.className}AllFields"/>
+        from $!{map.tableName}
+        where `$!{map.pkColumn}` = #{$!{map.pk}}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="$!{map.className}Map">
+        select
+        <include refid="select$!{map.className}AllFields"/>
+        from $!{map.tableName}
+        <where>
+        #foreach($column in $map.columns)
+            <!-- $!{column.columnComment} -->
+            <if test="$!{column.javaField} != null#if($column.type.equals("java.lang.String")) and $!{column.javaField} != ''#end">
+                and `$!{column.columnName}` = #{$!{column.javaField}}
+            </if>
+        #end
+        </where>
+        limit #{queryParams.pageSize} offset #{queryParams.pageNum}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from $!{map.tableName}
+        <where>
+        #foreach($column in $map.columns)
+            <!-- $!{column.columnComment} -->
+            <if test="$!{column.javaField} != null#if($column.type.equals("java.lang.String")) and $!{column.javaField} != ''#end">
+                and `$!{column.columnName}` = #{$!{column.javaField}}
+            </if>
+        #end
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="$!{map.pk}" useGeneratedKeys="true">
+        insert into $!{map.tableName}
+        (
+        #foreach($column in $map.otherColumn)
+            `$!{column.columnName}` #if($foreach.hasNext() || !$foreach.last), #end <!-- $!{column.columnComment} -->
+        #end
+        )
+        values
+        (
+        #foreach($column in $map.otherColumn)
+            #{$!{column.javaField}} #if($foreach.hasNext() || !$foreach.last), #end <!-- $!{column.columnComment} -->
+        #end
+        )
+    </insert>
+
+    <insert id="insertBatch" keyProperty="$!{map.pk}" useGeneratedKeys="true">
+        insert into $!{map.tableName}
+            (
+            #foreach($column in $map.otherColumn)
+                `$!{column.columnName}` #if($foreach.hasNext() || !$foreach.last) ,  #end  <!-- $!{column.columnComment} -->
+            #end
+            )
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (
+            #foreach($column in $map.otherColumn)
+                #{entity.$!{column.javaField}} #if($foreach.hasNext() || !$foreach.last) , #end  <!-- $!{column.columnComment} -->
+            #end
+            )
+        </foreach>
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update $!{map.tableName}
+        <set>
+        #foreach($column in $map.otherColumn)
+            <!-- $!{column.columnComment} -->
+            <if test="$!{column.javaField} != null">
+                `$!{column.columnName}` = #{$!{column.javaField}},
+            </if>
+        #end
+        </set>
+        where `$!{map.pkColumn}` = #{$!{map.pk}}
+    </update>
+
+    <!-- 通过主键删除（物理删除）-->
+    <delete id="deleteByIds" parameterType="String">
+        delete from $!{map.tableName} where `$!{map.pkColumn}` in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{$!{map.pk}}
+        </foreach>
+    </delete>
+</mapper>

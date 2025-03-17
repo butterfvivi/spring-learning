@@ -1,0 +1,369 @@
+<script setup lang="ts">
+  defineOptions({
+    name: "$!{map.className}",
+    inheritAttrs: false,
+  });
+  // 参数类型
+  import {
+    $!{map.className}Query, // 查询参数类型
+    $!{map.className}Form, // 提交保存参数类型
+    $!{map.className}Vo // 数据展示参数类型
+  } from "@/api/$!{map.path}/types";
+  // api接口
+  import {
+    list$!{map.className}, // 查询列表
+    del$!{map.className}, // 根据主键删除数据
+    edit$!{map.className}, // 根据主键编辑数据
+    add$!{map.className}, // 新增添加数据
+    query$!{map.className} // 根据主键查询数据
+  } from "@/api/$!{map.path}";
+  import { ref, onMounted, reactive } from "vue3";
+
+  // 查询参数
+  const queryParams = reactive<$!{map.className}Query>({
+    keywords: '', // 关键字
+    page: 1, // 页码
+    size: 10, // 每页条数
+    total: 0, // 总数居条数
+  #foreach($column in $map.columns)
+    $!{column.javaField}: undefined, // $!{column.columnComment}
+  #end
+  });
+
+  const queryFormRef = ref(ElForm); // 查询参数ref属性
+  const $!{map.subClassName}FormRef = ref(ElForm);
+  // form参数
+  const formData = reactive<$!{map.className}Form>({
+  #foreach($column in $map.columns)
+     $!{column.javaField}: undefined, // $!{column.columnComment}
+  #end
+  });
+  // dialog弹出框
+  const dialog = reactive<DialogOption>({
+    visible: false, // 是否显示弹出框
+    title: '', // 弹出框标题
+  });
+  // 校验规则
+  const rules = reactive({
+  #foreach($column in $map.columns)
+    $!{column.javaField}: [{ required: true, message: "请输入$!{column.columnComment}", trigger: "blur" }], // $!{column.columnComment}
+  #end
+  });
+  // 选择表格行的数据ID
+  const selectedRowId = ref<number | undefined>();
+  const ids = ref([]); // 选中的id
+  const loading = ref(false); // 加载状态
+  const $!{map.subClassName}List = ref<$!{map.className}Vo[]>([]); // 记录列表数据
+
+  /**
+   *
+   * @param val 选中的数据
+   */
+  const handleSelectionChange = (selection: any) => {
+    ids.value = selection.map((item: any) => item.id);
+  };
+
+  /**
+   * 查询按钮点击事件
+   */
+  const handleQuery = () => {
+    list$!{map.className}(queryParams).then(({ data }) => {
+      $!{map.subClassName}List.value = data.list;
+      queryParams.total = data.total;
+    }).finally(() => {
+      loading.value = false;
+    });
+  };
+
+  /**
+   * 重置按钮点击事件
+   */
+  const resetQuery = () => {
+    queryFormRef.value.resetFields();
+    //queryParams = {
+    //  keywords: '', // 关键字
+    //  page: 1, // 页码
+    //  size: 10, // 每页条数
+    //  total: 0, // 总数居条数
+    //};
+    handleQuery();
+  };
+  /**
+   * 关闭弹窗
+   */
+  const closeDialog = () => {
+    dialog.visible = false;
+    resetForm();
+  };
+
+  /**
+   * 重置表单
+   */
+  const resetForm = () => {
+  // $!{map.subClassName}FormRef.value.resetFields();
+  // $!{map.subClassName}FormRef.value.clearValidate();
+
+  #foreach($column in $map.columns)
+    formData.$!{column.javaField} = undefined; // $!{column.columnComment}
+  #end
+  };
+
+  /**
+   * 根据主键删除数据
+   * @param {any} id 主键
+   */
+  const handleDelete = (id?: number) => {
+    const delIds = [id || ids.value].join(",");
+    if (!delIds) return false;
+    ElMessageBox.confirm("删除后将无法恢复，确认删除该数据?", "警告", {
+      confirmButtonText: "确定",
+      cancelButtonText: "取消",
+      type: "warning",
+    }).then(function () {
+      del$!{map.className}(delIds).then(() => {
+        ElMessage.success("删除成功");
+        handleQuery();
+      });
+    }).catch(() => { });
+  };
+  /**
+   * 选择页码，分页查询
+   * @param {number} page 页码
+   */
+  const updateCurrentPage = (page?: number) => {
+    queryParams.page = page; // 当前页码
+    handleQuery(); // 查询列表
+  };
+  /**
+   * @param {number} type 类型
+   * @param {any} id 主键
+   * 显示弹框
+   */
+  const openDialog = (type?:number, id?:any) => {
+    console.log(type, id);
+    dialog.visible = true;
+    if (!id && type === 0) {
+      resetForm(); // 重置表单
+      dialog.title = '新增数据';
+      return false;
+    }
+    if (id && type === 1) {
+      dialog.title = "编辑数据";
+      query$!{map.className}(id).then(({ data }) => {
+        Object.assign(formData, { ...data });
+      });
+    }
+  };
+  /**
+   * 保存提交
+   */
+  function submitForm() {
+    $!{map.subClassName}FormRef.value.validate((isValid: boolean) => {
+      if (isValid) {
+        const id = String(formData.id);
+        if (id) {
+          edit$!{map.className}(id, formData).then(() => {
+            ElMessage.success("修改成功");
+            closeDialog(); // 关闭弹框
+            handleQuery(); // 重新查询
+          });
+        } else {
+          add$!{map.className}(formData).then(() => {
+            ElMessage.success("新增成功");
+            closeDialog();  // 关闭弹框
+            handleQuery();  // 重新查询
+          });
+        }
+      }
+    });
+  }
+
+  /**
+   * 行点击事件
+   * @param {$!{map.className}Vo} row 当前行数据
+   */
+  function onRowClick(row: $!{map.className}Vo) {
+    selectedRowId.value = row.id;
+  }
+
+  /**
+   * 页面加载完成后执行
+   */
+  onMounted(() => {
+    handleQuery();
+  });
+</script>
+
+<template>
+  <div class="app-container">
+    <div class="search-container">
+      <el-form
+        ref="queryFormRef"
+        :model="queryParams"
+        :inline="true"
+      >
+        <!-- 关键字 -->
+        <el-form-item label="关键字" prop="keywords" v-if="false">
+          <el-input
+            v-model="queryParams.keywords"
+            placeholder="查询关键字"
+            @keyup.enter="handleQuery" />
+        </el-form-item>
+
+        <!-- 作废标志 -->
+        <!-- <el-form-item label="作废标志" prop="deleted">
+          <el-select v-model="queryParams.deleted" placeholder="全部" clearable>
+            <el-option label="正常" value="0" />
+            <el-option label="作废" value="1" />
+          </el-select>
+        </el-form-item> -->
+
+        <el-form-item>
+          <!-- 搜索按钮 -->
+          <el-button class="filter-item" type="primary" @click="handleQuery">
+            <i-ep-search /> 搜索
+          </el-button>
+          <!-- 重置按钮 -->
+          <el-button @click="resetQuery">
+            <i-ep-refresh />重置
+          </el-button>
+        </el-form-item>
+
+      </el-form>
+    </div>
+
+    <el-card shadow="never" class="table-container">
+      <template #header>
+        <!-- 新增按钮 -->
+        <el-button
+          v-hasPerm="['$!{map.prem}:add']"
+          type="success"
+          @click="openDialog(0, undefined)"
+        >
+          <template #icon><i-ep-plus /></template>新增
+        </el-button >
+        <!-- 删除按钮 -->
+        <el-button
+          v-hasPerm="['$!{map.prem}:delete']"
+          type="danger"
+          :disabled="ids.length === 0"
+          @click="handleDelete()"><i-ep-delete />删除
+        </el-button>
+      </template>
+
+      <el-table
+        v-loading="loading"
+        :data="$!{map.subClassName}List"
+        row-key="id"
+        default-expand-all
+        @row-click="onRowClick"
+        :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+        @selection-change="handleSelectionChange"
+      >
+        <!-- 复选款 -->
+        <el-table-column type="selection" width="55" align="center" />
+        <!-- 序号 -->
+        <el-table-column type="index" width="55" align="center" label="序号" />
+      #foreach($column in $map.columns)
+        <!-- $!{column.columnComment} -->
+        <el-table-column label="$!{column.columnComment}" align="center" prop="$!{column.javaField}">
+          <template #default="scope">
+            {{ scope.row.$!{column.javaField}  }}
+          </template>
+        </el-table-column>
+      #end
+        <!-- 操作 -->
+        <el-table-column label="操作" fixed="right" align="left" width="200">
+          <template #default="scope">
+            <!-- 新增 -->
+            <el-button
+              v-hasPerm="['$!{map.prem}:add']"
+              type="primary"
+              link
+              size="small"
+              @click.stop="openDialog(0, scope.row.id)"
+            >
+              <i-ep-plus />新增
+            </el-button>
+            <!-- 编辑 -->
+            <el-button
+              v-hasPerm="['$!{map.prem}:edit']"
+              type="primary"
+              link
+              size="small"
+              @click.stop="openDialog(1, scope.row.id)"
+            >
+              <i-ep-edit />编辑
+            </el-button>
+            <!-- 删除 -->
+            <el-button
+              v-hasPerm="['$!{map.prem}:delete']"
+              type="danger"
+              link
+              size="small"
+              @click.stop="handleDelete(scope.row.id)"
+            >
+              <i-ep-delete />删除
+            </el-button>
+          </template>
+        </el-table-column>
+
+      </el-table>
+      <!-- 分页器 -->
+      <div style="margin: 15px auto;display: flex;align-items: center;justify-content: center;">
+        <el-pagination background layout="prev, pager, next"
+          :total="queryParams.total"
+          :default-page-size="10"
+          v-model:page-size="queryParams.size"
+          v-model:current-page="queryParams.page"
+          @update:current-page="updateCurrentPage"
+        />
+      </div>
+    </el-card>
+
+    <!-- dialog弹出框 -->
+    <!--
+      draggable：弹框是否可拖拽
+      append-to-body：弹框是否插入到body下
+      lock-scroll：弹框是否锁定滚动条
+      close-on-click-modal：点击遮罩层是否关闭弹框
+      close-on-press-escape：按下esc是否关闭弹框
+      center：是否让 Dialog 的 header 和 footer 部分居中排列
+      align-center：是否水平垂直对齐对话框
+    -->
+    <el-dialog
+      v-model="dialog.visible"
+      :title="dialog.title"
+      destroy-on-close
+      append-to-body
+      lock-scroll
+      width="700px"
+      @close="closeDialog"
+      top="3vh"
+    >
+      <el-scrollbar height="430px">
+        <el-form
+          ref="$!{map.subClassName}FormRef"
+          :model="formData"
+          :rules="rules"
+          label-width="160px"
+        >
+        #foreach($column in $map.columns)
+          <!-- $!{column.columnComment} -->
+          <el-form-item label="$!{column.columnComment}" prop="$!{column.javaField}">
+            <el-input v-model="formData.$!{column.javaField}" placeholder="请输入$!{column.columnComment}" />
+          </el-form-item>
+        #end
+        </el-form>
+      </el-scrollbar>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button type="primary" @click="submitForm">确 定</el-button>
+          <el-button @click="closeDialog">取 消</el-button>
+        </div>
+      </template>
+    </el-dialog>
+  </div>
+</template>
+
+<style scoped></style>

@@ -1,0 +1,87 @@
+package $!{map.packageName}.params;
+
+import java.io.Serializable;
+import lombok.*;
+import lombok.experimental.Accessors;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import java.util.Objects;
+import org.apache.commons.lang3.StringUtils;
+import cn.molu.system.common.base.QueryParams;
+import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import $!{map.packageName}.entity.$!{map.className};
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import java.io.Serial;
+import java.io.Serializable;
+import java.lang.*;
+import java.util.Date;
+import java.util.Objects;
+
+/**
+ * @apiNote $!{map.tableComment}($!{map.className})查询参数
+ * @author 陌路
+ * @date $!{map.currTime}
+ * @tool Created by IntelliJ IDEA
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Accessors(chain = true)
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
+public class $!{map.className}Params extends $!{map.className} implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+    /**
+     * 当前页
+     */
+    private Long page;
+    /**
+     * 每页显示条数
+     */
+    private Long size;
+    /**
+     * 总记录数
+     */
+    private Long total;
+
+    /**
+     * 获取分页对象
+     */
+    public <T> IPage<T> getPageHelper() {
+        return new Page<>(this.getPage(), this.getSize());
+    }
+
+    /**
+     * 获取当前页
+     */
+    public Long getPage() {
+        this.page = Objects.isNull(page) || page < 0 ? 0 : page;
+        return page;
+    }
+
+    /**
+     * 获取每页显示条数
+     */
+    public Long getSize() {
+        this.size = Objects.isNull(size) || size < 5 ? 5 : size > 50 ? 50 : size;
+        return size;
+    }
+
+    /**
+     * 获取查询参数
+     */
+    public LambdaQueryWrapper<$!{map.className}> getQueryWrapper(){
+        LambdaQueryWrapper<$!{map.className}> queryWrapper = new LambdaQueryWrapper<>();
+    #foreach($column in $map.columns)
+        #if(${column.comment})
+            // ${column.comment}
+        #end
+        if (Objects.nonNull(this.$!{column.javaField})#if($column.type.equals("java.lang.String")) && StringUtils.isNotBlank(this.$!{column.javaField})#end) {
+            queryWrapper.eq($!{map.className}::get$!column.getter, this.$!{column.javaField});
+        }
+    #end
+        return queryWrapper;
+    }
+}

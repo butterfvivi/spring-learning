@@ -1,0 +1,57 @@
+import request from "@/utils/request";
+import {AxiosPromise} from "axios";
+import {$!{map.className}Query, $!{map.className}Vo, $!{map.className}Form} from "./types";
+
+
+/**
+ * 分页查询列表
+ */
+export function list$!{map.className}(queryParams? : $!{map.className}Query): AxiosPromise < PageResult < $!{map.className}Vo[] >> {
+    return request({
+        url: "/api/v1/$!{map.path}/page",
+        method: "get",
+        params: queryParams
+    });
+}
+
+/**
+ * 查询数据
+ */
+export function query$!{map.className}(id? : string): AxiosPromise < $!{map.className}Vo > {
+    return request({
+        url: "/api/v1/$!{map.path}/" + id,
+        method: "get"
+    });
+}
+
+/**
+ * 新增数据
+ */
+export function add$!{map.className}(data? : $!{map.className}Form) {
+    return request({
+        url: "/api/v1/$!{map.path}",
+        method: "post",
+        data: data
+    });
+}
+
+/**
+ * 编辑数据
+ */
+export function edit$!{map.className}(id: string, data: $!{map.className}Form) {
+    return request({
+        url: "/api/v1/$!{map.path}",
+        method: "put",
+        data: data
+    });
+}
+
+/**
+ * 删除数据
+ */
+export function del$!{map.className}(ids? : string) {
+    return request({
+        url: "/api/v1/$!{map.path}/" + ids,
+        method: "delete"
+    });
+}

@@ -1,0 +1,32 @@
+/**
+ * 查询参数类型
+ */
+export interface $!{map.className}Query {
+    keywords?: string; // 关键字
+    page?: number; // 页码
+    size?: number; // 每页条数
+    total?: number; // 总条数
+#foreach($column in $map.columns)
+    $!{column.javaField}:#if($column.javaType.equals("String"))string#end #if($column.javaType.equals("Integer"))number#end #if($column.javaType.equals("BigDecimal"))string#end #if($column.javaType.equals("Double"))string#end #if($column.javaType.equals("Float"))string#end #if($column.javaType.equals("Short"))number#end #if($column.javaType.equals("Long"))number#end #if($column.javaType.equals("Boolean"))boolean#end #if($column.javaType.equals("LocalDateTime"))string#end #if($column.javaType.equals("LocalDate"))string#end #if($column.javaType.equals("Date"))string#end; // $!{column.columnComment}
+#end
+}
+
+/**
+ * 视图对象类型
+ */
+export interface $!{map.className}Vo {
+#foreach($column in $map.columns)
+    // $!{column.columnComment}
+    $!{column.javaField}: #if($column.javaType.equals("String"))string#end #if($column.javaType.equals("Integer"))number#end #if($column.javaType.equals("BigDecimal"))string#end #if($column.javaType.equals("Double"))string#end #if($column.javaType.equals("Float"))string#end #if($column.javaType.equals("Short"))number#end #if($column.javaType.equals("Long"))number#end #if($column.javaType.equals("Boolean"))boolean#end #if($column.javaType.equals("LocalDateTime"))string#end #if($column.javaType.equals("LocalDate"))string#end #if($column.javaType.equals("Date"))string#end;
+#end
+}
+
+/**
+ * 表单对象类型
+ */
+export interface $!{map.className}Form {
+#foreach($column in $map.columns)
+    // $!{column.columnComment}
+    $!{column.javaField}: #if($column.javaType.equals("String"))string#end #if($column.javaType.equals("Integer"))number#end #if($column.javaType.equals("BigDecimal"))string#end #if($column.javaType.equals("Double"))string#end #if($column.javaType.equals("Float"))string#end #if($column.javaType.equals("Short"))number#end #if($column.javaType.equals("Long"))number#end #if($column.javaType.equals("Boolean"))boolean#end #if($column.javaType.equals("LocalDateTime"))string#end #if($column.javaType.equals("LocalDate"))string#end #if($column.javaType.equals("Date"))string#end;
+#end
+}

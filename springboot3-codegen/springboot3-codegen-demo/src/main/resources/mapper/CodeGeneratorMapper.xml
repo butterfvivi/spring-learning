@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.molu.generator.mapper.CodeGeneratorMapper">
+
+    <resultMap type="cn.molu.generator.pojo.ColumnDetail" id="ColumnDetailMap">
+        <result property="tableName" column="table_name" jdbcType="VARCHAR"/>
+        <result property="tableComment" column="table_comment" jdbcType="VARCHAR"/>
+        <result property="engine" column="engine" jdbcType="VARCHAR"/>
+        <result property="tableCollation" column="table_collation" jdbcType="VARCHAR"/>
+        <result property="tableRows" column="table_rows" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--  获取所有表信息数据  -->
+    <select id="getColumnDetailMapVo" resultMap="ColumnDetailMap">
+        select table_name, <!-- 表名 -->
+        table_comment, <!-- 表名注释 -->
+        engine,  <!-- 表数据引擎 -->
+        table_collation,  <!-- 表字符集 -->
+        table_rows,  <!-- 表中数据条数 -->
+        create_time <!-- 表创建时间 -->
+        from information_schema.tables
+        where upper(table_schema) = upper(#{database})
+    </select>
+
+    <!--  获取所有表中字段信息数据  -->
+    <select id="getColumnDetailMapVoByTableName" parameterType="string" resultMap="ColumnDetailMap">
+        SELECT TABLE_SCHEMA, <!-- 数据库名 -->
+        TABLE_NAME, <!-- 表名 -->
+        (select b.table_comment
+        from information_schema.tables b
+        where upper(table_schema) = upper(#{database})
+        and upper(table_name) = upper(#{tableName})
+        limit 1) as TABLE_COMMENT, <!-- 表名注释 -->
+        COLUMN_NAME, <!-- 字段名 -->
+        COLUMN_DEFAULT, <!-- 默认值 -->
+        IS_NULLABLE, <!-- 是否可为空：YES、NO -->
+        DATA_TYPE, <!-- 数据类型：int、varchar... -->
+        COLUMN_TYPE, <!-- 字段类型：int、varchar(30)... -->
+        COLUMN_KEY, <!-- 是否主键：PRI -->
+        EXTRA, <!-- 是否自增：auto_increment（自增） -->
+        COLUMN_COMMENT <!-- 字段注释 -->
+        FROM information_schema.columns a
+        WHERE upper(table_schema) = upper(#{database})
+        AND upper(table_name) = upper(#{tableName})
+    </select>
+</mapper>

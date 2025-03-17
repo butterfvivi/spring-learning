@@ -1,0 +1,45 @@
+package $!{map.packageName}.entity;
+
+import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.*;
+import lombok.experimental.Accessors;
+import java.io.Serial;
+import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
+import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.lang.*;
+import java.util.Date;
+
+/**
+ * @author 陌路
+ * @apiNote $!{map.tableComment}($!{map.className})实体类
+ * @date $!{map.currTime}
+ * @tool Created by IntelliJ IDEA
+ */
+@Data
+@ToString
+@NoArgsConstructor
+@EqualsAndHashCode
+@Accessors(chain = true)
+@TableName("$!map.tableName")
+public class $!{map.className} implements Serializable {
+@Serial
+@TableField(exist = false)
+private static final long serialVersionUID = 1L;
+
+#foreach($column in $map.columns)
+    #if(${column.columnComment})
+    /**
+     * ${column.columnComment}
+     */
+    #end
+    #if($column.type.equals("java.util.Date"))
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    #end
+    private $!{column.javaType} $!{column.javaField};
+#end
+}
