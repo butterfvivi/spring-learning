@@ -82,11 +82,13 @@
         <module>springboot3-exception-handler</module>
         <module>springboot3-fuction</module>
         <module>springboot3-gateway</module>
+        <module>springboot3-git</module>
         <module>springboot3-iexcel</module>
         <module>springboot3-knife4j</module>
         <module>springboot3-mapstruct</module>
         <module>springboot3-minio</module>
         <module>springboot3-mybatisplus-druid</module>
+        <module>springboot3-luckysheet</module>
         <module>springboot3-oauth2</module>
         <module>springboot3-oauth2-security</module>
         <module>springboot3-postgresql</module>
