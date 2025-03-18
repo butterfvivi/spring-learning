@@ -1,0 +1,20 @@
+def: '[{"name":"Cell","celldata":[{"r":0,"c":0,"v":{"v":"test","m":"test","ct":{"fa":"General","t":"g"},"fc":"#ff0000","bg":"#00ff00"}},{"r":0,"c":1,"v":{"m":"test","ct":{"fa":"General","t":"g"},"v":"test"}},{"r":0,"c":2,"v":{"m":"test","ct":{"fa":"General","t":"g"},"v":"test"}},{"r":0,"c":3,"v":{"v":"test","ct":{"fa":"General","t":"n"},"m":"test"}},{"r":0,"c":4,"v":{"v":"test","ct":{"fa":"General","t":"g"},"m":"test"}}]}]'
+
+server:
+  port: 8081
+  tomcat:
+    uri-encoding: UTF-8
+
+ws:
+  port: 8082
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  thymeleaf:
+    mode: HTML
+    encoding: utf-8
+    # ????
+    cache: false

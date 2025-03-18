@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Lucksheet teamedit</title>
+<link rel='stylesheet' th:href="@{luckysheet/dist/plugins/css/pluginsCss.css}" />
+<link rel='stylesheet' th:href="@{luckysheet/dist/plugins/plugins.css}" />
+<link rel='stylesheet' th:href="@{luckysheet/dist/css/luckysheet.css}" />
+<link rel='stylesheet' th:href="@{luckysheet/dist/assets/iconfont/iconfont.css}" />
+<script th:src="@{luckysheet/dist/plugins/js/plugin.js}"></script>
+<script th:src="@{luckysheet/dist/luckysheet.umd.js}"></script>
+<script th:src="@{luckyexcel/dist/luckyexcel.umd.js}"></script>
+
+</head>
+<body>
+	
+	<div id="luckysheet"
+		style="margin: 0px; padding: 0px; position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;">
+	</div>
+	
+</body>
+<script>
+	$(function() {
+		var name = "";
+		while (name.length == 0) {
+			name = prompt("请输入编辑账号:")
+		}
+		var autoSave;
+		//配置项
+		var options = {
+			lang : 'zh',
+			title : '在线表格多人编辑测试', // 设定表格名称
+			//showinfobar:false,
+			container : 'luckysheet',
+			//userInfo : '导入表格',
+			userMenuItem: "",
+			myFolderUrl: "",
+			showinfobar:false,
+			//functionButton: '<input style="font-size: 16px;" type="file" id="Luckyexcel-demo-file" name="Luckyexcel-demo-file" change="demoHandler" />'
+			//functionButton: '<button id="" class="btn btn-primary" style="padding:3px 6px;font-size: 12px;margin-right: 10px;">下载</button> <button id="" class="btn btn-primary btn-danger" style=" padding:3px 6px; font-size: 12px; margin-right: 10px;">分享</button> <button id="luckysheet-share-btn-title" class="btn btn-primary btn-danger" style=" padding:3px 6px; font-size: 12px; margin-right: 10px;">秀数据</button>',
+			//functionButton: '<input style="font-size: 16px;" type="file" id="Luckyexcel-demo-file" name="Luckyexcel-demo-file" change="demoHandler" />',
+			allowUpdate : true,
+			loadUrl : "http://" + location.host + "/get",
+			hook : {
+				updated : function(e) {
+					//监听更新,并在3s后自动保存
+					if (autoSave)
+						clearTimeout(autoSave)
+					$(luckysheet_info_detail_save).text("已修改")
+					autoSave = setTimeout(function() {
+						var excel = luckysheet.getAllSheets();
+						//去除临时数据,减小体积
+						for ( var i in excel)
+							excel[i].data = undefined
+						$.post("http://" + location.host + "/set", {
+							jsonExcel : JSON.stringify(excel)
+						}, function() {
+							$(luckysheet_info_detail_save).text("已保存")
+						})
+					}, 1 * 300)
+					return true;
+				}
+			},
+			updateUrl : "ws://" + location.hostname + ":8082?name=" + name
+		}
+
+		//console.log(JSON.stringify(options))
+		luckysheet.create(options)
+		//demoHandler();
+	})
+</script>
