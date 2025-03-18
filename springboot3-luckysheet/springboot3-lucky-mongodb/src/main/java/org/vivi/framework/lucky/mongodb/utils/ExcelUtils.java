@@ -14,7 +14,7 @@ import org.apache.poi.util.Units;
 import org.apache.poi.xssf.usermodel.*;
 import org.thymeleaf.util.StringUtils;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -71,8 +71,7 @@ public class ExcelUtils {
 		}
 		// 粗体
 		if (jsonObjectValue.get("bl") != null) {
-			font.setBoldweight("1".equals(jsonObjectValue.get("bl").toString()) ? (short) HSSFFont.BOLDWEIGHT_BOLD
-					: (short) HSSFFont.BOLDWEIGHT_NORMAL);
+			font.setBold("1".equals(jsonObjectValue.get("bl").toString()));
 		}
 		// 斜体
 		if (jsonObjectValue.get("it") != null) {
@@ -96,13 +95,13 @@ public class ExcelUtils {
 		if (jsonObjectValue.get("ht") != null) {
 			switch (jsonObjectValue.getInteger("ht")) {
 			case 0:
-				cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+				cellStyle.setAlignment(HorizontalAlignment.CENTER);
 				break;
 			case 1:
-				cellStyle.setAlignment(XSSFCellStyle.ALIGN_LEFT);
+				cellStyle.setAlignment(HorizontalAlignment.LEFT);
 				break;
 			case 2:
-				cellStyle.setAlignment(XSSFCellStyle.ALIGN_RIGHT);
+				cellStyle.setAlignment(HorizontalAlignment.RIGHT);
 				break;
 			}
 		}
@@ -110,13 +109,13 @@ public class ExcelUtils {
 		if (jsonObjectValue.get("vt") != null) {
 			switch (jsonObjectValue.getInteger("vt")) {
 			case 0:
-				cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);
+				cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
 				break;
 			case 1:
-				cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_TOP);
+				cellStyle.setVerticalAlignment(VerticalAlignment.TOP);
 				break;
 			case 2:
-				cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_BOTTOM);
+				cellStyle.setVerticalAlignment(VerticalAlignment.BOTTOM);
 				break;
 			}
 		}
@@ -124,7 +123,7 @@ public class ExcelUtils {
 		if (jsonObjectValue.get("bg") != null) {
 			String bg = jsonObjectValue.get("bg").toString();
 			cellStyle.setFillForegroundColor(toColorFromString(bg));
-			cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+			cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		}
 		cellStyle.setWrapText(true);
 		return cellStyle;
@@ -139,7 +138,7 @@ public class ExcelUtils {
 		if (colorStr.contains("#")) {
 			colorStr = colorStr.substring(1);
 			Color color = new Color(Integer.parseInt(colorStr, 16));
-			XSSFColor xssfColor = new XSSFColor(color);
+			XSSFColor xssfColor = new XSSFColor(color,new DefaultIndexedColorMap());
 			return xssfColor;
 		} else {
 			int strStartIndex = colorStr.indexOf("(");
@@ -153,7 +152,7 @@ public class ExcelUtils {
 			G = G.length() < 2 ? ('0' + G) : G;
 			String cStr = R + B + G;
 			Color color1 = new Color(Integer.parseInt(cStr, 16));
-			XSSFColor xssfColor = new XSSFColor(color1);
+			XSSFColor xssfColor = new XSSFColor(color1,new DefaultIndexedColorMap());
 			return xssfColor;
 		}
 	}
@@ -508,7 +507,7 @@ public class ExcelUtils {
 				XSSFClientAnchor anchor = new XSSFClientAnchor(colrowMap.get("dx1"), colrowMap.get("dy1"),
 						colrowMap.get("dx2"), colrowMap.get("dy2"), colrowMap.get("col1"), colrowMap.get("row1"),
 						colrowMap.get("col2"), colrowMap.get("row2"));
-				anchor.setAnchorType(Integer.parseInt(iamgeData.get("type").toString()));
+				anchor.setAnchorType(XSSFClientAnchor.AnchorType.valueOf(iamgeData.get("type").toString()));
 				Base64.Decoder decoder = Base64.getDecoder();
 				byte[] decoderBytes = new byte[0];
 				boolean flag = true;
@@ -579,7 +578,7 @@ public class ExcelUtils {
 			if (isNumber) {
 				// 设置单元格格式
 				cell.setCellStyle(cellStyle);
-				cell.setCellType(XSSFCell.CELL_TYPE_NUMERIC);
+				cell.setCellType(CellType.NUMERIC);
 				cell.setCellValue(m);
 			} else if (isDate) {
 				String fa = ((JSONObject) jsonObjectValue.get("ct")).getString("fa");
@@ -591,7 +590,7 @@ public class ExcelUtils {
 				try {
 					Date date = sdf.parse(m);
 					cell.setCellStyle(cellStyle);
-					cell.setCellType(XSSFCell.CELL_TYPE_NUMERIC);
+					cell.setCellType(CellType.NUMERIC);
 					cell.setCellValue(date);
 				} catch (ParseException e) {
 					e.printStackTrace();
@@ -599,7 +598,7 @@ public class ExcelUtils {
 			} else if (isString) {
 				// 设置单元格格式
 				cell.setCellStyle(cellStyle);
-				cell.setCellType(XSSFCell.CELL_TYPE_STRING);
+				cell.setCellType(CellType.STRING);
 				cell.setCellValue(m);
 			} else {
 				// 设置单元格格式
