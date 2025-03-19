@@ -1,18 +1,14 @@
-# Getting Started
+# springboot3-lucky-mongodb
 
-### Reference Documentation
+#### 介绍
 
-For further reference, please consider the following sections:
+- 本项目是一个简单的springboot项目，使用了lucky-sheet前端组件，通过Mongodb保存数据，实现导入导出的功能
+https://github.com/mengshukeji/Luckysheet
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.4.3/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/3.4.3/maven-plugin/build-image.html)
+框架：SpringBoot + Websocket
 
-### Maven Parent overrides
+数据库：MongoDB
 
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the
-parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
+前端核心：Luckysheet
 
+http://127.0.0.1:8080/index
