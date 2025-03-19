@@ -2,7 +2,7 @@
 
 #### 介绍
 
-- 本项目是一个简单的springboot项目，使用了lucky-sheet前端组件，通过Mongodb保存数据，实现导入导出的功能
+- 本项目是一个简单的springboot项目，使用了lucky-sheet前端组件，通过Mongodb保存数据，实现导入导出和协同编辑的功能
 https://github.com/mengshukeji/Luckysheet
 
 框架：SpringBoot + Websocket

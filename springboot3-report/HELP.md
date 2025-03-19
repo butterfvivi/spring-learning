@@ -1,18 +1,9 @@
-# Getting Started
+# springboot3-springreport-demo
 
-### Reference Documentation
+#### 介绍
 
-For further reference, please consider the following sections:
+支持在线设计报表，并绑定动态数据源，无需写代码即可快速生成想要的报表，可以支持excel报表和word报表两种格式，同时还可以支持excel多人协同编辑
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.4.3/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/3.4.3/maven-plugin/build-image.html)
 
-### Maven Parent overrides
-
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the
-parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
-
+项目文档
+https://gitee.com/springreport/springreport/wikis/pages
