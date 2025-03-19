@@ -50,5 +50,20 @@ API返回结果(格式为JSON)
 
 }
 
+#### UI Build
 
+
+```bash
+
+# 进入项目目录
+cd ureport-ui
+
+# 安装依赖
+npm install
+
+# 启动服务
+npm run dev
+```
+
+访问 [http://localhost:9528](http://localhost:9528)
 ![img.png](img.png)

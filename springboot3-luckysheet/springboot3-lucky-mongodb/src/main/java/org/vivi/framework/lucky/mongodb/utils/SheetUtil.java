@@ -19,7 +19,7 @@ public class SheetUtil {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("container", "ecsheet");
-        jsonObject.put("title", "ecsheet demo");
+        jsonObject.put("title", "");
         jsonObject.put("lang", "zh");
         jsonObject.put("allowUpdate", true);
         jsonObject.put("loadUrl", "");
