@@ -5,5 +5,6 @@
 
 https://github.com/mengshukeji/Luckysheet
 
+guide: https://dream-num.github.io/LuckysheetDocs/zh/guide/
 框架：SpringBoot + Websocket
 前端核心：Luckysheet

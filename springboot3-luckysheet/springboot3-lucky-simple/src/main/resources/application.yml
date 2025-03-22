@@ -1,4 +1,3 @@
-def: '[{"name":"Cell","index":"sheet_01","order":0,"status":1,"celldata":[{"r":0,"c":0,"v":{"v":1,"m":"1","ct":{"fa":"General","t":"n"}}}]},{"name":"Data2","index":"sheet_02","order":1,"status":0},{"name":"Picture","index":"sheet_03","order":2,"status":0}]'
 server:
   port: 8080
   servlet:
@@ -6,6 +5,7 @@ server:
       charset: UTF-8
       force: true
       enabled: true
+#    context-path: /luckysheet
 springfox:
   documentation:
     auto-startup: false
@@ -19,6 +19,11 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  thymeleaf:
+    mode: HTML
+    encoding: utf-8
+    # ????
+    cache: false
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/luckysheetdb?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
     username: root
