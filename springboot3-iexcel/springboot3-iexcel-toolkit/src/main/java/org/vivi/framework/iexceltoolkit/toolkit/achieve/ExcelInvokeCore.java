@@ -1,7 +1,6 @@
 package org.vivi.framework.iexceltoolkit.toolkit.achieve;
 
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,23 +23,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.vivi.framework.iexceltoolkit.common.enums.ExcelConstants.*;
+
 @Service(value = "excelInvokeCore")
 public class ExcelInvokeCore {
-
-    private static final String NO_FILE_PATH = "请传入templatePath，指定导出模板路径";
-    private static final String IMPORT_NO_TARGET_PARAM = "excel导入，入参必须含有targetParam值";
-
-    private static final String TYPE_IMPORT = "import";
-
-    private static final String TYPE_DYNAMIC = "dynamic";
-    private static final String TYPE_TEMPLATE = "template";
-    private static final String DYNAMIC_PARAMS_NO_PASS_CHECK = "动态列导出，两个参数重写方法的参数如下： m(List<Map<String,Object>> data,List<String> headers) ";
-    private static final String DYNAMIC_PARAMS_NO_PASS_CHECK2 = "动态列导出，三个参数重写方法的参数如下： m(List<Map<String,Object>> data,List<String> headers),Map<String,Object> params) ";
-    private static final String DYNAMIC_PARAMS_NO_PASS_CHECK3 = "动态列导出，重写方法的参数如下至少含两个";
-    private static final String TEMPLATE_PARAMS_NO_PASS_CHECK = "模板导出，重写方法的参数如下： m(List<Map<String,Object>> data, Map<String,Object> otherVal) ";
-    private static final String IMPORT_PARAMS_NO_PASS_CHECK = "excel导入，重写的方法参数如下：m(List<?> data,String remark),或m(List<?> data) ";
-    private static final String IMPORT_NO_ENTITY_CLASS = "excel导入，在重写的方法上@MsExcelRewrite注解中，必须指定entityClass值。为了规范起见，excel导入必须有一个实体类进行映射";
-
 
     //缓存第一次解析含有@MsExcelRewrite类上注解的class信息
     private static Map<String, Class<?>> classCache = MCache.excelClassCache;

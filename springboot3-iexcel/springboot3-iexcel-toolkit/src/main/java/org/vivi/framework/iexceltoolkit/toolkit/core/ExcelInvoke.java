@@ -1,12 +1,19 @@
 package org.vivi.framework.iexceltoolkit.toolkit.core;
 
+import com.alibaba.excel.write.handler.WriteHandler;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
+import org.vivi.framework.iexceltoolkit.toolkit.style.AdaptiveWidthStyleStrategy;
 import org.vivi.framework.iexceltoolkit.common.utils.IocUtil;
+import org.vivi.framework.iexceltoolkit.toolkit.style.CellStyleUtils;
+import org.vivi.framework.iexceltoolkit.toolkit.style.CustomCellWriteHandler;
 import org.vivi.framework.iexceltoolkit.web.request.ImportReq;
 import org.vivi.framework.iexceltoolkit.toolkit.achieve.ExcelInvokeCore;
 import org.vivi.framework.iexceltoolkit.web.request.IDynamicExportReq;
 import org.vivi.framework.iexceltoolkit.web.request.ITemplateExportReq;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExcelInvoke {
 
@@ -30,6 +37,12 @@ public class ExcelInvoke {
      * @param req
      */
     public static void dynamicExport(HttpServletResponse response, IDynamicExportReq req) throws Exception {
+        //配置自定义样式，自适应宽度
+        List<WriteHandler> writeHandlers = new ArrayList<>();
+        writeHandlers.add(new AdaptiveWidthStyleStrategy());
+        writeHandlers.add(CellStyleUtils.getHorizontalCellStyleStrategy());
+        //writeHandlers.add(new CustomCellWriteHandler());
+        req.getConfig().setWriteHandlers(writeHandlers);
         excelInvokeCore.dynamicExport(response, req);
     }
 

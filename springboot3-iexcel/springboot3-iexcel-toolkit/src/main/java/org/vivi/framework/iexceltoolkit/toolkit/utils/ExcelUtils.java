@@ -136,6 +136,7 @@ public class ExcelUtils {
             //水印
             //setWaterMark(config, write);
             addWriteHandle(config, write);
+
             write.head(headsList).sheet("sheet1").doWrite(handleDynamicData(data));
         } catch (IOException e) {
             resetResponse(response, e.getMessage());
