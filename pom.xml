@@ -103,6 +103,7 @@
         <module>springboot3-websocket</module>
         <module>xxl-job-simple</module>
         <module>springboot3-codegen</module>
+        <module>springboot3-poi</module>
     </modules>
 
     <dependencyManagement>

@@ -22,7 +22,7 @@ public class AdaptiveHeightStyleStrategy extends AbstractRowHeightStyleStrategy 
 
     @Override
     protected void setHeadColumnHeight(Row row, int relativeRowIndex) {
-
+        //row.setHeight((short) (DEFAULT_HEIGHT * 1.5));
     }
 
     @Override
