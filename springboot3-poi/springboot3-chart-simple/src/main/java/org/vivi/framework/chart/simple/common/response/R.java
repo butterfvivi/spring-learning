@@ -1,5 +1,6 @@
 package org.vivi.framework.chart.simple.common.response;
 
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;

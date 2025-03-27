@@ -23,7 +23,6 @@
         <module>springboot3-iasync-sample</module>
         <module>springboot3-iexcel-batch</module>
         <module>springboot3-excel-dynamic</module>
-        <module>springboot3-poi-simple</module>
     </modules>
 
     <properties>
