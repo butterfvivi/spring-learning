@@ -31,6 +31,7 @@
         <poi.version>5.4.0</poi.version>
         <httpclient.version>4.5.13</httpclient.version>
         <ooxml-schemas.version>4.1.2</ooxml-schemas.version>
+        <knife4j.version>4.5.0</knife4j.version>
     </properties>
 
     <modules>
@@ -38,25 +39,13 @@
         <module>springboot3-chart-simple</module>
     </modules>
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+
 
 </project>
