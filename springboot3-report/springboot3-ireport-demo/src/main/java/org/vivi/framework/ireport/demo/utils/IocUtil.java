@@ -1,4 +1,4 @@
-package org.vivi.framework.ireport.demo.common.base;
+package org.vivi.framework.ireport.demo.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
