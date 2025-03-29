@@ -1,4 +1,4 @@
-package org.vivi.framework.iexceltoolkit.mapper;
+package org.vivi.framework.ireport.demo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,8 +10,6 @@ import java.util.Map;
 public interface ISqlMapper extends BaseMapper {
 
     List<Map<String, Object>> selectList(String querySql);
-
-    List<Map<String, Object>> selectList(Map<String,List> sqlInfo);
 
     Integer getCount(String countSql);
 }

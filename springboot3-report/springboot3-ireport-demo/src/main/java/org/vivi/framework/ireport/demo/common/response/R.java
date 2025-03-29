@@ -1,4 +1,4 @@
-package org.vivi.framework.iexceltoolkit.common.response;
+package org.vivi.framework.ireport.demo.common.response;
 
 import lombok.*;
 import lombok.experimental.Accessors;

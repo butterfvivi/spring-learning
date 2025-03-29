@@ -10,7 +10,7 @@ import org.vivi.framework.ireport.demo.web.request.ITemplateExportDto;
 import org.vivi.framework.ireport.demo.web.request.ImportExcelDto;
 
 @RestController
-@RequestMapping("iexcel}")
+@RequestMapping("iexcel")
 public class ExcelController {
 
     /**z
@@ -26,7 +26,7 @@ public class ExcelController {
      * @return
      */
 
-    @PostMapping("/dynamicExport}")
+    @PostMapping("/dynamicExport")
     public void dynamicExport(HttpServletResponse response, @RequestBody IDynamicExportDto dto) throws Exception {
         IExcelInvoke.dynamicExport(response, dto);
     }
@@ -45,7 +45,7 @@ public class ExcelController {
      *                 }
      * @return
      */
-    @PostMapping("/templateExport}")
+    @PostMapping("/templateExport")
     public void templateExport(HttpServletResponse response, @RequestBody ITemplateExportDto dto) throws Exception {
         IExcelInvoke.templateExport(response, dto);
     }
@@ -61,7 +61,7 @@ public class ExcelController {
      * @return 解析后的数据集合
      */
 
-    @PostMapping("/import}")
+    @PostMapping("/import")
     public Object readExcel(@RequestParam("file") MultipartFile file,
                             @RequestParam("targetParam") String targetParam,
                             @RequestParam("headRow") Integer headRow,

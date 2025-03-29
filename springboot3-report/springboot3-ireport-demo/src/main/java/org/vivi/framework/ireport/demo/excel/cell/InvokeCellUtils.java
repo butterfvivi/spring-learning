@@ -1,4 +1,4 @@
-package org.vivi.framework.ireport.demo.handler.cell;
+package org.vivi.framework.ireport.demo.excel.cell;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;

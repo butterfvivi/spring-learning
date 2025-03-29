@@ -10,6 +10,7 @@ import org.vivi.framework.iexceltoolkit.mybatis.interfaces.IDAOAdapter;
 import org.vivi.framework.iexceltoolkit.mapper.ISqlMapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MybatisAdapterImpl implements IDAOAdapter {
@@ -57,6 +58,12 @@ public class MybatisAdapterImpl implements IDAOAdapter {
             SqlSession sqlSession = sqlSessionFactory.openSession();
             return resultSetCallbackHandler.getExportList(clazz, sqlSession, sql, params);
         }
+    }
+
+
+    @Override
+    public List getListMapBySql(Map<String,List> sqlInfo) throws Exception {
+        return sqlMapper.selectList(sqlInfo);
     }
 
     @Override

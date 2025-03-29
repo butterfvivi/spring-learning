@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.ireport.demo.common.constant.Constants;
 import org.vivi.framework.ireport.demo.excel.achieve.FileUtilsCore;
 import org.vivi.framework.ireport.demo.model.excel.IExportConfig;
-import org.vivi.framework.ireport.demo.handler.cell.IHandleCell;
+import org.vivi.framework.ireport.demo.excel.cell.IHandleCell;
 
 import java.io.IOException;
 import java.io.InputStream;

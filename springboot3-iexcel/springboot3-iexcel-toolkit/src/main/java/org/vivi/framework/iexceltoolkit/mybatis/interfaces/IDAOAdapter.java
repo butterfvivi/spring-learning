@@ -1,6 +1,7 @@
 package org.vivi.framework.iexceltoolkit.mybatis.interfaces;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 适配底层DAO对象
@@ -33,6 +34,8 @@ public interface IDAOAdapter {
      * @return
      */
     List getListBySql(Class<?> clazz, String sql, Object... params) throws Exception;
+
+    List getListMapBySql(Map<String,List> sqlInfo) throws Exception;
 
     /**
      * 取消注册对象

@@ -1,6 +1,7 @@
 package org.vivi.framework.ireport.demo.process;
 
 import com.alibaba.fastjson.JSONArray;
+import net.sf.jsqlparser.JSQLParserException;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.vivi.framework.ireport.demo.common.constant.Constants;
@@ -109,6 +110,33 @@ public class JdbcProcess {
 
         return sqlText;
     }
+
+    /**
+     * getCountSql
+     * 查询结果的总数sql
+     */
+    public static String getCountSql(String sql)
+    {
+        sql = sql.replaceAll(";", "");
+        sql = "select count(*) from (" + sql + ") alis_t";
+        return sql;
+    }
+
+    /**
+     * 处理sql中的参数
+     */
+    public static String processSqlParams(String sql,Map<String, Object> params)  {
+        if(params != null)
+        {
+            try {
+                sql = MybatisTemplateSqlExcutor.parseSql(sql, params);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return sql;
+    }
+
 
     /**
      * 处理sql中的动态参数，去掉空格

@@ -1,4 +1,4 @@
-package org.vivi.framework.ireport.demo.annotation.impl;
+package org.vivi.framework.ireport.demo.common.annotation.impl;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -21,7 +21,7 @@ public class ToolKitAop {
     /**
      * 切入点
      */
-    @Pointcut("@annotation(org.vivi.framework.ireport.demo.annotation.IToolKit)) ")
+    @Pointcut("@annotation(org.vivi.framework.ireport.demo.common.annotation.IToolKit)) ")
     private void pointcut() {
     }
 

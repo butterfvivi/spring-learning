@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.vivi.framework.iexceltoolkit.common.response.R;
 import org.vivi.framework.iexceltoolkit.mybatis.entity.ExportBeanConfig;
+import org.vivi.framework.iexceltoolkit.mybatis.interfaces.IDAOAdapter;
 import org.vivi.framework.iexceltoolkit.mybatis.service.IExport;
 import org.vivi.framework.iexceltoolkit.toolkit.core.ExcelInvoke;
 import org.vivi.framework.iexceltoolkit.web.request.IDynamicExportReq;
@@ -23,6 +25,8 @@ public class ExcelExportController {
 
     @Autowired
     private IExport export;
+
+    private IDAOAdapter daoAdapter;
 
     /**
      *
@@ -69,5 +73,18 @@ public class ExcelExportController {
         dto.setDataList(list);
 
         ExcelInvoke.dynamicExport(response, dto);
+    }
+
+    @PostMapping("/export1")
+    public R dynamicExport1(HttpServletResponse response, @RequestBody IDynamicExportReq dto) throws Exception {
+        ExportBeanConfig exportBeanConfigDto = new ExportBeanConfig();
+        String countSql = "select count(*) from account where id  > 50000";
+        String querySql = "SELECT * FROM user \n" +
+                "<where>\n" +
+                "<if test=\"gender !=null and gender !=''\">\n" +
+                "  gender = #{gender}\n" +
+                "  </if>\n" +
+                "</where>";
+        return R.success();
     }
 }

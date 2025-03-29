@@ -1,4 +1,4 @@
-package org.vivi.framework.ireport.demo.annotation;
+package org.vivi.framework.ireport.demo.common.annotation;
 
 import org.springframework.stereotype.Component;
 
