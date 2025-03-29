@@ -1,6 +1,7 @@
-package org.vivi.framework.report.service.common.utils;
+package org.vivi.framework.ireport.demo.common.utils;
 
-import org.vivi.framework.report.service.common.constants.Constants;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -77,7 +78,7 @@ public class DateUtil {
      * 日期转换成string，自定义日期格式
      */ 
     public static String date2String(Date date,String dateFormat) {
-    	if (StringUtil.isNullOrEmpty(dateFormat)) {
+    	if (StringUtils.isAnyEmpty(dateFormat)) {
 			return format.format(date);
 		}
     	SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.CHINA);
@@ -102,7 +103,7 @@ public class DateUtil {
      */ 
     public static Date string2Date(String date, String dateFormat) {
     	try {
-    		if (StringUtil.isNullOrEmpty(dateFormat)) {
+    		if (StringUtils.isAnyEmpty(dateFormat)) {
         		return format.parse(date);
         	}
         	SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.CHINA);
@@ -421,38 +422,6 @@ public class DateUtil {
 	            e.printStackTrace();
 	        }
 	        return date;
-	    }
-	    
-	    public static String getDefaultDate(String defaultValue,String dateFormat) throws ParseException {
-	    	String result = DateUtil.getNow(DateUtil.FORMAT_LONOGRAM);
-	    	if(Constants.CURRENT_DATE.equals(defaultValue.toLowerCase())) {
-	    		//当前日期
-	    		result = DateUtil.getNow(StringUtil.isNotEmpty(dateFormat)?dateFormat:DateUtil.FORMAT_LONOGRAM);
-	    	}else {
-	    		if(CheckUtil.isNumber(defaultValue))
-				{
-					int days = Double.valueOf(defaultValue).intValue();
-					if(DateUtil.FORMAT_YEARMONTH.equals(dateFormat))
-					{
-						result = DateUtil.addMonth(days, DateUtil.getNow(DateUtil.FORMAT_LONOGRAM),DateUtil.FORMAT_YEARMONTH);
-					}else if(DateUtil.FORMAT_YEAR.equals(dateFormat))
-					{
-						result = DateUtil.addYear(days, DateUtil.getNow(DateUtil.FORMAT_LONOGRAM),DateUtil.FORMAT_YEAR);
-					}else {
-						result = DateUtil.addDays(days, DateUtil.getNow(),StringUtil.isNotEmpty(dateFormat)?dateFormat:DateUtil.FORMAT_LONOGRAM);
-					}
-				}else {
-					if(StringUtil.isNullOrEmpty(dateFormat)) {
-						dateFormat = DateUtil.FORMAT_LONOGRAM;
-					}
-					if(!DateUtil.isValidDate(defaultValue,dateFormat))
-					{
-						result = "";;
-					}
-				}
-	    	}
-	    	
-	    	return result;
 	    }
 	 
 	/**  

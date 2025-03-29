@@ -1,1 +1,3 @@
-spring.application.name=springboot3-ireport-demo
+spring:
+  application:
+    name: springboot3-ireport-demo
