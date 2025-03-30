@@ -217,6 +217,20 @@ public class JdbcProcessor {
     }
 
     /**
+     * sql分页处理
+     */
+    public static String processSqlPage(String sqlText, int pageSize,int currentPage)
+    {
+        sqlText = StringUtils.stripEnd(sqlText.trim(), ";");
+        final Pattern pattern = Pattern.compile("limit.*?$", Pattern.CASE_INSENSITIVE);
+        final Matcher matcher = pattern.matcher(sqlText);
+        if (matcher.find()) {
+            sqlText = matcher.replaceFirst("");
+        }
+        return sqlText + " limit " + String.valueOf((currentPage-1)*pageSize) + ","+ String.valueOf(pageSize);
+    }
+
+    /**
      * 处理页面传入的参数
      */
     public static Map<String, Object> processPageParams(Map<String, Object> pageParams,String tplParams)

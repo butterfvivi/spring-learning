@@ -5,7 +5,7 @@ spring:
     name: springboot3-ireport-demo
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/springboot3_demo
+    url: jdbc:mysql://127.0.0.1:3306/ireport
     username: root
     password: wtf0010.
     druid:

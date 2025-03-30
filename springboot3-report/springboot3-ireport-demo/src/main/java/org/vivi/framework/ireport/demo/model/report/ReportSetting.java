@@ -23,9 +23,7 @@ public class ReportSetting {
 
     private boolean isPatination;
 
-    private Integer isCustomerPage = 2;
-
-    private Integer page_count;
+    private Integer pageCount;
 
     private Integer sqlType;
 }

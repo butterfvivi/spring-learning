@@ -100,12 +100,12 @@ public class MesGenerateReportDto {
 	private Integer isCustomerPage = 2;
 	
 	/**  
-	 * @Fields startPage : 起始页
+	 * 起始页
 	 */
 	private Integer startPage;
 	
 	/**  
-	 * @Fields endPage : 结束页
+	 * 结束页
 	 */
 	private Integer endPage;
 	

@@ -2,47 +2,40 @@ package org.vivi.framework.ireport.demo.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.vivi.framework.ireport.demo.common.enums.YesNoEnum;
 import org.vivi.framework.ireport.demo.common.utils.ParamUtils;
 import org.vivi.framework.ireport.demo.mapper.ISqlMapper;
-import org.vivi.framework.ireport.demo.mapper.ReportDataSetMapper;
-import org.vivi.framework.ireport.demo.web.dto.DataExecSqlDto;
+import org.vivi.framework.ireport.demo.mapper.ReportSettingMapper;
+import org.vivi.framework.ireport.demo.model.PageEntity;
+import org.vivi.framework.ireport.demo.model.report.ReportSetting;
 import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
 import org.vivi.framework.ireport.demo.process.JdbcProcessor;
 
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class DataSetService {
+public class DataSetService extends ServiceImpl<ReportSettingMapper, ReportSetting> {
 
     @Autowired
     private ISqlMapper sqlMapper;
 
-    @Autowired
-    private ReportDataSetMapper reportDataSetMapper;
-
-    public List<Map<String, Object>> getDatas(GenerateReportDto reportDto) {
+    public PageEntity getDatas(GenerateReportDto reportDto) {
         //get report config info
-        DataExecSqlDto dataExecSqlDto = reportDataSetMapper.selectById(reportDto.getId());
+        ReportSetting reportSetting = this.getById(reportDto.getId());
         //get param sql
-        String sql = dataExecSqlDto.getReportSql();
+        String sql = reportSetting.getDynSentence();
         //get count sql
         String countSql = JdbcProcessor.getCountSql(sql);
-        Map<String, Object> searchInfo  = reportDto.getSearchData();;
-        Map<String, Object> params = null;
-        //handle  params
-        if(searchInfo != null)
-        {
-            JSONArray jsonArray = JSONArray.parseArray(JSON.toJSONString(searchInfo.get("params")));
-            params = ParamUtils.getViewParams(jsonArray);
-        }
+        Map<String, Object> searchInfo  = reportDto.getSearchData();
 
+        //handle sql params to prepare sql
+        sql = JdbcProcessor.processSqlParams(sql,searchInfo);
         //handle pagination
         if(reportDto.isPatination() )
         {
@@ -54,9 +47,6 @@ public class DataSetService {
                 sql = JdbcProcessor.getPaginationSql(sql, 0, Integer.valueOf(String.valueOf(reportDto.getPagination().get("pageCount"))), Integer.valueOf(String.valueOf(reportDto.getPagination().get("currentPage"))));
             }
         }
-
-        //handle sql params to prepare sql
-        sql = JdbcProcessor.processSqlParams(sql,params);
 
         Map<String, Object> mergePagination = new HashMap();
         mergePagination.put("currentPage", reportDto.getPagination().get("currentPage"));
@@ -86,7 +76,42 @@ public class DataSetService {
             }
         }
 
+        Integer currentPage = Integer.valueOf(String.valueOf(mergePagination.get("currentPage")));
+        Integer pageCount = Integer.valueOf(String.valueOf(mergePagination.get("pageCount")));
+        Long totalCount = mergePagination.get("totalCount") == null ? 0 : Long.valueOf(String.valueOf(mergePagination.get("totalCount")));
 
+        sql = JdbcProcessor.processSqlPage(sql,pageCount,currentPage);
+        List<Map<String, Object>> mapList = sqlMapper.selectList(sql);
+
+        return PageEntity
+                .builder()
+                .total(totalCount)
+                .pageSize(pageCount)
+                .currentPage(currentPage)
+                .data(mapList)
+                .build();
+    }
+
+    public List<Map<String, Object>>  getAllData(GenerateReportDto reportDto) {
+        //get report config info
+        ReportSetting reportSetting = this.getById(reportDto.getId());
+        //get param sql
+        String sql = reportSetting.getDynSentence();
+        //get count sql
+        Map<String, Object> searchInfo  = reportDto.getSearchData();
+
+        //handle sql params to prepare sql
+        sql = JdbcProcessor.processSqlParams(sql,searchInfo);
         return sqlMapper.selectList(sql);
+    }
+
+    public List<Map<String, Object>> getColumnInfos(GenerateReportDto reportDto) {
+        //get report config info
+        ReportSetting reportSetting = this.getById(reportDto.getId());
+        //get param sql
+        String sql = reportSetting.getDynSentence();
+        Map<String, Object> params  = reportDto.getSearchData();;
+        List<Map<String, Object>> dataSetColumns = JdbcProcessor.parseMetaDataColumns( sql,1,null);
+        return dataSetColumns;
     }
 }

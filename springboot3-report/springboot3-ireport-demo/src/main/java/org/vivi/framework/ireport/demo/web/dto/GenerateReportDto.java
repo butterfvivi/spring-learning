@@ -43,7 +43,7 @@ public class GenerateReportDto {
     /**
      *  是否分页查询
      */
-    boolean isPatination = false;
+    boolean isPatination = true;
 
     /**
      * 起始页
