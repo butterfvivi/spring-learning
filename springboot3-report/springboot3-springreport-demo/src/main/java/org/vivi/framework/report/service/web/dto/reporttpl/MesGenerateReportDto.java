@@ -16,22 +16,17 @@ public class MesGenerateReportDto {
 
 	/**  
 	 * @Fields tplId : 模板id
-	 * @author caiyang
-	 * @date 2021-05-26 06:00:08 
-	 */ 
+	 */
 	private Long tplId;
-	
+
 	/**
-	* @Feilds:searchData 动态参数
-	* @author caiyang
-	*/  
+	 *  动态参数
+	 */
 	private List<Map<String, Object>> searchData;
 	
 	/**  
 	 * @Fields pagination : 分页参数
-	 * @author caiyang
-	 * @date 2023-01-16 02:19:47 
-	 */  
+	 */
 	private Map<String, Integer> pagination;
 	
 	/**

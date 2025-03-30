@@ -8,7 +8,7 @@ import org.vivi.framework.ireport.demo.common.annotation.IToolKit;
 import org.vivi.framework.ireport.demo.common.config.ICache;
 import org.vivi.framework.ireport.demo.common.annotation.IExcelRewrite;
 import org.vivi.framework.ireport.demo.web.request.IDynamicExportDto;
-import org.vivi.framework.ireport.demo.model.excel.IExportConfig;
+import org.vivi.framework.ireport.demo.excel.config.IExportConfig;
 import org.vivi.framework.ireport.demo.web.request.ITemplateExportDto;
 import org.vivi.framework.ireport.demo.common.utils.AssertUtils;
 import org.vivi.framework.ireport.demo.common.utils.EmptyUtils;

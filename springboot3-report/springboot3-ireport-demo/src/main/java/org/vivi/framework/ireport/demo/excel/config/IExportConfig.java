@@ -1,4 +1,4 @@
-package org.vivi.framework.ireport.demo.model.excel;
+package org.vivi.framework.ireport.demo.excel.config;
 
 import com.alibaba.excel.write.handler.WriteHandler;
 import com.alibaba.excel.write.metadata.fill.FillConfig;

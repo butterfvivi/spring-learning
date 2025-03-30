@@ -1,34 +1,42 @@
 package org.vivi.framework.ireport.demo.process;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import net.sf.jsqlparser.JSQLParserException;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.vivi.framework.ireport.demo.common.constant.Constants;
 import org.vivi.framework.ireport.demo.common.enums.SQLDriverEnum;
 import org.vivi.framework.ireport.demo.common.exception.BizException;
 import org.vivi.framework.ireport.demo.common.mybatis.MybatisTemplateSqlExcutor;
 import org.vivi.framework.ireport.demo.common.utils.DateUtil;
+import org.vivi.framework.ireport.demo.common.utils.IocUtil;
 
-import javax.sql.DataSource;
 import java.sql.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class JdbcProcess {
+public class JdbcProcessor {
+
+    private static SqlSession sqlSession;
+
+    static {
+        SqlSessionFactory sqlSessionFactory = IocUtil.getBean("sqlSessionFactory");
+        sqlSession = sqlSessionFactory.openSession();
+    }
 
     /**
      * 解析sql并获取sql中的列
      */
-    public static List<Map<String, Object>> parseMetaDataColumns(DataSource dataSource, String sqlText, int dataSourceType, String sqlParams) {
+    public static List<Map<String, Object>> parseMetaDataColumns(String sqlText, int dataSourceType, String sqlParams) {
         List<Map<String, Object>> result = null;
-        Connection conn = null;
-        Statement stmt = null;
         ResultSet rs = null;
+        PreparedStatement stmt = null;
         try {
-            conn = dataSource.getConnection();
-            stmt = conn.createStatement();
+            stmt = sqlSession.getConnection().prepareStatement(sqlText);
             Map<String, Object> params = new HashMap<>();
             if(StringUtils.isNotEmpty(sqlParams))
             {
@@ -76,7 +84,7 @@ public class JdbcProcess {
         } catch (final SQLException ex) {
             throw new BizException("500","error.sql");
         } finally {
-            //JdbcUtils.releaseJdbcResource(conn, stmt, rs);
+            releaseJdbcResource(sqlSession, stmt, rs);
         }
         return result;
     }
@@ -112,6 +120,25 @@ public class JdbcProcess {
     }
 
     /**
+     * 释放数据库资源
+     */
+    public static void releaseJdbcResource(final SqlSession session, final Statement stmt, final ResultSet rs) {
+        try {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+            if (session != null) {
+                session.close();
+            }
+        } catch (final SQLException ex) {
+            throw new BizException("500","数据库资源释放异常");
+        }
+    }
+
+    /**
      * getCountSql
      * 查询结果的总数sql
      */
@@ -137,6 +164,35 @@ public class JdbcProcess {
         return sql;
     }
 
+    /**
+     *  sql添加分页条件
+     */
+    public static String getPaginationSql(String sql,int dataSourceType,int pageCount,int currentPage)  {
+        sql = sql.replaceAll(";", "");
+        if(SQLDriverEnum.MYSQL.getCode().intValue() == dataSourceType)
+        {
+            sql = sql + " limit " + (currentPage-1)*pageCount + "," + pageCount;
+        }else if(SQLDriverEnum.ORACLE.getCode().intValue() == dataSourceType)
+        {
+            sql = "select tmp_page.*, rownum rowno from (" + sql + ") tmp_page";
+            sql = "select * from (" + sql + ") where rowno <= " + currentPage*pageCount + " and rowno > " + (currentPage-1)*pageCount;
+        }
+        return sql;
+    }
+
+    public static String getPaginationSql(String sql,int dataSourceType,int pageCount,int startPage,int endPage)  {
+        sql = sql.replaceAll(";", "");
+        if(SQLDriverEnum.MYSQL.getCode().intValue() == dataSourceType)
+        {
+            sql = sql + " limit " + (endPage-startPage+1)*pageCount + " offset " + (startPage-1)*pageCount;
+        }else if(SQLDriverEnum.ORACLE.getCode().intValue() == dataSourceType)
+        {
+            sql = "select tmp_page.*, rownum rowno from (" + sql + ") tmp_page";
+            sql = "select * from (" + sql + ") where rowno <= " + (endPage-startPage+1)*pageCount + " and rowno > " + (startPage-1)*pageCount;
+        }
+
+        return sql;
+    }
 
     /**
      * 处理sql中的动态参数，去掉空格
@@ -158,5 +214,43 @@ public class JdbcProcess {
             }
         }
         return sqlText;
+    }
+
+    /**
+     * 处理页面传入的参数
+     */
+    public static Map<String, Object> processPageParams(Map<String, Object> pageParams,String tplParams)
+    {
+        Map<String, Object> result = new HashMap<String, Object>();
+        if(StringUtils.isNotEmpty(tplParams))
+        {
+            JSONArray jsonArray = JSONObject.parseArray(tplParams);
+            if(!CollectionUtils.isEmpty(jsonArray))
+            {
+                for (int i = 0; i < jsonArray.size(); i++) {
+                    if(jsonArray.getJSONObject(i).get("paramCode") != null && StringUtils.isNotEmpty(String.valueOf(jsonArray.getJSONObject(i).get("paramCode"))))
+                    {
+                        if(pageParams != null)
+                        {
+                            if(pageParams.containsKey(jsonArray.getJSONObject(i).get("paramCode")))
+                            {
+                                result.put(String.valueOf(jsonArray.getJSONObject(i).get("paramCode")), pageParams.get(jsonArray.getJSONObject(i).get("paramCode")));
+                            }else {
+                                if(jsonArray.getJSONObject(i).get("paramDefault") != null && StringUtils.isNotEmpty(String.valueOf(jsonArray.getJSONObject(i).get("paramDefault"))))
+                                {
+                                    result.put(String.valueOf(jsonArray.getJSONObject(i).get("paramCode")), String.valueOf(jsonArray.getJSONObject(i).get("paramDefault")));
+                                }else {
+                                    result.put(String.valueOf(jsonArray.getJSONObject(i).get("paramCode")), "");
+                                }
+                            }
+                        }else if(jsonArray.getJSONObject(i).get("paramDefault") != null && StringUtils.isNotEmpty(String.valueOf(jsonArray.getJSONObject(i).get("paramDefault"))))
+                        {
+                            result.put(String.valueOf(jsonArray.getJSONObject(i).get("paramCode")), String.valueOf(jsonArray.getJSONObject(i).get("paramDefault")));
+                        }
+                    }
+                }
+            }
+        }
+        return result;
     }
 }

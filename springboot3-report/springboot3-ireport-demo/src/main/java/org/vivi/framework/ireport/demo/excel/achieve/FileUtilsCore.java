@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.vivi.framework.ireport.demo.common.annotation.IToolKit;
-import org.vivi.framework.ireport.demo.model.excel.DownloadFileDto;
+import org.vivi.framework.ireport.demo.excel.config.DownloadFileDto;
 import org.vivi.framework.ireport.demo.common.utils.AssertUtils;
 import org.vivi.framework.ireport.demo.common.utils.EmptyUtils;
 

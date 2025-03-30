@@ -15,7 +15,7 @@ import org.apache.commons.collections4.MapUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.ireport.demo.common.constant.Constants;
 import org.vivi.framework.ireport.demo.excel.achieve.FileUtilsCore;
-import org.vivi.framework.ireport.demo.model.excel.IExportConfig;
+import org.vivi.framework.ireport.demo.excel.config.IExportConfig;
 import org.vivi.framework.ireport.demo.excel.cell.IHandleCell;
 
 import java.io.IOException;

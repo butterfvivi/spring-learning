@@ -1,0 +1,15 @@
+{
+  "params": {
+    "gender": 1
+  },
+  "pagination": {
+    "currentPage": "1",
+    "pageCount": null
+  },
+  "pageSize": 500,
+  "currentPage": 1,
+  "offSet": 0,
+  "startPage": "",
+  "endPage": "",
+  "isPatination": false
+}

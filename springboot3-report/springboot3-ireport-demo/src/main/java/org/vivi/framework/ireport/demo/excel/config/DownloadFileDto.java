@@ -1,4 +1,4 @@
-package org.vivi.framework.ireport.demo.model.excel;
+package org.vivi.framework.ireport.demo.excel.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

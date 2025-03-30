@@ -1,4 +1,4 @@
-package org.vivi.framework.ireport.demo.model.datatransform;
+package org.vivi.framework.ireport.demo.web.dto;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ public class DataExecSqlDto {
     /**
      * sql语句
      */
-    private String tplSql;
+    private String reportSql;
 
     /**
      *  sql类型 1标准sql 2存储过程
