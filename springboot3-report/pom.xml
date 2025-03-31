@@ -60,6 +60,7 @@
         <amazon-s3.version>2.30.38</amazon-s3.version>
         <commons-beanutils.version>1.10.1</commons-beanutils.version>
         <caffeine.version>3.2.0</caffeine.version>
+        <groovy.version>5.0.0-alpha-12</groovy.version>
     </properties>
 
     <modules>

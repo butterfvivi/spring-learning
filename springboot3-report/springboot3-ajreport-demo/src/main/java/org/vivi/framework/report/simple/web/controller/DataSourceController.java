@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.vivi.framework.report.simple.common.response.ResponseBean;
-import org.vivi.framework.report.simple.entity.datasource.param.ConnectionParam;
-import org.vivi.framework.report.simple.service.DataSourceService;
+import org.vivi.framework.report.simple.modules.datasource.entity.param.ConnectionParam;
+import org.vivi.framework.report.simple.modules.datasource.service.DataSourceService;
 
 /**
 * @desc 数据源 controller

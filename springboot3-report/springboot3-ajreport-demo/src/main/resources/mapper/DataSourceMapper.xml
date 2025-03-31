@@ -1,7 +1,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.vivi.framework.report.simple.mapper.DataSourceMapper">
+<mapper namespace="org.vivi.framework.report.simple.modules.datasource.dao.DataSourceMapper">
 
-    <resultMap type="org.vivi.framework.report.simple.entity.datasource.DataSource" id="DataSourceMap">
+    <resultMap type="org.vivi.framework.report.simple.modules.datasource.entity.DataSource" id="DataSourceMap">
         <!--jdbcType="{column.columnType}"-->
         <result property="id" column="id"  />
         <result property="sourceCode" column="source_code"  />

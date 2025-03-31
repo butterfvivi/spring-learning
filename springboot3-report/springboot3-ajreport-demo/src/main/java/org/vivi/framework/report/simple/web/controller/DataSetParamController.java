@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.vivi.framework.report.simple.common.response.ResponseBean;
-import org.vivi.framework.report.simple.entity.datasetparam.dto.DataSetParamDto;
-import org.vivi.framework.report.simple.service.DataSetParamService;
+import org.vivi.framework.report.simple.modules.datasetparam.entity.dto.DataSetParamDto;
+import org.vivi.framework.report.simple.modules.datasetparam.service.DataSetParamService;
 import org.vivi.framework.report.simple.web.param.DataSetParamValidationParam;
 
 /**

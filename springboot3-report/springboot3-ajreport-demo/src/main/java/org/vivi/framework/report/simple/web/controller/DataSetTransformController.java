@@ -4,7 +4,7 @@ package org.vivi.framework.report.simple.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.vivi.framework.report.simple.service.DataSetTransformService;
+import org.vivi.framework.report.simple.modules.datasettransform.service.DataSetTransformService;
 
 /**
 * @desc 数据集数据转换 controller

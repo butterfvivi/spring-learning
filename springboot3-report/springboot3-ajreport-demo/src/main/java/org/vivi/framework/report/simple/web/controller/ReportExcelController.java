@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.vivi.framework.report.simple.common.response.ResponseBean;
-import org.vivi.framework.report.simple.service.ReportExcelService;
+import org.vivi.framework.report.simple.modules.reportexcel.service.ReportExcelService;
 import org.vivi.framework.report.simple.web.dto.ReportExcelDto;
 
 import java.io.IOException;

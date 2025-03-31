@@ -2,8 +2,8 @@
 package org.vivi.framework.report.simple.web.param;
 
 import lombok.Data;
-import org.vivi.framework.report.simple.entity.datasetparam.dto.DataSetParamDto;
-import org.vivi.framework.report.simple.entity.datasettransform.dto.DataSetTransformDto;
+import org.vivi.framework.report.simple.modules.datasetparam.entity.dto.DataSetParamDto;
+import org.vivi.framework.report.simple.modules.datasettransform.entity.dto.DataSetTransformDto;
 
 import java.io.Serializable;
 import java.util.List;

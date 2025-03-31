@@ -1,7 +1,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.vivi.framework.report.simple.mapper.ReportMapper">
+<mapper namespace="org.vivi.framework.report.simple.modules.report.dao.ReportMapper">
 
-    <resultMap type="org.vivi.framework.report.simple.entity.report.Report" id="ReportMap">
+    <resultMap type="org.vivi.framework.report.simple.modules.report.entity.Report" id="ReportMap">
         <!--jdbcType="{column.columnType}"-->
         <result property="id" column="id"  />
         <result property="reportName" column="report_name"  />

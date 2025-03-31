@@ -1,7 +1,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.vivi.framework.report.simple.mapper.DataSetTransformMapper">
+<mapper namespace="org.vivi.framework.report.simple.modules.datasettransform.dao.DataSetTransformMapper">
 
-    <resultMap type="org.vivi.framework.report.simple.entity.datasettransform.DataSetTransform" id="DataSetTransformMap">
+    <resultMap type="org.vivi.framework.report.simple.modules.datasettransform.entity.DataSetTransform" id="DataSetTransformMap">
         <!--jdbcType="{column.columnType}"-->
         <result property="id" column="id"  />
         <result property="setCode" column="set_code"  />
