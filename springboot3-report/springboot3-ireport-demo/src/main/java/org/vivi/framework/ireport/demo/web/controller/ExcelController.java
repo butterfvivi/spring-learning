@@ -1,6 +1,7 @@
 package org.vivi.framework.ireport.demo.web.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.ireport.demo.excel.IExcelInvoke;
@@ -10,8 +11,11 @@ import org.vivi.framework.ireport.demo.web.request.ITemplateExportDto;
 import org.vivi.framework.ireport.demo.web.request.ImportExcelDto;
 
 @RestController
-@RequestMapping("iexcel")
+@RequestMapping("api/iexcel")
 public class ExcelController {
+
+    @Autowired
+    private IExcelInvoke iExcelInvoke;
 
     /**z
      * @param response
@@ -28,7 +32,7 @@ public class ExcelController {
 
     @PostMapping("/dynamicExport")
     public void dynamicExport(HttpServletResponse response, @RequestBody IDynamicExportDto dto) throws Exception {
-        IExcelInvoke.dynamicExport(response, dto);
+        iExcelInvoke.dynamicExport(response, dto);
     }
 
     /**
@@ -47,7 +51,7 @@ public class ExcelController {
      */
     @PostMapping("/templateExport")
     public void templateExport(HttpServletResponse response, @RequestBody ITemplateExportDto dto) throws Exception {
-        IExcelInvoke.templateExport(response, dto);
+        iExcelInvoke.templateExport(response, dto);
     }
 
     /**
@@ -69,7 +73,7 @@ public class ExcelController {
         ImportExcelDto dto = new ImportExcelDto(targetParam, headRow,remark);
         Object result = null;
         try {
-            result = IExcelInvoke.importExcel(file, dto);
+            result = iExcelInvoke.importExcel(file, dto);
         } catch (Exception e) {
             AssertUtils.throwInnerException(e.getMessage());
         }

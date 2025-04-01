@@ -79,7 +79,7 @@ public class IExcelUtils {
             heads.forEach(t -> headsList.add(Arrays.asList(t)));
             write = EasyExcel.write(response.getOutputStream());
             addWriteHandle(config, write);
-            write.head(headsList).sheet(config.getSheetName()).doWrite(handleDynamicData(data));
+            write.head(headsList).sheet("sheet1").doWrite(handleDynamicData(data));
         } catch (IOException e) {
             resetResponse(response, e.getMessage());
         } finally {

@@ -1,10 +1,11 @@
 {
-  "params": {
+  "id":1,
+  "searchData": {
     "gender": 1
   },
   "pagination": {
-    "currentPage": "1",
-    "pageCount": null
+    "currentPage": "2",
+    "pageCount": 10
   },
   "pageSize": 500,
   "currentPage": 1,

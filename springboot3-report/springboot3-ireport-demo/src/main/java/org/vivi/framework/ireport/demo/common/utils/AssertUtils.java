@@ -63,7 +63,6 @@ public class AssertUtils {
 
     /**
      * 内部异常，不对前台提示，只抛在控制台
-     *
      * @param msg
      * @return
      * @author mashuai

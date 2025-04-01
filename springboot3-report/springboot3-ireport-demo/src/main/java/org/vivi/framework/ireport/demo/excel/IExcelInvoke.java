@@ -1,14 +1,33 @@
 package org.vivi.framework.ireport.demo.excel;
 
+import com.alibaba.excel.write.handler.WriteHandler;
+import com.google.common.collect.Lists;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.ireport.demo.excel.achieve.ExcelInvokeCore;
 import org.vivi.framework.ireport.demo.common.utils.IocUtil;
+import org.vivi.framework.ireport.demo.excel.config.IExportConfig;
+import org.vivi.framework.ireport.demo.excel.style.AdaptiveWidthStyleStrategy;
+import org.vivi.framework.ireport.demo.excel.style.CellStyleUtils;
+import org.vivi.framework.ireport.demo.model.report.ReportSetting;
+import org.vivi.framework.ireport.demo.service.DataSetService;
+import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
 import org.vivi.framework.ireport.demo.web.request.IDynamicExportDto;
 import org.vivi.framework.ireport.demo.web.request.ITemplateExportDto;
 import org.vivi.framework.ireport.demo.web.request.ImportExcelDto;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+@Service
 public class IExcelInvoke {
+
+    @Autowired
+    private DataSetService dataSetService;
 
     private static ExcelInvokeCore ExcelInvokeCore = IocUtil.getBean(ExcelInvokeCore.class);
 
@@ -20,7 +39,7 @@ public class IExcelInvoke {
      * @return 返回数据取决于用户自己定义
      */
 
-    public static Object importExcel(MultipartFile file, ImportExcelDto dto) throws Exception {
+    public Object importExcel(MultipartFile file, ImportExcelDto dto) throws Exception {
         return ExcelInvokeCore.importExcel(file, dto);
     }
 
@@ -29,7 +48,27 @@ public class IExcelInvoke {
      * @param response
      * @param req
      */
-    public static void dynamicExport(HttpServletResponse response, IDynamicExportDto req) throws Exception {
+    public void dynamicExport(HttpServletResponse response, IDynamicExportDto req) throws Exception {
+//        GenerateReportDto reportDto = req.getReportDto();
+//        //get dataList
+//        List<Map<String, Object>> allData = dataSetService.getAllData(reportDto);
+//        req.setDataList(allData);
+//
+//        //get headList
+//        ReportSetting dataset = dataSetService.getById(reportDto.getId());
+//        String headers = dataset.getDynHeader();
+//        List<String> headerList = Lists.newArrayList(headers.split(","));
+//        req.setHeadList(headerList);
+        //配置自定义样式，自适应宽度
+        List<WriteHandler> writeHandlers = new ArrayList<>();
+        writeHandlers.add(new AdaptiveWidthStyleStrategy());
+        writeHandlers.add(CellStyleUtils.getHorizontalCellStyleStrategy());
+        //writeHandlers.add(new CustomCellWriteHandler());
+        IExportConfig iExportConfig = new IExportConfig();
+        iExportConfig.setWriteHandlers(writeHandlers);
+        //BeanUtils.copyProperties(req.getConfig(), iExportConfig);
+
+        req.setConfig(iExportConfig);
         ExcelInvokeCore.dynamicExport(response, req);
     }
 
@@ -38,7 +77,7 @@ public class IExcelInvoke {
      * @param response
      * @param req
      */
-    public static void templateExport(HttpServletResponse response, ITemplateExportDto req) throws Exception {
+    public void templateExport(HttpServletResponse response, ITemplateExportDto req) throws Exception {
         ExcelInvokeCore.templateExport(response, req);
     }
 }

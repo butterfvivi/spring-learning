@@ -1,8 +1,7 @@
-package org.vivi.framework.ireport.demo.process;
+package org.vivi.framework.ireport.demo.common.utils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import net.sf.jsqlparser.JSQLParserException;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -11,15 +10,13 @@ import org.vivi.framework.ireport.demo.common.constant.Constants;
 import org.vivi.framework.ireport.demo.common.enums.SQLDriverEnum;
 import org.vivi.framework.ireport.demo.common.exception.BizException;
 import org.vivi.framework.ireport.demo.common.mybatis.MybatisTemplateSqlExcutor;
-import org.vivi.framework.ireport.demo.common.utils.DateUtil;
-import org.vivi.framework.ireport.demo.common.utils.IocUtil;
 
 import java.sql.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class JdbcProcessor {
+public class JdbcUtils {
 
     private static SqlSession sqlSession;
 
