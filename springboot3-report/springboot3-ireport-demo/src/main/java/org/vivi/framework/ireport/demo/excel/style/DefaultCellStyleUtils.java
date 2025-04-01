@@ -5,7 +5,7 @@ import com.alibaba.excel.write.metadata.style.WriteFont;
 import com.alibaba.excel.write.style.HorizontalCellStyleStrategy;
 import org.apache.poi.ss.usermodel.*;
 
-public class CellStyleUtils {
+public class DefaultCellStyleUtils {
     public static HorizontalCellStyleStrategy getHorizontalCellStyleStrategy() {
         // 表头样式
         WriteCellStyle headWriteCellStyle = new WriteCellStyle();

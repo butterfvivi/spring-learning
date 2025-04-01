@@ -1,9 +1,7 @@
 package org.vivi.framework.ireport.demo.excel;
 
 import com.alibaba.excel.write.handler.WriteHandler;
-import com.google.common.collect.Lists;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,17 +9,14 @@ import org.vivi.framework.ireport.demo.excel.achieve.ExcelInvokeCore;
 import org.vivi.framework.ireport.demo.common.utils.IocUtil;
 import org.vivi.framework.ireport.demo.excel.config.IExportConfig;
 import org.vivi.framework.ireport.demo.excel.style.AdaptiveWidthStyleStrategy;
-import org.vivi.framework.ireport.demo.excel.style.CellStyleUtils;
-import org.vivi.framework.ireport.demo.model.report.ReportSetting;
+import org.vivi.framework.ireport.demo.excel.style.DefaultCellStyleUtils;
 import org.vivi.framework.ireport.demo.service.DataSetService;
-import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
 import org.vivi.framework.ireport.demo.web.request.IDynamicExportDto;
 import org.vivi.framework.ireport.demo.web.request.ITemplateExportDto;
 import org.vivi.framework.ireport.demo.web.request.ImportExcelDto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class IExcelInvoke {
@@ -62,7 +57,7 @@ public class IExcelInvoke {
         //配置自定义样式，自适应宽度
         List<WriteHandler> writeHandlers = new ArrayList<>();
         writeHandlers.add(new AdaptiveWidthStyleStrategy());
-        writeHandlers.add(CellStyleUtils.getHorizontalCellStyleStrategy());
+        writeHandlers.add(DefaultCellStyleUtils.getHorizontalCellStyleStrategy());
         //writeHandlers.add(new CustomCellWriteHandler());
         IExportConfig iExportConfig = new IExportConfig();
         iExportConfig.setWriteHandlers(writeHandlers);
