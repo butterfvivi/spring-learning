@@ -65,6 +65,7 @@
     <modules>
         <module>springboot3-ureport-demo</module>
         <module>springboot3-ureport-simple</module>
+        <module>springboot3-ureport-store</module>
     </modules>
 
     <dependencies>

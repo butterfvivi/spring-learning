@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Webpixels">
+    <title>报表工具</title>
+    <!-- Preloader -->
+    <style>
+        @keyframes hidePreloader {
+            0% {
+                width: 100%;
+                height: 100%;
+            }
+
+            100% {
+                width: 0;
+                height: 0;
+            }
+        }
+
+        body>div.preloader {
+            position: fixed;
+            background: white;
+            width: 100%;
+            height: 100%;
+            z-index: 1071;
+            opacity: 0;
+            transition: opacity .5s ease;
+            overflow: hidden;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body:not(.loaded)>div.preloader {
+            opacity: 1;
+        }
+
+        body:not(.loaded) {
+            overflow: hidden;
+        }
+
+        body.loaded>div.preloader {
+            animation: hidePreloader .5s linear .5s forwards;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            setTimeout(function() {
+                document.querySelector('body').classList.add('loaded');
+            }, 300);
+        });
+    </script>
+    <link th:href="@{/static/ureport-asserts/css/all.min.css}" rel="stylesheet" type="text/css" />
+
+    <!-- Quick CSS -->
+    <link th:href="@{/static/ureport-asserts/css/quick-website.css}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-cookies" data-backdrop="false" aria-labelledby="modal-cookies" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-aside left-4 right-4 bottom-4">
+        <div class="modal-content bg-dark-dark">
+            <div class="modal-body">
+                <!-- Text -->
+                <p class="text-sm text-white mb-3">
+                    We use cookies so that our themes work for you. By using our website, you agree to our use of cookies.
+                </p>
+                <!-- Buttons -->
+                <a href="pages/utility/terms.html" class="btn btn-sm btn-white" target="_blank">Learn more</a>
+                <button type="button" class="btn btn-sm btn-primary mr-2" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Main content -->
+<section>
+
+
+
+
+    <div class="row align-items-center justify-content-center min-vh-100">
+        <div class="col-1"></div>
+        <div class="col-4">
+            <div class="card shadow zindex-100">
+                <div class="card-body">
+                    <div style="margin-bottom: 18px !important;">
+                        <h6 class="h3">登录</h6>
+                        <p class="text-muted">登录到您的帐户</p>
+                    </div>
+                    <span class="clearfix"></span>
+                    <form action="<%=request.getContextPath()%>/login?method=login" method="post">
+                        <div class="form-group">
+                            <label class="form-control-label">用户名</label>
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i data-feather="user"></i></span>
+                                </div>
+                                <input type="text"  id="username" name="username" class="form-control" placeholder="用户名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <label class="form-control-label">密码</label>
+                                </div>
+
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i data-feather="key"></i></span>
+                                </div>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="密码">
+                            </div>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-block btn-primary btn-sm" onclick="login()">登录</button></div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-6 text-center">
+            <figure class="w-75">
+                <img class="img-fluid mw-md-120" th:src="@{/static/ureport-asserts/icons/login.svg}" alt="">
+            </figure>
+
+        </div>
+
+    </div>
+
+
+
+</section>
+<!-- Core JS  -->
+<script type="text/javascript" th:src="@{/static/ureport-asserts/venderjs/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/ureport-asserts/venderjs/bootstrap.bundle.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/ureport-asserts/venderjs/svg-injector.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/ureport-asserts/venderjs/feather.min.js}"></script>
+
+<!-- Quick JS -->
+<script type="text/javascript" th:src="@{/static/ureport-asserts/venderjs/quick-website.js}"></script>
+<!-- Feather Icons -->
+<script>
+    feather.replace({
+        'width': '1em',
+        'height': '1em'
+    })
+
+    var ctxPath  = [[@{/}]]
+
+    function login(){
+
+        let userName=$("#username").val()
+        let password=$("#password").val()
+
+
+        //url:/ureport_keep/usre/doLogin
+
+        $.ajax({
+            type:"get",
+            url:ctxPath+"user/doLogin",
+            data:{userName,password},
+            success:function (msg){
+
+                    if(msg=="登录成功"){
+
+                        window.location.href=ctxPath+"index"
+                    }else{
+                        alert(msg)
+
+                    }
+
+            }
+        })
+
+
+
+
+    }
+
+</script>
+</body>
+
+
+
+</html>
