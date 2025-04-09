@@ -1,6 +1,5 @@
-package org.vivi.framework.poi.demo;
+package org.vivi.framework.poi.demo.pivot;
 
-import org.apache.poi.ss.SpreadsheetVersion;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.AreaReference;
 import org.apache.poi.ss.util.CellReference;
@@ -56,4 +55,5 @@ public class PivotTableExample {
         }
         workbook.close();
     }
+
 }
