@@ -47,6 +47,7 @@
         <flyway.version>5.2.1</flyway.version>
         <httpclient.version>4.5.13</httpclient.version>
         <httpclient5.version>5.4.2</httpclient5.version>
+        <ojdbc10.version>19.26.0.0</ojdbc10.version>
     </properties>
 
     <dependencies>
@@ -61,15 +62,5 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
     </dependencies>
-
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
