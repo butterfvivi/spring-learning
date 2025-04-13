@@ -1,4 +1,4 @@
-package org.vivi.framework.ireport.demo.excel.style;
+package org.vivi.framework.ireport.demo.common.style;
 
 import com.alibaba.excel.enums.CellDataTypeEnum;
 import com.alibaba.excel.metadata.Head;
