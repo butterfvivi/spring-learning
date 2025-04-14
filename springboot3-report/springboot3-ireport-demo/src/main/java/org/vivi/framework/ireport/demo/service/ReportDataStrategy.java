@@ -12,7 +12,7 @@ public interface ReportDataStrategy {
     String type();
 
     /**
-     * 数据转换算法接口
+     * data transform
      */
     IDynamicExportDto transform(GenerateReportDto reportDto, IDynamicExportDto exportDto);
 }

@@ -1,1 +1,3 @@
-spring.application.name=springboot3-report-bigdata
+spring:
+  application:
+    name: springboot3-report-bigdata

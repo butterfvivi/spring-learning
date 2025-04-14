@@ -1,11 +1,11 @@
 package org.vivi.framework.report.bigdata;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.vivi.framework.report.bigdata.common.annotation.Header;
 import org.vivi.framework.report.bigdata.poi.model.Format;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**

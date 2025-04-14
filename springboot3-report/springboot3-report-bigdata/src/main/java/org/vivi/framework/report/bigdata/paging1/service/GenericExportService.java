@@ -9,9 +9,6 @@ public interface GenericExportService<T> {
 
     /**
      * 查询导出数据（自己定义连表查询）
-     *
-     * @param page
-     * @param vo
      * @return List<T>
      */
     List<T> selectExcelList(Page page, T vo);

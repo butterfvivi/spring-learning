@@ -24,9 +24,6 @@ import java.text.DecimalFormat;
 import java.text.ParsePosition;
 import java.util.Date;
 
-/**
- *
- */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CellValueUtils {
 

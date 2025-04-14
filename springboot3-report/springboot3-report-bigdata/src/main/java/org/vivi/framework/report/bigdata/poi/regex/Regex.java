@@ -5,7 +5,6 @@ import lombok.Getter;
 import java.util.regex.Pattern;
 
 /**
- * 功能 :
  * 正则表达式工具类
  */
 public enum Regex {

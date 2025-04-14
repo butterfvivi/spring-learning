@@ -44,15 +44,6 @@ public class ExportUtil<T> {
      */
     private ExportFunction<Page, List<T>> bf;
 
-//    /**
-//     * sheet名称
-//     */
-//    protected String sheetName;
-//    /**
-//     * 标题
-//     */
-//    protected String title;
-
     public ExportUtil(Class<T> clazz) {
         this.clazz = clazz;
     }

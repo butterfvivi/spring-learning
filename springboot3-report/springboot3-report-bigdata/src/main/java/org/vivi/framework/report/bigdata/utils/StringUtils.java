@@ -5,11 +5,6 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
-/**
- * 功能 :
- *
- * @author : Bruce(刘正航) 上午11:54 2018/1/19
- */
 public class StringUtils extends org.apache.commons.lang3.StringUtils{
 
     public static final String DEFAULT_SEPERATOR = ",";

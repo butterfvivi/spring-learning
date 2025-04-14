@@ -62,6 +62,8 @@
         <caffeine.version>3.2.0</caffeine.version>
         <groovy.version>5.0.0-alpha-12</groovy.version>
         <commons-beanutils.version>1.10.1</commons-beanutils.version>
+        <jakarta.validation.version>3.1.1</jakarta.validation.version>
+        <auto-service.version>1.1.1</auto-service.version>
     </properties>
 
     <modules>
