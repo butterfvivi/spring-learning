@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
-import org.vivi.framework.report.bigdata.core.kit.Excels;
-import org.vivi.framework.report.bigdata.entity.model.Version;
+import org.vivi.framework.report.bigdata.poi.kit.Excels;
+import org.vivi.framework.report.bigdata.poi.model.Version;
 import org.vivi.framework.report.bigdata.utils.JsonUtils;
 import org.vivi.framework.report.bigdata.utils.LogUtils;
 

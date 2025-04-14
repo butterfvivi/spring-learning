@@ -3,10 +3,11 @@ package org.vivi.framework.report.bigdata.utils.dp.strategy;
 import cn.hutool.core.lang.Assert;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.vivi.framework.report.bigdata.core.dp.strategy.XStrategy;
+import org.vivi.framework.report.bigdata.paging.dp.strategy.XStrategy;
 
-import static com.hoson.example.dp.Test1Strategy.X_STRATEGY_TYPE_TEST1;
-import static com.hoson.example.dp.Test2Strategy.X_STRATEGY_TYPE_TEST2;
+import static org.vivi.framework.report.bigdata.utils.dp.strategy.Test1Strategy.X_STRATEGY_TYPE_TEST1;
+import static org.vivi.framework.report.bigdata.utils.dp.strategy.Test2Strategy.X_STRATEGY_TYPE_TEST2;
+
 
 @Slf4j
 public class XStrategyTest {

@@ -3,8 +3,6 @@ package org.vivi.framework.report.bigdata.service;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.hoson.example.mapper.IBaseMapper;
-import org.apache.ibatis.session.ResultHandler;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.OutputStream;
@@ -91,7 +89,6 @@ public interface IBaseService<T> extends IService<T> {
     /**
      * 写入Excel（流式查询数据并写入）<br>
      * 注意：使用原生MyBatis查询，MyBatis-Plus相关特性不支持(如逻辑删除字段、下划线自动转驼峰等)
-     * @see IBaseMapper#listForFetch(String, Wrapper, ResultHandler)
      * @param outputStream 输出流
      * @param queryWrapper 查询条件
      */

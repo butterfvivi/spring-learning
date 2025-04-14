@@ -280,7 +280,7 @@ public class ClassUtils {
         } else if (fieldType.equals(BigDecimal.class)) {
             return new BigDecimal(value.toString());
         } else if (fieldType.equals(Date.class)) {
-            return DateUtils.format(DateUtils.create(((Date)value).getTime()),DateUtils.Parttern.FORMAT_YYMMDDHMS_MID);
+            //return DateUtils.format(DateUtils.create(((Date)value).getTime()),DateUtils.Parttern.FORMAT_YYMMDDHMS_MID);
         }
         return value;
     }

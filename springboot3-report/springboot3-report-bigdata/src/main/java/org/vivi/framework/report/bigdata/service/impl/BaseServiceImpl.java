@@ -22,7 +22,7 @@ import org.springframework.objenesis.instantiator.util.ClassUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.vivi.framework.report.bigdata.mapper.IBaseMapper;
 import org.vivi.framework.report.bigdata.service.IBaseService;
-import org.vivi.framework.report.bigdata.utils.excel.ExcelUtil;
+import org.vivi.framework.report.bigdata.paging.ExcelUtil;
 
 import java.io.OutputStream;
 import java.util.*;
@@ -33,7 +33,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.vivi.framework.report.bigdata.mapper.IBaseMapper.FETCH_SIZE;
-import static org.vivi.framework.report.bigdata.utils.excel.ExcelUtil.EXCEL_SHEET_ROW_MAX_SIZE;
+import static org.vivi.framework.report.bigdata.paging.ExcelUtil.EXCEL_SHEET_ROW_MAX_SIZE;
 
 
 /**

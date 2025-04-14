@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.report.bigdata.entity.Demo;
 import org.vivi.framework.report.bigdata.service.DemoService;
-import org.vivi.framework.report.bigdata.utils.excel.ExcelUtil;
+import org.vivi.framework.report.bigdata.paging.ExcelUtil;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;

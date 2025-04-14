@@ -2,7 +2,7 @@ package org.vivi.framework.report.bigdata.utils.dp.strategy;
 
 import com.google.auto.service.AutoService;
 import lombok.extern.slf4j.Slf4j;
-import org.vivi.framework.report.bigdata.core.dp.strategy.XStrategyInterface;
+import org.vivi.framework.report.bigdata.paging.dp.strategy.XStrategyInterface;
 
 @Slf4j
 @AutoService(XStrategyInterface.class)

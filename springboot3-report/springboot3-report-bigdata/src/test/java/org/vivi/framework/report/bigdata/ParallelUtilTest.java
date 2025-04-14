@@ -4,7 +4,7 @@ import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.vivi.framework.report.bigdata.core.paralle.ParallelUtil;
+import org.vivi.framework.report.bigdata.paging.paralle.ParallelUtil;
 
 import java.util.concurrent.atomic.AtomicLong;
 
