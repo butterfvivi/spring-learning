@@ -127,4 +127,39 @@ public class ReportController {
         }
     }
 
+    @PostMapping("/export3")
+    public void testExport3(HttpServletResponse response) {
+
+        long startTime = System.currentTimeMillis();
+        ExportBeanConfig exportBeanConfigDto = new ExportBeanConfig();
+        String countSql = "select count(*) from account where id  > 50000";
+
+        // String querySql = "SELECT id,account_number AS accountNumber,PASSWORD,client_id AS clientId FROM account $LIMIT_CYCLE_COUNT";
+        //String querySql = "SELECT id,account_number AS accountNumber,password,client_id as clientId FROM account " +
+        //        " where id >= (SELECT id FROM account   LIMIT $LIMIT_CYCLE_COUNT, 1 ) and id > 50000 LIMIT $LIMIT_COUNT";
+
+        String querySql = "SELECT id,account_number AS accountNumber,password,client_id as clientId FROM account " +
+                " where id >= (SELECT id FROM account   LIMIT $LIMIT_CYCLE_COUNT, 1 ) LIMIT $LIMIT_COUNT";
+        exportBeanConfigDto.setCountSql(countSql);
+        exportBeanConfigDto.setQuerySql(querySql);
+        exportBeanConfigDto.setLimitCount(30000);
+        exportBeanConfigDto.setSize(30000);
+        exportBeanConfigDto.setUseObjectModel(false);
+        exportBeanConfigDto.setUseParallelQuery(true);
+        exportBeanConfigDto.setT(new HashMap<>());
+
+        List list = new ArrayList();
+        try {
+
+            list = export.getExportList(exportBeanConfigDto);
+
+            writeExcelService.writeListMap2Excel(list,
+                    "E:\\IdeaProjects\\springboot3-learning\\springboot3-iexcel\\springboot3-excel-configure\\src\\main\\resources\\test1.xlsx",
+                    exportBeanConfigDto);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

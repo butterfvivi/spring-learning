@@ -1,4 +1,4 @@
-package org.vivi.framework.iexceltoolkit.mybatis.enums;
+package org.vivi.framework.iexceltoolkit.tool.mybatis.enums;
 
 public class Constant {
 

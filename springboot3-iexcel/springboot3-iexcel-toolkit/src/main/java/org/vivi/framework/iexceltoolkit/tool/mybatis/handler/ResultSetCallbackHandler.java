@@ -1,8 +1,8 @@
-package org.vivi.framework.iexceltoolkit.mybatis.handler;
+package org.vivi.framework.iexceltoolkit.tool.mybatis.handler;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
-import org.vivi.framework.iexceltoolkit.mybatis.enums.FieldTypeEnum;
+import org.vivi.framework.iexceltoolkit.tool.mybatis.enums.FieldTypeEnum;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

@@ -1,8 +1,8 @@
-package org.vivi.framework.iexceltoolkit.mybatis.service;
+package org.vivi.framework.iexceltoolkit.tool.service;
 
 
-import org.vivi.framework.iexceltoolkit.mybatis.entity.ExportBeanConfig;
-import org.vivi.framework.iexceltoolkit.mybatis.interfaces.IDAOAdapter;
+import org.vivi.framework.iexceltoolkit.tool.config.ExportBeanConfig;
+import org.vivi.framework.iexceltoolkit.tool.mybatis.interfaces.IDAOAdapter;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package org.vivi.framework.iexceltoolkit.mybatis.service;
+package org.vivi.framework.iexceltoolkit.tool.service;
 
 import org.apache.poi.ss.formula.functions.T;
-import org.vivi.framework.iexceltoolkit.mybatis.entity.ExportBeanConfig;
+import org.vivi.framework.iexceltoolkit.tool.config.ExportBeanConfig;
 
 import java.util.List;
 

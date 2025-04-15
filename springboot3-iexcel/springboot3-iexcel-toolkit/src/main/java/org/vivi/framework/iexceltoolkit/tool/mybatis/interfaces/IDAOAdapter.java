@@ -1,4 +1,4 @@
-package org.vivi.framework.iexceltoolkit.mybatis.interfaces;
+package org.vivi.framework.iexceltoolkit.tool.mybatis.interfaces;
 
 import java.util.List;
 import java.util.Map;

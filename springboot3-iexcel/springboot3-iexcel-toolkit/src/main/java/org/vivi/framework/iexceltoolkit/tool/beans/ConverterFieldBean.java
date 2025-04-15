@@ -1,4 +1,4 @@
-package org.vivi.framework.iexceltoolkit.mybatis.beans;
+package org.vivi.framework.iexceltoolkit.tool.beans;
 
 import java.util.Map;
 import java.util.Set;

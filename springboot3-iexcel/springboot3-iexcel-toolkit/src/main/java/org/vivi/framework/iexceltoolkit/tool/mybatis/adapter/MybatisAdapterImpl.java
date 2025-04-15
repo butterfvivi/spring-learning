@@ -1,12 +1,12 @@
-package org.vivi.framework.iexceltoolkit.mybatis.adapter;
+package org.vivi.framework.iexceltoolkit.tool.mybatis.adapter;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.vivi.framework.iexceltoolkit.common.utils.SpringContextUtil;
-import org.vivi.framework.iexceltoolkit.mybatis.handler.ResultSetCallbackHandler;
-import org.vivi.framework.iexceltoolkit.mybatis.interfaces.IDAOAdapter;
+import org.vivi.framework.iexceltoolkit.tool.mybatis.handler.ResultSetCallbackHandler;
+import org.vivi.framework.iexceltoolkit.tool.mybatis.interfaces.IDAOAdapter;
 import org.vivi.framework.iexceltoolkit.mapper.ISqlMapper;
 
 import java.util.List;

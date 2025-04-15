@@ -1,7 +1,7 @@
-package org.vivi.framework.iexceltoolkit.mybatis.entity;
+package org.vivi.framework.iexceltoolkit.tool.config;
 
 
-import org.vivi.framework.iexceltoolkit.mybatis.beans.ConverterFieldBean;
+import org.vivi.framework.iexceltoolkit.tool.beans.ConverterFieldBean;
 
 import java.util.Arrays;
 import java.util.List;
