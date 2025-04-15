@@ -2,10 +2,7 @@ package org.vivi.framework.report.bigdata.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultType;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.ResultSetType;
 import org.apache.ibatis.session.ResultHandler;
 
@@ -15,6 +12,7 @@ import java.util.Map;
 /**
  * 基础数据访问层接口
  */
+@Mapper
 public interface IBaseMapper<T> {
     int FETCH_SIZE = 10000;
 

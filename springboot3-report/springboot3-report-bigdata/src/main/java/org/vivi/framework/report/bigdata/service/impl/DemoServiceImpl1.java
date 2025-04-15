@@ -2,6 +2,7 @@ package org.vivi.framework.report.bigdata.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.stereotype.Service;
 import org.vivi.framework.report.bigdata.entity.Demo;
 import org.vivi.framework.report.bigdata.mapper.DemoMapper;
 import org.vivi.framework.report.bigdata.service.DemoService1;
@@ -9,6 +10,7 @@ import org.vivi.framework.report.bigdata.paging1.domain.Page;
 
 import java.util.List;
 
+@Service
 public class DemoServiceImpl1 extends ServiceImpl<DemoMapper, Demo> implements DemoService1 {
 
 

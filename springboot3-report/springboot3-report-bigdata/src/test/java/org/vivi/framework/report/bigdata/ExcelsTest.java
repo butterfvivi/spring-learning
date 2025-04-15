@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.vivi.framework.report.bigdata.poi.kit.Excels;
 import org.vivi.framework.report.bigdata.poi.model.Version;
 import org.vivi.framework.report.bigdata.utils.JsonUtils;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
+@SpringBootTest
 public class ExcelsTest {
 
     private List<Object> datas = Lists.newArrayList();
@@ -51,8 +53,8 @@ public class ExcelsTest {
         }
     }
 
-    @Test
     /**使用格式化类作为表头**/
+    @Test
     public void exportUseClass2() throws Exception {
         // 说明:导出的时候,不管data是List<Map>还是List<Class>,都能够用Class的方式导出
         FileOutputStream out = new FileOutputStream(System.getProperty("user.home")+"/Desktop/test5.xls");

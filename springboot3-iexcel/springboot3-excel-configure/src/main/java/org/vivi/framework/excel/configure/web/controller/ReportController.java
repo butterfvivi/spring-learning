@@ -64,12 +64,12 @@ public class ReportController {
         exportBeanConfigDto.setSize(30000);
         exportBeanConfigDto.setUseObjectModel(false);
         exportBeanConfigDto.setUseParallelQuery(true);
-        exportBeanConfigDto.setT(new Object());
+        exportBeanConfigDto.setT(new AccountEntity());
 
         List list = new ArrayList();
         try {
 
-            list = export.getExportList(exportBeanConfigDto);
+            list = commonExportService.getExportData(exportBeanConfigDto);
 
             List<List<String>> headData = new ArrayList<>();
             headData.add(List.of("id", "accountNumber", "password", "clientId")); // 默认表头
@@ -79,9 +79,9 @@ public class ReportController {
             response.setHeader("Content-disposition", "attachment; filename*=utf-8''" + "test2");
             OutputStream os = response.getOutputStream();
             EasyExcel.write(os)
-                    .registerConverter(new DemoMapBatchConverter())
+                    //.registerConverter(new DemoMapBatchConverter())
                     // 这里放入动态头
-                    .head(list)
+                    .head(headData)
                     .sheet("模板")
                     // 当然这里数据也可以用 List<List<String>> 去传入
                     .doWrite(list);
@@ -113,14 +113,15 @@ public class ReportController {
         exportBeanConfigDto.setUseParallelQuery(true);
         exportBeanConfigDto.setT(new AccountEntity());
 
+        List<String> heads = List.of("id", "accountNumber", "password", "clientId");
         List list = new ArrayList();
         try {
 
             list = export.getExportList(exportBeanConfigDto);
 
-            writeExcelService.writeListMap2Excel(list,
-                    "E:\\IdeaProjects\\springboot3-learning\\springboot3-iexcel\\springboot3-excel-configure\\src\\main\\resources\\test1.xlsx",
-                    exportBeanConfigDto);
+            writeExcelService.writeListMapExcel(list,
+                    "/Users/vivi/IdeaProjects/spring-learning/springboot3-iexcel/springboot3-excel-configure/src/main/resources/excel/test1.xlsx",
+                    heads,"Data List");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -153,9 +154,9 @@ public class ReportController {
 
             list = export.getExportList(exportBeanConfigDto);
 
-            writeExcelService.writeListMap2Excel(list,
-                    "E:\\IdeaProjects\\springboot3-learning\\springboot3-iexcel\\springboot3-excel-configure\\src\\main\\resources\\test1.xlsx",
-                    exportBeanConfigDto);
+//            writeExcelService.writeListMap2Excel(list,
+//                    "E:\\IdeaProjects\\springboot3-learning\\springboot3-iexcel\\springboot3-excel-configure\\src\\main\\resources\\test1.xlsx",
+//                    exportBeanConfigDto);
 
         } catch (Exception e) {
             e.printStackTrace();

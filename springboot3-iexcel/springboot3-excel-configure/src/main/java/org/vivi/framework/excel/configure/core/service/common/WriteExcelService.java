@@ -44,6 +44,46 @@ public class WriteExcelService {
      *
      * @param dataMapList
      * @param filePath
+     * @throws java.io.IOException
+     */
+    public <T> boolean writeListMapExcel(List<T> dataMapList, String filePath, List<String> heads,String sheetName) throws IOException {
+
+        long startTime = System.currentTimeMillis();
+        List<List<String>> resultList = new ArrayList<>();
+
+        //5.保存文件到filePath中
+        File file = new File(filePath);
+        file.createNewFile();
+        FileOutputStream stream = FileUtils.openOutputStream(file);
+        try {
+            List<List<String>> headsList = new ArrayList<>();
+            heads.forEach(t -> headsList.add(Arrays.asList(t)));
+
+            logger.info("sheetName = {}" , sheetName);
+            logger.info("dataMapList.size ={} ,head.size() = {},convertResultList = {} , row.size() = {}",dataMapList.size(),headsList.size(),resultList.size());
+
+            EasyExcel.write(filePath)
+                    // 这里放入动态头
+                    .head(headsList)
+                    .sheet(sheetName)
+                    // 当然这里数据也可以用 List<List<String>> 去传入
+                    .doWrite(dataMapList);
+        } catch (Exception e) {
+            logger.error("生成报表文件失败", e);
+            return false;
+        } finally {
+            stream.close();
+        }
+        long endTime = System.currentTimeMillis();
+        logger.info("generate excel use time:(endTime - startTime) = {}" , (endTime - startTime));
+        return true;
+    }
+
+    /**
+     * 将数据写入excel中，使用eazyexcel组件
+     *
+     * @param dataMapList
+     * @param filePath
      * @param dataReportBean
      * @return
      * @throws java.io.IOException
@@ -73,7 +113,8 @@ public class WriteExcelService {
 
             EasyExcel.write(filePath)
                     // 这里放入动态头
-                    .head(head).sheet(sheetName)
+                    .head(head)
+                    .sheet(sheetName)
                     // 当然这里数据也可以用 List<List<String>> 去传入
                     .doWrite(resultList);
         } catch (Exception e) {

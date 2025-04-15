@@ -1,9 +1,11 @@
 package org.vivi.framework.excel.configure.web.dto;
 
+import lombok.Data;
 import org.vivi.framework.excel.configure.base.annotations.ExportField;
 import org.vivi.framework.excel.configure.base.annotations.ExportTitle;
 
 @ExportTitle(title = "账号导出报表")
+@Data
 public class AccountEntity {
 
 
@@ -14,40 +16,9 @@ public class AccountEntity {
     private String accountNumber;
 
     @ExportField(index = 2,title = "账号密码")
-    private String PASSWORD;
+    private String password;
 
     @ExportField(index = 3,title = "客户端id")
     private long clientId;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public String getPASSWORD() {
-        return PASSWORD;
-    }
-
-    public void setPASSWORD(String PASSWORD) {
-        this.PASSWORD = PASSWORD;
-    }
-
-    public long getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(long clientId) {
-        this.clientId = clientId;
-    }
 }
