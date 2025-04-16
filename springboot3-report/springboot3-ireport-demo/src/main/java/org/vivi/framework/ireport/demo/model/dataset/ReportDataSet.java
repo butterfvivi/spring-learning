@@ -7,15 +7,15 @@ public class ReportDataSet {
 
     private Long id;
 
-    private String rpId;
+    private Integer rtId;
 
-    private String dynSentence;
+    private Integer sheetIndex;
 
-    private String setParam;
+    private String rtSql;
+
+    private String setParams;
 
     private boolean isPatination;
 
-    private Integer isCustomerPage = 2;
-
-    private String page_count;
+    private Integer dataType;
 }

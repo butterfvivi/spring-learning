@@ -7,27 +7,26 @@ import org.springframework.stereotype.Service;
 import org.vivi.framework.ireport.demo.common.enums.YesNoEnum;
 import org.vivi.framework.ireport.demo.common.utils.JdbcUtils;
 import org.vivi.framework.ireport.demo.mapper.ISqlMapper;
-import org.vivi.framework.ireport.demo.mapper.ReportSettingMapper;
+import org.vivi.framework.ireport.demo.mapper.ReportDataSetMapper;
 import org.vivi.framework.ireport.demo.model.PageEntity;
-import org.vivi.framework.ireport.demo.model.report.ReportSetting;
-import org.vivi.framework.ireport.demo.service.DataSetService;
+import org.vivi.framework.ireport.demo.model.dataset.ReportDataSet;
+import org.vivi.framework.ireport.demo.service.ReportDataSetService;
 import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class DataSetServiceImpl extends ServiceImpl<ReportSettingMapper, ReportSetting> implements DataSetService {
+public class ReportReportDataSetServiceImpl extends ServiceImpl<ReportDataSetMapper, ReportDataSet> implements ReportDataSetService {
 
     @Autowired
     private ISqlMapper sqlMapper;
 
     public PageEntity getDatas(GenerateReportDto reportDto) {
         //get report config info
-        ReportSetting reportSetting = this.getById(reportDto.getId());
+        ReportDataSet reportDataSet = this.getById(reportDto.getId());
         //get param sql
-        String sql = reportSetting.getDynSentence();
+        String sql = reportDataSet.getRtSql();
         //get count sql
         String countSql = JdbcUtils.getCountSql(sql);
         Map<String, Object> searchInfo  = reportDto.getSearchData();
@@ -86,9 +85,9 @@ public class DataSetServiceImpl extends ServiceImpl<ReportSettingMapper, ReportS
 
     public List<Map<String, Object>>  getAllData(GenerateReportDto reportDto) {
         //get report config info
-        ReportSetting reportSetting = this.getById(reportDto.getId());
+        ReportDataSet reportDataSet = this.getById(reportDto.getId());
         //get param sql
-        String sql = reportSetting.getDynSentence();
+        String sql = reportDataSet.getRtSql();
         //get count sql
         Map<String, Object> searchInfo  = reportDto.getSearchData();
 
@@ -99,11 +98,12 @@ public class DataSetServiceImpl extends ServiceImpl<ReportSettingMapper, ReportS
 
     public List<Map<String, Object>> getColumnInfos(GenerateReportDto reportDto) {
         //get report config info
-        ReportSetting reportSetting = this.getById(reportDto.getId());
+        ReportDataSet reportDataSet = this.getById(reportDto.getId());
         //get param sql
-        String sql = reportSetting.getDynSentence();
+        String sql = reportDataSet.getRtSql();
         Map<String, Object> params  = reportDto.getSearchData();;
         List<Map<String, Object>> dataSetColumns = JdbcUtils.parseMetaDataColumns( sql,1,null);
         return dataSetColumns;
     }
+
 }

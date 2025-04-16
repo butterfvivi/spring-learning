@@ -10,7 +10,7 @@ import org.vivi.framework.ireport.demo.common.utils.IocUtil;
 import org.vivi.framework.ireport.demo.excel.config.IExportConfig;
 import org.vivi.framework.ireport.demo.common.style.AdaptiveWidthStyleStrategy;
 import org.vivi.framework.ireport.demo.common.style.DefaultCellStyleUtils;
-import org.vivi.framework.ireport.demo.service.DataSetService;
+import org.vivi.framework.ireport.demo.service.ReportDataSetService;
 import org.vivi.framework.ireport.demo.web.request.IDynamicExportDto;
 import org.vivi.framework.ireport.demo.web.request.ITemplateExportDto;
 import org.vivi.framework.ireport.demo.web.request.ImportExcelDto;
@@ -22,9 +22,10 @@ import java.util.List;
 public class IExcelInvoke {
 
     @Autowired
-    private DataSetService dataSetService;
+    private ReportDataSetService reportDataSetService;
 
     private static ExcelInvokeCore ExcelInvokeCore = IocUtil.getBean(ExcelInvokeCore.class);
+
 
     /**
      * 导入数据解析，要求必须有一个实体类，目的是为了便于后期人员维护，和解析数据方便
@@ -64,6 +65,8 @@ public class IExcelInvoke {
         //BeanUtils.copyProperties(req.getConfig(), iExportConfig);
 
         req.setConfig(iExportConfig);
+
+
         ExcelInvokeCore.dynamicExport(response, req);
     }
 

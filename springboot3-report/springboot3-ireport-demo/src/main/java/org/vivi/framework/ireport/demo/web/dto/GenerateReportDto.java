@@ -2,13 +2,12 @@ package org.vivi.framework.ireport.demo.web.dto;
 
 import lombok.Data;
 
-import java.util.List;
 import java.util.Map;
 
 @Data
 public class GenerateReportDto {
 
-    private Long id;
+    private Long rtId;
 
     /**
      * 动态参数

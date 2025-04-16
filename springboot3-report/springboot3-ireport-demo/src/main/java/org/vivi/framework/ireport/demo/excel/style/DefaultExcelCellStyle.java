@@ -3,6 +3,8 @@ package org.vivi.framework.ireport.demo.excel.style;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.vivi.framework.ireport.demo.excel.style.align.DefaultExcelAlign;
 import org.vivi.framework.ireport.demo.excel.style.align.ExcelAlign;
+import org.vivi.framework.ireport.demo.excel.style.border.DefaultExcelBorders;
+import org.vivi.framework.ireport.demo.excel.style.border.ExcelBorderStyle;
 import org.vivi.framework.ireport.demo.excel.style.color.DefaultExcelColor;
 import org.vivi.framework.ireport.demo.excel.style.color.ExcelColor;
 

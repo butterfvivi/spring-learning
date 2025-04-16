@@ -2,11 +2,13 @@ package org.vivi.framework.ireport.demo.excel.achieve;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.ireport.demo.common.annotation.IToolKit;
 import org.vivi.framework.ireport.demo.common.config.ICache;
 import org.vivi.framework.ireport.demo.common.annotation.IExcelRewrite;
+import org.vivi.framework.ireport.demo.service.ReportDataStrategy;
 import org.vivi.framework.ireport.demo.web.request.IDynamicExportDto;
 import org.vivi.framework.ireport.demo.excel.config.IExportConfig;
 import org.vivi.framework.ireport.demo.web.request.ITemplateExportDto;
@@ -44,8 +46,13 @@ public class ExcelInvokeCore {
      */
     private static Map<String, Class<?>> importCache = ICache.excelImportCache;
 
+    @Autowired
+    private ReportDataStrategy reportDataStrategy;
+
     @IToolKit
-    public void dynamicExport(HttpServletResponse response, IDynamicExportDto dto) throws Exception {
+    public void dynamicExport(HttpServletResponse response, IDynamicExportDto exportDto) throws Exception {
+        IDynamicExportDto dto = reportDataStrategy.transform(exportDto.getReportDto(), exportDto);
+
         List dataList = dto.getDataList();
         if (dataList == null) dataList = new ArrayList();
 
