@@ -1,11 +1,16 @@
 server:
   port: 8080
+
 spring:
   application:
     name: springboot3-report-bigdata
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.31.220:3306/springboot3_demo
+    url: jdbc:mysql://127.0.0.1:3306/ireport
     username: root
     password: wtf0010.
 #mybatis-plus:

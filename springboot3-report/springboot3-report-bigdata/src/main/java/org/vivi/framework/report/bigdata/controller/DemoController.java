@@ -2,29 +2,34 @@ package org.vivi.framework.report.bigdata.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.vivi.framework.report.bigdata.entity.Cinfo;
 import org.vivi.framework.report.bigdata.entity.Demo;
-import org.vivi.framework.report.bigdata.service.DemoService;
 import org.vivi.framework.report.bigdata.paging.ExcelUtil;
+import org.vivi.framework.report.bigdata.service.CinfoService;
+import org.vivi.framework.report.bigdata.service.DemoService;
 
 import java.io.IOException;
-import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import static cn.hutool.core.util.StrUtil.uuid;
 import static org.vivi.framework.report.bigdata.utils.HttpResponseUtil.excelOutput;
 
 @Slf4j
 @RestController
+@RequestMapping("/demo")
 public class DemoController {
     @Resource
     private DemoService demoService;
+
+    @Resource
+    private CinfoService cinfoService;
 
     /**
      * 导出Excel(先查后写)，<br>
@@ -95,5 +100,35 @@ public class DemoController {
     @PostMapping("/importExcel")
     public void importExcel(@RequestParam("file") MultipartFile multipartFile) throws IOException {
         ExcelUtil.read(multipartFile.getInputStream(), Demo.class, demoService::saveBatch).sheet().doRead();
+    }
+
+    @PostMapping("/batchInsert")
+    public void batchInsert() throws IOException {
+        List<Cinfo> datas = Lists.newArrayList();
+        for ( int i = 0; i< 50000; i++ ) {
+            Cinfo data = new Cinfo();
+            data.setC1(uuid());
+            data.setC2(uuid());
+            data.setC3(uuid());
+            data.setC4(uuid());
+            data.setC5(uuid());
+            data.setC6(uuid());
+            data.setC7(uuid());
+            data.setC8(uuid());
+            data.setC9(uuid());
+            data.setC10(uuid());
+            data.setC11(uuid());
+            data.setC12(uuid());
+            data.setC13(uuid());
+            data.setC14(uuid());
+            data.setC15(uuid());
+            data.setC16(uuid());
+            data.setC17(uuid());
+            data.setC18(uuid());
+            data.setC19(uuid());
+            data.setC20(uuid());
+            datas.add(data);
+        }
+        cinfoService.saveBatch(datas);
     }
 }
