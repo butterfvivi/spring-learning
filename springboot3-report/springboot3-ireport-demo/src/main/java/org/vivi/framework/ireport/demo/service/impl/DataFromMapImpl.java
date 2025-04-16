@@ -34,7 +34,7 @@ public class DataFromMapImpl implements ReportDataStrategy {
         req.setDataList(allData);
 
         //get headList
-        ReportSheetSetting dataset = reportSheetSettingService.getById(reportDto.getId());
+        ReportSheetSetting dataset = reportSheetSettingService.getById(reportDto.getRtId());
         String headers = dataset.getDynHeader();
         List<String> headerList = Lists.newArrayList(headers.split(","));
         req.setHeadList(headerList);
