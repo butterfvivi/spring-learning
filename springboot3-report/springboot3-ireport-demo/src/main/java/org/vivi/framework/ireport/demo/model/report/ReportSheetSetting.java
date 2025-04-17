@@ -7,7 +7,7 @@ public class ReportSheetSetting {
 
     private Long id;
 
-    private Long setId;
+    private Long rtId;
 
     private String sheetName;
 
