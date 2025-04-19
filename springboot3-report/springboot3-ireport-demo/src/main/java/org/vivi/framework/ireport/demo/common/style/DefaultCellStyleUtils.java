@@ -22,7 +22,7 @@ public class DefaultCellStyleUtils {
         headWriteFont.setBold(false);
         headWriteFont.setFontName("Arial");
         headWriteFont.setColor(IndexedColors.WHITE.getIndex());
-        headWriteFont.setFontHeightInPoints((short) 11);
+        headWriteFont.setFontHeightInPoints((short) 12);
         headWriteCellStyle.setWriteFont(headWriteFont);
 
         // 内容样式
@@ -38,7 +38,7 @@ public class DefaultCellStyleUtils {
         contentWriteCellStyle.setWrapped(true);
 
         WriteFont contentWriteFont = new WriteFont();
-        contentWriteFont.setFontHeightInPoints((short) 9);
+        contentWriteFont.setFontHeightInPoints((short) 10);
         contentWriteFont.setFontName("Arial");
         contentWriteCellStyle.setWriteFont(contentWriteFont);
 

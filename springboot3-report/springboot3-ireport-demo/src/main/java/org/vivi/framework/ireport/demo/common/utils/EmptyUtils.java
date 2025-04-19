@@ -10,6 +10,14 @@ public class EmptyUtils {
         return cs == null ? 0 : cs.length();
     }
 
+
+    /**
+     * 字符串不为空判断
+     */
+
+    public static boolean isNotEmpty(CharSequence cs) {
+        return !isEmpty(cs);
+    }
     /**
      * judge whether the string is empty
      * @param cs

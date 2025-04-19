@@ -24,7 +24,7 @@ public class ReportReportDataSetServiceImpl extends ServiceImpl<ReportDataSetMap
 
     public PageEntity getDatas(GenerateReportDto reportDto) {
         //get report config info
-        ReportDataSet reportDataSet = this.getById(reportDto.getRtId());
+        ReportDataSet reportDataSet = this.getById(reportDto.getId());
         //get param sql
         String sql = reportDataSet.getRtSql();
         //get count sql
@@ -85,7 +85,7 @@ public class ReportReportDataSetServiceImpl extends ServiceImpl<ReportDataSetMap
 
     public List<Map<String, Object>>  getAllData(GenerateReportDto reportDto) {
         //get report config info
-        ReportDataSet reportDataSet = this.getById(reportDto.getRtId());
+        ReportDataSet reportDataSet = this.getById(reportDto.getId());
         //get param sql
         String sql = reportDataSet.getRtSql();
         //get count sql
@@ -98,7 +98,7 @@ public class ReportReportDataSetServiceImpl extends ServiceImpl<ReportDataSetMap
 
     public List<Map<String, Object>> getColumnInfos(GenerateReportDto reportDto) {
         //get report config info
-        ReportDataSet reportDataSet = this.getById(reportDto.getRtId());
+        ReportDataSet reportDataSet = this.getById(reportDto.getId());
         //get param sql
         String sql = reportDataSet.getRtSql();
         Map<String, Object> params  = reportDto.getSearchData();;

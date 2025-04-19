@@ -12,11 +12,12 @@ import com.alibaba.excel.write.metadata.fill.FillWrapper;
 import com.alibaba.fastjson.JSON;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.collections4.MapUtils;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.ireport.demo.common.constant.Constants;
 import org.vivi.framework.ireport.demo.excel.achieve.FileUtilsCore;
-import org.vivi.framework.ireport.demo.excel.config.IExportConfig;
 import org.vivi.framework.ireport.demo.excel.cell.IHandleCell;
+import org.vivi.framework.ireport.demo.excel.config.IExportConfig;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +26,7 @@ import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
+@Service
 public class IExcelUtils {
 
     private static final String RESOURCE_TEMPLATE = Constants.iExcelPath;
@@ -38,7 +40,7 @@ public class IExcelUtils {
      * @param data     data list,dynamic column data
      * @param config   configuration
      */
-    public static <T> void writerDynamicToWeb(HttpServletResponse response, List<String> heads, List<T> data, IExportConfig config) throws IOException {
+    public static <T> void writerDynamicToWeb(HttpServletResponse response, List<String> heads, List<T> data, IExportConfig config) throws Exception {
         writerDynamicToWebUtil(response, heads, data, config);
     }
 
@@ -71,7 +73,7 @@ public class IExcelUtils {
     /**
      * 处理逻辑
      **/
-    private static <T> void writerDynamicToWebUtil(HttpServletResponse response, List<String> heads, List<T> data, IExportConfig config) throws IOException {
+    private static <T> void writerDynamicToWebUtil(HttpServletResponse response, List<String> heads, List<T> data, IExportConfig config) throws Exception {
         setResponse(response);
         ExcelWriterBuilder write = null;
         try {
@@ -79,6 +81,7 @@ public class IExcelUtils {
             heads.forEach(t -> headsList.add(Arrays.asList(t)));
             write = EasyExcel.write(response.getOutputStream());
             addWriteHandle(config, write);
+
             write.head(headsList).sheet("sheet1").doWrite(handleDynamicData(data));
         } catch (IOException e) {
             resetResponse(response, e.getMessage());
@@ -215,6 +218,7 @@ public class IExcelUtils {
         read.sheet().headRowNumber(headRowNumber).doRead();
         return result;
     }
+
 
     /**
      * set response header

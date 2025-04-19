@@ -7,7 +7,7 @@ import java.util.Map;
 @Data
 public class GenerateReportDto {
 
-    private Long rtId;
+    private Long id;
 
     /**
      * 动态参数

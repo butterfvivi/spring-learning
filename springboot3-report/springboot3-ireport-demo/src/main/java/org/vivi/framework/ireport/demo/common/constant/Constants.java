@@ -1,5 +1,6 @@
 package org.vivi.framework.ireport.demo.common.constant;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -29,4 +30,9 @@ public class Constants {
      * ORACLE_END : oracle查询一条数据后半部分
      */
     public static final String ORACLE_END = ") WHERE ROWNUM = 1";
+
+    @Value("/static/template/")
+    public void setIExcelPath(String excelPath) {
+        this.iExcelPath = excelPath;
+    }
 }

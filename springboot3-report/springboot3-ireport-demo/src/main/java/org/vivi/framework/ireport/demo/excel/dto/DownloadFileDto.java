@@ -1,11 +1,10 @@
-package org.vivi.framework.ireport.demo.excel.config;
+package org.vivi.framework.ireport.demo.excel.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class DownloadFileDto {
 
@@ -23,4 +22,16 @@ public class DownloadFileDto {
 
     //0-url , 1-相对路径 , 2-绝对路径
     private String pathType;
+
+    public DownloadFileDto(String name, String suffix) {
+        this.suffix = suffix;
+        this.name = name;
+    }
+
+    public DownloadFileDto(String path, String pathType,String suffix, String name) {
+        this.path = path;
+        this.suffix = suffix;
+        this.name = name;
+        this.pathType = pathType;
+    }
 }

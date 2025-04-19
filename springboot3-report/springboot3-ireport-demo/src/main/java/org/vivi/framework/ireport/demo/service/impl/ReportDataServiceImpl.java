@@ -35,7 +35,7 @@ public class ReportDataServiceImpl {
             return exportDto;
         }
 
-        Report report = reportMapper.selectById(reportDto.getRtId());
+        Report report = reportMapper.selectById(reportDto.getId());
         return getTarget(report.getRtStrategy()).transform(reportDto, exportDto);
     }
 }

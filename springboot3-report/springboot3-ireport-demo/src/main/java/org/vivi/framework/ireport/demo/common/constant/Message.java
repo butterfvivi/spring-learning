@@ -23,4 +23,11 @@ public class Message {
     public static final String NO_SUFFIX = "please specify the file suffix";
 
     public static final String NO_FILE = "File not found!";
+
+
+    public static final String NO_FILE_LIST = "无文件，无法进行打包下载！";
+
+    public static final String NO_FILE_LIST_SUFFIX = "打包下载，需要定义好每个文件的后缀！";
+
+    public static final String NO_ANALYSIS_TYPE = "解析.zip压缩包中的文件内容，需要指定解析文件格式，多个文件以逗号拼接，例如：json,txt,xml";
 }
