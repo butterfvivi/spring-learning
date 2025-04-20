@@ -55,7 +55,7 @@ public class ExportUtil<T> {
         try {
             //记录总数:实际中需要根据查询条件进行统计即可
 
-            out = new FileOutputStream("G:/dd.xlsx");
+            out = new FileOutputStream("/Users/vivi/IdeaProjects/spring-learning/springboot3-report/springboot3-report-bigdata/src/main/resources/excel/dd.xlsx");
 //            Integer totalCount = 1000005;
             Long totalCount = bf.getCount();
             //每一个Sheet存放100w条数据
