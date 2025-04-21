@@ -1,11 +1,11 @@
-package org.vivi.framework.ireport.demo.service.impl;
+package org.vivi.framework.ireport.demo.service.strategy;
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.vivi.framework.ireport.demo.model.report.ReportSheetSetting;
 import org.vivi.framework.ireport.demo.service.ReportDataSetService;
-import org.vivi.framework.ireport.demo.service.ReportDataStrategy;
+import org.vivi.framework.ireport.demo.service.IReportDataStrategy;
 import org.vivi.framework.ireport.demo.service.ReportSheetSettingService;
 import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
 import org.vivi.framework.ireport.demo.web.request.IDynamicExportDto;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class DataFromMapImpl implements ReportDataStrategy {
+public class DataFromMapStrategyI implements IReportDataStrategy {
 
     @Autowired
     private ReportDataSetService reportDataSetService;
@@ -22,13 +22,15 @@ public class DataFromMapImpl implements ReportDataStrategy {
     @Autowired
     private ReportSheetSettingService  reportSheetSettingService;
 
+    public static final String X_STRATEGY_TYPE_TEST2 = "dataMap";
     @Override
     public String type() {
-        return "dataMap";
+        return X_STRATEGY_TYPE_TEST2;
     }
 
     @Override
-    public IDynamicExportDto transform(GenerateReportDto reportDto, IDynamicExportDto req) {
+    public IDynamicExportDto transform(IDynamicExportDto req) {
+        GenerateReportDto reportDto = req.getReportDto();
         //get dataList
         List<Map<String, Object>> allData = reportDataSetService.getAllData(reportDto);
         req.setDataList(allData);

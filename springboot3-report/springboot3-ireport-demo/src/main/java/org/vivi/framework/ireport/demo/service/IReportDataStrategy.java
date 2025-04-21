@@ -1,8 +1,9 @@
 package org.vivi.framework.ireport.demo.service;
 
+
 import org.vivi.framework.ireport.demo.web.request.IDynamicExportDto;
 
-public interface ReportStyleStrategy {
+public interface IReportDataStrategy {
 
     /**
      * 类型
@@ -10,7 +11,7 @@ public interface ReportStyleStrategy {
     String type();
 
     /**
-     * report set cell style
+     * data transform
      */
-    void setStyle( IDynamicExportDto exportDto);
+    IDynamicExportDto transform(IDynamicExportDto req);
 }

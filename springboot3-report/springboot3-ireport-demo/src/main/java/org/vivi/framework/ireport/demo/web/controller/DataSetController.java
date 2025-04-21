@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.vivi.framework.ireport.demo.common.response.R;
 import org.vivi.framework.ireport.demo.service.ReportDataSetService;
-import org.vivi.framework.ireport.demo.service.ReportDataStrategy;
+import org.vivi.framework.ireport.demo.service.IReportDataStrategy;
 import org.vivi.framework.ireport.demo.service.ReportSheetSettingService;
 import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
 
@@ -19,7 +19,7 @@ public class DataSetController {
     private ReportDataSetService reportDataSetService;
 
     @Autowired
-    private ReportDataStrategy reportDataStrategy;
+    private IReportDataStrategy IReportDataStrategy;
 
     @Autowired
     private ReportSheetSettingService reportSheetSettingService;

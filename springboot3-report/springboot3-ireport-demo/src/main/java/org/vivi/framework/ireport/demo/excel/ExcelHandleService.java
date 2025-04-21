@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import org.vivi.framework.ireport.demo.common.annotation.IExcelRewrite;
 import org.vivi.framework.ireport.demo.common.exception.BizException;
-import org.vivi.framework.ireport.demo.service.ReportDataStrategy;
+import org.vivi.framework.ireport.demo.service.IReportDataStrategy;
 
 
 import java.util.HashMap;
@@ -21,14 +21,14 @@ import java.util.Map;
 @Service(value = "excelHandleService")
 public class ExcelHandleService implements InitializingBean, ApplicationContextAware {
 
-    private Map<String, ReportDataStrategy> queryServiceImplMap = new HashMap<>();
+    private Map<String, IReportDataStrategy> queryServiceImplMap = new HashMap<>();
     private ApplicationContext applicationContext;
 
     @Override
     public void afterPropertiesSet() {
-        Map<String, ReportDataStrategy> beanMap = applicationContext.getBeansOfType(ReportDataStrategy.class);
+        Map<String, IReportDataStrategy> beanMap = applicationContext.getBeansOfType(IReportDataStrategy.class);
         //遍历该接口的所有实现，将其放入map中
-        for (ReportDataStrategy serviceImpl : beanMap.values()) {
+        for (IReportDataStrategy serviceImpl : beanMap.values()) {
             queryServiceImplMap.put(serviceImpl.type(), serviceImpl);
         }
     }
@@ -38,7 +38,7 @@ public class ExcelHandleService implements InitializingBean, ApplicationContextA
         this.applicationContext = applicationContext;
     }
 
-    public ReportDataStrategy getTarget(String type) {
+    public IReportDataStrategy getTarget(String type) {
         for (String s : queryServiceImplMap.keySet()) {
             if (s.contains(type)) {
                 return queryServiceImplMap.get(s);
