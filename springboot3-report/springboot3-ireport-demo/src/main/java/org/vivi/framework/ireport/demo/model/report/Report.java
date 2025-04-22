@@ -7,21 +7,21 @@ public class Report {
 
     private Long id;
 
-    private String rtName;
+    private String reportName;
 
-    private Integer rtType;
+    private Integer reportType;
 
-    private String rtStrategy;
+    private String reportService;
 
     private String templateSet;
 
-    private String rtGroup;
+    private String reportGroup;
 
     private Integer groupOrder;
 
     private String groupName;
 
-    private Integer rtOrder;
+    private Integer reportOrder;
 
-    private String rtDesc;
+    private String reportDesc;
 }

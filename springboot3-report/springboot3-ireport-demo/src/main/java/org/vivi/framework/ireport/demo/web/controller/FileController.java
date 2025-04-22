@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.vivi.framework.ireport.demo.common.utils.FileUtils;
-import org.vivi.framework.ireport.demo.excel.dto.AnalysisZipFileDataDto;
-import org.vivi.framework.ireport.demo.excel.dto.DownloadFileDto;
-import org.vivi.framework.ireport.demo.excel.dto.DownloadFileZipDto;
+import org.vivi.framework.ireport.demo.report.dto.AnalysisZipFileDataDto;
+import org.vivi.framework.ireport.demo.report.dto.DownloadFileDto;
+import org.vivi.framework.ireport.demo.report.dto.DownloadFileZipDto;
 
 import java.util.Map;
 

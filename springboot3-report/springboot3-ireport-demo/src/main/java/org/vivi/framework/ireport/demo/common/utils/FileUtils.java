@@ -1,10 +1,10 @@
 package org.vivi.framework.ireport.demo.common.utils;
 
 import jakarta.servlet.http.HttpServletResponse;
-import org.vivi.framework.ireport.demo.excel.achieve.FileUtilsCore;
-import org.vivi.framework.ireport.demo.excel.dto.AnalysisZipFileDataDto;
-import org.vivi.framework.ireport.demo.excel.dto.DownloadFileDto;
-import org.vivi.framework.ireport.demo.excel.dto.DownloadFileZipDto;
+import org.vivi.framework.ireport.demo.report.achieve.FileUtilsCore;
+import org.vivi.framework.ireport.demo.report.dto.AnalysisZipFileDataDto;
+import org.vivi.framework.ireport.demo.report.dto.DownloadFileDto;
+import org.vivi.framework.ireport.demo.report.dto.DownloadFileZipDto;
 
 import java.io.File;
 import java.io.IOException;

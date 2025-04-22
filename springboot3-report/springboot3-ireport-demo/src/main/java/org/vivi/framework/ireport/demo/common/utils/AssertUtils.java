@@ -2,7 +2,7 @@ package org.vivi.framework.ireport.demo.common.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.vivi.framework.ireport.demo.excel.inter.IAssert;
+import org.vivi.framework.ireport.demo.report.inter.IAssert;
 
 /**
  * 断言, 简化判空操作。

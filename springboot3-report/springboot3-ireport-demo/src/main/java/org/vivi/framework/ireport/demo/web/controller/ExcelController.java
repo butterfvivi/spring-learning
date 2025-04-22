@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.vivi.framework.ireport.demo.excel.IExcelInvoke;
+import org.vivi.framework.ireport.demo.report.IExcelInvoke;
 import org.vivi.framework.ireport.demo.common.utils.AssertUtils;
 import org.vivi.framework.ireport.demo.web.request.IDynamicExportDto;
 import org.vivi.framework.ireport.demo.web.request.ITemplateExportDto;

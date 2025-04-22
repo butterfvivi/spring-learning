@@ -1,7 +1,7 @@
 package org.vivi.framework.ireport.demo.web.request;
 
 import lombok.Data;
-import org.vivi.framework.ireport.demo.excel.config.IExportConfig;
+import org.vivi.framework.ireport.demo.report.config.IExportConfig;
 import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
 
 import java.util.List;

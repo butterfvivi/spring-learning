@@ -3,9 +3,9 @@ package org.vivi.framework.ireport.demo.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.vivi.framework.ireport.demo.common.response.R;
-import org.vivi.framework.ireport.demo.service.ReportDataSetService;
-import org.vivi.framework.ireport.demo.service.IReportDataStrategy;
-import org.vivi.framework.ireport.demo.service.ReportSheetSettingService;
+import org.vivi.framework.ireport.demo.service.dataset.DataSetService;
+import org.vivi.framework.ireport.demo.modules.IReportDataStrategy;
+import org.vivi.framework.ireport.demo.service.reportsheet.ReportSheetSettingService;
 import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
 
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import java.util.Map;
 public class DataSetController {
 
     @Autowired
-    private ReportDataSetService reportDataSetService;
+    private DataSetService dataSetService;
 
     @Autowired
     private IReportDataStrategy IReportDataStrategy;
@@ -35,17 +35,17 @@ public class DataSetController {
         Map<String, Object> params = new HashMap<>();
         params.put("gender","1");
 
-        return R.success(reportDataSetService.getDatas(reportDto));
+        return R.success(dataSetService.getDatas(reportDto));
     }
 
     @PostMapping("/allData")
     public R getAllData(@RequestBody GenerateReportDto reportDto){
-        return R.success(reportDataSetService.getAllData(reportDto));
+        return R.success(dataSetService.getAllData(reportDto));
     }
 
     @PostMapping("/column")
     public R getColumnInfos(@RequestBody GenerateReportDto reportDto){
-        return R.success(reportDataSetService.getColumnInfos(reportDto));
+        return R.success(dataSetService.getColumnInfos(reportDto));
     }
 
     @GetMapping("/headers")
