@@ -20,4 +20,9 @@ public class ReportSheetSettingServiceImpl extends ServiceImpl<ReportSheetSettin
         List<String> headerList = Lists.newArrayList(headers.split(","));
         return headerList;
     }
+
+    @Override
+    public List<ReportSheetSetting> getAllSheetSetting(Long reportIds) {
+        return this.lambdaQuery().eq(ReportSheetSetting::getRtId, reportIds).list();
+    }
 }

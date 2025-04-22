@@ -8,4 +8,6 @@ import java.util.List;
 public interface ReportSheetSettingService  extends IService<ReportSheetSetting> {
 
     List<String> getHeaders(Integer id);
+
+    List<ReportSheetSetting> getAllSheetSetting(Long reportIds);
 }

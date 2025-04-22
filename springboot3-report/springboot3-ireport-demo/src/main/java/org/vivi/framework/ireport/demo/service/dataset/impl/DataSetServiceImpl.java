@@ -22,6 +22,11 @@ public class DataSetServiceImpl extends ServiceImpl<ReportDataSetMapper, ReportD
     @Autowired
     private ISqlMapper sqlMapper;
 
+    @Override
+    public List<ReportDataSet> getAllReportDatas(Long reportId) {
+        return this.list(lambdaQuery().eq(ReportDataSet::getRtId, reportId));
+    }
+
     public PageEntity getDatas(GenerateReportDto reportDto) {
         //get report config info
         ReportDataSet reportDataSet = this.getById(reportDto.getId());

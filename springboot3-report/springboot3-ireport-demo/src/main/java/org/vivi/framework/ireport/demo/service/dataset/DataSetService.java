@@ -10,6 +10,8 @@ import java.util.Map;
 
 public interface DataSetService extends IService<ReportDataSet> {
 
+    List<ReportDataSet> getAllReportDatas(Long reportId);
+
     PageEntity getDatas(GenerateReportDto reportDto);
 
     List<Map<String, Object>> getAllData(GenerateReportDto reportDto);
