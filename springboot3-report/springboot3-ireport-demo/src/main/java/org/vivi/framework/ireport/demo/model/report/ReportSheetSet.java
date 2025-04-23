@@ -3,7 +3,7 @@ package org.vivi.framework.ireport.demo.model.report;
 import lombok.Data;
 
 @Data
-public class ReportSheetSetting {
+public class ReportSheetSet {
 
     private Long id;
 

@@ -1,4 +1,4 @@
-package org.vivi.framework.ireport.demo.service.reportset.dto;
+package org.vivi.framework.ireport.demo.service.report.dto;
 
 
 import lombok.Data;

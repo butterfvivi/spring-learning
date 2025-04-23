@@ -1,4 +1,4 @@
-package org.vivi.framework.ireport.demo.service.datasettransform.impl;
+package org.vivi.framework.ireport.demo.service.datatransform.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import org.vivi.framework.ireport.demo.common.exception.BizException;
 import org.vivi.framework.ireport.demo.mapper.ReportMapper;
 import org.vivi.framework.ireport.demo.model.report.Report;
-import org.vivi.framework.ireport.demo.service.datasettransform.ReportDataTransformService;
-import org.vivi.framework.ireport.demo.service.datasettransform.IReportDataStrategy;
+import org.vivi.framework.ireport.demo.service.datatransform.ReportDataTransformService;
+import org.vivi.framework.ireport.demo.service.datatransform.IReportDataStrategy;
 import org.vivi.framework.ireport.demo.web.request.IDynamicExportDto;
 
 import java.util.HashMap;

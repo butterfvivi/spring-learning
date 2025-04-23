@@ -2,7 +2,6 @@ package org.vivi.framework.ireport.demo.report.achieve;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.vivi.framework.ireport.demo.common.annotation.IExcelRewrite;
@@ -13,7 +12,6 @@ import org.vivi.framework.ireport.demo.common.utils.EmptyUtils;
 import org.vivi.framework.ireport.demo.common.utils.IExcelUtils;
 import org.vivi.framework.ireport.demo.common.utils.IocUtil;
 import org.vivi.framework.ireport.demo.report.config.IExportConfig;
-import org.vivi.framework.ireport.demo.service.datasettransform.ReportDataTransformService;
 import org.vivi.framework.ireport.demo.web.request.IDynamicExportDto;
 import org.vivi.framework.ireport.demo.web.request.ITemplateExportDto;
 import org.vivi.framework.ireport.demo.web.request.ImportExcelDto;
@@ -46,14 +44,9 @@ public class ExcelInvokeCore {
      */
     private static Map<String, Class<?>> importCache = ICache.excelImportCache;
 
-    @Autowired
-    private ReportDataTransformService transformService;
-
     @IToolKit
-    public void dynamicExport(HttpServletResponse response, IDynamicExportDto exportDto) throws Exception {
+    public void dynamicExport(HttpServletResponse response, IDynamicExportDto dto) throws Exception {
         //IDynamicExportDto dto = reportDataStrategy.transform(exportDto.getReportDto(), exportDto);
-
-        IDynamicExportDto dto = transformService.transform(exportDto);
 
         List dataList = dto.getDataList();
         if (dataList == null) dataList = new ArrayList();

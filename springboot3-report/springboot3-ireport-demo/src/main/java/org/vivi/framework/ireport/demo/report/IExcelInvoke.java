@@ -2,15 +2,13 @@ package org.vivi.framework.ireport.demo.report;
 
 import com.alibaba.excel.write.handler.WriteHandler;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.vivi.framework.ireport.demo.report.achieve.ExcelInvokeCore;
-import org.vivi.framework.ireport.demo.common.utils.IocUtil;
-import org.vivi.framework.ireport.demo.report.config.IExportConfig;
 import org.vivi.framework.ireport.demo.common.style.AdaptiveWidthStyleStrategy;
 import org.vivi.framework.ireport.demo.common.style.DefaultCellStyleUtils;
-import org.vivi.framework.ireport.demo.service.dataset.DataSetService;
+import org.vivi.framework.ireport.demo.common.utils.IocUtil;
+import org.vivi.framework.ireport.demo.report.achieve.ExcelInvokeCore;
+import org.vivi.framework.ireport.demo.report.config.IExportConfig;
 import org.vivi.framework.ireport.demo.web.request.IDynamicExportDto;
 import org.vivi.framework.ireport.demo.web.request.ITemplateExportDto;
 import org.vivi.framework.ireport.demo.web.request.ImportExcelDto;
@@ -21,8 +19,6 @@ import java.util.List;
 @Service
 public class IExcelInvoke {
 
-    @Autowired
-    private DataSetService dataSetService;
 
     private static ExcelInvokeCore ExcelInvokeCore = IocUtil.getBean(ExcelInvokeCore.class);
 

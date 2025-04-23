@@ -1,4 +1,4 @@
-package org.vivi.framework.ireport.demo.service.datasettransform;
+package org.vivi.framework.ireport.demo.service.datatransform;
 
 import org.vivi.framework.ireport.demo.web.request.IDynamicExportDto;
 

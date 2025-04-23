@@ -1,9 +1,9 @@
-package org.vivi.framework.ireport.demo.service.datasettransform.impl;
+package org.vivi.framework.ireport.demo.service.datatransform.impl;
 
 
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
-import org.vivi.framework.ireport.demo.service.datasettransform.IReportDataStrategy;
+import org.vivi.framework.ireport.demo.service.datatransform.IReportDataStrategy;
 
 import java.util.Map;
 import java.util.Optional;

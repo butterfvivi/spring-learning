@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.vivi.framework.ireport.demo.common.response.R;
 import org.vivi.framework.ireport.demo.service.dataset.DataSetService;
-import org.vivi.framework.ireport.demo.modules.IReportDataStrategy;
-import org.vivi.framework.ireport.demo.service.reportsheet.ReportSheetSettingService;
+import org.vivi.framework.ireport.demo.service.reportsheet.ReportSheetSetService;
 import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
 
 import java.util.HashMap;
@@ -19,10 +18,7 @@ public class DataSetController {
     private DataSetService dataSetService;
 
     @Autowired
-    private IReportDataStrategy IReportDataStrategy;
-
-    @Autowired
-    private ReportSheetSettingService reportSheetSettingService;
+    private ReportSheetSetService reportSheetSetService;
 
     @PostMapping("/data")
     public R getDatas(@RequestBody GenerateReportDto reportDto){
@@ -49,7 +45,7 @@ public class DataSetController {
     }
 
     @GetMapping("/headers")
-    public R getHeaders(@RequestParam ("id") Integer id){
-        return R.success(reportSheetSettingService.getHeaders(id));
+    public R getHeaders(@RequestParam ("id") Long id){
+        return R.success(reportSheetSetService.getHeaders(id));
     }
 }

@@ -1,12 +1,12 @@
-package org.vivi.framework.ireport.demo.service.datasettransform.impl;
+package org.vivi.framework.ireport.demo.service.datatransform.impl;
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.vivi.framework.ireport.demo.model.report.ReportSheetSetting;
+import org.vivi.framework.ireport.demo.model.report.ReportSheetSet;
 import org.vivi.framework.ireport.demo.service.dataset.DataSetService;
-import org.vivi.framework.ireport.demo.service.datasettransform.IReportDataStrategy;
-import org.vivi.framework.ireport.demo.service.reportsheet.ReportSheetSettingService;
+import org.vivi.framework.ireport.demo.service.datatransform.IReportDataStrategy;
+import org.vivi.framework.ireport.demo.service.reportsheet.ReportSheetSetService;
 import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
 import org.vivi.framework.ireport.demo.web.request.IDynamicExportDto;
 
@@ -20,7 +20,7 @@ public class DataFromMapStrategyI implements IReportDataStrategy {
     private DataSetService dataSetService;
 
     @Autowired
-    private ReportSheetSettingService  reportSheetSettingService;
+    private ReportSheetSetService reportSheetSetService;
 
     public static final String X_STRATEGY_TYPE_TEST2 = "dataMap";
     @Override
@@ -36,7 +36,7 @@ public class DataFromMapStrategyI implements IReportDataStrategy {
         req.setDataList(allData);
 
         //get headList
-        ReportSheetSetting dataset = reportSheetSettingService.getById(reportDto.getId());
+        ReportSheetSet dataset = reportSheetSetService.getById(reportDto.getId());
         String headers = dataset.getDynHeader();
         List<String> headerList = Lists.newArrayList(headers.split(","));
         req.setHeadList(headerList);
