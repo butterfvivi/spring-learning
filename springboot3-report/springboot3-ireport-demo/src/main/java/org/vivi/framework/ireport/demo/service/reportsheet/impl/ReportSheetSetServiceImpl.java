@@ -3,14 +3,14 @@ package org.vivi.framework.ireport.demo.service.reportsheet.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
-import org.vivi.framework.ireport.demo.mapper.ReportSheetSettingMapper;
+import org.vivi.framework.ireport.demo.mapper.ReportSheetSetMapper;
 import org.vivi.framework.ireport.demo.model.report.ReportSheetSet;
 import org.vivi.framework.ireport.demo.service.reportsheet.ReportSheetSetService;
 
 import java.util.List;
 
 @Service
-public class ReportSheetSetServiceImpl extends ServiceImpl<ReportSheetSettingMapper, ReportSheetSet> implements ReportSheetSetService {
+public class ReportSheetSetServiceImpl extends ServiceImpl<ReportSheetSetMapper, ReportSheetSet> implements ReportSheetSetService {
 
 
     public List<String> getHeaders(Long id) {

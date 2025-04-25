@@ -1,4 +1,4 @@
-package org.vivi.framework.ireport.demo.report;
+package org.vivi.framework.ireport.demo.service.datatransform.impl;
 
 import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,7 @@ import java.util.Map;
 @Slf4j
 @IExcelRewrite(targetParam = "excel")
 @Service(value = "excelHandleService")
-public class ExcelHandleService {
+public class ReportDataHandleService {
 
     /**
      *

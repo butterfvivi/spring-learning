@@ -5,5 +5,5 @@ import org.apache.ibatis.annotations.Mapper;
 import org.vivi.framework.ireport.demo.model.report.ReportSheetSet;
 
 @Mapper
-public interface ReportSheetSettingMapper extends BaseMapper<ReportSheetSet> {
+public interface ReportSheetSetMapper extends BaseMapper<ReportSheetSet> {
 }
