@@ -1,10 +1,12 @@
 package org.vivi.framework.ireport.demo.service.datatransform;
 
-import org.vivi.framework.ireport.demo.service.report.dto.ReportSheetSetDto;
-import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
+import org.apache.poi.ss.formula.functions.T;
+import org.vivi.framework.ireport.demo.web.dto.DataSearchDto;
+
+import java.util.List;
 
 public interface ReportDataTransformService {
 
-    ReportSheetSetDto transform(GenerateReportDto req);
+    List<T> transform(DataSearchDto dataSearchDto);
 
 }

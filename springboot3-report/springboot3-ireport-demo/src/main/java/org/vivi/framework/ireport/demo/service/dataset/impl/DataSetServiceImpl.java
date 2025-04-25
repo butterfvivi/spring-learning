@@ -11,7 +11,7 @@ import org.vivi.framework.ireport.demo.mapper.ReportDataSetMapper;
 import org.vivi.framework.ireport.demo.model.PageEntity;
 import org.vivi.framework.ireport.demo.model.dataset.ReportDataSet;
 import org.vivi.framework.ireport.demo.service.dataset.DataSetService;
-import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
+import org.vivi.framework.ireport.demo.web.dto.DataSearchDto;
 import org.vivi.framework.ireport.demo.web.dto.ReportPageDto;
 
 import java.util.List;
@@ -90,13 +90,13 @@ public class DataSetServiceImpl extends ServiceImpl<ReportDataSetMapper, ReportD
     }
 
     @Override
-    public List<Map<String, Object>> getAllMapData(GenerateReportDto reportDto) {
+    public List<Map<String, Object>> getAllMapData(DataSearchDto dataSearchDto) {
         //get report config info
-        ReportDataSet reportDataSet = this.getById(reportDto.getRtId());
+        ReportDataSet reportDataSet = this.getById(dataSearchDto.getRtId());
         //get param sql
         String sql = reportDataSet.getRtSql();
         //get count sql
-        Map<String, Object> searchInfo  = reportDto.getSearchData();
+        Map<String, Object> searchInfo  = dataSearchDto.getSearchData();
 
         //handle sql params to prepare sql
         sql = JdbcUtils.processSqlParams(sql,searchInfo);

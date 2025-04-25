@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.vivi.framework.ireport.demo.model.report.ReportSheetSet;
 import org.vivi.framework.ireport.demo.report.achieve.ExcelInvokeCore;
-import org.vivi.framework.ireport.demo.service.datatransform.impl.ReportDataServiceFactory;
+import org.vivi.framework.ireport.demo.service.datatransform.ReportDataTransformService;
 import org.vivi.framework.ireport.demo.service.report.ReportHandleStrategy;
 import org.vivi.framework.ireport.demo.service.report.dto.ReportSheetSetDto;
 import org.vivi.framework.ireport.demo.service.reportsheet.ReportSheetSetService;
@@ -22,6 +22,9 @@ public class DynamicReportHandleImpl implements ReportHandleStrategy {
 
     @Autowired
     private ExcelInvokeCore  excelInvokeCore;
+
+    @Autowired
+    private ReportDataTransformService reportDataTransformService;
 
     public static final String DYNAMC_REPORT_STRATEGY = "dynamic";
 
@@ -46,7 +49,7 @@ public class DynamicReportHandleImpl implements ReportHandleStrategy {
                 reportSheetSetDto.setReportSqls(sheetSetting.getCalFormula());
                 reportSheetSetDto.setHeadList(reportSetService.getHeaders(sheetSetting.getId()));
 
-                List sheetDatas = ReportDataServiceFactory.strategy("dataMap").transform(reportDto);
+                List sheetDatas = reportDataTransformService.transform(null);
                 reportSheetSetDto.setCellDatas(sheetDatas);
 
                 sheetSetDtos.add(reportSheetSetDto);

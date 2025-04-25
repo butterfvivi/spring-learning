@@ -16,6 +16,8 @@ public class ReportSheetSetDto {
      */
     private List<T> cellDatas;
 
+    private String targetParam;
+
     /**
      * export dynamic head list
      */

@@ -1,4 +1,4 @@
-package org.vivi.framework.ireport.demo.common.style;
+package org.vivi.framework.ireport.demo.report.style;
 
 import com.alibaba.excel.write.metadata.style.WriteCellStyle;
 import com.alibaba.excel.write.metadata.style.WriteFont;

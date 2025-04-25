@@ -19,6 +19,9 @@ public class GenerateReportDto {
      */
     private Long rtId;
 
+    /**
+     * report service
+     */
     private String reportService;
     /**
      * 动态参数
