@@ -37,6 +37,7 @@
     <modules>
         <module>springboot3-poi-demo</module>
         <module>springboot3-chart-simple</module>
+        <module>springboot3-poi-style</module>
     </modules>
     <dependencies>
 
