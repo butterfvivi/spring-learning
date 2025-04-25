@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import org.vivi.framework.ireport.demo.common.response.R;
 import org.vivi.framework.ireport.demo.service.dataset.DataSetService;
 import org.vivi.framework.ireport.demo.service.reportsheet.ReportSheetSetService;
-import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
+import org.vivi.framework.ireport.demo.web.dto.ReportPageDto;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ public class DataSetController {
     private ReportSheetSetService reportSheetSetService;
 
     @PostMapping("/data")
-    public R getDatas(@RequestBody GenerateReportDto reportDto){
+    public R getDatas(@RequestBody ReportPageDto reportPageDto){
         String querySql = "SELECT * FROM user \n" +
                 "<where>\n" +
                 "<if test=\"gender !=null and gender !=''\">\n" +
@@ -31,17 +31,17 @@ public class DataSetController {
         Map<String, Object> params = new HashMap<>();
         params.put("gender","1");
 
-        return R.success(dataSetService.getDatas(reportDto));
+        return R.success(dataSetService.getPageData(reportPageDto));
     }
 
     @PostMapping("/allData")
-    public R getAllData(@RequestBody GenerateReportDto reportDto){
-        return R.success(dataSetService.getAllData(reportDto));
+    public R getAllData(@RequestBody ReportPageDto reportPageDto){
+        return R.success(dataSetService.getPageData(reportPageDto));
     }
 
     @PostMapping("/column")
-    public R getColumnInfos(@RequestBody GenerateReportDto reportDto){
-        return R.success(dataSetService.getColumnInfos(reportDto));
+    public R getColumnInfos(@RequestBody ReportPageDto reportPageDto){
+        return R.success(dataSetService.getColumnInfos(reportPageDto));
     }
 
     @GetMapping("/headers")

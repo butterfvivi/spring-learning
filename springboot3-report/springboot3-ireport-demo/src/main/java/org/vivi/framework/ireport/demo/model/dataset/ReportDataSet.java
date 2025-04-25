@@ -19,5 +19,5 @@ public class ReportDataSet {
 
     private boolean isPagination;
 
-    private Integer dataType;
+    private String dataType;
 }

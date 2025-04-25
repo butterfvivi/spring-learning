@@ -18,6 +18,7 @@ import org.vivi.framework.ireport.demo.common.constant.Constants;
 import org.vivi.framework.ireport.demo.report.achieve.FileUtilsCore;
 import org.vivi.framework.ireport.demo.report.cell.IHandleCell;
 import org.vivi.framework.ireport.demo.report.config.IExportConfig;
+import org.vivi.framework.ireport.demo.service.report.dto.ReportSheetSetDto;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,13 +36,9 @@ public class IExcelUtils {
      * dynamic column export
      *
      * @param response
-     * @param heads    column header list, reminder order must be consistent with data list,
-     *                 column name can be constructed as "name@username", "age@age", "hobby@hobby"
-     * @param data     data list,dynamic column data
-     * @param config   configuration
      */
-    public static <T> void writerDynamicToWeb(HttpServletResponse response, List<String> heads, List<T> data, IExportConfig config) throws Exception {
-        writerDynamicToWebUtil(response, heads, data, config);
+    public static <T> void writerDynamicToWeb(HttpServletResponse response, String reportName, List<ReportSheetSetDto> sheetSetDtos) throws Exception {
+        writerDynamicToWebUtil(response, reportName, sheetSetDtos);
     }
 
     /**
@@ -89,6 +86,40 @@ public class IExcelUtils {
             if (write != null) write.autoCloseStream(true);
         }
     }
+
+    /**
+     * 处理逻辑
+     **/
+    private static <T> void writerDynamicToWebUtil(HttpServletResponse response, String reportName, List<ReportSheetSetDto> sheetSetDtos) throws Exception {
+        setResponse(response);
+        ExcelWriterBuilder writeBuilder = EasyExcel.write(response.getOutputStream());
+        ExcelWriter excelWriter = writeBuilder.build();
+
+        try {
+            for (ReportSheetSetDto sheetSetDto : sheetSetDtos) {
+                addWriteHandle(sheetSetDto.getConfig(), writeBuilder);
+                String sheetName = sheetSetDto.getSheetName();
+                List<?> data = sheetSetDto.getCellDatas();
+                List<String> heads = sheetSetDto.getHeadList();
+
+                // 处理动态表头
+                List<List<String>> headsList = new ArrayList<>();
+                heads.forEach(t -> headsList.add(Arrays.asList(t)));
+
+                // 创建WriteSheet对象
+                WriteSheet writeSheet = EasyExcel.writerSheet(sheetName).head(headsList).build();
+
+                // 写入数据
+                excelWriter.write(handleDynamicData(data), writeSheet);
+            }
+            excelWriter.finish();
+        } catch (Exception e) {
+            resetResponse(response, e.getMessage());
+        } finally {
+            if (writeBuilder != null) writeBuilder.autoCloseStream(true);
+        }
+    }
+
 
     /**
      * 处理逻辑

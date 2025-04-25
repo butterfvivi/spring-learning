@@ -1,8 +1,10 @@
 package org.vivi.framework.ireport.demo.service.datatransform;
 
-import org.vivi.framework.ireport.demo.web.request.IDynamicExportDto;
+import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
 
-public interface IReportDataStrategy {
+import java.util.List;
+
+public interface IReportDataStrategy<T> {
 
 
     /**
@@ -13,5 +15,5 @@ public interface IReportDataStrategy {
     /**
      * data transform
      */
-    IDynamicExportDto transform(IDynamicExportDto req);
+    <T> List<T> transform(GenerateReportDto previewDto);
 }

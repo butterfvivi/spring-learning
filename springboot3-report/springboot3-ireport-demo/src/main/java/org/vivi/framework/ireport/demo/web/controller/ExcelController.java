@@ -11,7 +11,7 @@ import org.vivi.framework.ireport.demo.web.request.ITemplateExportDto;
 import org.vivi.framework.ireport.demo.web.request.ImportExcelDto;
 
 @RestController
-@RequestMapping("api/iexcel")
+@RequestMapping("/api/iexcel")
 public class ExcelController {
 
     @Autowired

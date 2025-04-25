@@ -12,7 +12,7 @@ import org.vivi.framework.ireport.demo.report.dto.DownloadFileZipDto;
 
 import java.util.Map;
 
-@RequestMapping("api/file")
+@RequestMapping("/api/file")
 @RestController
 public class FileController {
 

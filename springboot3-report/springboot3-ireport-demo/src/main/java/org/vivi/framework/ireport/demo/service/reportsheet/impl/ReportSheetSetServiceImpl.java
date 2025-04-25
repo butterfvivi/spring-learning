@@ -22,7 +22,7 @@ public class ReportSheetSetServiceImpl extends ServiceImpl<ReportSheetSettingMap
     }
 
     @Override
-    public List<ReportSheetSet> getAllSheetSetting(Long reportIds) {
+    public List<ReportSheetSet> getAllSheetSet(Long reportIds) {
         return this.lambdaQuery().eq(ReportSheetSet::getRtId, reportIds).list();
     }
 }

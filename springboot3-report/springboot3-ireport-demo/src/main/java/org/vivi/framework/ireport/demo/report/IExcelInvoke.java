@@ -63,7 +63,7 @@ public class IExcelInvoke {
         req.setConfig(iExportConfig);
 
 
-        ExcelInvokeCore.dynamicExport(response, req);
+        //ExcelInvokeCore.dynamicExport(response, req);
     }
 
     /**

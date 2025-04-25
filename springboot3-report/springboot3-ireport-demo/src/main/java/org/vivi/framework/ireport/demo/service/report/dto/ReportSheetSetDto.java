@@ -2,6 +2,7 @@ package org.vivi.framework.ireport.demo.service.report.dto;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
+import org.apache.poi.ss.formula.functions.T;
 import org.vivi.framework.ireport.demo.report.config.IExportConfig;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class ReportSheetSetDto {
     /**
      *  cellDatas : 单元格数据
      */
-    private List<Map<String, Object>> cellDatas;
+    private List<T> cellDatas;
 
     /**
      * export dynamic head list
@@ -25,6 +26,10 @@ public class ReportSheetSetDto {
      */
     private IExportConfig config;
 
+    /**
+     *  sqlMaps : 本次查询每个数据集对应的sql语句
+     */
+    private String reportSqls;
 
     /**
      * additional parameters

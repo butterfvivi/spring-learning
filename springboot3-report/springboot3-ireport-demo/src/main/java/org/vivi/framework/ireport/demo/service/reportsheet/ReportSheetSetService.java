@@ -9,5 +9,5 @@ public interface ReportSheetSetService extends IService<ReportSheetSet> {
 
     List<String> getHeaders(Long id);
 
-    List<ReportSheetSet> getAllSheetSetting(Long reportIds);
+    List<ReportSheetSet> getAllSheetSet(Long reportIds);
 }

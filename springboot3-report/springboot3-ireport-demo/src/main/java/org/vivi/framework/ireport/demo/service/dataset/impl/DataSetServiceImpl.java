@@ -12,6 +12,7 @@ import org.vivi.framework.ireport.demo.model.PageEntity;
 import org.vivi.framework.ireport.demo.model.dataset.ReportDataSet;
 import org.vivi.framework.ireport.demo.service.dataset.DataSetService;
 import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
+import org.vivi.framework.ireport.demo.web.dto.ReportPageDto;
 
 import java.util.List;
 import java.util.Map;
@@ -27,38 +28,38 @@ public class DataSetServiceImpl extends ServiceImpl<ReportDataSetMapper, ReportD
         return this.list(lambdaQuery().eq(ReportDataSet::getRtId, reportId));
     }
 
-    public PageEntity getDatas(GenerateReportDto reportDto) {
+    public PageEntity getPageData(ReportPageDto reportPageDto) {
         //get report config info
-        ReportDataSet reportDataSet = this.getById(reportDto.getId());
+        ReportDataSet reportDataSet = this.getById(reportPageDto.getRtId());
         //get param sql
         String sql = reportDataSet.getRtSql();
         //get count sql
         String countSql = JdbcUtils.getCountSql(sql);
-        Map<String, Object> searchInfo  = reportDto.getSearchData();
+        Map<String, Object> searchInfo  = reportPageDto.getSearchData();
 
         //handle sql params to prepare sql
         sql = JdbcUtils.processSqlParams(sql,searchInfo);
         //handle pagination
-        if(reportDto.isPatination() )
+        if(reportPageDto.isPatination() )
         {
             countSql = JdbcUtils.getCountSql(sql);
-            if(YesNoEnum.YES.getCode().intValue() == reportDto.getIsCustomerPage().intValue())
+            if(YesNoEnum.YES.getCode().intValue() == reportPageDto.getIsCustomerPage().intValue())
             {
-                sql = JdbcUtils.getPaginationSql(sql, 0, Integer.valueOf(String.valueOf(reportDto.getPagination().get("pageCount"))), reportDto.getStartPage(),reportDto.getEndPage());
+                sql = JdbcUtils.getPaginationSql(sql, 0, Integer.valueOf(String.valueOf(reportPageDto.getPagination().get("pageCount"))), reportPageDto.getStartPage(), reportPageDto.getEndPage());
             }else {
-                sql = JdbcUtils.getPaginationSql(sql, 0, Integer.valueOf(String.valueOf(reportDto.getPagination().get("pageCount"))), Integer.valueOf(String.valueOf(reportDto.getPagination().get("currentPage"))));
+                sql = JdbcUtils.getPaginationSql(sql, 0, Integer.valueOf(String.valueOf(reportPageDto.getPagination().get("pageCount"))), Integer.valueOf(String.valueOf(reportPageDto.getPagination().get("currentPage"))));
             }
         }
 
         PageEntity pageEntity = new PageEntity();
 
-        pageEntity.setCurrentPage(reportDto.getPagination().get("currentPage"));
+        pageEntity.setCurrentPage(reportPageDto.getPagination().get("currentPage"));
         if(StringUtils.isNotEmpty(countSql))
         {
             long count = sqlMapper.getCount( countSql);
             Long totalCount = pageEntity.getTotal();
             Integer pageCount =  pageEntity.getPageSize();
-            Integer paramsPageCount =  reportDto.getPagination().get("pageCount");
+            Integer paramsPageCount =  reportPageDto.getPagination().get("pageCount");
             if(totalCount == null)
             {
                 pageEntity.setTotal(count);
@@ -88,9 +89,10 @@ public class DataSetServiceImpl extends ServiceImpl<ReportDataSetMapper, ReportD
         return pageEntity;
     }
 
-    public List<Map<String, Object>>  getAllData(GenerateReportDto reportDto) {
+    @Override
+    public List<Map<String, Object>> getAllMapData(GenerateReportDto reportDto) {
         //get report config info
-        ReportDataSet reportDataSet = this.getById(reportDto.getId());
+        ReportDataSet reportDataSet = this.getById(reportDto.getRtId());
         //get param sql
         String sql = reportDataSet.getRtSql();
         //get count sql
@@ -101,12 +103,12 @@ public class DataSetServiceImpl extends ServiceImpl<ReportDataSetMapper, ReportD
         return sqlMapper.selectList(sql);
     }
 
-    public List<Map<String, Object>> getColumnInfos(GenerateReportDto reportDto) {
+    public List<Map<String, Object>> getColumnInfos(ReportPageDto reportPageDto) {
         //get report config info
-        ReportDataSet reportDataSet = this.getById(reportDto.getId());
+        ReportDataSet reportDataSet = this.getById(reportPageDto.getRtId());
         //get param sql
         String sql = reportDataSet.getRtSql();
-        Map<String, Object> params  = reportDto.getSearchData();;
+        Map<String, Object> params  = reportPageDto.getSearchData();;
         List<Map<String, Object>> dataSetColumns = JdbcUtils.parseMetaDataColumns( sql,1,null);
         return dataSetColumns;
     }

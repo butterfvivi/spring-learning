@@ -1,9 +1,10 @@
 package org.vivi.framework.ireport.demo.service.datatransform;
 
-import org.vivi.framework.ireport.demo.web.request.IDynamicExportDto;
+import org.vivi.framework.ireport.demo.service.report.dto.ReportSheetSetDto;
+import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
 
 public interface ReportDataTransformService {
 
-    IDynamicExportDto transform(IDynamicExportDto req);
+    ReportSheetSetDto transform(GenerateReportDto req);
 
 }
