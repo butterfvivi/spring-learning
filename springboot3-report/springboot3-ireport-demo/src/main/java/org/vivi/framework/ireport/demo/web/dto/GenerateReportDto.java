@@ -19,6 +19,7 @@ public class GenerateReportDto {
      */
     private Long rtId;
 
+    private String templateSet;
     /**
      * report service
      */

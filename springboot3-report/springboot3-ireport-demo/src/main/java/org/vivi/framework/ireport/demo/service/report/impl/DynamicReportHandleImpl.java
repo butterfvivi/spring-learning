@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.vivi.framework.ireport.demo.common.exception.BizException;
+import org.vivi.framework.ireport.demo.common.utils.IocUtil;
 import org.vivi.framework.ireport.demo.model.dataset.ReportDataSet;
 import org.vivi.framework.ireport.demo.model.report.ReportSheetSet;
 import org.vivi.framework.ireport.demo.report.achieve.ExcelInvokeCore;
@@ -25,13 +26,12 @@ public class DynamicReportHandleImpl implements ReportHandleStrategy {
     private ReportSheetSetService reportSheetSetService;
 
     @Autowired
-    private ExcelInvokeCore  excelInvokeCore;
-
-    @Autowired
     private ReportDataTransformService reportDataTransformService;
 
     @Autowired
     private DataSetService dataSetService;
+
+    private static ExcelInvokeCore ExcelInvokeCore = IocUtil.getBean(ExcelInvokeCore.class);
 
     public static final String DYNAMC_REPORT_STRATEGY = "dynamic";
 
@@ -73,7 +73,7 @@ public class DynamicReportHandleImpl implements ReportHandleStrategy {
             newPreviewDto.setSearchData(reportDto.getSearchData());
             newPreviewDto.setSheetDatas(sheetSetDtos);
 
-            excelInvokeCore.dynamicExport(response, newPreviewDto);
+            ExcelInvokeCore.dynamicExport(response, newPreviewDto);
         }catch (Exception e){
             throw new BizException("500", "单元格数据解析失败，请检查单元格数据格式是否正确！");
         }

@@ -1,6 +1,7 @@
 package org.vivi.framework.ireport.demo.report.achieve;
 
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +26,7 @@ import java.util.Map;
 import static org.vivi.framework.ireport.demo.common.constant.Constants.*;
 import static org.vivi.framework.ireport.demo.common.constant.Message.*;
 
+@Slf4j
 @Service
 public class ExcelInvokeCore {
 
@@ -86,7 +88,7 @@ public class ExcelInvokeCore {
         return data;
     }
 
-    private static void invokeCache(String targetParam, String type) throws Exception {
+    public static void invokeCache(String targetParam, String type){
         if (StringUtils.isNotEmpty(targetParam)){
             if (!targetParam.contains("@")){
                 String[] targetParamStr = targetParam.split("@");
@@ -107,26 +109,36 @@ public class ExcelInvokeCore {
     /**
      * invoke template export
      **/
-    private static void invokeTemplate(String targetParam, List dataList, Map<String, Object> otherValMap) throws Exception {
-        checkMethod(targetParam).invoke(IocUtil.getClassObj(checkClass(cPName(targetParam))), dataList, otherValMap);
+    public static void invokeTemplate(String targetParam, List dataList, Map<String, Object> otherValMap)  {
+        try {
+            checkMethod(targetParam).invoke(IocUtil.getClassObj(checkClass(cPName(targetParam))), dataList, otherValMap);
+        }catch (Exception e){
+            log.error("template export error, targetParam = " + targetParam, e);
+            AssertUtils.throwException("template export error, targetParam = " + targetParam);
+        }
     }
 
     /**
      * 调用模板导出
      * 新增有参导出
      **/
-    private static void invokeDynamic(String targetParam, List dataList, List<String> headList, Map<String, Object> params) throws Exception {
-        if (params == null) {
-            checkMethod(targetParam).invoke(IocUtil.getClassObj(checkClass(cPName(targetParam))), dataList, headList);
-        } else {
-            checkMethod(targetParam).invoke(IocUtil.getClassObj(checkClass(cPName(targetParam))), dataList, headList, params);
+    public static void invokeDynamic(String targetParam, List dataList, List<String> headList, Map<String, Object> params){
+        try {
+            if (params == null) {
+                checkMethod(targetParam).invoke(IocUtil.getClassObj(checkClass(cPName(targetParam))), dataList, headList);
+            } else {
+                checkMethod(targetParam).invoke(IocUtil.getClassObj(checkClass(cPName(targetParam))), dataList, headList, params);
+            }
+        } catch (Exception e) {
+            log.error("dynamic export error, targetParam = " + targetParam, e);
+            AssertUtils.throwException("dynamic export error, targetParam = " + targetParam);
         }
     }
 
     /**
      * 导入
      **/
-    private static Object invokeImport(String targetParam, List<?> dataList, ImportExcelDto dto) throws Exception {
+    public static Object invokeImport(String targetParam, List<?> dataList, ImportExcelDto dto) throws Exception {
         Method method = checkMethod(targetParam);
         //if 2 parameters, the second parameter is the import configuration
         int params = method.getParameters().length;
@@ -139,7 +151,7 @@ public class ExcelInvokeCore {
     /**
      * 检查是否在class和method正确配置重写方法
      **/
-    private static Method checkMethod(String targetParam) {
+    public static Method checkMethod(String targetParam) {
         Method method = methodCache.get(targetParam);
         if (method == null) {
             AssertUtils.throwException("input targetParam = " + targetParam + ", can not find the corresponding class and method, can not intercept the rewrite. Please check whether the targetParam is configured correctly！");
@@ -147,7 +159,7 @@ public class ExcelInvokeCore {
         return method;
     }
 
-    private static Class<?> checkClass(String targetParam) {
+    public static Class<?> checkClass(String targetParam) {
         Class<?> aClass = classCache.get(cPName(targetParam));
         if (aClass == null) {
             AssertUtils.throwException("input targetParam = " + targetParam + ", can not find the corresponding class, can not intercept the rewrite. Please check whether the targetParam is configured correctly！");

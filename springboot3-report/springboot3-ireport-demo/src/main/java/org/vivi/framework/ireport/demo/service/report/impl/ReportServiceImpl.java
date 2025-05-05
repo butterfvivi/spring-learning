@@ -30,6 +30,7 @@ public class ReportServiceImpl extends ServiceImpl<ReportMapper, Report> impleme
         Report report = this.getById(reportDto.getRtId());
         reportDto.setReportService(report.getReportService());
         reportDto.setReportName(report.getReportName());
+        reportDto.setTemplateSet(report.getTemplateSet());
         ReportHandleFactory.strategy(report.getReportService()).handleExport(response, reportDto);
     }
 
