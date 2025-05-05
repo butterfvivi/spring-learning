@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ReportDataTransformService {
 
-    List<T> transform(DataSearchDto dataSearchDto);
+    List<T> transform(DataSearchDto dataSearchDto) ;
 
 }

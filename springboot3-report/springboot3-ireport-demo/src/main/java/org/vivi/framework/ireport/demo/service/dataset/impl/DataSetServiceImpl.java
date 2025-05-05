@@ -24,7 +24,7 @@ public class DataSetServiceImpl extends ServiceImpl<ReportDataSetMapper, ReportD
     private ISqlMapper sqlMapper;
 
     @Override
-    public List<ReportDataSet> getAllReportDatas(Long reportId) {
+    public List<ReportDataSet> getAllReportSet(Long reportId) {
         return this.list(lambdaQuery().eq(ReportDataSet::getRtId, reportId));
     }
 
@@ -92,11 +92,11 @@ public class DataSetServiceImpl extends ServiceImpl<ReportDataSetMapper, ReportD
     @Override
     public List<Map<String, Object>> getAllMapData(DataSearchDto dataSearchDto) {
         //get report config info
-        ReportDataSet reportDataSet = this.getById(dataSearchDto.getRtId());
+        ReportDataSet reportDataSet = this.getById(dataSearchDto.getSetId());
         //get param sql
         String sql = reportDataSet.getRtSql();
         //get count sql
-        Map<String, Object> searchInfo  = dataSearchDto.getSearchData();
+        Map<String, Object> searchInfo  = dataSearchDto.getParams();
 
         //handle sql params to prepare sql
         sql = JdbcUtils.processSqlParams(sql,searchInfo);

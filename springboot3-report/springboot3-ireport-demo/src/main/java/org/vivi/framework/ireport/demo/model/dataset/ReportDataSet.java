@@ -11,7 +11,7 @@ public class ReportDataSet {
 
     private Integer rtId;
 
-    private Integer sheetIndex;
+    private Long sheetIndex;
 
     private String rtSql;
 

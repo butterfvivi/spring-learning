@@ -12,7 +12,6 @@ import org.vivi.framework.ireport.demo.common.utils.EmptyUtils;
 import org.vivi.framework.ireport.demo.common.utils.IExcelUtils;
 import org.vivi.framework.ireport.demo.common.utils.IocUtil;
 import org.vivi.framework.ireport.demo.report.config.IExportConfig;
-import org.vivi.framework.ireport.demo.service.report.dto.ReportSheetSetDto;
 import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
 import org.vivi.framework.ireport.demo.web.request.ITemplateExportDto;
 import org.vivi.framework.ireport.demo.web.request.ImportExcelDto;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.vivi.framework.ireport.demo.common.constant.Constants.*;
 import static org.vivi.framework.ireport.demo.common.constant.Message.*;
@@ -47,44 +45,7 @@ public class ExcelInvokeCore {
 
     @IToolKit
     public void dynamicExport(HttpServletResponse response, GenerateReportDto reportDto) throws Exception {
-        List<ReportSheetSetDto> sheetDatas = reportDto.getSheetDatas();
-        for (ReportSheetSetDto dto : sheetDatas) {
-            List dataList = dto.getCellDatas();
-            if (dataList == null) dataList = new ArrayList();
-
-            List<String> headList = dto.getHeadList();
-            if (headList == null) headList = new ArrayList<>();
-
-            // restructure head list by
-            List newDataList = (headList.size() != 0 && headList.size() != 0) ?
-                    IExcelUtils.restructureDynamicData(headList, dataList) : new ArrayList();
-
-            dto.setCellDatas(newDataList);
-            // get export configuration
-            IExportConfig config = dto.getConfig();
-            if (config != null) {
-                String targetParam = config.getTargetParam();
-                //判断是否进行重写数据
-                if (StringUtils.isNotBlank(targetParam)) {
-                    // invoke dynamic
-                    invokeCache(targetParam, TYPE_DYNAMIC);
-                    invokeDynamic(targetParam, newDataList, headList, dto.getParams());
-                }
-            }
-            dto.setConfig(config);
-
-            if (headList.size() == 0) {
-                headList = headList.stream().map(t-> {
-                    if (t.contains("@")){
-                        return t.split("@")[0];
-                    }
-                    return t;
-                }).collect(Collectors.toList());
-            }
-            dto.setHeadList(headList);
-        }
-
-        IExcelUtils.writerDynamicToWeb(response, reportDto.getReportName(), sheetDatas);
+        IExcelUtils.writerDynamicToWeb(response, reportDto.getReportName(), reportDto.getSheetDatas());
     }
 
     @IToolKit

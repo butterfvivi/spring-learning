@@ -3,12 +3,16 @@ package org.vivi.framework.ireport.demo.service.report.impl;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.vivi.framework.ireport.demo.common.exception.BizException;
+import org.vivi.framework.ireport.demo.model.dataset.ReportDataSet;
 import org.vivi.framework.ireport.demo.model.report.ReportSheetSet;
 import org.vivi.framework.ireport.demo.report.achieve.ExcelInvokeCore;
+import org.vivi.framework.ireport.demo.service.dataset.DataSetService;
 import org.vivi.framework.ireport.demo.service.datatransform.ReportDataTransformService;
 import org.vivi.framework.ireport.demo.service.report.ReportHandleStrategy;
 import org.vivi.framework.ireport.demo.service.report.dto.ReportSheetSetDto;
 import org.vivi.framework.ireport.demo.service.reportsheet.ReportSheetSetService;
+import org.vivi.framework.ireport.demo.web.dto.DataSearchDto;
 import org.vivi.framework.ireport.demo.web.dto.GenerateReportDto;
 
 import java.util.ArrayList;
@@ -18,13 +22,16 @@ import java.util.List;
 public class DynamicReportHandleImpl implements ReportHandleStrategy {
 
     @Autowired
-    private ReportSheetSetService reportSetService;
+    private ReportSheetSetService reportSheetSetService;
 
     @Autowired
     private ExcelInvokeCore  excelInvokeCore;
 
     @Autowired
     private ReportDataTransformService reportDataTransformService;
+
+    @Autowired
+    private DataSetService dataSetService;
 
     public static final String DYNAMC_REPORT_STRATEGY = "dynamic";
 
@@ -38,18 +45,25 @@ public class DynamicReportHandleImpl implements ReportHandleStrategy {
         try {
             GenerateReportDto newPreviewDto = new GenerateReportDto();
 
-            List<ReportSheetSet> allSheetSet = reportSetService.getAllSheetSet(reportDto.getRtId());
             List<ReportSheetSetDto> sheetSetDtos = new ArrayList<>();
 
-            allSheetSet.forEach(sheetSetting -> {
+            List<ReportDataSet> allReportSet = dataSetService.getAllReportSet(reportDto.getRtId());
+            allReportSet.forEach(reportDataSet -> {
                 ReportSheetSetDto reportSheetSetDto = new ReportSheetSetDto();
-                reportSheetSetDto.setSheetName(sheetSetting.getSheetName());
-                reportSheetSetDto.setTitleName(sheetSetting.getTitleName());
-                reportSheetSetDto.setSheetOrder(sheetSetting.getSheetOrder());
-                reportSheetSetDto.setReportSqls(sheetSetting.getCalFormula());
-                reportSheetSetDto.setHeadList(reportSetService.getHeaders(sheetSetting.getId()));
+                ReportSheetSet reportSheetSet = reportSheetSetService.getReportSheetSetById(reportDataSet.getSheetIndex());
 
-                List sheetDatas = reportDataTransformService.transform(null);
+                reportSheetSetDto.setSheetName(reportSheetSet.getSheetName());
+                reportSheetSetDto.setTitleName(reportSheetSet.getTitleName());
+                reportSheetSetDto.setReportSqls(reportDataSet.getRtSql());
+                reportSheetSetDto.setSheetOrder(reportSheetSet.getSheetOrder());
+
+                reportSheetSetDto.setHeadList(reportSheetSetService.getHeaders(reportDataSet.getId()));
+
+                DataSearchDto dataSearchDto = new DataSearchDto();
+                dataSearchDto.setSetId(reportDataSet.getId());
+                dataSearchDto.setParams(reportDto.getSearchData());
+
+                List sheetDatas = reportDataTransformService.transform(dataSearchDto);
                 reportSheetSetDto.setCellDatas(sheetDatas);
 
                 sheetSetDtos.add(reportSheetSetDto);
@@ -61,7 +75,7 @@ public class DynamicReportHandleImpl implements ReportHandleStrategy {
 
             excelInvokeCore.dynamicExport(response, newPreviewDto);
         }catch (Exception e){
-            e.printStackTrace();
+            throw new BizException("500", "单元格数据解析失败，请检查单元格数据格式是否正确！");
         }
     }
 

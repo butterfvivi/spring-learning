@@ -25,4 +25,9 @@ public class ReportSheetSetServiceImpl extends ServiceImpl<ReportSheetSetMapper,
     public List<ReportSheetSet> getAllSheetSet(Long reportIds) {
         return this.lambdaQuery().eq(ReportSheetSet::getRtId, reportIds).list();
     }
+
+    @Override
+    public ReportSheetSet getReportSheetSetById(Long id) {
+        return this.getById(id);
+    }
 }

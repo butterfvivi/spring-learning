@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface DataSetService extends IService<ReportDataSet> {
 
-    List<ReportDataSet> getAllReportDatas(Long reportId);
+    List<ReportDataSet> getAllReportSet(Long reportId);
 
     PageEntity getPageData(ReportPageDto reportPageDto);
 
