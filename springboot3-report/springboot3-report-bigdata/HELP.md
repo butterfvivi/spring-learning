@@ -38,3 +38,14 @@ test -> MyBatisFunction1Test
 处理的service  -> DemoService
 test -> ParallelUtilTest / SlidingWindowTest
 ```
+
+
+
+10w条数据导出到excel对比
+```  
+使用EasyExcel,单表导出excel 10.73s  50.86M
+导出Excel(先查后写)         11.39s  50.86M  
+导出Excel（并发查询，串行写入）10.36 s 50.86 M
+导出Excel[下载速度可能更快]（并发查询，串行写入） 10.33s 50.86M
+导出Excel（流式查询） 11.58s 50.86M
+```

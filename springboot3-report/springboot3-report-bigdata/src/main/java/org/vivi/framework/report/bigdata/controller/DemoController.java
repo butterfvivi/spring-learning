@@ -40,8 +40,8 @@ public class DemoController {
     @GetMapping("/exportExcel")
     public void exportExcel(HttpServletResponse response,
                             @RequestParam(value = "pageSize", defaultValue = "10000") int pageSize) throws IOException {
-        LambdaQueryWrapper<Demo> queryWrapper = Wrappers.lambdaQuery(Demo.class);
-        demoService.writeExcel(excelOutput(response, "测试"), pageSize, queryWrapper);
+        LambdaQueryWrapper<Cinfo> queryWrapper = Wrappers.lambdaQuery(Cinfo.class);
+        cinfoService.writeExcel(excelOutput(response, "测试"), pageSize, queryWrapper);
     }
 
     /**
@@ -55,8 +55,8 @@ public class DemoController {
     public void writeExcelForParallel(HttpServletResponse response,
                                   @RequestParam(value = "parallelNum", defaultValue = "3") int parallelNum,
                                   @RequestParam(value = "pageSize", defaultValue = "10000") int pageSize) throws IOException, InterruptedException {
-        LambdaQueryWrapper<Demo> queryWrapper = Wrappers.lambdaQuery(Demo.class);
-        demoService.writeExcelForParallel(excelOutput(response, "测试"), parallelNum, pageSize, queryWrapper);
+        LambdaQueryWrapper<Cinfo> queryWrapper = Wrappers.lambdaQuery(Cinfo.class);
+        cinfoService.writeExcelForParallel(excelOutput(response, "测试"), parallelNum, pageSize, queryWrapper);
     }
 
     /**
@@ -70,8 +70,8 @@ public class DemoController {
     public void writeExcelForXParallel(HttpServletResponse response,
                                       @RequestParam(value = "parallelNum", defaultValue = "3") int parallelNum,
                                       @RequestParam(value = "pageSize", defaultValue = "10000") int pageSize) throws IOException, InterruptedException, ExecutionException {
-        LambdaQueryWrapper<Demo> queryWrapper = Wrappers.lambdaQuery(Demo.class);
-        demoService.writeExcelForXParallel(excelOutput(response, "测试"), parallelNum, pageSize, queryWrapper);
+        LambdaQueryWrapper<Cinfo> queryWrapper = Wrappers.lambdaQuery(Cinfo.class);
+        cinfoService.writeExcelForXParallel(excelOutput(response, "测试"), parallelNum, pageSize, queryWrapper);
     }
 
     /**
@@ -80,8 +80,8 @@ public class DemoController {
      */
     @GetMapping("/writeExcelForFetch")
     public void writeExcelForFetch(HttpServletResponse response) throws IOException {
-        LambdaQueryWrapper<Demo> queryWrapper = Wrappers.lambdaQuery(Demo.class);
-        demoService.writeExcelForFetch(excelOutput(response, "测试"), queryWrapper);
+        LambdaQueryWrapper<Cinfo> queryWrapper = Wrappers.lambdaQuery(Cinfo.class);
+        cinfoService.writeExcelForFetch(excelOutput(response, "测试"), queryWrapper);
     }
 
     /**

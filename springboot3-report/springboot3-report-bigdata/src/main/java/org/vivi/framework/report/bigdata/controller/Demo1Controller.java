@@ -13,8 +13,12 @@ import org.vivi.framework.report.bigdata.entity.Cinfo;
 import org.vivi.framework.report.bigdata.paging1.export.ExportUtil;
 import org.vivi.framework.report.bigdata.paging1.funtion.LambdaExportFunction;
 import org.vivi.framework.report.bigdata.paging1.listener.EasyExcelGeneralDataListener;
+import org.vivi.framework.report.bigdata.service.CinfoService;
+import org.vivi.framework.report.bigdata.service.DemoService;
 import org.vivi.framework.report.bigdata.service.DemoService1;
 
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -25,7 +29,13 @@ import java.util.function.Consumer;
 public class Demo1Controller {
 
     @Resource
-    private DemoService1 demoService;
+    private DemoService1 demoService1;
+
+    @Resource
+    private DemoService demoService;
+
+    @Resource
+    private CinfoService cinfoService;
 
     @GetMapping("/export1")
     public void export1(HttpServletResponse response)   {
@@ -33,7 +43,7 @@ public class Demo1Controller {
 
         ExportUtil<Cinfo> empExportUtil = new ExportUtil<Cinfo>(Cinfo.class);
 
-        empExportUtil.exportExcel(new LambdaExportFunction(demoService, empLambdaQueryWrapper));
+        empExportUtil.exportExcel(new LambdaExportFunction(demoService1, empLambdaQueryWrapper));
     }
 
 
@@ -43,7 +53,7 @@ public class Demo1Controller {
 
         ExportUtil<Cinfo> empExportUtil = new ExportUtil<Cinfo>(Cinfo.class);
 
-        empExportUtil.exportExcel(response,new LambdaExportFunction(demoService, empLambdaQueryWrapper), "demo1", "demo1");
+        empExportUtil.exportExcel(response,new LambdaExportFunction(demoService1, empLambdaQueryWrapper), "demo1", "demo1");
     }
 
     @GetMapping("/importExcel")
@@ -64,5 +74,35 @@ public class Demo1Controller {
                 .extraRead(CellExtraTypeEnum.COMMENT)
                 .extraRead(CellExtraTypeEnum.MERGE)
                 .doReadAll();
+    }
+
+    /**
+     * easyexcel导出excel
+     * @param response
+     */
+    @GetMapping("/export3")
+    public void export3(HttpServletResponse response) throws IOException {
+        try {
+            // 设置响应头
+            response.setContentType("application/vnd.ms-excel");
+            response.setCharacterEncoding("utf-8");
+            String fileName = URLEncoder.encode("用户数据", "UTF-8");
+            response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+
+            // 准备数据
+            List<Cinfo> list = cinfoService.list();
+
+            // 写入Excel
+            EasyExcel.write(response.getOutputStream(), Cinfo.class)
+                    .sheet("用户列表")
+                    .doWrite(list);
+
+        } catch (IOException e) {
+            // 重置response
+            response.reset();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            response.getWriter().println("下载文件失败" + e.getMessage());
+        }
     }
 }
