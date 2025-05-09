@@ -108,7 +108,7 @@ public class DataSetServiceImpl extends ServiceImpl<ReportDataSetMapper, ReportD
         ReportDataSet reportDataSet = this.getById(reportPageDto.getRtId());
         //get param sql
         String sql = reportDataSet.getRtSql();
-        Map<String, Object> params  = reportPageDto.getSearchData();;
+        Map<String, Object> params  = reportPageDto.getSearchData();
         List<Map<String, Object>> dataSetColumns = JdbcUtils.parseMetaDataColumns( sql,1,null);
         return dataSetColumns;
     }

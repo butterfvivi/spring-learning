@@ -47,9 +47,12 @@ public class DynamicReportHandleImpl implements ReportHandleStrategy {
 
             List<ReportSheetSetDto> sheetSetDtos = new ArrayList<>();
 
-            List<ReportDataSet> allReportSet = dataSetService.getAllReportSet(reportDto.getRtId());
-            allReportSet.forEach(reportDataSet -> {
+            //获取所有report的所有数据集
+            List<ReportDataSet> allReportDataSet = dataSetService.getAllReportSet(reportDto.getRtId());
+            //获取所有report的数据集，并做数据转换
+            allReportDataSet.forEach(reportDataSet -> {
                 ReportSheetSetDto reportSheetSetDto = new ReportSheetSetDto();
+                //获取数据集的sheet信息
                 ReportSheetSet reportSheetSet = reportSheetSetService.getReportSheetSetById(reportDataSet.getSheetIndex());
 
                 reportSheetSetDto.setSheetName(reportSheetSet.getSheetName());
@@ -57,12 +60,14 @@ public class DynamicReportHandleImpl implements ReportHandleStrategy {
                 reportSheetSetDto.setReportSqls(reportDataSet.getRtSql());
                 reportSheetSetDto.setSheetOrder(reportSheetSet.getSheetOrder());
 
+                //获取每个sheet的headers
                 reportSheetSetDto.setHeadList(reportSheetSetService.getHeaders(reportDataSet.getId()));
 
                 DataSearchDto dataSearchDto = new DataSearchDto();
                 dataSearchDto.setSetId(reportDataSet.getId());
                 dataSearchDto.setParams(reportDto.getSearchData());
 
+                //数据转换
                 List sheetDatas = reportDataTransformService.transform(dataSearchDto);
                 reportSheetSetDto.setCellDatas(sheetDatas);
 
@@ -73,6 +78,7 @@ public class DynamicReportHandleImpl implements ReportHandleStrategy {
             newPreviewDto.setSearchData(reportDto.getSearchData());
             newPreviewDto.setSheetDatas(sheetSetDtos);
 
+            //设置数据后导出excel
             ExcelInvokeCore.dynamicExport(response, newPreviewDto);
         }catch (Exception e){
             throw new BizException("500", "单元格数据解析失败，请检查单元格数据格式是否正确！");
