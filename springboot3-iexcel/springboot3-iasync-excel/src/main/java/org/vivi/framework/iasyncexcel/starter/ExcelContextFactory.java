@@ -8,10 +8,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.MapPropertySource;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.Set;
 
+@Component
 public class ExcelContextFactory implements DisposableBean, ApplicationContextAware {
 
     private final String propertySourceName;

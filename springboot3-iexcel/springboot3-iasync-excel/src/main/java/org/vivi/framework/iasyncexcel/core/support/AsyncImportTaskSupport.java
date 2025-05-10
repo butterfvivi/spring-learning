@@ -32,8 +32,6 @@ public class AsyncImportTaskSupport implements ImportTaskSupport {
         excelTask.setSourceFile(param.getSourceFile());
         excelTask.setFileName(param.getFilename());
         excelTask.setStartTime(LocalDateTime.now());
-        excelTask.setCreateUserCode(param.getCreateUserCode());
-        excelTask.setBusinessCode(param.getBusinessCode());
         taskService.save(excelTask);
         return excelTask;
     }

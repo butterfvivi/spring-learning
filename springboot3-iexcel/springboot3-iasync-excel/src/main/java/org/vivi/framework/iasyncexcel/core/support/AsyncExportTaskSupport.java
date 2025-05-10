@@ -1,6 +1,7 @@
 package org.vivi.framework.iasyncexcel.core.support;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.vivi.framework.iasyncexcel.common.enums.ExcelStatusEnums;
 import org.vivi.framework.iasyncexcel.common.enums.ExcelTypeEnums;
 import org.vivi.framework.iasyncexcel.core.exporter.DataExportParam;
@@ -11,6 +12,7 @@ import org.vivi.framework.iasyncexcel.core.service.TaskService;
 import java.time.LocalDateTime;
 
 @Slf4j
+@Component
 public class AsyncExportTaskSupport implements ExportTaskSupport{
 
     private TaskService taskService;
@@ -27,8 +29,6 @@ public class AsyncExportTaskSupport implements ExportTaskSupport{
         excelTask.setType(ExcelTypeEnums.EXPORT.getCode());
         excelTask.setFileName(param.getExportFileName());
         excelTask.setStartTime(LocalDateTime.now());
-        excelTask.setCreateUserCode(param.getCreateUserCode());
-        excelTask.setBusinessCode(param.getBusinessCode());
         taskService.save(excelTask);
         return excelTask;
     }

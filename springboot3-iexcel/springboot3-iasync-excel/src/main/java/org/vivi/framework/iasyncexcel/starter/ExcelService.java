@@ -2,21 +2,23 @@ package org.vivi.framework.iasyncexcel.starter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.vivi.framework.iasyncexcel.common.enums.ExcelTypeEnums;
+import org.springframework.stereotype.Component;
 import org.vivi.framework.iasyncexcel.common.enums.FileTypeEnums;
 import org.vivi.framework.iasyncexcel.core.exporter.AsyncExportProcessor;
 import org.vivi.framework.iasyncexcel.core.exporter.DataExportParam;
 import org.vivi.framework.iasyncexcel.core.exporter.ExportContext;
 import org.vivi.framework.iasyncexcel.core.handler.ExportHandler;
 import org.vivi.framework.iasyncexcel.core.handler.ImportHandler;
-import org.vivi.framework.iasyncexcel.core.importer.*;
+import org.vivi.framework.iasyncexcel.core.importer.AsyncImportProcessor;
+import org.vivi.framework.iasyncexcel.core.importer.ImportContext;
+import org.vivi.framework.iasyncexcel.core.importer.ImportDataParam;
 import org.vivi.framework.iasyncexcel.core.model.ExcelTask;
 import org.vivi.framework.iasyncexcel.core.support.ExportTaskSupport;
 import org.vivi.framework.iasyncexcel.core.support.ImportTaskSupport;
 import org.vivi.framework.iasyncexcel.starter.context.config.ExcelThreadPool;
 
 @Slf4j
-//@Component
+@Component
 public class ExcelService {
 
     private ExcelThreadPool threadPool;

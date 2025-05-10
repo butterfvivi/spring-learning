@@ -1,5 +1,6 @@
 package org.vivi.framework.iasyncexcel.core.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@TableName("report_task")
 public class ExcelTask {
 
     private Long id;
@@ -79,14 +81,4 @@ public class ExcelTask {
      * 导入结束时间
      */
     private LocalDateTime endTime;
-
-    /**
-     * 用户编码，用于权限控制
-     */
-    private String createUserCode;
-
-    /**
-     * 业务编码 例如user,product,用于区分不同模块的导入
-     */
-    private String businessCode;
 }
