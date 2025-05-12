@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("report_task")
+@TableName("excel_task")
 public class ExcelTask {
 
     private Long id;

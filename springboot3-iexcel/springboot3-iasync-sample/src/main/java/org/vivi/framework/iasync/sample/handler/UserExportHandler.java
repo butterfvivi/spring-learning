@@ -1,7 +1,6 @@
 package org.vivi.framework.iasync.sample.handler;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.read.metadata.ReadSheet;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -20,7 +19,7 @@ import org.vivi.framework.iasyncexcel.core.model.ExcelContext;
 import java.util.List;
 
 @ExcelHandle
-public class UserExportHandler implements ExportHandler<User> {
+public class UserExportHandler implements ExportHandler<User>{
 
     @Autowired
     private ExcelUserService excelUserService;
@@ -40,8 +39,8 @@ public class UserExportHandler implements ExportHandler<User> {
         List<User> transform = ExportListUtil.transform(iPageList.getRecords(), User.class);
         ExportPage<User> exportPage = new ExportPage<>();
         exportPage.setCurrent(iPageList.getCurrent());
-        exportPage.setTotal(page.getTotal());
-        exportPage.setSize(page.getSize());
+        exportPage.setTotal(iPageList.getTotal());
+        exportPage.setSize(iPageList.getSize());
         exportPage.setRecords(transform);
         return exportPage;
     }

@@ -1,0 +1,36 @@
+
+拉取 MySQL 8 镜像
+docker pull mysql:8.0
+
+
+创建目录用于持久化数据
+mkdir -p /opt/mysql/data /opt/mysql/conf.d /opt/mysql/logs
+
+运行 MySQL 容器
+docker run -d \
+  --name mysql \
+  -p 3308:3308 \
+  -e MYSQL_ROOT_PASSWORD=wtf0010. \
+  -v /opt/mysql/data:/var/lib/mysql \
+  -v /opt/mysql/conf.d:/etc/mysql/conf.d \
+  -v /opt/mysql/logs:/logs \
+  --restart unless-stopped \
+  mysql:8.0.31
+
+连接 MySQL
+docker exec -it mysql mysql -uroot -p
+
+
+修改 root 密码
+进入容器执行 SQL：docker exec -it mysql mysql -uroot -p
+执行：
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'wtf0010.';
+FLUSH PRIVILEGES;
+
+开启远程访问权限
+默认只允许本地访问，如需远程访问，请添加配置文件 /opt/mysql/conf.d/custom.cnf：
+[mysqld]
+bind-address = 0.0.0.0
+然后重启容器
+docker restart mysql
+

@@ -35,7 +35,7 @@ public class UserController {
         DataExportParam exportParam = new DataExportParam()
                 .setExportFileName("用户导出")
                 .setLimit(5);
-        return excelService.doExport( UserExportHandler.class,exportParam);
+        return excelService.doExport(exportParam, UserExportHandler.class);
     }
 
     @PostMapping("export1")

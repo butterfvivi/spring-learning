@@ -4,30 +4,34 @@ import org.vivi.framework.iasyncexcel.core.exporter.DataExportParam;
 import org.vivi.framework.iasyncexcel.core.exporter.ExportContext;
 import org.vivi.framework.iasyncexcel.core.model.ExcelTask;
 
+import java.util.Collection;
+
 public interface ExportTaskSupport {
 
-    /**
-     * 创建到处任务
+    /**创建任务
      * @param param
      * @return
      */
     ExcelTask createTask(DataExportParam param);
 
-    /**
-     * 导出处理
-     * @param context
+    /** 导出阶段
+     * @param ctx
      */
-    void onExport(ExportContext context);
+    void onExport(ExportContext ctx);
 
-    /**
-     * 完成导出
-     * @param context
+    /** 写文件阶段
+     * @param dataList
+     * @param ctx
      */
-    void onComplete(ExportContext context);
+    void onWrite(Collection<?> dataList, ExportContext ctx);
 
-    /**
-     * 导出失败处理
-     * @param context
+    /**完成阶段
+     * @param ctx
      */
-    void onError(ExportContext context);
+    void onComplete(ExportContext ctx);
+
+    /**失败处理阶段
+     * @param ctx
+     */
+    void onError(ExportContext ctx);
 }

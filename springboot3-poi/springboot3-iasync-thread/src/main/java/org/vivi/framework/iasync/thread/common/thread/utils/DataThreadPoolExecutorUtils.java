@@ -18,9 +18,7 @@ public class DataThreadPoolExecutorUtils {
     private static Logger logger = LogManager.getLogger(DataThreadPoolExecutorUtils.class);
 
     /**
-     * @author: TMesh
-     * @description: 线程池单例
-     * @Version: 1.0
+     * 线程池单例
      **/
     public static class SetDataThreadPoolSingleton {
 

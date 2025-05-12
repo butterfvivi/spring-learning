@@ -8,6 +8,7 @@ import org.vivi.framework.iasyncexcel.common.enums.ExcelTypeEnums;
 import org.vivi.framework.iasyncexcel.core.importer.ImportContext;
 import org.vivi.framework.iasyncexcel.core.importer.ImportDataParam;
 import org.vivi.framework.iasyncexcel.core.model.ExcelTask;
+import org.vivi.framework.iasyncexcel.core.service.IStorageService;
 import org.vivi.framework.iasyncexcel.core.service.TaskService;
 
 import java.time.LocalDateTime;
@@ -17,9 +18,12 @@ public class AsyncImportTaskSupport implements ImportTaskSupport {
 
     private final static Logger log = LoggerFactory.getLogger(AsyncImportTaskSupport.class);
 
-    private TaskService taskService;
+    IStorageService storageService;
+    TaskService taskService;
+    public static String IMPORT_ERROR_PREFIX = "import-error-";
+    public static String XLSX_SUFFIX = ".xlsx";
 
-    public AsyncImportTaskSupport(TaskService taskService) {
+    public AsyncImportTaskSupport(IStorageService storageService, TaskService taskService) {
         this.taskService = taskService;
     }
 
@@ -76,6 +80,7 @@ public class AsyncImportTaskSupport implements ImportTaskSupport {
         excelTask.setSuccessCount(context.getSuccessCount());
         excelTask.setTotalCount(context.getTotalCount());
         taskService.updateById(excelTask);
+        log.info("task import complete");
     }
 
     public void close(ImportContext ctx) {

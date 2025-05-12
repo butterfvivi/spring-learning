@@ -12,7 +12,7 @@ public interface ExportThreadTask extends Runnable {
     public final static int SHEETLIMIT = 1000000;
     // excel 本地存储路径
 //    public final static String DIR_PATH = "/data/excel/export";
-    public final static String DIR_PATH = "/Users/vivi/Downloads/excel";
+    public final static String DIR_PATH = "/Users/vivi/IdeaProjects/spring-learning/springboot3-poi/springboot3-iasync-thread/src/main/resources/excel";
 
 
 }

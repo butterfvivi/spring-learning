@@ -5,7 +5,7 @@ spring:
     name: springboot3-iasync-excel
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.31.220:3306/springboot3_demo
+    url: jdbc:mysql://127.0.0.1:3306/springboot3_demo
     username: root
     password: wtf0010.
     druid:
@@ -38,6 +38,8 @@ mybatis-plus:
     db-config:
       id-type: auto
   mapper-locations: classpath:mapper/*.xml
+  configuration:
+    use-deprecated-executor: false
 
 # Logger Config
 logging:
