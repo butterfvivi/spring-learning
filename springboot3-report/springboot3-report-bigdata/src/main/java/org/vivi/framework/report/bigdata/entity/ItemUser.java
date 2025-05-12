@@ -1,4 +1,4 @@
-package org.vivi.framework.iasync.sample.model;
+package org.vivi.framework.report.bigdata.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

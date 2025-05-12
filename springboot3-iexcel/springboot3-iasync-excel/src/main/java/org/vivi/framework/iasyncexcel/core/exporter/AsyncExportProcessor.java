@@ -1,8 +1,8 @@
 package org.vivi.framework.iasyncexcel.core.exporter;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.function.TriFunction;
-import org.springframework.util.CollectionUtils;
 import org.vivi.framework.iasyncexcel.common.utils.ExceptionUtil;
 import org.vivi.framework.iasyncexcel.core.handler.ExportHandler;
 import org.vivi.framework.iasyncexcel.core.support.ExportTaskSupport;
@@ -20,48 +20,52 @@ public class AsyncExportProcessor {
         this.executor = executor;
     }
 
-    public void exportData(ExportHandler handler, ExportTaskSupport support,
-                           DataExportParam param, ExportContext context){
-        BiFunction<Integer,Integer,ExportPage> dataFunction = (start, limit) -> {
-            support.onExport(context);
-            handler.beforePerPage(context,param);
-            ExportPage exportPage = handler.exportData(start, limit, param);
-            if (exportPage == null){
-                throw new RuntimeException("导出数据为空");
-            }
+    @Deprecated
+    public void exportData(ExportHandler handler, ExportTaskSupport support, DataExportParam param,
+                           ExportContext ctx) {
 
-            if (CollectionUtils.isEmpty(exportPage.getRecords())){
+        BiFunction<Integer, Integer, ExportPage> dataFunction = (start, limit) -> {
+            support.onExport(ctx);
+            try {
+                handler.beforePerPage(ctx, param);
+                ExportPage exportPage = handler.exportData(start, limit, param);
+                if (exportPage == null) {
+                    throw new RuntimeException("导出数据为空");
+                }
+                if (org.apache.commons.collections4.CollectionUtils.isEmpty(exportPage.getRecords())) {
+                    return exportPage;
+                }
+                ctx.record(exportPage.getRecords().size());
+                support.onWrite(exportPage.getRecords(), ctx);
+                handler.afterPerPage(exportPage.getRecords(), ctx, param);
                 return exportPage;
+            } catch (Exception e) {
+                log.error("导出过程发生异常");
+                throw ExceptionUtil.wrap2Runtime(e);
             }
-
-            context.record(exportPage.getRecords().size());
-            support.onWrite(exportPage.getRecords(), context);
-            handler.afterPerPage(exportPage.getRecords(),context,param);
-            return exportPage;
         };
-
         executor.execute(() -> {
             try {
-                handler.init(context, param);
+                handler.init(ctx, param);
                 int cursor = 1;
                 ExportPage page = dataFunction.apply(cursor, param.getLimit());
                 Long total = page.getTotal();
-                context.getTask().setEstimateCount(total);
+                ctx.getTask().setEstimateCount(total);
                 long pageNum = (total + page.getSize() - 1) / page.getSize();
                 for (cursor++; cursor <= pageNum; cursor++) {
                     dataFunction.apply(cursor, param.getLimit());
                 }
-                support.onComplete(context);
-            }catch (Exception e){
+                support.onComplete(ctx);
+            } catch (Exception e) {
                 log.error("导出异常", e);
                 if (e instanceof ExportException) {
-                    context.setFailMessage(e.getMessage());
+                    ctx.setFailMessage(e.getMessage());
                 } else {
-                    context.setFailMessage("系统异常，联系管理员");
+                    ctx.setFailMessage("系统异常，联系管理员");
                 }
-                support.onError(context);
-            }finally {
-                handler.callBack(context, param);
+                support.onError(ctx);
+            } finally {
+                handler.callBack(ctx, param);
             }
         });
     }
@@ -77,31 +81,22 @@ public class AsyncExportProcessor {
     public void exportData(ExportTaskSupport support, DataExportParam param, ExportContext ctx,
                            ExportHandler... handlers) {
         TriFunction<ExportHandler, Integer, Integer, ExportPage> dataFunction = (h, start, limit) -> {
-            log.info("开始导出 handler: {}, start: {}, limit: {}", h.getClass().getSimpleName(), start, limit);
-            long startMs = System.currentTimeMillis();
-
+            support.onExport(ctx);
             try {
-                support.onExport(ctx);
                 h.beforePerPage(ctx, param);
-
                 ExportPage exportPage = h.exportData(start, limit, param);
-
-                if (exportPage == null) {
-                    throw new ExportException("导出数据为空");
+                if (CollectionUtils.isEmpty(exportPage.getRecords())) {
+                    return exportPage;
                 }
-
-                if (!CollectionUtils.isEmpty(exportPage.getRecords())) {
-                    ctx.record(exportPage.getRecords().size());
-                    support.onWrite(exportPage.getRecords(), ctx);
-                    h.afterPerPage(exportPage.getRecords(), ctx, param);
-                }
-
+                ctx.record(exportPage.getRecords().size());
+                support.onWrite(exportPage.getRecords(), ctx);
+                h.afterPerPage(exportPage.getRecords(), ctx, param);
                 return exportPage;
             } catch (Exception e) {
-                log.error("导出失败 handler: {}, start: {}, limit: {}", h.getClass().getSimpleName(), start, limit, e);
                 throw ExceptionUtil.wrap2Runtime(e);
             }
         };
+
         executor.execute(() -> {
             try {
                 if (handlers == null || handlers.length == 0) {

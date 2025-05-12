@@ -31,17 +31,16 @@ public class UserExportHandler implements ExportHandler<User>{
         context.setWriteSheet(sheet);
     }
 
-
     @Override
     public ExportPage<User> exportData(int startPage, int limit, DataExportParam param) {
-        IPage<User> page = new Page();
-        IPage<User> iPageList = excelUserService.page(page);
-        List<User> transform = ExportListUtil.transform(iPageList.getRecords(), User.class);
-        ExportPage<User> exportPage = new ExportPage<>();
-        exportPage.setCurrent(iPageList.getCurrent());
-        exportPage.setTotal(iPageList.getTotal());
-        exportPage.setSize(iPageList.getSize());
-        exportPage.setRecords(transform);
-        return exportPage;
+        IPage<User> iPage = new Page<>(startPage, limit);
+        IPage<User> page = excelUserService.page(iPage);
+        List<User> list = ExportListUtil.transform(page.getRecords(), User.class);
+        ExportPage<User> result = new ExportPage<>();
+        result.setTotal(page.getTotal());
+        result.setCurrent(page.getCurrent());
+        result.setSize(page.getSize());
+        result.setRecords(list);
+        return result;
     }
 }

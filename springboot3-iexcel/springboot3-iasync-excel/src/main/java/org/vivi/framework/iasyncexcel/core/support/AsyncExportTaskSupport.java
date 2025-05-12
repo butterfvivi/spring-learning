@@ -19,6 +19,7 @@ import org.vivi.framework.iasyncexcel.core.model.ExcelTask;
 import org.vivi.framework.iasyncexcel.core.service.IStorageService;
 import org.vivi.framework.iasyncexcel.core.service.TaskService;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
@@ -31,6 +32,7 @@ public class AsyncExportTaskSupport implements ExportTaskSupport{
 
     private TaskService taskService;
     IStorageService storageService;
+    private final static String tempPath="/Users/vivi/IdeaProjects/spring-learning/springboot3-iexcel/springboot3-iasync-sample/src/main/resources/excel/";
 
     public AsyncExportTaskSupport(IStorageService storageService, TaskService taskService) {
         this.storageService = storageService;
@@ -64,6 +66,20 @@ public class AsyncExportTaskSupport implements ExportTaskSupport{
         if (CollectionUtils.isEmpty(dataList)) {
             return;
         }
+
+        // 构建导出目录
+        File exportDir = new File(tempPath);
+        if (!exportDir.exists() && !exportDir.mkdirs()) {
+            throw new RuntimeException("无法创建导出目录: " + tempPath);
+        }
+
+        // 构建文件名
+        String fileName = ctx.getFileName();
+        if (fileName == null || !fileName.endsWith(".xlsx")) {
+            fileName = ctx.getTask().getId() + ".xlsx";
+        }
+        File exportFile = new File(exportDir, fileName);
+        ctx.setFileName(fileName);
         if (ctx.getOutputStream() == null) {
             PipedOutputStream pos = new PipedOutputStream();
             try {
@@ -82,7 +98,7 @@ public class AsyncExportTaskSupport implements ExportTaskSupport{
 
         //创建excel
         if (ctx.getExcelWriter() == null) {
-            ExcelWriterBuilder writerBuilder = EasyExcel.write(ctx.getOutputStream())
+            ExcelWriterBuilder writerBuilder = EasyExcel.write(exportFile)
                     .excelType(ExcelTypeEnum.XLSX).autoCloseStream(false);
             ExcelWriter excelWriter = writerBuilder.build();
 
@@ -115,7 +131,10 @@ public class AsyncExportTaskSupport implements ExportTaskSupport{
         }
 
         ctx.getExcelWriter().write(dataList, ctx.getWriteSheet());
+        ctx.getExcelWriter().finish();
 
+        // 设置结果路径供后续使用
+        ctx.setResultFile("/excel/" + fileName);
     }
 
     @Override

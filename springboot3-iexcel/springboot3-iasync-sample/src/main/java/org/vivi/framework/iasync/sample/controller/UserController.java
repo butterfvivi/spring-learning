@@ -34,7 +34,7 @@ public class UserController {
     public Long exports(){
         DataExportParam exportParam = new DataExportParam()
                 .setExportFileName("用户导出")
-                .setLimit(5);
+                .setLimit(500);
         return excelService.doExport(exportParam, UserExportHandler.class);
     }
 

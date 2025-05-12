@@ -2,7 +2,6 @@ package org.vivi.framework.report.bigdata.general;
 
 import cn.hutool.core.lang.Pair;
 import com.google.common.base.Strings;
-import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -13,6 +12,7 @@ import java.util.*;
 @Component
 @ConfigurationProperties(prefix = "org.vivi.framework.report.bigdata")
 public class ExportExcelManagerProperty {
+
     private Map<String, ExportExcelManagerTemplate> templates;
 
     @Data
@@ -55,7 +55,7 @@ public class ExportExcelManagerProperty {
         private Map<String, Map<String, String>> fieldValueMappingFunction;
     }
 
-    @PostConstruct
+    //@PostConstruct
     private void init() {
         //
         templates.entrySet().stream()

@@ -25,7 +25,6 @@ public class ExcelService {
 
     private SpringExcelContext context;
 
-    private final static String tempPath="/Users/vivi/IdeaProjects/spring-learning/springboot3-iexcel/springboot3-iasync-sample/src/main/resources/excel/";
 
     public ExcelService(ExcelThreadPool threadPool, SpringExcelContext context) {
         this.threadPool = threadPool;
@@ -102,7 +101,6 @@ public class ExcelService {
         ctx.setWriteHandlers(param.getWriteHandlers());
         ctx.setConverters(param.getConverters());
         ctx.setSheetName(param.getSheetName());
-        ctx.setResultFile(tempPath+ctx.getFileName());
         String exportFileName = param.getExportFileName();
         StringBuilder sb = new StringBuilder(filePrefix).append(task.getId()).append("-");
         if (StringUtils.isEmpty(exportFileName)){
