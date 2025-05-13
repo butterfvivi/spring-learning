@@ -15,35 +15,40 @@ import org.vivi.framework.iasyncexcel.core.support.ImportTaskSupport;
 import org.vivi.framework.iasyncexcel.starter.context.service.ServerLocalStorageService;
 
 /**
- * 注册给子容器的bean通过ComponentScan 与 自定义@ExcelHandle注解扫描写在主项目中的扩展bean
+ * Excel context configuration for registering beans in the child container
+ * Uses ComponentScan and @ExcelHandle annotation to scan extension beans in the main project
  */
 @Configuration
 @ComponentScan({"org.vivi.framework.iasyncexcel.starter.context"})
 @Import({ExcelContextRegistrar.class})
 public class ExcelContextConfiguration {
 
-
-    /**暴露给外部扩展
-     * @return
+    /**
+     * Default storage service implementation
+     * Can be overridden by defining a custom IStorageService bean
      */
     @Bean
     @ConditionalOnMissingBean(IStorageService.class)
-    IStorageService storageService(){
+    public IStorageService storageService() {
         return new ServerLocalStorageService();
     }
 
-
+    /**
+     * Import task support implementation
+     */
     @Bean
     @ConditionalOnBean({IStorageService.class, TaskService.class})
-    ImportTaskSupport importSupport(TaskService taskService,IStorageService storageService){
-        return new AsyncImportTaskSupport(storageService,taskService);
+    public ImportTaskSupport importSupport(TaskService taskService, IStorageService storageService) {
+        return new AsyncImportTaskSupport(storageService, taskService);
     }
 
-
+    /**
+     * Export task support implementation
+     */
     @Bean
-    @ConditionalOnBean({IStorageService.class,TaskService.class})
-    ExportTaskSupport exportSupport(TaskService taskService,IStorageService storageService){
-        return new AsyncExportTaskSupport(storageService,taskService);
+    @ConditionalOnBean({IStorageService.class, TaskService.class})
+    public ExportTaskSupport exportSupport(TaskService taskService, IStorageService storageService) {
+        return new AsyncExportTaskSupport(storageService, taskService);
     }
 
 }

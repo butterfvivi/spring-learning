@@ -88,6 +88,10 @@ public class AsyncExportTaskSupport implements ExportTaskSupport{
                 //此处单独起线程避免线程互相等待死锁
                 FutureTask<String> futureTask = new FutureTask<>(
                         () -> storageService.write(ctx.getFileName(), ctx.getInputStream()));
+                Thread thread = new Thread(futureTask);
+                thread.setDaemon(true);
+                thread.start();
+
                 new Thread(futureTask).start();
                 ctx.setFuture(futureTask);
             } catch (IOException e) {
@@ -95,6 +99,7 @@ public class AsyncExportTaskSupport implements ExportTaskSupport{
             }
             ctx.setOutputStream(pos);
         }
+
 
         //创建excel
         if (ctx.getExcelWriter() == null) {
@@ -134,7 +139,7 @@ public class AsyncExportTaskSupport implements ExportTaskSupport{
         ctx.getExcelWriter().finish();
 
         // 设置结果路径供后续使用
-        ctx.setResultFile("/excel/" + fileName);
+        ctx.setResultFile(exportFile.getAbsolutePath());
     }
 
     @Override

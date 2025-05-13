@@ -62,22 +62,18 @@ public class ExcelContextRegistrar implements ImportBeanDefinitionRegistrar, Res
                                     BeanDefinitionRegistry registry) {
         ClassPathScanningCandidateComponentProvider scanner = getScanner();
         scanner.setResourceLoader(this.resourceLoader);
-        AnnotationTypeFilter annotationTypeFilter = new AnnotationTypeFilter(
-                ExcelHandle.class);
-
-        scanner.addIncludeFilter(annotationTypeFilter);
+        scanner.addIncludeFilter(new AnnotationTypeFilter(ExcelHandle.class));
 
         for (String basePackage : ExcelContextFactory.basePackages) {
-            Set<BeanDefinition> candidateComponents = scanner
-                    .findCandidateComponents(basePackage);
-            for (BeanDefinition candidateComponent : candidateComponents) {
-                if (candidateComponent instanceof AnnotatedBeanDefinition) {
-                    AnnotatedBeanDefinition beanDefinition = (AnnotatedBeanDefinition) candidateComponent;
+            Set<BeanDefinition> candidateComponents = scanner.findCandidateComponents(basePackage);
+            candidateComponents.stream()
+                .filter(AnnotatedBeanDefinition.class::isInstance)
+                .map(AnnotatedBeanDefinition.class::cast)
+                .forEach(beanDefinition -> {
                     String name = BeanDefinitionReaderUtils.generateBeanName(beanDefinition, registry);
                     BeanDefinitionHolder holder = new BeanDefinitionHolder(beanDefinition, name);
                     BeanDefinitionReaderUtils.registerBeanDefinition(holder, registry);
-                }
-            }
+                });
         }
     }
 
