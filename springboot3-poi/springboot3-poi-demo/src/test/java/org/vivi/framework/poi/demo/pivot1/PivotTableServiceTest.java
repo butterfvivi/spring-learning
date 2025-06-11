@@ -6,16 +6,16 @@ import org.apache.poi.xssf.usermodel.XSSFPivotTable;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
 
 class PivotTableServiceTest {
 
     public static void main(String[] args) {
 
         try {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("请输入Excel路径：");
-            String excelPath = scanner.next();
+            //Scanner scanner = new Scanner(System.in);
+            //System.out.println("请输入Excel路径：");
+            //String excelPath = scanner.next();
+            String excelPath = "/Users/vivi/IdeaProjects/spring-learning/springboot3-poi/springboot3-poi-demo/src/main/resources";
             if (excelPath.trim().length() == 0) return;
 
             File file = new File(excelPath);
