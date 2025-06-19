@@ -1,0 +1,25 @@
+version: '3.8'
+name: kafka
+services:
+  zookepper:
+    image: zookeeper                                 # 原镜像`zookeeper`
+    container_name: zookeeper                        # 容器名为'zookeeper'
+    restart: unless-stopped                                  # 指定容器退出后的重启策略为始终重启，但是不考虑在Docker守护进程启动时就已经停止了的容器
+    ports:                                           # 映射端口
+      - "2181:2181"
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka                                    # 容器名为'kafka'
+    restart: unless-stopped                                         # 指定容器退出后的重启策略为始终重启，但是不考虑在Docker守护进程启动时就已经停止了的容器
+    ports:                              # 映射端口
+      - "9092:9092"
+    environment:                                                       # 设置环境变量,相当于docker run命令中的-e
+      KAFKA_ADVERTISED_PORT: 9092                                      # 端口
+      KAFKA_BROKER_ID: 0                                               # 在kafka集群中，每个kafka都有一个BROKER_ID来区分自己
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://14.103.123.142:9092               # 将kafka的地址端口注册给zookeeper
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092                        # 配置kafka的监听端口
+      KAFKA_ZOOKEEPER_CONNECT: 14.103.123.142:2181                          # zookeeper地址
+      KAFKA_CREATE_TOPICS: "hello_world"
+    depends_on:                         # 解决容器依赖启动先后问题
+      - zookepper

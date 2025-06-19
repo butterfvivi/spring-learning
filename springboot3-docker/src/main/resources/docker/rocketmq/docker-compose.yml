@@ -1,0 +1,63 @@
+version: '3.8'
+name: rocketmq
+services:
+  # namesrv进程
+  namesrv:
+    image: apache/rocketmq:5.3.1
+    container_name: rmqnamesrv
+    restart: unless-stopped
+    ports:
+      - 9876:9876
+    volumes:
+      - ./name_server/logs:/home/rocketmq/logs
+    environment:
+      JAVA_OPT_EXT: "-Duser.home=/home/rocketmq -Xms256M -Xmx256M -Xmn128m"
+    command: sh mqnamesrv
+
+  # broker进程
+  broker:
+    image: apache/rocketmq:5.3.1
+    container_name: rmqbroker
+    restart: unless-stopped
+    ports:
+      - 10909:10909
+      - 10911:10911
+      - 10912:10912
+    volumes:
+      - ./broker/logs:/home/logs
+      - ./broker/data:/home/store
+      # `broker.conf`配置参考 https://github.com/apache/rocketmq/blob/master/distribution/conf/broker.conf
+      - ./broker/config/broker.conf:/home/rocketmq/broker.conf
+    environment:
+      NAMESRV_ADDR: "rmqnamesrv:9876"
+      JAVA_OPT_EXT: "-Duser.home=/home/rocketmq -server -Xms128m -Xmx128m -Xmn128m"
+    depends_on:
+      - namesrv
+    command: sh mqbroker
+
+  # proxy进程
+  proxy:
+    image: apache/rocketmq:5.3.1
+    container_name: rmqproxy
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+      - 8081:8081
+    environment:
+      - NAMESRV_ADDR=rmqnamesrv:9876
+    depends_on:
+      - broker
+      - namesrv
+    command: sh mqproxy
+
+  # mq可视化控制台
+  dashboard:
+    image: apacherocketmq/rocketmq-dashboard:1.0.0
+    container_name: rmqdashboard
+    restart: unless-stopped
+    ports:
+      - "9002:8080"
+    environment:
+      JAVA_OPTS: "-Drocketmq.namesrv.addr=rmqnamesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false"
+    depends_on:
+      - namesrv
