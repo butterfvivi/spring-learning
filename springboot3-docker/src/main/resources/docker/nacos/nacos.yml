@@ -1,0 +1,49 @@
+version : '3.8'
+services:
+#  nacos:
+#    image: nacos/nacos-server:v2.4.0
+#    container_name: nacos-mysql
+#    env_file:
+#      - ./conf/nacos-config.env
+#    volumes:
+#      - ../log/nacos/:/home/nacos/logs
+#      - ./conf/custom.properties:/home/nacos/init.d/custom.properties
+#    ports:
+#      - "8848:8848"
+#      - "9555:9555"
+#    restart: always
+
+  nacos:
+    image: nacos/nacos-server:v2.2.0
+    container_name: nacos
+    volumes:
+      - ../nacos/standalone-logs/:/home/nacos/logs
+      # env_file:
+      # - ./nacos/nacos-standlone-mysql.env #这个文件指定启动模式  只有一行内容：MODE=standalone
+    environment:
+      TZ: Asia/Shanghai
+      MODE: standalone
+      SERVER_PORT: 8848
+      SERVER_IP: 0.0.0.0
+      SPRING_DATASOURCE_PLATFORM: mysql
+      MYSQL_SERVICE_HOST: 14.103.123.142
+      MYSQL_SERVICE_PORT: 3306
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: Wtf0010.
+      MYSQL_SERVICE_DB_NAME: nacos_config
+      MYSQL_SERVICE_DB_PARAM: characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+      NACOS_AUTH_TOKEN: fSpyHSVOXA0cUz+hncJs+tNAWID3eLof/SNbztlIIAs=
+      NACOS_AUTH_IDENTITY_KEY: nacos
+      NACOS_AUTH_IDENTITY_VALUE: nacos
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+      - "9849:9849"
+    restart: always
+    networks:
+      - nacos
+
+# 网桥 -> 方便相互通讯
+networks:
+  nacos:
+    driver: bridge
