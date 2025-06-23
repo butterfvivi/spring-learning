@@ -25,7 +25,7 @@ public class MinioController {
      */
     @GetMapping("/getFileList")
     public List<Object> getFileList() {
-        return minioUtils.getFileList("test", true);
+        return minioUtils.getFileList("blog", true);
     }
 
     /**

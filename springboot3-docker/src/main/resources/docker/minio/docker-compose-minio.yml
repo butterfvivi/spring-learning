@@ -15,7 +15,7 @@ services:
       MINIO_PROMETHEUS_AUTH_TYPE: "public"
       MINIO_ACCESS_KEY: "root"                        # 登录账号
       MINIO_SECRET_KEY: "root1234"                    # 登录密码
-    command: server /data  --console-address ":9001"
+    command: server --address ':9000' --console-address ':9001' /data  # 指定容器中的目录 /data
     logging:
       driver: "json-file"
       options:

@@ -2,11 +2,10 @@ spring:
   application:
     name: springboot3-minio
 minio:
-  endpoint: http://192.168.100.136:9000
+  endpoint: http://14.103.123.142:9000
   access-key: root
-  secret-key: root123456
-  bucket-name: public-test
-  public-bucket-name: public-test
+  secret-key: root1234
+  bucket-name: blog
 
 springdoc:
   group-configs:
