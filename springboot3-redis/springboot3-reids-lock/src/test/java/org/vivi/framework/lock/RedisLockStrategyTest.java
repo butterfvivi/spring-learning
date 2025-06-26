@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.TestPropertySource;
 import org.vivi.framework.lock.model.LockResult;
-import org.vivi.framework.lock.service.impl.RedisLockStrategy;
+import org.vivi.framework.lock.service.RedisLockStrategy;
 
 import java.util.concurrent.TimeUnit;
 

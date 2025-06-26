@@ -13,7 +13,7 @@ import org.vivi.framework.lock.manager.DistributedLockManager;
 import org.vivi.framework.lock.monitor.LockHealthChecker;
 import org.vivi.framework.lock.monitor.LockMonitor;
 import org.vivi.framework.lock.service.LockStrategy;
-import org.vivi.framework.lock.service.impl.RedisLockStrategy;
+import org.vivi.framework.lock.service.RedisLockStrategy;
 
 /**
  * Redis分布式锁自动配置类

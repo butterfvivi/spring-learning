@@ -1,4 +1,4 @@
-package org.vivi.framework.lock.service.impl;
+package org.vivi.framework.lock.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +6,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Component;
 import org.vivi.framework.lock.model.LockResult;
-import org.vivi.framework.lock.service.LockStrategy;
 
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
