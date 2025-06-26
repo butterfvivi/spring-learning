@@ -213,4 +213,11 @@ public class LockNamingConvention {
         String[] parts = lockKey.split(SEPARATOR);
         return parts.length > 1 ? parts[1] : "";
     }
+
+    /**
+     * 规范化锁键，去除非法字符
+     */
+    public static String normalizeKey(String lockKey) {
+        return sanitizeLockKey(lockKey);
+    }
 }

@@ -69,15 +69,14 @@ public class LockHealthChecker {
      */
     private void performHealthCheck(String strategyName, LockStrategy strategy) {
         String testLockKey = "health-check-" + strategyName;
-        String testLockValue = "health-check-" + System.currentTimeMillis();
-        
+
         try {
             // 尝试获取测试锁
-            LockResult lockResult = strategy.tryLock(testLockKey, testLockValue, LOCK_TIMEOUT);
+            LockResult lockResult = strategy.tryLock(testLockKey, LOCK_TIMEOUT, TimeUnit.MILLISECONDS);
             
             if (lockResult.isSuccess()) {
                 // 成功获取锁，立即释放
-                boolean unlockSuccess = strategy.unlock(testLockKey, testLockValue);
+                boolean unlockSuccess = strategy.unlock(testLockKey);
                 
                 if (unlockSuccess) {
                     log.debug("锁策略健康检查通过: {}", strategyName);
@@ -183,12 +182,11 @@ public class LockHealthChecker {
         }
         
         String testLockKey = "health-check-" + strategyName;
-        String testLockValue = "health-check-" + System.currentTimeMillis();
-        
+
         try {
-            LockResult lockResult = strategy.tryLock(testLockKey, testLockValue, LOCK_TIMEOUT);
+            LockResult lockResult = strategy.tryLock(testLockKey, LOCK_TIMEOUT, TimeUnit.MILLISECONDS);
             if (lockResult.isSuccess()) {
-                boolean unlockSuccess = strategy.unlock(testLockKey, testLockValue);
+                boolean unlockSuccess = strategy.unlock(testLockKey);
                 return unlockSuccess;
             }
             return false;
@@ -222,6 +220,19 @@ public class LockHealthChecker {
             log.debug("清理过期的健康检查数据完成");
         } catch (Exception e) {
             log.error("清理过期的健康检查数据异常", e);
+        }
+    }
+    
+    /**
+     * 判断锁服务是否健康
+     */
+    public boolean isHealthy() {
+        try {
+            LockStatistics statistics = lockMonitor.getStatistics();
+            return statistics.getHealthStatus() == LockStatistics.LockHealthStatus.HEALTHY;
+        } catch (Exception e) {
+            log.error("健康状态检查异常", e);
+            return false;
         }
     }
 }

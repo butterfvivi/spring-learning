@@ -8,6 +8,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.vivi.framework.lock.model.LockResult;
 import org.vivi.framework.lock.service.impl.RedisLockStrategy;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -34,7 +36,7 @@ class RedisLockStrategyTest {
         long expireTime = 5000;
         
         // 测试获取锁
-        LockResult result = redisLockStrategy.tryLock(lockKey, lockValue, expireTime);
+        LockResult result = redisLockStrategy.tryLock(lockKey, expireTime, TimeUnit.MILLISECONDS);
         assertTrue(result.isSuccess());
         assertEquals(lockValue, result.getLockValue());
         
@@ -42,7 +44,7 @@ class RedisLockStrategyTest {
         assertTrue(redisLockStrategy.isLocked(lockKey));
         
         // 测试重复获取失败
-        LockResult result2 = redisLockStrategy.tryLock(lockKey, "another-value", expireTime);
+        LockResult result2 = redisLockStrategy.tryLock(lockKey,  expireTime, TimeUnit.MILLISECONDS);
         assertFalse(result2.isSuccess());
     }
     
@@ -53,11 +55,11 @@ class RedisLockStrategyTest {
         long expireTime = 5000;
         
         // 获取锁
-        LockResult result = redisLockStrategy.tryLock(lockKey, lockValue, expireTime);
+        LockResult result = redisLockStrategy.tryLock(lockKey, expireTime, TimeUnit.MILLISECONDS);
         assertTrue(result.isSuccess());
         
         // 释放锁
-        boolean unlockResult = redisLockStrategy.unlock(lockKey, lockValue);
+        boolean unlockResult = redisLockStrategy.unlock(lockKey);
         assertTrue(unlockResult);
         
         // 验证锁已被释放
@@ -72,18 +74,18 @@ class RedisLockStrategyTest {
         long expireTime = 5000;
         
         // 获取锁
-        LockResult result = redisLockStrategy.tryLock(lockKey, lockValue, expireTime);
+        LockResult result = redisLockStrategy.tryLock(lockKey, expireTime, TimeUnit.MILLISECONDS);
         assertTrue(result.isSuccess());
         
         // 使用错误的值释放锁
-        boolean unlockResult = redisLockStrategy.unlock(lockKey, wrongValue);
+        boolean unlockResult = redisLockStrategy.unlock(lockKey);
         assertFalse(unlockResult);
         
         // 验证锁仍然存在
         assertTrue(redisLockStrategy.isLocked(lockKey));
         
         // 使用正确的值释放锁
-        unlockResult = redisLockStrategy.unlock(lockKey, lockValue);
+        unlockResult = redisLockStrategy.unlock(lockKey);
         assertTrue(unlockResult);
     }
     
@@ -109,7 +111,7 @@ class RedisLockStrategyTest {
         long expireTime = 5000;
         
         // 获取锁
-        LockResult result = redisLockStrategy.tryLock(lockKey, lockValue, expireTime);
+        LockResult result = redisLockStrategy.tryLock(lockKey, expireTime, TimeUnit.MILLISECONDS);
         assertTrue(result.isSuccess());
         
         // 获取TTL
@@ -117,7 +119,7 @@ class RedisLockStrategyTest {
         assertTrue(ttl > 0 && ttl <= expireTime);
         
         // 释放锁
-        redisLockStrategy.unlock(lockKey, lockValue);
+        redisLockStrategy.unlock(lockKey);
     }
     
     @Test
@@ -127,7 +129,7 @@ class RedisLockStrategyTest {
         long expireTime = 5000;
         
         // 获取锁
-        LockResult result = redisLockStrategy.tryLock(lockKey, lockValue, expireTime);
+        LockResult result = redisLockStrategy.tryLock(lockKey, expireTime, TimeUnit.MILLISECONDS);
         assertTrue(result.isSuccess());
         
         // 获取锁值
@@ -135,6 +137,6 @@ class RedisLockStrategyTest {
         assertEquals(lockValue, value);
         
         // 释放锁
-        redisLockStrategy.unlock(lockKey, lockValue);
+        redisLockStrategy.unlock(lockKey);
     }
 }

@@ -3,90 +3,172 @@ package org.vivi.framework.lock.manager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.vivi.framework.lock.metrics.LockStatistics;
 import org.vivi.framework.lock.model.LockResult;
 import org.vivi.framework.lock.monitor.LockHealthChecker;
 import org.vivi.framework.lock.monitor.LockMonitor;
 import org.vivi.framework.lock.service.LockStrategy;
 
-import java.util.Map;
-import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 /**
  * 分布式锁管理器
- * 提供统一的分布式锁管理接口，支持多种锁策略
+ * 提供统一的分布式锁获取和释放接口
  */
 @Slf4j
 @Component
 public class DistributedLockManager {
 
     @Autowired
-    private Map<String, LockStrategy> lockStrategies;
+    private LockStrategy lockStrategy;
 
     @Autowired
     private LockMonitor lockMonitor;
 
     @Autowired
-    private LockHealthChecker lockHealthChecker;
+    private LockHealthChecker healthChecker;
 
-    private static final String DEFAULT_STRATEGY = "redis";
+    // 锁持有者映射，用于实现可重入锁
+    private final ConcurrentHashMap<String, LockHolder> lockHolders = new ConcurrentHashMap<>();
 
     /**
-     * 尝试获取锁（使用默认策略）
+     * 尝试获取分布式锁
+     *
+     * @param lockKey 锁的键
+     * @param timeout 超时时间
+     * @return 锁结果
      */
-    public LockResult tryLock(String lockKey, long expireTime) {
-        return tryLock(lockKey, DEFAULT_STRATEGY, expireTime);
+    public LockResult tryLock(String lockKey, long timeout) {
+        return tryLock(lockKey, timeout,TimeUnit.SECONDS, false);
     }
 
     /**
-     * 尝试获取锁（指定策略）
+     * 尝试获取分布式锁
+     *
+     * @param lockKey 锁的键
+     * @param timeout 超时时间
+     * @param timeUnit 时间单位
+     * @return 锁结果
      */
-    public LockResult tryLock(String lockKey, String strategy, long expireTime) {
-        LockStrategy lockStrategy = lockStrategies.get(strategy);
-        if (lockStrategy == null) {
-            throw new IllegalArgumentException("不支持的锁策略: " + strategy);
-        }
+    public LockResult tryLock(String lockKey, long timeout, TimeUnit timeUnit) {
+        return tryLock(lockKey, timeout, timeUnit, false);
+    }
 
-        String lockValue = UUID.randomUUID().toString();
+    /**
+     * 尝试获取分布式锁
+     *
+     * @param lockKey 锁的键
+     * @param timeout 超时时间
+     * @param timeUnit 时间单位
+     * @param reentrant 是否可重入
+     * @return 锁结果
+     */
+    public LockResult tryLock(String lockKey, long timeout, TimeUnit timeUnit, boolean reentrant) {
         long startTime = System.currentTimeMillis();
+        String normalizedKey = LockNamingConvention.normalizeKey(lockKey);
 
         try {
-            LockResult result = lockStrategy.tryLock(lockKey, lockValue, expireTime);
+            // 检查健康状态
+            if (!healthChecker.isHealthy()) {
+                log.warn("Lock service is not healthy, lock acquisition may fail");
+            }
 
-            // 记录监控信息
-            lockMonitor.recordLockAttempt(lockKey, strategy, result.isSuccess(),
-                    System.currentTimeMillis() - startTime);
+            // 检查可重入锁
+            if (reentrant && isReentrantLock(normalizedKey)) {
+                LockHolder holder = lockHolders.get(normalizedKey);
+                holder.incrementCount();
+                log.debug("Reentrant lock acquired for key: {}, count: {}", normalizedKey, holder.getCount());
+                return LockResult.success(normalizedKey, timeout);
+            }
+
+            // 尝试获取锁
+            LockResult result = lockStrategy.tryLock(normalizedKey, timeout, timeUnit);
+
+            if (result.isSuccess()) {
+                // 记录锁持有者
+                if (reentrant) {
+                    lockHolders.put(normalizedKey, new LockHolder(result.getLockValue(), 1));
+                }
+
+                // 记录监控指标
+                lockMonitor.recordLockAttempt(normalizedKey, lockStrategy.getStrategyName(), true, System.currentTimeMillis() - startTime);
+                log.info("Lock acquired successfully for key: {}, lockId: {}", normalizedKey, result.getLockValue());
+            } else {
+                lockMonitor.recordLockAttempt(normalizedKey, lockStrategy.getStrategyName(), false, System.currentTimeMillis() - startTime);
+                log.warn("Failed to acquire lock for key: {}, reason: {}", normalizedKey, result.getErrorMessage());
+            }
 
             return result;
+
         } catch (Exception e) {
-            lockMonitor.recordLockError(lockKey, strategy, e);
-            throw e;
+            lockMonitor.recordLockError(normalizedKey, lockStrategy.getStrategyName(), e);
+            log.error("Exception occurred while acquiring lock for key: {}", normalizedKey, e);
+            return LockResult.failure(e.getMessage());
         }
     }
 
     /**
-     * 释放锁（使用默认策略）
+     * 释放分布式锁
+     *
+     * @param lockKey 锁的键
+     * @param lockId 锁ID
+     * @return 是否成功释放
      */
-    public boolean unlock(String lockKey, String lockValue) {
-        return unlock(lockKey, lockValue, DEFAULT_STRATEGY);
+    public boolean unlock(String lockKey, String lockId) {
+        return unlock(lockKey, lockId, false);
     }
 
     /**
-     * 释放锁（指定策略）
+     * 释放分布式锁
+     *
+     * @param lockKey 锁的键
+     * @param lockId 锁ID
+     * @param reentrant 是否可重入
+     * @return 是否成功释放
      */
-    public boolean unlock(String lockKey, String lockValue, String strategy) {
-        LockStrategy lockStrategy = lockStrategies.get(strategy);
-        if (lockStrategy == null) {
-            throw new IllegalArgumentException("不支持的锁策略: " + strategy);
-        }
+    public boolean unlock(String lockKey, String lockId, boolean reentrant) {
+        String normalizedKey = LockNamingConvention.normalizeKey(lockKey);
 
         try {
-            boolean result = lockStrategy.unlock(lockKey, lockValue);
-            lockMonitor.recordUnlock(lockKey, strategy, result);
+            // 检查可重入锁
+            if (reentrant && isReentrantLock(normalizedKey)) {
+                LockHolder holder = lockHolders.get(normalizedKey);
+                if (holder != null && holder.getLockId().equals(lockId)) {
+                    holder.decrementCount();
+                    if (holder.getCount() <= 0) {
+                        // 计数器归零，真正释放锁
+                        lockHolders.remove(normalizedKey);
+                        boolean result = lockStrategy.unlock(normalizedKey);
+                        lockMonitor.recordUnlock(normalizedKey, lockStrategy.getStrategyName(), result);
+                        if (result) {
+                            log.info("Reentrant lock released for key: {}, lockId: {}", normalizedKey, lockId);
+                        }
+                        return result;
+                    } else {
+                        log.debug("Reentrant lock count decreased for key: {}, count: {}", normalizedKey, holder.getCount());
+                        return true;
+                    }
+                }
+            }
+
+            // 直接释放锁
+            boolean result = lockStrategy.unlock(normalizedKey);
+            lockMonitor.recordUnlock(normalizedKey, lockStrategy.getStrategyName(), result);
+            if (result) {
+                lockHolders.remove(normalizedKey);
+                log.info("Lock released successfully for key: {}, lockId: {}", normalizedKey, lockId);
+            } else {
+                log.warn("Failed to release lock for key: {}, lockId: {}", normalizedKey, lockId);
+            }
+
             return result;
+
         } catch (Exception e) {
-            lockMonitor.recordUnlockError(lockKey, strategy, e);
-            throw e;
+            lockMonitor.recordUnlockError(normalizedKey, lockStrategy.getStrategyName(), e);
+            log.error("Exception occurred while releasing lock for key: {}", normalizedKey, e);
+            return false;
         }
     }
 
@@ -153,40 +235,82 @@ public class DistributedLockManager {
     }
 
     /**
-     * 检查锁是否存在
+     * 检查锁是否被持有
+     *
+     * @param lockKey 锁的键
+     * @return 是否被持有
      */
     public boolean isLocked(String lockKey) {
-        return isLocked(lockKey, DEFAULT_STRATEGY);
+        String normalizedKey = LockNamingConvention.normalizeKey(lockKey);
+        return lockStrategy.isLocked(normalizedKey);
     }
 
     /**
-     * 检查锁是否存在（指定策略）
+     * 强制释放锁（管理员操作）
+     *
+     * @param lockKey 锁的键
+     * @return 是否成功释放
      */
-    public boolean isLocked(String lockKey, String strategy) {
-        LockStrategy lockStrategy = lockStrategies.get(strategy);
-        if (lockStrategy == null) {
-            throw new IllegalArgumentException("不支持的锁策略: " + strategy);
-        }
-
+    public boolean forceUnlock(String lockKey) {
+        String normalizedKey = LockNamingConvention.normalizeKey(lockKey);
         try {
-            return lockStrategy.isLocked(lockKey);
-        } catch (UnsupportedOperationException e) {
-            log.warn("锁策略不支持检查锁状态: {}", strategy);
+            boolean result = lockStrategy.forceUnlock(normalizedKey);
+            lockMonitor.recordUnlock(normalizedKey, lockStrategy.getStrategyName(), result);
+            if (result) {
+                lockHolders.remove(normalizedKey);
+                log.warn("Lock force released for key: {}", normalizedKey);
+            }
+            return result;
+        } catch (Exception e) {
+            lockMonitor.recordUnlockError(normalizedKey, lockStrategy.getStrategyName(), e);
+            log.error("Exception occurred while force releasing lock for key: {}", normalizedKey, e);
             return false;
         }
     }
 
     /**
-     * 获取锁监控器
+     * 获取锁统计信息
+     *
+     * @return 锁统计信息
      */
-    public LockMonitor getLockMonitor() {
-        return lockMonitor;
+    public LockStatistics getStatistics() {
+        return lockMonitor.getStatistics();
     }
 
     /**
-     * 获取锁健康检查器
+     * 检查是否为可重入锁
      */
-    public LockHealthChecker getLockHealthChecker() {
-        return lockHealthChecker;
+    private boolean isReentrantLock(String lockKey) {
+        LockHolder holder = lockHolders.get(lockKey);
+        return holder != null && holder.getCount() > 0;
+    }
+
+    /**
+     * 锁持有者内部类
+     */
+    private static class LockHolder {
+        private final String lockId;
+        private int count;
+
+        public LockHolder(String lockId, int count) {
+            this.lockId = lockId;
+            this.count = count;
+        }
+
+        public String getLockId() {
+            return lockId;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        public void incrementCount() {
+            this.count++;
+        }
+
+        public void decrementCount() {
+            this.count--;
+        }
     }
 }

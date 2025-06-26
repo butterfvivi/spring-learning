@@ -126,7 +126,7 @@ public class LockMonitorController {
     @GetMapping("/check/{lockKey}/{strategy}")
     public boolean isLocked(@PathVariable String lockKey, @PathVariable String strategy) {
         log.debug("检查锁状态: lockKey={}, strategy={}", lockKey, strategy);
-        return lockManager.isLocked(lockKey, strategy);
+        return lockManager.isLocked(lockKey);
     }
     
     /**

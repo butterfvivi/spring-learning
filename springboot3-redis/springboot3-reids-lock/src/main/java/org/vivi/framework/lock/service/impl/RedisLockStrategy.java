@@ -74,18 +74,18 @@ public class RedisLockStrategy implements LockStrategy {
         "end";
     
     @Override
-    public LockResult tryLock(String lockKey, String lockValue, long expireTime) {
+    public LockResult tryLock(String lockKey, long expireTime,TimeUnit timeUnit) {
         String key = LOCK_PREFIX + lockKey;
         
         try {
             // 使用SET NX EX命令尝试获取锁
             Boolean success = redisTemplate.opsForValue()
-                .setIfAbsent(key, lockValue, expireTime, TimeUnit.MILLISECONDS);
+                .setIfAbsent(key, lockKey, expireTime, timeUnit);
             
             if (Boolean.TRUE.equals(success)) {
-                log.debug("Redis锁获取成功: lockKey={}, lockValue={}, expireTime={}ms", 
-                    lockKey, lockValue, expireTime);
-                return LockResult.success(lockValue, System.currentTimeMillis() + expireTime);
+                log.debug("Redis锁获取成功: lockKey={}, lockValue={}, expireTime={}ms",
+                        key, lockKey, expireTime);
+                return LockResult.success(lockKey, System.currentTimeMillis() + expireTime);
             } else {
                 log.debug("Redis锁获取失败: lockKey={}, 锁已被其他客户端持有", lockKey);
                 return LockResult.failure("锁已被其他客户端持有");
@@ -97,7 +97,7 @@ public class RedisLockStrategy implements LockStrategy {
     }
 
     @Override
-    public boolean unlock(String lockKey, String lockValue) {
+    public boolean unlock(String lockKey) {
         String key = LOCK_PREFIX + lockKey;
         
         try {
@@ -107,19 +107,30 @@ public class RedisLockStrategy implements LockStrategy {
             script.setResultType(Long.class);
             
             Long result = redisTemplate.execute(script, 
-                Collections.singletonList(key), lockValue);
+                Collections.singletonList(key));
             
             boolean success = Long.valueOf(1).equals(result);
             if (success) {
-                log.debug("Redis锁释放成功: lockKey={}, lockValue={}", lockKey, lockValue);
+                log.debug("Redis锁释放成功: lockKey={}", lockKey);
             } else {
-                log.warn("Redis锁释放失败: lockKey={}, lockValue={}, 可能不是锁的持有者", 
-                    lockKey, lockValue);
+                log.warn("Redis锁释放失败: lockKey={}",
+                    lockKey);
             }
             
             return success;
         } catch (Exception e) {
             log.error("Redis锁释放异常: lockKey={}", lockKey, e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean forceUnlock(String lockKey) {
+        try {
+            redisTemplate.delete(lockKey);
+            return true;
+        } catch (Exception e) {
+            log.error("Redis error while force unlocking", e);
             return false;
         }
     }
