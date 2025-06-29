@@ -55,5 +55,6 @@ test -> ParallelUtilTest / SlidingWindowTest
 导出Excel(先查后写)                  147.98s 107.93M
 导出Excel（并发查询，串行写入）        108.47s  107.93 M
 导出Excel[下载速度可能更快]（并发查询，串行写入）    107.27s  107.93M
-导出Excel（流式查询）        11.58s 50.86M
+导出Excel（流式查询）        23.51s  101.83 M
+
 ```

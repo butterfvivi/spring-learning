@@ -3,20 +3,11 @@ package org.vivi.framework.report.bigdata.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 @Data
 @TableName("item_user")
 public class ItemUser {
 
-    private long id;
-    private String info1;
-    private long info2;
-    private long info3;
-    private LocalDate info4;
-    private double info5;
-    private LocalDateTime info6;
+    //private long id;
     private String field1;
     private String field2;
     private String field3;
