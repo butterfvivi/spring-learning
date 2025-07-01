@@ -104,6 +104,8 @@
         <module>xxl-job-simple</module>
         <module>springboot3-codegen</module>
         <module>springboot3-poi</module>
+        <module>springboot3-schedule</module>
+        <module>springboot3-schedule/springboot3-async-task</module>
     </modules>
 
     <dependencyManagement>

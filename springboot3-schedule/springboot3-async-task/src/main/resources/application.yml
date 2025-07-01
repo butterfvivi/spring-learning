@@ -1,0 +1,30 @@
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: # 如果有密码
+      database: 0
+  redisson:
+    # 单Redis节点配置
+    single-server:
+      address: redis://127.0.0.1:6379 # 必填，格式: redis://host:port
+      connection-pool-size: 64 # 连接池大小
+      connection-minimum-idle-size: 10 # 最小空闲连接
+      connect-timeout: 10000 # 连接超时
+      # password: your_redis_password # 如果有密码
+    # master-slave-server: # 主从模式配置
+    #   master-address: redis://127.0.0.1:6379
+    #   slave-addresses:
+    #     - redis://127.0.0.1:6380
+    #     - redis://127.0.0.1:6381
+    # sentinel-server: # 哨兵模式配置
+    #   master-name: mymaster
+    #   sentinel-addresses:
+    #     - redis://127.0.0.1:26379
+    #     - redis://127.0.0.1:26380
+    #     - redis://127.0.0.1:26381
+    # cluster-server: # 集群模式配置
+    #   node-addresses:
+    #     - redis://127.0.0.1:7000
+    #     - redis://127.0.0.1:7001
