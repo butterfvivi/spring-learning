@@ -6,15 +6,16 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.vivi.framework</groupId>
     <artifactId>springboot3-learning</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <properties>
+        <revision>1.0.0</revision>
         <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring-boot.version>3.1.10</spring-boot.version>
+        <spring-boot.version>3.5.0</spring-boot.version>
         <spring-cloud.version>2023.0.0</spring-cloud.version>
         <lombok.version>1.18.30</lombok.version>
         <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
@@ -106,6 +107,7 @@
         <module>springboot3-poi</module>
         <module>springboot3-schedule</module>
         <module>springboot3-schedule/springboot3-async-task</module>
+        <module>springboot3-kafka</module>
     </modules>
 
     <dependencyManagement>
@@ -145,21 +147,6 @@
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
                 <version>${fastjson2.version}</version>
-            </dependency>
-
-            <!--ureport-->
-            <dependency>
-                <groupId>org.vivi.framework.ureport.simple.ureport</groupId>
-                <artifactId>ureport2-console</artifactId>
-                <version>${ureport.version}</version>
-            </dependency>
-
-            <!-- mica-auto -->
-            <dependency>
-                <groupId>net.dreamlu</groupId>
-                <artifactId>mica-auto</artifactId>
-                <version>${mica.version}</version>
-                <scope>provided</scope>
             </dependency>
 
             <dependency>
