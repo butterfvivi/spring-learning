@@ -4,11 +4,11 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class KafkaConsumerConfig {
+public class KafkaConfig {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    public KafkaConsumerConfig(KafkaTemplate<String, String> kafkaTemplate) {
+    public KafkaConfig(KafkaTemplate<String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 

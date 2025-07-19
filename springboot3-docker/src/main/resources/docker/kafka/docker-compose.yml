@@ -1,25 +1,45 @@
 version: '3.8'
-name: kafka
-services:
-  zookepper:
-    image: zookeeper                                 # 原镜像`zookeeper`
-    container_name: zookeeper                        # 容器名为'zookeeper'
-    restart: unless-stopped                                  # 指定容器退出后的重启策略为始终重启，但是不考虑在Docker守护进程启动时就已经停止了的容器
-    ports:                                           # 映射端口
-      - "2181:2181"
 
+services:
+  # KRaft 模式下，不再需要 Zookeeper
   kafka:
-    image: wurstmeister/kafka
-    container_name: kafka                                    # 容器名为'kafka'
-    restart: unless-stopped                                         # 指定容器退出后的重启策略为始终重启，但是不考虑在Docker守护进程启动时就已经停止了的容器
-    ports:                              # 映射端口
+    image: bitnami/kafka:3.7
+    container_name: kafka
+    ports:
       - "9092:9092"
-    environment:                                                       # 设置环境变量,相当于docker run命令中的-e
-      KAFKA_ADVERTISED_PORT: 9092                                      # 端口
-      KAFKA_BROKER_ID: 0                                               # 在kafka集群中，每个kafka都有一个BROKER_ID来区分自己
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://14.103.123.142:9092               # 将kafka的地址端口注册给zookeeper
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092                        # 配置kafka的监听端口
-      KAFKA_ZOOKEEPER_CONNECT: 14.103.123.142:2181                          # zookeeper地址
-      KAFKA_CREATE_TOPICS: "hello_world"
-    depends_on:                         # 解决容器依赖启动先后问题
-      - zookepper
+    environment:
+      # --- KRaft 模式配置 ---
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_CFG_PROCESS_ROLES=broker,controller # 同时扮演 broker 和 controller 角色
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9094 # 定义投票者
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+
+      # --- 监听器配置 ---
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,LISTENER_INTERNAL:PLAINTEXT,LISTENER_EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=LISTENER_INTERNAL://:9093,LISTENER_EXTERNAL://:9092,CONTROLLER://:9094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=LISTENER_INTERNAL://kafka:9093,LISTENER_EXTERNAL://14.103.123.142:9092
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=LISTENER_INTERNAL
+
+      # --- 其他配置 ---
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+    networks:
+      - kafka-net
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui-kraft
+    ports:
+      - "9095:8080"
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local-kraft-cluster
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9093
+      # KRaft 模式下，不需要配置 Zookeeper
+    depends_on:
+      - kafka
+    networks:
+      - kafka-net
+
+networks:
+  kafka-net:
+    driver: bridge

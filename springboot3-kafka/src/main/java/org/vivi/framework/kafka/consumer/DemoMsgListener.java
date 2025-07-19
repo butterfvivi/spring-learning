@@ -14,7 +14,7 @@ public class DemoMsgListener {
         System.out.println("收到消息："+record); //可以监听到发给kafka的新消息，以前的拿不到
     }
 
-    @KafkaListener(groupId = "test-group-2",topicPartitions = {
+    @KafkaListener(groupId = "test-group",topicPartitions = {
             @TopicPartition(topic = "order",partitionOffsets = {
                     @PartitionOffset(partition = "0",initialOffset = "0")
             })

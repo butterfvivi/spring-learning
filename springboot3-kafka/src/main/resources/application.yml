@@ -30,7 +30,7 @@ spring:
       # none：如果没有为消费者找到先前的offset的值,即没有自动维护偏移量,也没有手动维护偏移量,则抛出异常
       # earliest：在各分区下有提交的offset时：从offset处开始消费；在各分区下无提交的offset时：从头开始消费
       # latest：在各分区下有提交的offset时：从offset处开始消费；在各分区下无提交的offset时：从最新的数据开始消费
-      auto-offset-reset: earliest
+      auto-offset-reset: latest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     # 监听
@@ -43,7 +43,12 @@ spring:
       # manual：当每一批poll()的数据被ListenerConsumer处理之后, 手动调用Acknowledgment.acknowledge()后提交
       # manual_immediate：手动调用Acknowledgment.acknowledge()后立即提交，一般推荐使用这种
       ack-mode: manual_immediate
-
+partition:
+  demo:
+    toptic: demo
+simple:
+  demo:
+    toptic: simple
 # Logger Config
 logging:
   level:
