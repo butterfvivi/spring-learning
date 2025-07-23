@@ -106,8 +106,9 @@
         <module>springboot3-codegen</module>
         <module>springboot3-poi</module>
         <module>springboot3-schedule</module>
-        <module>springboot3-schedule/springboot3-async-task</module>
         <module>springboot3-kafka</module>
+        <module>distribute-lock</module>
+        <module>java-async-tool</module>
     </modules>
 
     <dependencyManagement>
