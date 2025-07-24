@@ -32,7 +32,7 @@ docker exec -it redis-master bash #redis-master对应的是docker ps -a查看到
 
 
 # 创建集群
-redis-cli --cluster create 14.103.123.142:6379 14.103.123.142:6380 192.168.31.164:6379 192.168.31.164:6380 192.168.31.165:6379 192.168.31.165:6380 192.168.31.166:6379 192.168.31.166:6380 --cluster-replicas 1
+redis-cli --cluster create 192.168.31.164:6379 192.168.31.164:6380 192.168.31.165:6379 192.168.31.165:6380 192.168.31.166:6379 192.168.31.166:6380 --cluster-replicas 1
 
 
 docker exec -it redis-master redis-cli --cluster create \
@@ -41,4 +41,11 @@ docker exec -it redis-master redis-cli --cluster create \
   192.168.31.166:6379 192.168.31.166:6380 \
   --cluster-replicas 1
   
+```
+
+进入到redis客户端，查看集群情况
+
+```
+redis-cli -c -h 192.168.31.164 -p 6379
+cluster info
 ```

@@ -12,8 +12,8 @@ services:
       ZOO_MY_ID: 1
       ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
     volumes:
-      - ./zk1/data:/data
-      - ./zk1/datalog:/datalog
+      - ./zookeeper1/data:/data
+      - ./zookeeper1/datalog:/datalog
       - /etc/localtime:/etc/localtime
     networks:
       - zk-net
@@ -30,8 +30,8 @@ services:
       ZOO_MY_ID: 2
       ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=zk3:2888:3888;2181
     volumes:
-      - ./zk2/data:/data
-      - ./zk2/datalog:/datalog
+      - ./zookeeper2/data:/data
+      - ./zookeeper2/datalog:/datalog
       - /etc/localtime:/etc/localtime
     networks:
       - zk-net
@@ -48,8 +48,8 @@ services:
       ZOO_MY_ID: 3
       ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
     volumes:
-      - ./zk3/data:/data
-      - ./zk3/datalog:/datalog
+      - ./zookeeper3/data:/data
+      - ./zookeeper/datalog:/datalog
       - /etc/localtime:/etc/localtime
     networks:
       - zk-net

@@ -1,0 +1,13 @@
+version: "3"
+services:
+  zookeeper1:
+    container_name: zookeeper1
+    image: zookeeper:latest
+    ports:
+      - "22181:2181"
+      - "22888:2888"
+      - "23888:3888"
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=192.168.31.164:2888:3888;2181 server.2=192.168.31.165:2888:3888;2181 server.3=192.168.31.166:2888:3888;2181
+    restart: always
