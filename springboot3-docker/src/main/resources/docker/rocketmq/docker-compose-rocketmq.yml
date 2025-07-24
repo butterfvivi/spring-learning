@@ -52,7 +52,7 @@ services:
 
   # mq可视化控制台
   dashboard:
-    image: apacherocketmq/rocketmq-dashboard:1.0.0
+    image: apacherocketmq/rocketmq-dashboard:latest
     container_name: rmqdashboard
     restart: unless-stopped
     ports:

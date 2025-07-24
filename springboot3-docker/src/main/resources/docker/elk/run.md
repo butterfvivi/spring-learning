@@ -8,7 +8,7 @@
 
 ```shell
 # 运行
-docker-compose -f docker-compose-elk.yml -p elk up -d
+docker-compose -f docker-compose-zk.yml -p elk up -d
 # 若运行之后启动日志报相关权限问题，给新产生的文件赋予权限
 chmod -R 777 ./elk
 ```

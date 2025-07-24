@@ -1,0 +1,20 @@
+version: '3.1'
+services:
+  redis-master:
+    image: redis:latest
+    container_name: redis-master
+    restart: always
+    network_mode: "host"
+    volumes:
+      - /docker/redis/redis-master/data:/data
+      - /docker/redis/redis-master/redis.conf:/opt/redis/redis-master/redis.conf
+    command: ["redis-server","/opt/redis/redis-master/redis.conf"]
+  redis-slave:
+    image: redis:latest
+    container_name: redis-slave
+    restart: always
+    network_mode: "host"
+    volumes:
+      - /docker/redis/redis-slave/data:/data
+      - /docker/redis/redis-slave/redis.conf:/opt/redis/redis-slave/redis.conf
+    command: [ "redis-server","/opt/redis/redis-slave/redis.conf" ]

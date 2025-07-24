@@ -86,7 +86,7 @@ docker-compose build
 # 构建镜像，--no-cache表示不用缓存，否则在重新编辑Dockerfile后再build可能会直接使用缓存而导致新编辑内容不生效
 docker-compose build --no-cache
 # config 校验文件格式是否正确
-docker-compose -f docker-compose.yml config
+docker-compose -f docker-compose-rocketmq.yml config
 # 运行服务
 ocker-compose up -d
 # 启动/停止服务
