@@ -17,6 +17,7 @@
 
 	<modules>
 		<module>distribute-database-lock</module>
+		<module>distribute-redis-lock</module>
 	</modules>
 
 	<properties>

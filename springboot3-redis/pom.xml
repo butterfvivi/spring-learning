@@ -16,6 +16,7 @@
     <modules>
         <module>springboot3-redis-simple</module>
         <module>springboot3-reids-lock</module>
+        <module>springboot-redis-lettuce</module>
     </modules>
 
     <properties>
@@ -81,14 +82,5 @@
             <version>5.8.28</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
