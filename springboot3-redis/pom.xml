@@ -15,14 +15,15 @@
 
     <modules>
         <module>springboot3-redis-simple</module>
-        <module>springboot3-reids-lock</module>
-        <module>springboot-redis-lettuce</module>
+        <module>springboot3-redis-redisson</module>
+        <module>springboot3-lettuce-redis</module>
     </modules>
 
     <properties>
         <java.version>17</java.version>
         <fasterxml.version>2.17.1</fasterxml.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
+        <redisson.version>3.50.0</redisson.version>
     </properties>
 
     <dependencies>

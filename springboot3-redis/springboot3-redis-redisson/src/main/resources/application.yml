@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: springboot3-redis-redisson
+#  data:
+#    redis:
+#      host: 14.103.123.142
+#      password:
+#      port: 6379
+  data:
+    redis:
+      cluster:
+        nodes: 192.168.31.164:6379,192.168.31.165:6379,192.168.31.166:6379,192.168.31.164:6380,192.168.31.165:6380,192.168.31.166:6380
+#  redis:
+#    redisson:
+#      config:
+#        clusterServersConfig:
+#          password:
+#          nodeAddress:
+#          - redis://192.168.31.164:6379
+#          - redis://192.168.31.165:6379
+#          - redis://192.168.31.166:6379
+#          - redis://192.168.31.164:6380
+#          - redis://192.168.31.165:6380
+#          - redis://192.168.31.166:6380
