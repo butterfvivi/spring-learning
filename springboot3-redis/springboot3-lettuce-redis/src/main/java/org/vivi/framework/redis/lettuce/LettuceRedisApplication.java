@@ -1,12 +1,13 @@
-package org.vivi.framework.lock;
+package org.vivi.framework.redis.lettuce;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LockApplication {
+public class LettuceRedisApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(LockApplication.class, args);
+        SpringApplication.run(LettuceRedisApplication.class, args);
     }
+
 }

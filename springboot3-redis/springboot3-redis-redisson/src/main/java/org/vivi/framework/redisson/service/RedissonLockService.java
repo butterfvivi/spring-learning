@@ -62,7 +62,6 @@ public class RedissonLockService {
     public void redissonDistributedLock(String lock) {
         RLock rlock = redissonClient.getLock(lock);
         for (int i = 0; i < 20; i++) {
-           final int temp = 1;
            new Thread(() -> {
                // 生成唯一uuid
                String uuid = UUID.randomUUID().toString();
