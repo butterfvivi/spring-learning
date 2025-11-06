@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  sentinel-dashboard:
+    hostname: sentinel
+    image: bladex/sentinel-dashboard
+    container_name: sentinel
+    restart: always
+    environment:                                                 # 设置环境变量,相当于docker run命令中的-e
+      TZ: Asia/Shanghai
+      LANG: en_US.UTF-8
+      SENTINEL_AUTH_USERNAME: sentinel # sentinel账号
+      SENTINEL_AUTH_PASSWORD: sentinel # sentinel密码
+      NACOS_SERVER_ADDR: 14.103.123.142:8848    # 注：这里不能为`127.0.0.1`或`localhost`方式！！！
+      NACOS_NAMESPACE: dev
+      NACOS_GROUP: sentinel-group
+      NACOS_USERNAME: nacos
+      NACOS_PASSWORD: nacos
+    ports:
+      - "8658:8858"
+    volumes:
+      - ./docker/sentinel/logs:/root/logs

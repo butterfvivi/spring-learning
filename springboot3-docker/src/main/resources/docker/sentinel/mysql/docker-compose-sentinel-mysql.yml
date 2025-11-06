@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  sentinel-dashboard:
+    hostname: sentinel
+    image: alibaba/sentinel-dashboard
+    container_name: sentinel
+    restart: always
+    environment:                                                 # 设置环境变量,相当于docker run命令中的-e
+      TZ: Asia/Shanghai
+      LANG: en_US.UTF-8
+      SENTINEL_AUTH_USERNAME: sentinel # sentinel账号
+      SENTINEL_AUTH_PASSWORD: sentinel # sentinel密码
+      MYSQL_SERVICE_HOST: 14.103.123.142:3306    # 注：这里不能为`127.0.0.1`或`localhost`方式！！！
+      MYSQL_SERVICE_DB_NAME: sentinel
+      MYSQL_SERVICE_PORT: 3306
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: wtf0010.
+    ports:
+      - "8658:8858"
+    volumes:
+      - ./docker/sentinel/logs:/root/logs

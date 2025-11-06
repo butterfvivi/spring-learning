@@ -1,0 +1,22 @@
+version : '3.8'
+services:
+  seata:
+    hostname: seata
+    image: seataio/seata-server:2.0.0
+    container_name: seata
+    ports:
+      - "7091:7091"
+      - "8091:8091"
+    volumes:
+      - ./seata/resources/application.yml:/seata/resources/application.yml
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7091/"]
+      interval: 5s
+      timeout: 10s
+      retries: 3
+
+
+# 网桥 -> 方便相互通讯
+networks:
+  nacos:
+    driver: bridge
