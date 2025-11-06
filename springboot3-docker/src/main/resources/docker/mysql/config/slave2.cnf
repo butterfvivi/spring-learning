@@ -1,5 +1,0 @@
-[mysqld]
-server-id=3
-relay-log=mysql-relay-bin
-log-bin=mysql-bin
-binlog-do-db=test
