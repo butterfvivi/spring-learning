@@ -1,14 +1,17 @@
 ### ELK
 
-`Elasticsearch` + `Logstash` + `Kibana` 搭建日志监控系统
+Elasticsearch + Logstash + Kibana + Filebeat 搭建日志监控系统
 
-1. `Logstash` 日志收集+解析+转换
-2. `Elasticsearch` 日志搜索
-3. `Kibana` 日志展示
+```
+1、Filebeat 采集日志
+2、Logstash 日志过滤
+3、Elasticsearch 日志搜索
+4、Kibana 日志展示
+```
 
 ```shell
 # 运行
-docker-compose -f docker-compose-zk.yml -p elk up -d
+docker-compose -f docker-compose-elk.yml -p elk up -d
 # 若运行之后启动日志报相关权限问题，给新产生的文件赋予权限
 chmod -R 777 ./elk
 ```

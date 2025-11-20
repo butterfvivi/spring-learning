@@ -6,13 +6,13 @@ networks:
 
 services:
   elasticsearch:
-    image: registry.cn-hangzhou.aliyuncs.com/zhengqing/elasticsearch:7.14.1      # 原镜像`elasticsearch:7.14.1`
+    image: elasticsearch:7.14.1      # 原镜像`elasticsearch:7.14.1`
     container_name: elk_elasticsearch         # 容器名为'elk_elasticsearch'
     restart: unless-stopped                   # 指定容器退出后的重启策略为始终重启，但是不考虑在Docker守护进程启动时就已经停止了的容器
     volumes:                                  # 数据卷挂载路径设置,将本机目录映射到容器目录
-      - "./elk/elasticsearch/data:/usr/share/elasticsearch/data"
-      - "./elk/elasticsearch/logs:/usr/share/elasticsearch/logs"
-      - "./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
+      - "./elk/elasticsearch/data:/usr/share/elk/elasticsearch/data"
+      - "./elk/elasticsearch/logs:/usr/share/elk/elasticsearch/logs"
+      - "./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elk/elasticsearch/config/elasticsearch.yml"
     #      - "./elk/elasticsearch/config/jvm.options:/usr/share/elasticsearch/config/jvm.options"
     environment:                              # 设置环境变量,相当于docker run命令中的-e
       TZ: Asia/Shanghai
@@ -28,11 +28,11 @@ services:
       - elk
 
   kibana:
-    image: registry.cn-hangzhou.aliyuncs.com/zhengqing/kibana:7.14.1       # 原镜像`kibana:7.14.1`
+    image: kibana:7.14.1       # 原镜像`kibana:7.14.1`
     container_name: elk_kibana
     restart: unless-stopped
     volumes:
-      - "./elk/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml"
+      - "./elk/kibana/config/kibana.yml:/usr/share/elk/kibana/config/kibana.yml"
     ports:
       - "5601:5601"
     depends_on:
@@ -43,26 +43,40 @@ services:
       - elk
 
   logstash:
-    image: registry.cn-hangzhou.aliyuncs.com/zhengqing/logstash:7.14.1     # 原镜像`logstash:7.14.1`
+    image: logstash:7.14.1     # 原镜像`logstash:7.14.1`
     container_name: elk_logstash
     restart: unless-stopped
     environment:
       LS_JAVA_OPTS: "-Xmx512m -Xms512m"
     volumes:
-      - "./elk/logstash/data:/usr/share/logstash/data"
-      - "./elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml"
+      - "./elk/logstash/data:/usr/share/elk/logstash/data"
+      - "./elk/logstash/config/logstash.yml:/usr/share/elk/logstash/config/logstash.yml"
       #      - "./elk/logstash/config/logstash.conf:/usr/share/logstash/config/logstash.conf"
-      - "./elk/logstash/config/small-tools:/usr/share/logstash/config/small-tools"
+      - "./elk/logstash/config/small-tools:/usr/share/elk/logstash/config/small-tools"
     #    command: logstash -f /usr/share/logstash/config/logstash.conf    # 指定logstash启动时使用的配置文件 - 指定单个文件
-    command: logstash -f /usr/share/logstash/config/small-tools       # 指定logstash启动时使用的配置文件 - 指定目录夹（系统会自动读取文件夹下所有配置文件，并在内存中整合）
+    command: logstash -f /usr/share/elk/logstash/config/small-tools       # 指定logstash启动时使用的配置文件 - 指定目录夹（系统会自动读取文件夹下所有配置文件，并在内存中整合）
     ports:
       - "9600:9600"
-      #      - "10001-10010:10001-10010"
-      - "1218:1218"
-      - "20010:20010"
-      - "20030:20030"
-      - "20040:20040"
+      - "5044:5044"
     depends_on:
       - elasticsearch
+    networks:
+      - elk
+
+
+  filebeat:
+    image: elastic/filebeat:7.14.1      # 原镜像`elastic/filebeat:7.14.1`
+    container_name: elk_filebeat
+    restart: unless-stopped                   # 指定容器退出后的重启策略为始终重启，但是不考虑在Docker守护进程启动时就已经停止了的容器
+    volumes:                                  # 数据卷挂载路径设置,将本机目录映射到容器目录
+      - "./elk/filebeat/filebeat.yml:/usr/share/elk/filebeat/filebeat.yml"
+      - "./elk/filebeat/logs:/usr/share/elk/filebeat/logs"
+      - "./elk/filebeat/my-log:/usr/share/elk/filebeat/my-log"
+    environment:          # 设置环境变量,相当于docker run命令中的-e
+      TZ: Asia/Shanghai
+      LANG: en_US.UTF-8
+    depends_on:
+      - elasticsearch
+      - logstash
     networks:
       - elk
