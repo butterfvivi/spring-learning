@@ -18,6 +18,6 @@ docker logs -f seata-server
 
 ```
 
-访问地址：[`http://14.103.123.142:7091/nacos`](http://www.zhengqingya.com:8848/nacos)
+访问地址：[`http://14.103.123.142:7091`](http://www.zhengqingya.com:8848/nacos)
 登录账号密码默认：`seata/seata`
 

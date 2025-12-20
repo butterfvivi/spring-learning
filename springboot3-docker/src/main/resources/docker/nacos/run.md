@@ -17,8 +17,8 @@ docker run -d \
   nacos/nacos-server:v2.4.0
   
   
-# 普通单机模式版本  注：需要修改docker-compose-nacos.yml 中相关数据库连接信息和JVM参数相关信息
-docker-compose -f nacos.yml -p nacos up -d
+# 普通单机模式版本  注：需要修改docker-compose-docker-compose-sentinel-mysql.yml 中相关数据库连接信息和JVM参数相关信息
+docker-compose -f docker-compose-nacos.yml -p nacos up -d
 ```
 
 访问地址：[`http://14.103.123.142:8848/nacos`](http://www.zhengqingya.com:8848/nacos)

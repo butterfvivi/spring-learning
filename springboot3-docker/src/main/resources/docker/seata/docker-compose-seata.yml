@@ -8,7 +8,7 @@ services:
       - "7091:7091"
       - "8091:8091"
     volumes:
-      - ./seata/resources/application.yml:/seata/resources/application.yml
+      - ./resources/application.yml:/seata/resources/application.yml
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:7091/"]
       interval: 5s
