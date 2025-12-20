@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: springboot3-seata
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://14.103.123.142:3307/springboot3-demo?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+
+  cloud:
+    nacos:
+      discovery:
+        username: nacos
+        password: nacos
+        group: DEFAULT_GROUP
+        namespace: public
+      server-addr: 14.103.123.142:8848
+
+seata:
+  service:
+    vgroup-mapping:
+      default: default
+      seata-validate-demo-group: default
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 14.103.123.142:8848
+      username: nacos
+      password: nacos
+      group: SEATA_GROUP
+      application: seata-server
+  config:
+    type: nacos
+    nacos:
+      server-addr: 14.103.123.142:8848
+      username: nacos
+      password: nacos
+      group: SEATA_GROUP
+      data-id: seata-server.properties
+      namespace: public
+  tx-service-group: default
+  data-source-proxy-mode: AT
+
+
