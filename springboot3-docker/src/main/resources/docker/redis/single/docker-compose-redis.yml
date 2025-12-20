@@ -3,14 +3,15 @@ version: "3.2"
 # 定义服务，可以多个
 services:
   redis-cluster:
+    container_name: redis-cluster
     image: redis:latest
-    command: redis-cli -a 123456 --cluster create  192.168.31.164:6380 192.168.31.165:6381 192.168.31.166:6382 --cluster-replicas 0  --cluster-yes
+    command: redis-cli -a 123456 --cluster create  14.103.123.142:6380 14.103.123.142:6381 14.103.123.142:6382 --cluster-replicas 0  --cluster-yes
     depends_on:
       - redis-node1
       - redis-node2
       - redis-node3
   redis-node1: # 服务名称
-    image: redis:6.0.8 # 创建容器时所需的镜像
+    image: redis:latest # 创建容器时所需的镜像
     container_name: redis-node1 # 容器名称
     restart: always # 容器总是重新启动
     ports:

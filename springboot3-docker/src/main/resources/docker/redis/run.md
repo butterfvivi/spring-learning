@@ -49,3 +49,9 @@ docker exec -it redis-master redis-cli --cluster create \
 redis-cli -c -h 192.168.31.164 -p 6379
 cluster info
 ```
+
+
+Single
+```
+docker-compose -f docker-compose-redis-single.yml -p redis up -d
+```
