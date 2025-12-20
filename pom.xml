@@ -75,6 +75,7 @@
         <module>java-design-mode</module>
         <module>JimuReport-example</module>
         <module>quartz-simple</module>
+        <module>springboot3-ai</module>
         <module>springboot3-activiti</module>
         <module>springboot3-cloud-alibaba</module>
         <module>springboot3-database</module>
@@ -98,6 +99,8 @@
         <module>springboot3-report</module>
         <module>springboot3-sa-token</module>
         <module>springboot3-security-jwt</module>
+        <module>springboot3-sharding-jdbc</module>
+        <module>springboot3-seata</module>
         <module>springboot3-sso</module>
         <module>springboot3-ureport</module>
         <module>springboot3-webflux</module>

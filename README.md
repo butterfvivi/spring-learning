@@ -12,15 +12,18 @@ get github support : https://github.com/settings/applications/new
 
 
 - IntelliJ IDEA 
-- spring boot: 3.1  
-- jdk: 17+  
-- maven: 3.5.4+
+- spring boot: 3.3+
+- jdk: 21+  
+- maven
 
 
 springboot3-learning # 父级工程
 - JimuReport-example # 整合jimu
 - springboot3-cloud-alibaba # 集成springcloud Alibaba
 - springboot3-dynamic-datasource # 整合多数据源(Dynamic DataSource)
+- springboot3-canal # 整合canal 实现数据库变更监听
+- springboot3-easypoi-simple # 整合easypoi 实现excel导入导出
+- springboot3-kafka # 集成kafka
 - springboot3-gateway
     - 1. gateway 的一些基本用法
     - 2. spring.cloud.gateway.enabled 用来配置是否启动网关
@@ -48,6 +51,8 @@ springboot3-learning # 父级工程
     - 2. oauth2-security-gateway # 网关
     - 3. oauth2-security-client # 客户端
 - springboot3-postgresql # springboot3集成postgresql数据库
+- springboot3-shardingsphere # 整合shardingsphere 实现分库分表
+- springboot3-seata # 整合seata 实现分布式事务
 - springboot3-redis # springboot3集成redis ，实现redis存放各种类型数据
 - springboot3-sa-token # springboot3集成sa-token，实现登录认证
 - springboot3-security-jwt # springboot3集成security，jwt生成token
