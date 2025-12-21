@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: springboot3-canal
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://14.103.123.142:3307/springboot3-demo?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+
+  canal-monitor-mysql:
+    host: 14.103.123.142
+    port: 11111
