@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  canal:
+    image: canal/canal-server:latest
+    container_name: canal
+    ports:
+      #canal默认端口号，一般不用改，除非端口冲突
+      - "11111:11111"
+      - "11112:11112"
+    environment:
+      #设置从库id，随便设置，不与主库id相冲突即可
+      - canal.instance.mysql.slaveId=222
+      - canal.instance.master.address=14.103.123.142:3307
+      # mysql 复制账号
+      - canal.instance.dbUsername=canal
+      - canal.instance.dbPassword=canal
+      - canal.mq.topic=loginLogCanalTopic
+      - canal.auto.scan=false
+      # 此项 destinations 配置，在 java 代码里集成的时候会用到
+      - canal.destinations=test
+      #数据库名.表名
+      - canal.instance.filter.regex=tb.*
+    volumes:
+      - ./conf/:/usr/local/canal/conf/
+      - ./logs/:/usr/local/canal/logs/
+    restart: always
