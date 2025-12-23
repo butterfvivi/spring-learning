@@ -6,14 +6,15 @@ networks:
 
 services:
   elasticsearch:
-    image: elasticsearch:7.14.1      # 原镜像`elasticsearch:7.14.1`
+    image: elasticsearch:8.4.3
     container_name: elk_elasticsearch         # 容器名为'elk_elasticsearch'
     restart: unless-stopped                   # 指定容器退出后的重启策略为始终重启，但是不考虑在Docker守护进程启动时就已经停止了的容器
     volumes:                                  # 数据卷挂载路径设置,将本机目录映射到容器目录
-      - "./elk/elasticsearch/data:/usr/share/elk/elasticsearch/data"
-      - "./elk/elasticsearch/logs:/usr/share/elk/elasticsearch/logs"
-      - "./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elk/elasticsearch/config/elasticsearch.yml"
-    #      - "./elk/elasticsearch/config/jvm.options:/usr/share/elasticsearch/config/jvm.options"
+      - "./elk_config/elasticsearch/data:/usr/share/elk/elasticsearch/data"
+      - "./elk_config/elasticsearch/logs:/usr/share/elk/elasticsearch/logs"
+      - "./elk_config/elasticsearch/config/elasticsearch.yml:/usr/share/elk/elasticsearch/config/elasticsearch.yml"
+      - "./elk_config/plugins/ik:/usr/share/elasticsearch/plugins/ik" # IK中文分词插件
+    #      - "./elk_config/elasticsearch/config/jvm.options:/usr/share/elasticsearch/config/jvm.options"
     environment:                              # 设置环境变量,相当于docker run命令中的-e
       TZ: Asia/Shanghai
       LANG: en_US.UTF-8
@@ -28,11 +29,20 @@ services:
       - elk
 
   kibana:
-    image: kibana:7.14.1       # 原镜像`kibana:7.14.1`
+    image: kibana:8.4.3       # 原镜像`kibana:7.14.1`
     container_name: elk_kibana
     restart: unless-stopped
     volumes:
-      - "./elk/kibana/config/kibana.yml:/usr/share/elk/kibana/config/kibana.yml"
+      - "./elk_config/kibana/config/kibana.yml:/usr/share/elk/kibana/config/kibana.yml"
+# environment 做环境变量
+#    environment:
+#      - "TZ=Asia/Shanghai"
+#      - "I18N_LOCALE=zh-CN"
+#      - "ELASTICSEARCH_HOSTS=http://14.103.123.142:9200"
+#      - "ELASTICSEARCH_USERNAME=kibana_user"
+#      - "ELASTICSEARCH_PASSWORD=123456"
+#      - "xpack.security.encryptionKey=something_at_least_32_characters"
+#      - "xpack.reporting.encryptionKey=something_at_least_32_characters"
     ports:
       - "5601:5601"
     depends_on:
@@ -43,16 +53,16 @@ services:
       - elk
 
   logstash:
-    image: logstash:7.14.1     # 原镜像`logstash:7.14.1`
+    image: logstash:8.4.3
     container_name: elk_logstash
     restart: unless-stopped
     environment:
       LS_JAVA_OPTS: "-Xmx512m -Xms512m"
     volumes:
-      - "./elk/logstash/data:/usr/share/elk/logstash/data"
-      - "./elk/logstash/config/logstash.yml:/usr/share/elk/logstash/config/logstash.yml"
-      #      - "./elk/logstash/config/logstash.conf:/usr/share/logstash/config/logstash.conf"
-      - "./elk/logstash/config/small-tools:/usr/share/elk/logstash/config/small-tools"
+      - "./elk_config/logstash/data:/usr/share/elk/logstash/data"
+      - "./elk_config/logstash/config/logstash.yml:/usr/share/elk/logstash/config/logstash.yml"
+      #      - "./elk_config/logstash/config/logstash.conf:/usr/share/logstash/config/logstash.conf"
+      - "./elk_config/logstash/config/small-tools:/usr/share/elk/logstash/config/small-tools"
     #    command: logstash -f /usr/share/logstash/config/logstash.conf    # 指定logstash启动时使用的配置文件 - 指定单个文件
     command: logstash -f /usr/share/elk/logstash/config/small-tools       # 指定logstash启动时使用的配置文件 - 指定目录夹（系统会自动读取文件夹下所有配置文件，并在内存中整合）
     ports:
@@ -65,13 +75,13 @@ services:
 
 
   filebeat:
-    image: elastic/filebeat:7.14.1      # 原镜像`elastic/filebeat:7.14.1`
+    image: elastic/filebeat:8.4.3
     container_name: elk_filebeat
     restart: unless-stopped                   # 指定容器退出后的重启策略为始终重启，但是不考虑在Docker守护进程启动时就已经停止了的容器
     volumes:                                  # 数据卷挂载路径设置,将本机目录映射到容器目录
-      - "./elk/filebeat/filebeat.yml:/usr/share/elk/filebeat/filebeat.yml"
-      - "./elk/filebeat/logs:/usr/share/elk/filebeat/logs"
-      - "./elk/filebeat/my-log:/usr/share/elk/filebeat/my-log"
+      - "./elk_config/filebeat/filebeat.yml:/usr/share/elk/filebeat/filebeat.yml"
+      - "./elk_config/filebeat/logs:/usr/share/elk/filebeat/logs"
+      - "./elk_config/filebeat/my-log:/usr/share/elk/filebeat/my-log"
     environment:          # 设置环境变量,相当于docker run命令中的-e
       TZ: Asia/Shanghai
       LANG: en_US.UTF-8
