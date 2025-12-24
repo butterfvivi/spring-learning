@@ -7,7 +7,12 @@ spring:
     url: jdbc:mysql://14.103.123.142:3307/springboot3-demo?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 123456
+  data:
+    redis:
+      port: 6379
+      host: 14.103.123.142
 
-  canal-monitor-mysql:
+
+  canal-monitor:
     host: 14.103.123.142
     port: 11111

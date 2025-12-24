@@ -44,8 +44,8 @@ show master status;
 
 CREATE TABLE `tb_canal_test` (
   `id` varchar(32) NOT NULL,
-  `commodity_name` varchar(512) DEFAULT NULL COMMENT '商品名称',
-  `commodity_price` varchar(36) DEFAULT '0' COMMENT '商品价格',
+  `name` varchar(512) DEFAULT NULL COMMENT '商品名称',
+  `price` varchar(36) DEFAULT '0' COMMENT '商品价格',
   `number` int(10) DEFAULT '0' COMMENT '商品数量',
   `description` varchar(2048) DEFAULT '' COMMENT '商品描述',
   PRIMARY KEY (`id`)
@@ -65,3 +65,4 @@ number : 3    update=true
 description : 又大又香的叉烧包，老人小孩都喜欢    update=true
 
 ```
+## 3、Springboot3+ 整合canal 实现实时数据同步到redis
