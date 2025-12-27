@@ -10,6 +10,6 @@ server.host: "0.0.0.0"
 server.publicBaseUrl: "http://127.0.0.1:5601"
 elasticsearch.hosts: [ "http://127.0.0.1:9200" ]
 xpack.monitoring.ui.container.elasticsearch.enabled: true
-elasticsearch.username: "elastic"  # es账号
+elasticsearch.username: "root"  # es账号
 elasticsearch.password: "123456"   # es密码
 i18n.locale: zh-CN # 中文

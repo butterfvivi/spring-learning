@@ -1,5 +1,9 @@
 # Getting Started
 
+通过docker-compose编排一系列环境进行一键快速安装运行组件
+
+
+
 ## docker安装
 
 ### 1、安装yum
