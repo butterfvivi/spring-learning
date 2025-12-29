@@ -14,9 +14,17 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging> pom</packaging>
 
+    <properties>
+        <alibaba-ai.version>1.0.0-M6.1</alibaba-ai.version>
+        <ai-client-chat.version>2.0.0-M1</ai-client-chat.version>
+    </properties>
+
 
     <modules>
         <module>springboot3-ai-simple</module>
+        <module>springboot3-deepseek-demo</module>
+        <module>springboot3-bailian-demo</module>
+        <module>springboot3-prompt</module>
     </modules>
 
     <dependencies>
