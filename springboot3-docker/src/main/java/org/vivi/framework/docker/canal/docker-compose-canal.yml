@@ -25,3 +25,14 @@ services:
       - ./conf/:/usr/local/canal/conf/
       - ./logs/:/usr/local/canal/logs/
     restart: always
+
+  canal-admin:
+    network_mode: "bridge"
+    image: canal/canal-admin:v1.1.8
+    container_name: canal-admin
+    ports:
+      - 8089:8089
+    environment:
+      - server.port=8089
+      - canal.adminUser=admin
+      - canal.adminPasswd=admin
