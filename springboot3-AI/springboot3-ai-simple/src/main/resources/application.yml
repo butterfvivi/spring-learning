@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: springboot3-ai-simple
+  ai:
+    dashscope:
+      api-key: sk-c60d993e82894bbfa86fa1b4059417de

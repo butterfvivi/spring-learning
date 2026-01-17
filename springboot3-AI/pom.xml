@@ -25,6 +25,8 @@
         <module>springboot3-deepseek-demo</module>
         <module>springboot3-bailian-demo</module>
         <module>springboot3-prompt</module>
+        <module>springboot3-chat-memory</module>
+        <module>springboot3-RAG-simple</module>
     </modules>
 
     <dependencies>
