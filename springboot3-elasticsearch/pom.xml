@@ -5,19 +5,29 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.6</version>
+		<version>3.5.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.vivi.framework</groupId>
 	<artifactId>springboot3-elasticsearch</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springboot3-elasticsearch</name>
+	<packaging>pom</packaging>
+
 
 	<properties>
 		<java.version>17</java.version>
+		<elastic-java.version>8.12.0</elastic-java.version>
+		<fastjson2.version>2.0.60</fastjson2.version>
+
 		<!-- elasticsearch -->
-		<elasticsearch.version>7.11.1</elasticsearch.version>
+<!--		<elasticsearch.version>7.11.1</elasticsearch.version>-->
 	</properties>
+
+	<modules>
+		<module>springboot3-elasticsearch-simple</module>
+		<module>springboot3-elasticsearch-mall</module>
+	</modules>
 
 	<dependencies>
 		<dependency>
@@ -25,42 +35,32 @@
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>co.elastic.clients</groupId>-->
+<!--			<artifactId>elasticsearch-java</artifactId>-->
+<!--			<version>${elastic-java.version}</version>-->
+<!--		</dependency>-->
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+<!--		&lt;!&ndash; 与 ElasticSearch 的版本保持一致,ElasticSearch High Level Client &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.elasticsearch.client</groupId>-->
+<!--			<artifactId>elasticsearch-rest-high-level-client</artifactId>-->
+<!--			<version>${elasticsearch.version}</version>-->
+<!--		</dependency>-->
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-		</dependency>
+<!--		&lt;!&ndash; 使用low-level client不需要,但是high-level client需要依赖 &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.elasticsearch</groupId>-->
+<!--			<artifactId>elasticsearch</artifactId>-->
+<!--			<version>${elasticsearch.version}</version>-->
+<!--		</dependency>-->
 
-		<!-- 与 ElasticSearch 的版本保持一致,ElasticSearch High Level Client -->
-		<dependency>
-			<groupId>org.elasticsearch.client</groupId>
-			<artifactId>elasticsearch-rest-high-level-client</artifactId>
-			<version>${elasticsearch.version}</version>
-		</dependency>
-
-		<!-- 使用low-level client不需要,但是high-level client需要依赖 -->
-		<dependency>
-			<groupId>org.elasticsearch</groupId>
-			<artifactId>elasticsearch</artifactId>
-			<version>${elasticsearch.version}</version>
-		</dependency>
-
-		<!-- Spring Boot 2.4.2 引入了 Elasticsearch 7.9.3。您将 rest-high-level-client 依赖项更改为 7.11.1，但所有其他 Elasticsearch 依赖项将为 7.9.3。特别是 org.elasticsearch:elasticsearch。并且CloneSnapshotRequest在 7.9.3 中不存在。 -->
-		<dependency>
-			<groupId>org.elasticsearch.client</groupId>
-			<artifactId>elasticsearch-rest-client</artifactId>
-			<version>${elasticsearch.version}</version>
-		</dependency>
+<!--		&lt;!&ndash; Spring Boot 2.4.2 引入了 Elasticsearch 7.9.3。您将 rest-high-level-client 依赖项更改为 7.11.1，但所有其他 Elasticsearch 依赖项将为 7.9.3。特别是 org.elasticsearch:elasticsearch。并且CloneSnapshotRequest在 7.9.3 中不存在。 &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.elasticsearch.client</groupId>-->
+<!--			<artifactId>elasticsearch-rest-client</artifactId>-->
+<!--			<version>${elasticsearch.version}</version>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>

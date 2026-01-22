@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: springboot3-elasticsearch
+  elasticsearch:
+    uris: http://14.103.123.142:9200
+#    password: elastic
+#    username: 123456
+    connection-timeout: 30s
+    socket-timeout: 30s
+
+
+#
+#    rest:
+#      # Elasticsearch实例,多个用逗号","分隔
+#      uris: 14.103.123.142:9200
+#      # 用户名
+#      username: elastic
+#      # 密码
+#      password: 123456
+#      # 连接超时时间
+#      connection-timeout: 1s
+#      # 读取超时时间
+#      read-timeout: 30s
