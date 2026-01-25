@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: springboot3-elasticsearch-mall
+
+  elasticsearch:
+    uris: http://14.103.123.142:9200
+    #    password: elastic
+    #    username: 123456
+    connection-timeout: 30s
+    socket-timeout: 30s
