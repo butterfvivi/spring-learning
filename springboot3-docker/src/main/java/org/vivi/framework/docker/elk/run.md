@@ -19,6 +19,8 @@ docker-compose -f docker-compose-elk.yml -p elk up -d
 docker-compose -f docker-compose-elk.yml up -d elasticsearch
 # 若运行之后启动日志报相关权限问题，给新产生的文件赋予权限
 chmod -R 777 ./elk
+
+docker-compose -f docker-compose-elk.yml logs elasticsearch
 ```
 
 1. ES访问地址：[`ip地址:9200`](http://www.zhengqingya.com:9200)
@@ -69,6 +71,12 @@ bin/kibana-verification-code
 1. 下载ik分词器
 * https://release.infinilabs.com/analysis-ik/stable/
 
+
+# 进入 Elasticsearch 插件目录安装 IK 分词器
+bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v8.4.3/elasticsearch-analysis-ik-8.4.3.zip
+
+# 重启 Elasticsearch 服务
+
 2. 配置ik分词器
 ```shell
 
@@ -90,5 +98,15 @@ docker restart elastic_search_container
 cd bin
 elasticsearch-plugin list
 
+
+
+### ElasticSearch8 默认是开启SSL
+
+如果禁用,在elasticsearch.yml文件中添加如下配置:
+xpack.security.enabled: false
+xpack.security.http.ssl.enabled: false
+xpack.security.transport.ssl.enabled: false
+
+或者 
 
 ```
