@@ -18,7 +18,7 @@ spring:
 
 seata:
   service:
-    vgroup-mapping:
+    vgroupMapping:
       default: default
       seata-validate-demo-group: default
   registry:

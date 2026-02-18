@@ -3,6 +3,7 @@ spring:
     name: springboot3-minio
 minio:
   endpoint: http://14.103.123.142:9000
+  fileHost: http://14.103.123.142:9000     # 文件地址host
   access-key: root
   secret-key: root1234
   bucket-name: blog

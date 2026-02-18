@@ -155,6 +155,11 @@ public class MinioUtils {
             throw new CustomException(ExceptionEnums.BUCKET_NAME_NOT_NULL.getMsg());
         }
 
+        // 清理桶名称，移除逗号和其他非法字符
+        String cleanBucketName = bucketName.trim()
+                .replaceAll(",", "")  // 移除所有逗号
+                .toLowerCase();
+
         List<String> orgfileNameList = new ArrayList<>(file.length);
         for (MultipartFile multipartFile : file) {
             String orgfileName = multipartFile.getOriginalFilename();
@@ -162,7 +167,11 @@ public class MinioUtils {
             try {
                 //文件上传
                 InputStream in = multipartFile.getInputStream();
-                minioClient.putObject(PutObjectArgs.builder().bucket(bucketName).object(orgfileName).stream(in, multipartFile.getSize(), -1).contentType(multipartFile.getContentType()).build());
+                minioClient.putObject(PutObjectArgs.builder()
+                        .bucket(cleanBucketName)
+                        .object(orgfileName)
+                        .stream(in, multipartFile.getSize(), -1)
+                        .contentType(multipartFile.getContentType()).build());
                 in.close();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -170,7 +179,7 @@ public class MinioUtils {
             }
         }
         Map<String, Object> data = new HashMap<>();
-        data.put("bucketName", bucketName);
+        data.put("bucketName", cleanBucketName);
         data.put("fileName", orgfileNameList);
         return data;
     }

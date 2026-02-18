@@ -52,7 +52,8 @@ public class MinioController {
             throw new CustomException(ExceptionEnums.FILE_NAME_NOT_NULL.getMsg());
         }
         if (StringUtils.isEmpty(bucketName)) {
-            throw new CustomException(ExceptionEnums.BUCKET_NAME_NOT_NULL.getMsg());
+            bucketName = "blog";
+            //throw new CustomException(ExceptionEnums.BUCKET_NAME_NOT_NULL.getMsg());
         }
         return minioUtils.uploadFile(bucketName, file);
     }
@@ -98,5 +99,6 @@ public class MinioController {
     public void deleteBatchFile(String bucketName, @RequestParam("fileNames") List<String> fileNames) {
         minioUtils.deleteBatchFile(bucketName, fileNames);
     }
+
 }
 
