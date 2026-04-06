@@ -21,7 +21,7 @@ springboot3-learning # 父级工程
 - JimuReport-example # 整合jimu
 - springboot3-cloud-alibaba # 集成springcloud Alibaba
 - springboot3-drools # 整合drools 8.+
-  1. springboot3-drools-simple # drools 8.+ 的基本使用，规则文件的加载和执行
+  1. springboot3-drools-simple # 实现drools 8.+ 的基本使用，规则文件的加载和执行
   2. springboot3-drools-demo # springboot3集成drools8，多规则场景支持以及实现drools动态规则
 - springboot3-dynamic-datasource # 整合多数据源(Dynamic DataSource)
 - springboot3-canal # 整合canal 实现数据库变更监听

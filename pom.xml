@@ -54,7 +54,7 @@
 
         <flyway.version>5.2.1</flyway.version>
         <httpclient.version>4.5.13</httpclient.version>
-        <httpclient5.version>5.4.2</httpclient5.version>
+        <httpclient5.version>5.6</httpclient5.version>
         <pagehelper.version>2.1.0</pagehelper.version>
         <influxdb-java.version>2.24</influxdb-java.version>
         <velocity.version>1.7</velocity.version>
@@ -202,6 +202,18 @@
                 <groupId>com.github.ben-manes.caffeine</groupId>
                 <artifactId>caffeine</artifactId>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents.client5</groupId>
+                <artifactId>httpclient5</artifactId>
+                <version>${httpclient5.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+                <scope>provided </scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
