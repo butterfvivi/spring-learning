@@ -22,8 +22,8 @@
         <ureport.version>2.2.9</ureport.version>
         <mica.version>1.2.3</mica.version>
 
-        <mybatis-plus-springboot3.version>3.5.14</mybatis-plus-springboot3.version>
-        <mybatisplus.version>3.5.6</mybatisplus.version>
+        <mybatis-plus-springboot3.version>3.5.16</mybatis-plus-springboot3.version>
+        <mybatisplus.version>3.5.16</mybatisplus.version>
         <mybatis.version>3.0.4</mybatis.version>
         <druid.version>1.2.22</druid.version>
         <mysql.version>8.0.33</mysql.version>
@@ -80,6 +80,7 @@
         <module>JimuReport-example</module>
         <module>quartz-simple</module>
         <module>springboot3-ai</module>
+        <module>springboot3-ai-langchain4j</module>
         <module>springboot3-activiti</module>
         <module>springboot3-cloud-alibaba</module>
         <module>springboot3-canal</module>
@@ -117,6 +118,8 @@
         <module>springboot3-kafka</module>
         <module>distribute-lock</module>
         <module>java-async-tool</module>
+        <module>springboot3-AI/springboot3-mcp-client</module>
+        <module>springboot3-drools</module>
     </modules>
 
     <dependencyManagement>
@@ -160,6 +163,13 @@
 
             <dependency>
                 <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
                 <version>${mybatis-plus-springboot3.version}</version>
             </dependency>
@@ -171,9 +181,21 @@
             </dependency>
 
             <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>easyexcel</artifactId>
                 <version>${easyexcel.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
             </dependency>
 
             <dependency>

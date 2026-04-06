@@ -1,0 +1,27 @@
+package org.vivi.framework.drools
+
+import org.vivi.framework.drools.model.entity.Customer;
+
+// 客户编号
+rule "rule_customerNo"
+    when
+        $customer: Customer(null != customerNo )
+    then
+        $customer.addScore("customerNo",1);
+    end
+
+// 客户名称
+rule "rule_customerName"
+    when
+        $customer: Customer(null != customerName )
+    then
+        $customer.addScore("customerName",2);
+    end
+
+// 客户年龄
+rule "rule_customerAge"
+    when
+        $customer: Customer(customerAge >= 18 )
+    then
+        $customer.addScore("customerAge",3);
+    end
