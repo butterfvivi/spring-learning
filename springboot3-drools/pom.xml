@@ -22,6 +22,7 @@
         <kie.version>7.59.0.Final</kie.version>
         <drools.version>10.1.0</drools.version>
         <drools-spring.version>8.44.0.Final</drools-spring.version>
+        <joda.time.version>2.14.1</joda.time.version>
     </properties>
 
 </project>
