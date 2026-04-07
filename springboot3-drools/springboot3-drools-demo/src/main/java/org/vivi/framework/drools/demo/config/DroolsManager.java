@@ -13,7 +13,9 @@ import org.kie.api.builder.model.KieBaseModel;
 import org.kie.api.builder.model.KieModuleModel;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.vivi.framework.drools.demo.mapper.RulesMapper;
 import org.vivi.framework.drools.demo.model.DroolsRule;
 
 import java.util.Collection;
@@ -34,7 +36,9 @@ public class DroolsManager {
     private final KieModuleModel kieModuleModel = kieServices.newKieModuleModel();
     // 需要全局唯一一个，如果每次加个规则都新创建一个，那么旧需要销毁之前创建的kieContainer，如果此时有正在使用的KieSession，则可能有问题
     private KieContainer kieContainer;
-
+    // 规则文件存放路径
+    @Autowired
+    private RulesMapper rulesMapper;
     /**
      * 判断该kbase是否存在
      */

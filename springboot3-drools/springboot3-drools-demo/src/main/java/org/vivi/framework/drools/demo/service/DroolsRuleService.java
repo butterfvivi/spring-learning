@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface DroolsRuleService {
 
+    public String reloadAllDroolRule();
+
     List<DroolsRule> findAll();
 
     void addDroolsRule(DroolsRule droolsRule);
